@@ -10,15 +10,20 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
-import android.media.MediaPlayer;
-import android.net.Uri;
-
 public class DaisyBook extends ArrayList<NCCEntry> {
 	private Bookmark bookmark = new Bookmark("", 0, 0);
 	private SmilFile smilFile = new SmilFile();
-	private MediaPlayer mp = new MediaPlayer();
+	private DaisyPlayer dp = new DaisyPlayer(this);
 	private String path = "";
-	private int currentnccIndex = 0;
+	private int currentnccIndex = -1;
+
+	public void close() {
+		dp.release();
+	}
+
+	public Bookmark getBookmark() {
+		return bookmark;
+	}
 
 	public void Open(String nccPath) {
 		clear();
@@ -28,8 +33,7 @@ public class DaisyBook extends ArrayList<NCCEntry> {
 
 		try {
 			Document document = reader.read(new File(path, "ncc.html"));
-			List<Element> list = (List<Element>) document.getRootElement()
-					.elements("body");
+			List<Element> list = (List<Element>) document.getRootElement().elements("body");
 			list = (List<Element>) list.get(0).elements();
 
 			for (ListIterator<Element> i = list.listIterator(); i.hasNext();) {
@@ -39,8 +43,6 @@ public class DaisyBook extends ArrayList<NCCEntry> {
 					add(new NCCEntry(element));
 				}
 			}
-
-			
 
 		} catch (DocumentException e) {
 		}
@@ -66,16 +68,8 @@ public class DaisyBook extends ArrayList<NCCEntry> {
 			bookmark.setNccIndex(bookmark.getNccIndex() + 1);
 	}
 
-	public void Play(DaisyReader context) {
-		if (mp.isPlaying()) {
-			mp.pause();
-			bookmark.setPosition(mp.getCurrentPosition());
-		} else {
-			OpenSmil();
-			mp = MediaPlayer.create(context, Uri.parse(bookmark.getFilename()));
-			mp.seekTo(bookmark.getPosition());
-			mp.start();
-		}
+	public void togglePlay() {
+		 dp.togglePlay();
 	}
 
 	public void Previous() {
@@ -89,7 +83,6 @@ public class DaisyBook extends ArrayList<NCCEntry> {
 			bookmark.setPosition(0);
 			bookmark.setFilename(path + smilFile.get(0).getSrc());
 			currentnccIndex = bookmark.getNccIndex();
-
 		}
 	}
 }
