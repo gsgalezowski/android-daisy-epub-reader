@@ -1,14 +1,7 @@
 package com.ader;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.ListIterator;
 
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.Element;
-import org.dom4j.io.SAXReader;
 
 public class DaisyBook extends ArrayList<NCCEntry> {
 	private Bookmark bookmark = new Bookmark("", 0, 0);
@@ -25,26 +18,23 @@ public class DaisyBook extends ArrayList<NCCEntry> {
 		return bookmark;
 	}
 
-	public void Open(String nccPath) {
+	public void open(String nccPath) {
 		clear();
 		this.path = nccPath;
+		DaisyParser parser = new DaisyParser();
+		ArrayList<DaisyElement> elements = parser.parse(path + "ncc.html");
+		int level = 0;
 
-		SAXReader reader = new SAXReader();
+		for (int i = 0; i < elements.size(); i++) {
+			// is it a heading element
+			// if (current.getName().matches("h[123456]")) {
 
-		try {
-			Document document = reader.read(new File(path, "ncc.html"));
-			List<Element> list = (List<Element>) document.getRootElement().elements("body");
-			list = (List<Element>) list.get(0).elements();
+			// nccEntry.setLevel(current.getName().charAt(1));
+			// }
 
-			for (ListIterator<Element> i = list.listIterator(); i.hasNext();) {
-				Element element = i.next();
-				if (element.getName() == "h1") {
-
-					add(new NCCEntry(element));
-				}
-			}
-
-		} catch (DocumentException e) {
+			// is it an anchor element
+			if (elements.get(i).getName().equalsIgnoreCase("a")) 
+				add(new NCCEntry(elements.get(i)));
 		}
 	}
 
@@ -53,8 +43,8 @@ public class DaisyBook extends ArrayList<NCCEntry> {
 	}
 
 	public String[] GetNavigationDisplay() {
-		String[] result = new String[this.size() - 1];
-		for (int i = 0; i < this.size() - 1; i++)
+		String[] result = new String[this.size()];
+		for (int i = 0; i < this.size(); i++)
 			result[i] = this.get(i).GetText();
 		return result;
 	}
@@ -69,7 +59,7 @@ public class DaisyBook extends ArrayList<NCCEntry> {
 	}
 
 	public void togglePlay() {
-		 dp.togglePlay();
+		dp.togglePlay();
 	}
 
 	public void Previous() {
@@ -79,7 +69,7 @@ public class DaisyBook extends ArrayList<NCCEntry> {
 
 	void OpenSmil() {
 		if (currentnccIndex != bookmark.getNccIndex()) {
-			smilFile.Open(new File(path, current().GetSmil()));
+			smilFile.open(path + current().GetSmil());
 			bookmark.setPosition(0);
 			bookmark.setFilename(path + smilFile.get(0).getSrc());
 			currentnccIndex = bookmark.getNccIndex();

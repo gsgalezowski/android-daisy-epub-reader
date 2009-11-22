@@ -1,34 +1,53 @@
 package com.ader;
 
-import org.dom4j.Element;
-
 public class NCCEntry {
 	private String smil;
 	private String smilRef;
-	public String Text;
+	private String text;
+	private int level;
 
-	public NCCEntry (Element element) {
-		// navigate to the anchor element
-		element = (Element) element.elements("a").get(0);
-		
-		Text = element.getText();
-		
-		// extract the smil an smilref from the href attribute
-		smil = element.attributeValue("href");
+	public NCCEntry() {
+
+	}
+
+	public NCCEntry(DaisyElement element) {
+		text  = element.getText();
+		smil = element.getAttributes().getValue("", "href");
 		int hashPosition = smil.indexOf("#");
 		smilRef = smil.substring(hashPosition + 1);
 		smil = smil.substring(0, hashPosition);
 	}
-	
+
+	public int getLevel() {
+		return level;
+	}
+
 	public String GetSmil() {
 		return smil;
 	}
-	
+
 	public String GetSmilRef() {
-		return smilRef	;
+		return smilRef;
 	}
-	
+
 	public String GetText() {
-		return Text;
+		return text;
 	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
+	public void setSmil(String smil) {
+		this.smil = smil;
+	}
+
+	public void setSmilRef(String smilRef) {
+		this.smilRef = smilRef;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
 }
