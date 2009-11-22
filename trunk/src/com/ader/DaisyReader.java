@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.widget.ArrayAdapter;
 
-public class DaisyReader extends ListActivity {
+public class  DaisyReader extends ListActivity {
 	DaisyBook book = new DaisyBook();
 	
 
@@ -15,7 +15,7 @@ public class DaisyReader extends ListActivity {
 		super.onCreate(savedInstanceState);
 		super.onCreate(savedInstanceState);
 
-		book.Open(getIntent().getStringExtra("daisyPath"));
+		book.open(getIntent().getStringExtra("daisyPath"));
 
 		setListAdapter(new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, book
