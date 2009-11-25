@@ -2,7 +2,6 @@ package com.ader;
 
 import java.util.ArrayList;
 
-
 public class DaisyBook extends ArrayList<NCCEntry> {
 	private Bookmark bookmark = new Bookmark("", 0, 0);
 	private SmilFile smilFile = new SmilFile();
@@ -18,6 +17,10 @@ public class DaisyBook extends ArrayList<NCCEntry> {
 		return bookmark;
 	}
 
+	public String getPath() {
+		return path;
+	}
+
 	public void open(String nccPath) {
 		clear();
 		this.path = nccPath;
@@ -27,15 +30,18 @@ public class DaisyBook extends ArrayList<NCCEntry> {
 
 		for (int i = 0; i < elements.size(); i++) {
 			// is it a heading element
-			// if (current.getName().matches("h[123456]")) {
-
-			// nccEntry.setLevel(current.getName().charAt(1));
-			// }
+			if (elements.get(i).getName().matches("h[123456]"))
+				level = Integer.decode(elements.get(i).getName().substring(1));
+			
+			
 
 			// is it an anchor element
-			if (elements.get(i).getName().equalsIgnoreCase("a")) 
-				add(new NCCEntry(elements.get(i)));
+			if (elements.get(i).getName().equalsIgnoreCase("a"))
+				add(new NCCEntry(elements.get(i), level));
 		}
+
+		bookmark.load(path + "auto.bmk");
+		currentnccIndex = bookmark.getNccIndex();
 	}
 
 	NCCEntry current() {

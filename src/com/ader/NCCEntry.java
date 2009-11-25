@@ -10,8 +10,9 @@ public class NCCEntry {
 
 	}
 
-	public NCCEntry(DaisyElement element) {
+	public NCCEntry(DaisyElement element, int level) {
 		text  = element.getText();
+		this.level = level;
 		smil = element.getAttributes().getValue("", "href");
 		int hashPosition = smil.indexOf("#");
 		smilRef = smil.substring(hashPosition + 1);
