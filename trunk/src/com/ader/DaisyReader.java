@@ -13,14 +13,14 @@ public class  DaisyReader extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		super.onCreate(savedInstanceState);
+		
 
 		book.open(getIntent().getStringExtra("daisyPath"));
 
 		setListAdapter(new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, book
 						.GetNavigationDisplay()));
-
+// book.getBookmark().load(book.getPath() + "auto.bmk");
 	}
 
 	@Override
