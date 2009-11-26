@@ -30,11 +30,7 @@ public class NCCEntry {
 	public String GetSmilRef() {
 		return smilRef;
 	}
-
-	public String GetText() {
-		return text;
-	}
-
+	
 	public void setLevel(int level) {
 		this.level = level;
 	}
@@ -49,6 +45,10 @@ public class NCCEntry {
 
 	public void setText(String text) {
 		this.text = text;
+	}
+	@Override
+	public String toString() {
+		return text;
 	}
 
 }
