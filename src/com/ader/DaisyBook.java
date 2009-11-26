@@ -1,6 +1,7 @@
 package com.ader;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DaisyBook extends ArrayList<NCCEntry> {
 	private Bookmark bookmark = new Bookmark("", 0, 0);
@@ -8,6 +9,8 @@ public class DaisyBook extends ArrayList<NCCEntry> {
 	private DaisyPlayer dp = new DaisyPlayer(this);
 	private String path = "";
 	private int currentnccIndex = -1;
+	private int NCCDepth = 0;
+	private int selectedLevel = 1;
 
 	public void close() {
 		dp.release();
@@ -15,6 +18,14 @@ public class DaisyBook extends ArrayList<NCCEntry> {
 
 	public Bookmark getBookmark() {
 		return bookmark;
+	}
+
+	public int getNCCDepth() {
+		return NCCDepth;
+	}
+
+	public void setSelectedLevel(int level) {
+		this.selectedLevel = level;
 	}
 
 	public String getPath() {
@@ -30,10 +41,11 @@ public class DaisyBook extends ArrayList<NCCEntry> {
 
 		for (int i = 0; i < elements.size(); i++) {
 			// is it a heading element
-			if (elements.get(i).getName().matches("h[123456]"))
+			if (elements.get(i).getName().matches("h[123456]")) {
 				level = Integer.decode(elements.get(i).getName().substring(1));
-			
-			
+				if (level > NCCDepth)
+					NCCDepth = level;
+			}
 
 			// is it an anchor element
 			if (elements.get(i).getName().equalsIgnoreCase("a"))
@@ -48,15 +60,19 @@ public class DaisyBook extends ArrayList<NCCEntry> {
 		return this.get(bookmark.getNccIndex());
 	}
 
-	public String[] GetNavigationDisplay() {
-		String[] result = new String[this.size()];
+	public List<NCCEntry>GetNavigationDisplay() {
+		ArrayList<NCCEntry> displayItems = new ArrayList<NCCEntry>();
+
 		for (int i = 0; i < this.size(); i++)
-			result[i] = this.get(i).GetText();
-		return result;
+			if (this.get(i).getLevel() <= selectedLevel)
+				displayItems.add(this.get(i));
+
+		
+		return displayItems;
 	}
 
-	public void goTo(int index) {
-		bookmark.setNccIndex(index);
+	public void goTo(NCCEntry nccEntry) {
+		bookmark.setNccIndex(this.indexOf(nccEntry));
 	}
 
 	public void Next() {
@@ -65,6 +81,7 @@ public class DaisyBook extends ArrayList<NCCEntry> {
 	}
 
 	public void togglePlay() {
+		
 		dp.togglePlay();
 	}
 
