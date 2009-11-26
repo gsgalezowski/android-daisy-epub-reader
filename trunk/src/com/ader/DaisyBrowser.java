@@ -1,6 +1,8 @@
 package com.ader;
 
 import java.io.File;
+import java.io.FilenameFilter;
+
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,14 +29,14 @@ public class DaisyBrowser extends ListActivity {
 	}
 
 	@Override
-	protected void onListItemClick(android.widget.ListView l,
-			android.view.View v, int position, long id) {
+	protected void onListItemClick(android.widget.ListView l, android.view.View v, int position,
+			long id) {
 		String item = l.getSelectedItem().toString();
 
 		if (isDaisyDirectory(new File(currentDirectory, item))) {
 			Intent i = new Intent(this, DaisyReader.class);
-			
-			i.putExtra("daisyPath", new File(currentDirectory, item).getAbsolutePath()+"/");
+
+			i.putExtra("daisyPath", new File(currentDirectory, item).getAbsolutePath() + "/");
 			startActivity(i);
 			return;
 		}
@@ -53,11 +55,19 @@ public class DaisyBrowser extends ListActivity {
 	}
 
 	void GenerateBrowserData() {
-		String[] files = currentDirectory.list();
+		FilenameFilter dirFilter = new FilenameFilter() {
+			public boolean accept(File dir, String name) {
+
+				return  new File(dir, name).isDirectory();
+			}
+		};
+	
+		String[] files = currentDirectory.list(dirFilter);
+	
 
 		if (currentDirectory.getParent().equals("/")) {
-			setListAdapter(new ArrayAdapter<String>(this,
-					android.R.layout.simple_list_item_1, files));
+			setListAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
+					files));
 			return;
 		}
 
@@ -66,8 +76,7 @@ public class DaisyBrowser extends ListActivity {
 		for (int i = 0; i < files.length; i++)
 			files2[i] = files[i];
 		files2[files.length] = "Up 1 Level";
-		setListAdapter(new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, files2));
+		setListAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, files2));
 		return;
 
 	}
