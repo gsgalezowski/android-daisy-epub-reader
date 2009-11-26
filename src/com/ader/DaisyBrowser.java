@@ -2,6 +2,7 @@ package com.ader;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.util.Arrays;
 
 import android.app.ListActivity;
 import android.content.Intent;
@@ -63,6 +64,8 @@ public class DaisyBrowser extends ListActivity {
 		};
 	
 		String[] files = currentDirectory.list(dirFilter);
+		Arrays.sort(files, String.CASE_INSENSITIVE_ORDER);
+
 	
 
 		if (currentDirectory.getParent().equals("/")) {
