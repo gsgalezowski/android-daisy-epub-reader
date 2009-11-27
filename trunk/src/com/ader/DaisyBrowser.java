@@ -32,6 +32,8 @@ public class DaisyBrowser extends ListActivity {
 	@Override
 	protected void onListItemClick(android.widget.ListView l, android.view.View v, int position,
 			long id) {
+		super.onListItemClick(l, v, position, id);
+		
 		String item = l.getSelectedItem().toString();
 
 		if (isDaisyDirectory(new File(currentDirectory, item))) {
