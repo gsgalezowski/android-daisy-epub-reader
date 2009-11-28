@@ -61,7 +61,7 @@ public class DaisyBook extends ArrayList<NCCEntry> {
 	}
 
 	public List<NCCEntry>GetNavigationDisplay() {
-		ArrayList<NCCEntry> displayItems = new ArrayList<NCCEntry>();
+	ArrayList<NCCEntry> displayItems = new ArrayList<NCCEntry>();
 
 		for (int i = 0; i < this.size(); i++)
 			if (this.get(i).getLevel() <= selectedLevel)
@@ -93,8 +93,8 @@ public class DaisyBook extends ArrayList<NCCEntry> {
 	void OpenSmil() {
 		if (currentnccIndex != bookmark.getNccIndex()) {
 			smilFile.open(path + current().GetSmil());
-			bookmark.setPosition(0);
 			bookmark.setFilename(path + smilFile.get(0).getSrc());
+			bookmark.setPosition(smilFile.get(0).getClipBegin());
 			currentnccIndex = bookmark.getNccIndex();
 		}
 	}
