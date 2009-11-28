@@ -33,8 +33,6 @@ public class DaisyReader extends ListActivity {
 
 	@Override
 	public boolean onContextItemSelected(android.view.MenuItem item) {
-		  
-		  
 		book.setSelectedLevel(item.getItemId());	
 		displayContents();
 		return true;
