@@ -20,6 +20,21 @@ public class DaisyBook extends ArrayList<NCCEntry> {
 		return bookmark;
 	}
 
+	public int getDisplayPosition() {
+		if (current().getLevel() <=selectedLevel )
+			return GetNavigationDisplay().indexOf(current()); 
+		else {
+			// find the position of the current item in the whole book
+		int i = indexOf(current());
+		
+		// go backward through the book till we find an item in the navigation display
+		while (get(i).getLevel() > selectedLevel)
+			i--;
+		
+		// return the position of the found item in the nav display
+		return GetNavigationDisplay().indexOf(get(i));
+		}
+	}
 	public int getNCCDepth() {
 		return NCCDepth;
 	}
@@ -85,6 +100,10 @@ public class DaisyBook extends ArrayList<NCCEntry> {
 		dp.togglePlay();
 	}
 
+	public void stop() {
+		dp.stop();
+	}
+	
 	public void Previous() {
 		if (bookmark.getNccIndex() > 0)
 			bookmark.setNccIndex(bookmark.getNccIndex() - 1);
