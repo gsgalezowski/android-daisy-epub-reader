@@ -1,24 +1,38 @@
 package com.ader;
 
+import java.io.IOException;
+
+import com.google.marvin.widget.TouchGestureControlOverlay;
+import com.google.marvin.widget.TouchGestureControlOverlay.Gesture;
+import com.google.marvin.widget.TouchGestureControlOverlay.GestureListener;
+
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 
-public class DaisyReader extends ListActivity {
-	DaisyBook book = new DaisyBook();
+public class DaisyReader extends ListActivity  {
+	private DaisyBook book = new DaisyBook();
+	private TouchGestureControlOverlay gestureOverlay;
+	private FrameLayout frameLayout;
+
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		book.open(getIntent().getStringExtra("daisyPath"));
-
+		activateGesture();
+		try {
+            book.open(getIntent().getStringExtra("daisyPath"));
+        } catch (IOException e) {
+           UiHelper.alert(this, R.string.unable_to_open_file);
+           finish();
+        }
 		displayContents();
 		registerForContextMenu(getListView());
 	}
@@ -27,7 +41,6 @@ public class DaisyReader extends ListActivity {
 	public void onCreateContextMenu(ContextMenu menu, View v,
 			ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
-		book.stop();
 		for (int i = 1; i <= book.getNCCDepth(); i++)
 			menu.add(Menu.NONE, i, Menu.NONE, "Level " + Integer.toString(i));
 	}
@@ -40,29 +53,49 @@ public class DaisyReader extends ListActivity {
 		return true;
 	};
 
-	@Override
-	public boolean onKeyUp(int keyCode, KeyEvent event) {
-		if ((keyCode == KeyEvent.KEYCODE_DPAD_DOWN)
-				|| (keyCode == KeyEvent.KEYCODE_DPAD_UP))
-			book.goTo((NCCEntry) getListView().getSelectedItem());
+	private void play(NCCEntry nccEntry) {
+        startActivity(new Intent(this, DaisyPlayer.class)
+        .putExtra("ncc", nccEntry)
+        .putExtra("daisyPath", book.getPath()));
+    }
 
-		return true;
 
-	}
-
-	@Override
+    @Override
 	protected void onListItemClick(android.widget.ListView l,
 			android.view.View v, int position, long id) {
-		book.togglePlay();
-
+		super.onListItemClick(l, v, position, id);
+		NCCEntry nccEntry = (NCCEntry) l.getItemAtPosition(position);
+		play(nccEntry);
 	}
 
 	void displayContents() {
-		setListAdapter(new ArrayAdapter<NCCEntry>(this,
-				android.R.layout.simple_list_item_1, book
-						.GetNavigationDisplay()));
-
-		
-		
+		setListAdapter(new ArrayAdapter<NCCEntry>(this, android.R.layout.simple_list_item_1, book
+				.getNavigationDisplay()));
 	}
+	
+	private void activateGesture() {
+        frameLayout = (FrameLayout) getListView().getParent();
+        gestureOverlay = new TouchGestureControlOverlay(this, gestureListener);
+        frameLayout.addView(gestureOverlay);
+    }
+
+    private GestureListener gestureListener = new GestureListener() {
+        
+        public void onGestureStart(Gesture g) {
+        }
+        
+        public void onGestureChange(Gesture g) {
+        }
+
+        public void onGestureFinish(Gesture g) {
+            if (g == Gesture.LEFT) {
+                book.decrementSelectedLevel();
+            } else if (g == Gesture.RIGHT) {
+                book.incrementSelectedLevel();
+            } else if (g == Gesture.CENTER) {
+                play((NCCEntry) getListAdapter().getItem(0));
+            }
+            displayContents();
+        }
+    };
 }

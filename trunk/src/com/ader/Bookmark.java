@@ -12,6 +12,9 @@ public class Bookmark {
 	private int nccIndex;
 	private int position;
 
+	public Bookmark() {
+	}
+	
 	public Bookmark(String filename, int nccIndex, int position) {
 		this.filename = filename;
 		this.nccIndex = nccIndex;
@@ -42,22 +45,19 @@ public class Bookmark {
 		this.position = position;
 	}
 
-	void load(String bookmarkFilename) {
-		try {
+	void load(String bookmarkFilename) throws IOException {
+		
 			if (new File(bookmarkFilename).exists()) {
-
-				DataInputStream in = new DataInputStream(new FileInputStream(bookmarkFilename));
-				filename = in.readUTF();
-				nccIndex = in.readInt();
-				position = in.readInt();
-				in.close();
+				DataInputStream in;
+                in = new DataInputStream(new FileInputStream(bookmarkFilename));
+                filename = in.readUTF();
+                nccIndex = in.readInt();
+                position = in.readInt();
+                in.close();
 			}
-		} catch (Exception e) {
-
-		}
 	}
 
-	public void Save(String bookmarkFilename) {
+	public void save(String bookmarkFilename) {
 		try {
 			DataOutputStream out = new DataOutputStream(new FileOutputStream(bookmarkFilename));
 
@@ -67,6 +67,7 @@ public class Bookmark {
 			out.flush();
 			out.close();
 		} catch (IOException ex) {
+		    throw new RuntimeException(ex);
 		}
 	}
 }

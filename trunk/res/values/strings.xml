@@ -2,4 +2,7 @@
 <resources>
     <string name="hello">Hello World, DaisyReader!</string>
     <string name="app_name">Daisy Reader</string>
+    <string name="playing">Playing</string>
+    <string name="stopped">Stopped</string>
+    <string name="unable_to_open_file">Unable to open file</string>
 </resources>

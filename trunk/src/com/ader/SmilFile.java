@@ -2,11 +2,8 @@ package com.ader;
 
 import java.util.ArrayList;
 
-
-
 public class SmilFile extends ArrayList<SmilEntry> {
 	private String fileName;
-
 	
 	public String getFilename() {
 		return this.fileName;
@@ -21,6 +18,6 @@ public class SmilFile extends ArrayList<SmilEntry> {
 		
 		for (int i = 0; i < elements.size(); i++) 
 			if (elements.get(i).getName().equalsIgnoreCase("audio"))
-				add(new SmilEntry(elements.get(i)));			
+				add(new SmilEntry(elements.get(i)));
 	}
 }
