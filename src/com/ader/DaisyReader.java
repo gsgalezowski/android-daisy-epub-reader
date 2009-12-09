@@ -25,16 +25,21 @@ public class DaisyReader extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		activateGesture();
+
 		try {
+			activateGesture();
 			book.open(getIntent().getStringExtra("daisyPath"));
+			book.LoadAutoBookmark();
+			play();
+			displayContents();
+			 getListView().setSelection(book.getDisplayPosition());
+			registerForContextMenu(getListView());
+			
+			
 		} catch (IOException e) {
 			UiHelper.alert(this, R.string.unable_to_open_file);
 			finish();
 		}
-		displayContents();
-		getListView().setSelection(book.getDisplayPosition());
-		registerForContextMenu(getListView());
 	}
 
 	@Override
