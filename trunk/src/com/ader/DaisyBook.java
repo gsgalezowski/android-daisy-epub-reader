@@ -64,7 +64,7 @@ public class DaisyBook implements Serializable {
 		return path;
 	}
 
-	public void open(String nccPath) throws IOException {
+	public void open(String nccPath) {
 		nccEntries.clear();
 		this.path = nccPath;
 		DaisyParser parser = new DaisyParser();
@@ -83,11 +83,13 @@ public class DaisyBook implements Serializable {
 			if (elements.get(i).getName().equalsIgnoreCase("a"))
 				nccEntries.add(new NCCEntry(elements.get(i), level));
 		}
+	}
 
+	public void LoadAutoBookmark() throws IOException  {
 		bookmark.load(path + "auto.bmk");
 		currentnccIndex = bookmark.getNccIndex();
 	}
-
+	
 	NCCEntry current() {
 		return nccEntries.get(bookmark.getNccIndex());
 	}
@@ -128,8 +130,8 @@ public class DaisyBook implements Serializable {
 	}
 
 	void openSmil() {
-//		if (currentnccIndex != bookmark.getNccIndex()
-		//		|| bookmark.getFilename() == null) 
+	if (currentnccIndex != bookmark.getNccIndex()
+|| bookmark.getFilename() == null) 
 		{
 			smilFile.open(path + current().getSmil());
 			bookmark.setFilename(path + smilFile.get(0).getSrc());
