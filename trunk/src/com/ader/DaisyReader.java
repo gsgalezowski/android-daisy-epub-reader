@@ -52,7 +52,7 @@ public class DaisyReader extends ListActivity {
 		return true;
 	};
 
-	private void play(NCCEntry nccEntry) {
+	private void play() {
 		Intent dp = new Intent(this, DaisyPlayer.class);
 		dp.putExtra("com.ader.DaisyBook", book);
 		startActivity(dp);
@@ -62,8 +62,8 @@ public class DaisyReader extends ListActivity {
 	protected void onListItemClick(android.widget.ListView l, android.view.View v, int position,
 			long id) {
 		super.onListItemClick(l, v, position, id);
-		NCCEntry nccEntry = (NCCEntry) l.getItemAtPosition(position);
-		play(nccEntry);
+		book.goTo((NCCEntry) l.getItemAtPosition(position));
+		play();
 	}
 
 	void displayContents() {
@@ -91,7 +91,8 @@ public class DaisyReader extends ListActivity {
 			} else if (g == Gesture.RIGHT) {
 				book.incrementSelectedLevel();
 			} else if (g == Gesture.CENTER) {
-				play((NCCEntry) getListAdapter().getItem(0));
+				// play((NCCEntry) getListAdapter().getItem(0));
+				play();
 			}
 			displayContents();
 		}
