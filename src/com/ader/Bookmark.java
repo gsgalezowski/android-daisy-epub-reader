@@ -6,15 +6,16 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.Serializable;
 
-public class Bookmark {
+public class Bookmark implements Serializable {
 	private String filename;
 	private int nccIndex;
 	private int position;
 
 	public Bookmark() {
 	}
-	
+
 	public Bookmark(String filename, int nccIndex, int position) {
 		this.filename = filename;
 		this.nccIndex = nccIndex;
@@ -46,15 +47,15 @@ public class Bookmark {
 	}
 
 	void load(String bookmarkFilename) throws IOException {
-		
-			if (new File(bookmarkFilename).exists()) {
-				DataInputStream in;
-                in = new DataInputStream(new FileInputStream(bookmarkFilename));
-                filename = in.readUTF();
-                nccIndex = in.readInt();
-                position = in.readInt();
-                in.close();
-			}
+
+		if (new File(bookmarkFilename).exists()) {
+			DataInputStream in;
+			in = new DataInputStream(new FileInputStream(bookmarkFilename));
+			filename = in.readUTF();
+			nccIndex = in.readInt();
+			position = in.readInt();
+			in.close();
+		}
 	}
 
 	public void save(String bookmarkFilename) {
@@ -67,7 +68,7 @@ public class Bookmark {
 			out.flush();
 			out.close();
 		} catch (IOException ex) {
-		    throw new RuntimeException(ex);
+			throw new RuntimeException(ex);
 		}
 	}
 }

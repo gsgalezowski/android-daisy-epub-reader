@@ -1,15 +1,17 @@
 package com.ader;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.util.Log;
 
-public class DaisyBook {
-	
+public class DaisyBook implements Serializable {
+	// public static final long serialVersionUID = 1;
+
 	private static final String TAG = DaisyBook.class.getSimpleName();
-    private Bookmark bookmark = new Bookmark();
+	private Bookmark bookmark = new Bookmark();
 	private SmilFile smilFile = new SmilFile();
 	private String path = "";
 	private int currentnccIndex = -1;
@@ -17,26 +19,27 @@ public class DaisyBook {
 	private int selectedLevel = 1;
 	private List<NCCEntry> nccEntries = new ArrayList<NCCEntry>();
 
-
 	public Bookmark getBookmark() {
 		return bookmark;
 	}
 
 	public int getDisplayPosition() {
-		if (current().getLevel() <=selectedLevel )
-			return getNavigationDisplay().indexOf(current()); 
+		if (current().getLevel() <= selectedLevel)
+			return getNavigationDisplay().indexOf(current());
 		else {
 			// find the position of the current item in the whole book
-		int i = nccEntries.indexOf(current());
-		
-		// go backward through the book till we find an item in the navigation display
-		while (nccEntries.get(i).getLevel() > selectedLevel)
-			i--;
-		
-		// return the position of the found item in the nav display
-		return getNavigationDisplay().indexOf(nccEntries.get(i));
+			int i = nccEntries.indexOf(current());
+
+			// go backward through the book till we find an item in the
+			// navigation display
+			while (nccEntries.get(i).getLevel() > selectedLevel)
+				i--;
+
+			// return the position of the found item in the nav display
+			return getNavigationDisplay().indexOf(nccEntries.get(i));
 		}
 	}
+
 	public int getNCCDepth() {
 		return NCCDepth;
 	}
@@ -44,18 +47,18 @@ public class DaisyBook {
 	public void setSelectedLevel(int level) {
 		this.selectedLevel = level;
 	}
-	
+
 	public void incrementSelectedLevel() {
-	    if (this.selectedLevel < NCCDepth) {
-	        this.selectedLevel++;
-	    }
+		if (this.selectedLevel < NCCDepth) {
+			this.selectedLevel++;
+		}
 	}
-	
+
 	public void decrementSelectedLevel() {
-        if (this.selectedLevel > 1) {
-            this.selectedLevel--;
-        }
-    }
+		if (this.selectedLevel > 1) {
+			this.selectedLevel--;
+		}
+	}
 
 	public String getPath() {
 		return path;
@@ -90,7 +93,7 @@ public class DaisyBook {
 	}
 
 	public List<NCCEntry> getNavigationDisplay() {
-	ArrayList<NCCEntry> displayItems = new ArrayList<NCCEntry>();
+		ArrayList<NCCEntry> displayItems = new ArrayList<NCCEntry>();
 
 		for (int i = 0; i < nccEntries.size(); i++)
 			if (nccEntries.get(i).getLevel() <= selectedLevel)
@@ -99,24 +102,35 @@ public class DaisyBook {
 	}
 
 	public void goTo(NCCEntry nccEntry) {
-	    int index = nccEntries.indexOf(nccEntry);
-	    Log.i(TAG, "goto " + index);
+		int index = nccEntries.indexOf(nccEntry);
+		Log.i(TAG, "goto " + index);
 		bookmark.setNccIndex(index);
 	}
 
-	public void next() {
-		if (bookmark.getNccIndex() < nccEntries.size() - 1)
-			bookmark.setNccIndex(bookmark.getNccIndex() + 1);
+	public void next(Boolean includeLevels) {
+		if (! includeLevels) {
+			if (currentnccIndex < nccEntries.size())
+				bookmark.setNccIndex(currentnccIndex + 1);
+		} else
+			for (int i = bookmark.getNccIndex() + 1; i < nccEntries.size(); i++)
+				if (nccEntries.get(i).getLevel() <= selectedLevel) {
+					bookmark.setNccIndex(i);
+					break;
+				}
 	}
 
-
 	public void previous() {
-		if (bookmark.getNccIndex() > 0)
-			bookmark.setNccIndex(bookmark.getNccIndex() - 1);
+		for (int i = bookmark.getNccIndex() -1; i > 0; i--)
+			if (nccEntries.get(i).getLevel() <= selectedLevel) {
+				bookmark.setNccIndex(i);
+				break;
+			}
 	}
 
 	void openSmil() {
-		if (currentnccIndex != bookmark.getNccIndex() || bookmark.getFilename() == null) {
+//		if (currentnccIndex != bookmark.getNccIndex()
+		//		|| bookmark.getFilename() == null) 
+		{
 			smilFile.open(path + current().getSmil());
 			bookmark.setFilename(path + smilFile.get(0).getSrc());
 			bookmark.setPosition(smilFile.get(0).getClipBegin());
