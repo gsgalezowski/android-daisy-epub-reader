@@ -14,6 +14,7 @@ import com.google.marvin.widget.TouchGestureControlOverlay.GestureListener;
 
 public class DaisyPlayer extends Activity implements OnCompletionListener {
 
+	private static final String IS_THE_BOOK_PLAYING = "Playing";
 	private DaisyBook book;
 	private MediaPlayer player;
 	private TouchGestureControlOverlay gestureOverlay;
@@ -74,6 +75,24 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 			play();
 	}
 
+	@Override
+	public void onSaveInstanceState(Bundle savedInstanceState) {
+		savedInstanceState.putBoolean(IS_THE_BOOK_PLAYING, player.isPlaying());
+		if (player.isPlaying()) {
+			stop();
+		}
+		super.onSaveInstanceState(savedInstanceState);
+	}
+	
+	@Override
+	public void onRestoreInstanceState(Bundle savedInstanceState) {
+		super.onRestoreInstanceState(savedInstanceState);
+		Boolean isPlaying = savedInstanceState.getBoolean(IS_THE_BOOK_PLAYING, true);
+		if (!isPlaying) {
+			stop();
+		}
+	}
+	
 	private void activateGesture() {
 		frameLayout = new FrameLayout(this);
 		gestureOverlay = new TouchGestureControlOverlay(this, gestureListener);

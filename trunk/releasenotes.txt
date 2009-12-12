@@ -1,0 +1,2 @@
+r36 12 Dec 2009
+- The application now saves the playing state between orientation changes e.g. from landscape to portrait. The code is empirical and based on experimentation, so it can probably be improved. Feel free to do so.
