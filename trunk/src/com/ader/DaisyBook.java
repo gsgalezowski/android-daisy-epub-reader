@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.media.MediaPlayer;
 import android.util.Log;
 
 public class DaisyBook implements Serializable {
@@ -131,12 +132,43 @@ public class DaisyBook implements Serializable {
 
 	void openSmil() {
 	if (currentnccIndex != bookmark.getNccIndex()
-|| bookmark.getFilename() == null) 
+		|| bookmark.getFilename() == null) 
 		{
 			smilFile.open(path + current().getSmil());
-			bookmark.setFilename(path + smilFile.get(0).getSrc());
-			bookmark.setPosition(smilFile.get(0).getClipBegin());
+			if (smilFile.getAudioSegments().size() > 0) {
+				bookmark.setFilename(path + smilFile.getAudioSegments().get(0).getSrc());
+				bookmark.setPosition(smilFile.getAudioSegments().get(0).getClipBegin());
+			} else if (smilFile.getTextSegments().size() > 0) {
+				bookmark.setFilename(path + smilFile.getTextSegments().get(0).getSrc());
+				bookmark.setPosition(0);
+			}
 			currentnccIndex = bookmark.getNccIndex();
+		}
+	}
+	
+	/**
+	 * Start reading the current section of the book
+	 * @param player
+	 */
+	public void read(MediaPlayer player) {
+		if (smilFile.getAudioSegments().size() > 0) {
+			try {
+				player.setDataSource(bookmark.getFilename());
+				player.prepare();
+			} catch (IllegalArgumentException e) {
+				throw new RuntimeException(e);
+			} catch (IllegalStateException e) {
+				throw new RuntimeException(e);
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+			player.seekTo(bookmark.getPosition());
+			player.start();
+		} else if (smilFile.getTextSegments().size() > 0) {
+			// TODO(jharty): add TTS to speak the text section
+			// Note: we need to decide how to handle things like \n
+			// For now, perhaps we can simply display the text in a new view.
+			Log.i("We need to read the text from: ", bookmark.getFilename());
 		}
 	}
 }

@@ -46,19 +46,7 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	public void play() {
 		player.reset();
 		book.openSmil();
-		try {
-			player.setDataSource(book.getBookmark().getFilename());
-			player.prepare();
-		} catch (IllegalArgumentException e) {
-			throw new RuntimeException(e);
-		} catch (IllegalStateException e) {
-			throw new RuntimeException(e);
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-		player.seekTo(book.getBookmark().getPosition());
-		player.start();
-
+		book.read(player);
 	}
 
 	public void stop() {

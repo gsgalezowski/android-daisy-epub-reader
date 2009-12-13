@@ -1,2 +1,11 @@
+r44 13 Dec 2009
+- A mid-point in a re-design to enable the player to handle DAISY books which don't have audio. Earlier versions went into an infinite loop when the program tried to open and play a text-based DAISY book. The re-design is incomplete and there seem to be a few new problems I've introduced during the rework that affects the playing of the audio books. However, rather than wait several days and risk having to merge my changes with other changes, etc. I've decided to share the interim work.
+
+Also, please read the new Wiki pages on the site which include various links, design notes, testing notes, etc.
+
+I'll continue working on the re-design early this week (14th / 15th December 2009) and try to get the code to the point where it can at least display the text for text segments. We probably need to re-think the current design and responsibilities of DaisyBook and the SmilFile classes.
+
+Julian Harty
+
 r36 12 Dec 2009
 - The application now saves the playing state between orientation changes e.g. from landscape to portrait. The code is empirical and based on experimentation, so it can probably be improved. Feel free to do so.

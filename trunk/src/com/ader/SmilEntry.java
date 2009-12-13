@@ -5,15 +5,22 @@ public class SmilEntry {
 	private String clipBegin;
 	private String clipEnd;
 	private String id;
+	private String text;
 
-	public SmilEntry(DaisyElement audio) {
-		src = audio.getAttributes().getValue("", "src");
-		clipBegin = audio.getAttributes().getValue("", "clip-begin").substring(
-				4);
-		clipBegin = clipBegin.substring(0, clipBegin.indexOf("s"));
-		clipEnd = audio.getAttributes().getValue("", "clip-end").substring(4);
-		clipEnd = clipEnd.substring(0, clipEnd.indexOf("s"));
-		id = audio.getAttributes().getValue("", "id");
+	public SmilEntry(DaisyElement element) {
+		String type = element.getName().toLowerCase();
+		src = element.getAttributes().getValue("", "src");
+		id = element.getAttributes().getValue("", "id");
+
+		if (type.equals("audio")) {
+			// TODO(jharty): use defensive programming techniques - don't assume all's ok
+			clipBegin = element.getAttributes().getValue("", "clip-begin").substring(4);
+			clipBegin = clipBegin.substring(0, clipBegin.indexOf("s"));
+			clipEnd = element.getAttributes().getValue("", "clip-end").substring(4);
+			clipEnd = clipEnd.substring(0, clipEnd.indexOf("s"));
+		} else if (type.equals("text")) {
+			text = element.getText();
+		}
 	}
 
 	public String getSrc() {
@@ -33,19 +40,19 @@ public class SmilEntry {
 		return id;
 	}
 
-	public void setSrc(String src) {
+	private void setSrc(String src) {
 		this.src = src;
 	}
 
-	public void setClipBegin(String clipBegin) {
+	private void setClipBegin(String clipBegin) {
 		this.clipBegin = clipBegin;
 	}
 
-	public void setClipEnd(String clipEnd) {
+	private void setClipEnd(String clipEnd) {
 		this.clipEnd = clipEnd;
 	}
 
-	public void setId(String id) {
+	private void setId(String id) {
 		this.id = id;
 	}
 
