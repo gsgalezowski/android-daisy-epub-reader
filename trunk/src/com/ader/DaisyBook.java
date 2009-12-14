@@ -81,8 +81,10 @@ public class DaisyBook implements Serializable {
 			}
 
 			// is it an anchor element
-			if (elements.get(i).getName().equalsIgnoreCase("a"))
+			if (elements.get(i).getName().equalsIgnoreCase("a")) {
 				nccEntries.add(new NCCEntry(elements.get(i), level));
+			}
+				
 		}
 	}
 
@@ -92,6 +94,9 @@ public class DaisyBook implements Serializable {
 	}
 	
 	NCCEntry current() {
+		Log.i(TAG, String.format("Current entry is index:%d, ncc:%s",
+				bookmark.getNccIndex(),
+				nccEntries.get(bookmark.getNccIndex())));
 		return nccEntries.get(bookmark.getNccIndex());
 	}
 
@@ -111,6 +116,7 @@ public class DaisyBook implements Serializable {
 	}
 
 	public void next(Boolean includeLevels) {
+		Log.i(TAG, "next");
 		if (! includeLevels) {
 			if (currentnccIndex < nccEntries.size())
 				bookmark.setNccIndex(currentnccIndex + 1);
@@ -123,6 +129,7 @@ public class DaisyBook implements Serializable {
 	}
 
 	public void previous() {
+		Log.i(TAG, "previous");
 		for (int i = bookmark.getNccIndex() -1; i > 0; i--)
 			if (nccEntries.get(i).getLevel() <= selectedLevel) {
 				bookmark.setNccIndex(i);
@@ -132,8 +139,9 @@ public class DaisyBook implements Serializable {
 
 	void openSmil() {
 	if (currentnccIndex != bookmark.getNccIndex()
-		|| bookmark.getFilename() == null) 
+		|| smilFile.getFilename() == null) 
 		{
+			currentnccIndex = bookmark.getNccIndex();
 			smilFile.open(path + current().getSmil());
 			if (smilFile.getAudioSegments().size() > 0) {
 				bookmark.setFilename(path + smilFile.getAudioSegments().get(0).getSrc());
@@ -142,7 +150,7 @@ public class DaisyBook implements Serializable {
 				bookmark.setFilename(path + smilFile.getTextSegments().get(0).getSrc());
 				bookmark.setPosition(0);
 			}
-			currentnccIndex = bookmark.getNccIndex();
+			
 		}
 	}
 	
@@ -153,6 +161,7 @@ public class DaisyBook implements Serializable {
 	public void read(MediaPlayer player) {
 		if (smilFile.getAudioSegments().size() > 0) {
 			try {
+				Log.i(TAG, "Start playing " + bookmark.getFilename() + " " + bookmark.getPosition());
 				player.setDataSource(bookmark.getFilename());
 				player.prepare();
 			} catch (IllegalArgumentException e) {

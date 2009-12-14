@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.FrameLayout;
 
 import com.google.marvin.widget.TouchGestureControlOverlay;
@@ -15,6 +16,7 @@ import com.google.marvin.widget.TouchGestureControlOverlay.GestureListener;
 public class DaisyPlayer extends Activity implements OnCompletionListener {
 
 	private static final String IS_THE_BOOK_PLAYING = "Playing";
+	private static final String TAG = "DaisyPlayer";
 	private DaisyBook book;
 	private MediaPlayer player;
 	private TouchGestureControlOverlay gestureOverlay;
@@ -44,12 +46,14 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	}
 
 	public void play() {
+		Log.i(TAG, "play");
 		player.reset();
 		book.openSmil();
 		book.read(player);
 	}
 
 	public void stop() {
+		Log.i(TAG, "stop");
 		player.pause();
 		book.getBookmark().setPosition(player.getCurrentPosition());
 		player.reset();

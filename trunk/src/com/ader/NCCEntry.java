@@ -49,7 +49,7 @@ public class NCCEntry implements Serializable {
 	
 	@Override
 	public String toString() {
-		return text;
+		return "smil:" + smil + " text: " + text;
 	}
 	
 	@Override

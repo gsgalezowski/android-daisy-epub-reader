@@ -1,8 +1,12 @@
 package com.ader;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class SmilFile extends ArrayList<SmilEntry> {
+import android.util.Log;
+
+public class SmilFile implements Serializable {
+	private static final String TAG = "SimlFile";
 	private String fileName;
 	private ArrayList<SmilEntry> audioSegments = new ArrayList<SmilEntry>(); 
 	private ArrayList<SmilEntry> textSegments = new ArrayList<SmilEntry>();
@@ -12,6 +16,7 @@ public class SmilFile extends ArrayList<SmilEntry> {
 	}
 
 	public void open(String filename) {
+		Log.i(TAG, "Open " + filename);
 		clear();
 		this.fileName = filename;
 		DaisyParser parser = new DaisyParser();
@@ -21,14 +26,16 @@ public class SmilFile extends ArrayList<SmilEntry> {
 		
 		for (int i = 0; i < elements.size(); i++) {
 			elementName = elements.get(i).getName();
+			SmilEntry entry = null;
 			if (elementName.equalsIgnoreCase("audio")) {
-				audioSegments.add(new SmilEntry(elements.get(i)));
-				add(new SmilEntry(elements.get(i)));
+			    entry = new SmilEntry(elements.get(i));
+				audioSegments.add(entry);
 			} else if (elementName.equalsIgnoreCase("text")){
 				DaisyElement name = elements.get(i);
-				SmilEntry entry = new SmilEntry(name);
+				entry = new SmilEntry(name);
 				textSegments.add(entry);
 			}
+			Log.i(TAG, "Adding segment " + entry);
 		}
 	}
 	
@@ -38,5 +45,10 @@ public class SmilFile extends ArrayList<SmilEntry> {
 	
 	public ArrayList<SmilEntry> getTextSegments() {
 		return textSegments;
+	}
+	
+	public void clear() {
+		audioSegments.clear();
+		textSegments.clear();
 	}
 }
