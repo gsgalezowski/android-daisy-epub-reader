@@ -10,16 +10,19 @@ import java.util.List;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 
 public class DaisyBrowser extends ListActivity {
     File currentDirectory = new File("/sdcard/");
     private List<String> files;
+    private static final String TAG = "DaisyBrowser";
 
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.i(TAG, "onCreate");
         GenerateBrowserData();
     }
 

@@ -8,8 +8,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
 
+import android.util.Log;
+
 public class Bookmark implements Serializable {
-	private String filename;
+	private static final String TAG = "Bookmark";
+    private String filename;
 	private int nccIndex;
 	private int position;
 
@@ -43,6 +46,7 @@ public class Bookmark implements Serializable {
 	}
 
 	public void setPosition(int position) {
+	    Log.i(TAG, "Setting position to " + position);
 		this.position = position;
 	}
 

@@ -56,4 +56,7 @@ public class SmilEntry {
 		this.id = id;
 	}
 
+	public String toString() {
+	    return String.format("%s begin: %s end: %s id: %s", src, clipBegin, clipEnd, id);
+	}
 }
