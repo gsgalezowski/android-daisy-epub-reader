@@ -40,22 +40,6 @@ public class SmilEntry {
 		return id;
 	}
 
-	private void setSrc(String src) {
-		this.src = src;
-	}
-
-	private void setClipBegin(String clipBegin) {
-		this.clipBegin = clipBegin;
-	}
-
-	private void setClipEnd(String clipEnd) {
-		this.clipEnd = clipEnd;
-	}
-
-	private void setId(String id) {
-		this.id = id;
-	}
-
 	public String toString() {
 	    return String.format("%s begin: %s end: %s id: %s", src, clipBegin, clipEnd, id);
 	}
