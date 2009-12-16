@@ -3,22 +3,15 @@ package com.ader.smil;
 /**
  * Encapsulates the <text> tag.
  */
-public class TextElement implements MediaElement {
-    String src; //TODO: should we keep the location of the text or just keep the text here?
+public class TextElement implements SmilElement {
+    String src;
     String id;
-    private MediaElement parent;
+    private SmilElement parent;
     
-    public TextElement(MediaElement parent, String src, String id) {
+    public TextElement(SmilElement parent, String src, String id) {
         this.parent = parent;
         this.src = src;
         this.id = id;
-    }
-    
-    public AudioElement getAudioElement() {
-        return null;
-    }
-    public TextElement getTextElement() {
-        return this;
     }
 
     @Override
@@ -52,20 +45,7 @@ public class TextElement implements MediaElement {
         return true;
     }
     
-    public MediaElement next() {
-        throw new UnsupportedOperationException();
-    }
-    
-    public MediaElement previous() {
-        throw new UnsupportedOperationException();
-    }
-
     public String getSrc() {
         return src;
     }
-
-    public MediaElement current() {
-       return this;
-    }
-
 }

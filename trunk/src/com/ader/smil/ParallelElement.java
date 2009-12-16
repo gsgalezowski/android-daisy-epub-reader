@@ -1,23 +1,22 @@
 package com.ader.smil;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Encapsulates the <par> tag.
+ * Limitations:
+ *   Support only one sequence of audio elements, 
+ *   i.e. concurrent play of multiple data source is not supported
  */
-public class ParallelElement implements MediaElement {
+public class ParallelElement implements ContainerElement {
     private SequenceElement audioSequence;
     private TextElement textElement;
-    private MediaElement parent;
+    private SmilElement parent;
     
-    public ParallelElement(MediaElement parent) {
+    public ParallelElement(SmilElement parent) {
         this.parent = parent;
-    }
-
-    public AudioElement getAudioElement() {
-        if (audioSequence != null) {
-            return audioSequence.getAudioElement();
-        } else {
-            return null;
-        }
     }
 
     public TextElement getTextElement() {
@@ -69,26 +68,23 @@ public class ParallelElement implements MediaElement {
         return true;
     }
     
-    public MediaElement next() {
-        if (audioSequence.hasNext()) {
-            return audioSequence.next();
-        } else {
-            return parent.next();
-        }
-    }
-    
-    public MediaElement previous() {
-        if (audioSequence.hasPrevious()) {
-            return audioSequence.previous();
-        }
-        return parent.previous();
-    }
-
     public void setAudioSequence(SequenceElement sequence) {
         audioSequence = sequence;
     }
 
-    public MediaElement current() {
-        return audioSequence.current();
+    public SequenceElement getAudioSequence() {
+        return audioSequence;
+    }
+
+    public List<AudioElement> getAllAudioElementDepthFirst() {
+        if (audioSequence != null) {
+            return audioSequence.getAllAudioElementDepthFirst();
+        } else {
+            return new ArrayList<AudioElement>();
+        }
+    }
+
+    public List<TextElement> getAllTextElementDepthFirst() {
+        return Arrays.asList(textElement);
     }
 }
