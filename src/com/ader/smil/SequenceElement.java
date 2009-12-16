@@ -6,35 +6,26 @@ import java.util.List;
 /**
  * Encapsulates the <seq> tag.
  */
-public class SequenceElement implements MediaElement {
+public class SequenceElement implements ContainerElement {
 
     private double duration;
-    private List<MediaElement> elements = new ArrayList<MediaElement>();
-    int cursor = 0;
-    private MediaElement parent;
+    private List<SmilElement> elements = new ArrayList<SmilElement>();
+    private SmilElement parent;
 
-    public SequenceElement(MediaElement parent, double duration) {
+    public SequenceElement(SmilElement parent, double duration) {
         this.parent = parent;
         this.duration = duration;
     }
 
-    public SequenceElement(MediaElement parent) {
+    public SequenceElement(SmilElement parent) {
         this.parent = parent;
     }
 
-    public AudioElement getAudioElement() {
-        return elements.get(cursor).getAudioElement();
-    }
-    
-    public TextElement getTextElement() {
-        return elements.get(cursor).getTextElement();
-    }
-
-    public void add(MediaElement currentElement) {
+    public void add(SmilElement currentElement) {
         elements.add(currentElement);
     }
 
-    public MediaElement get(int i) {
+    public SmilElement get(int i) {
         return elements.get(i);
     }
 
@@ -74,41 +65,31 @@ public class SequenceElement implements MediaElement {
         return true;
     }
 
-    public boolean hasNext() {
-        return cursor < elements.size() - 1;
-    }
-
-    public MediaElement next() {
-        if (hasNext()) {
-            cursor++;
-            return elements.get(cursor);
-        } else {
-            if (parent != null) {
-                return parent.next();
-            } else {
-                return null;
-            }
-        }
-    }
-    
     public boolean isEmpty() {
         return elements.isEmpty();
     }
     
-    public MediaElement previous() {
-        if (cursor > 0) {
-            cursor--;
-            return elements.get(cursor);
-        } else {
-            return parent.previous();
+    public List<AudioElement> getAllAudioElementDepthFirst() {
+        List<AudioElement> ret = new ArrayList<AudioElement>();
+        for (SmilElement elem : elements) {
+            if (elem instanceof ContainerElement) {
+                ret.addAll(((ContainerElement) elem).getAllAudioElementDepthFirst());
+            } else if (elem instanceof AudioElement) {
+                ret.add((AudioElement) elem);
+            }
         }
+        return ret;
     }
 
-    public boolean hasPrevious() {
-        return cursor > 0;
-    }
-
-    public MediaElement current() {
-        return elements.get(cursor);
+    public List<TextElement> getAllTextElementDepthFirst() {
+        List<TextElement> ret = new ArrayList<TextElement>();
+        for (SmilElement elem : elements) {
+            if (elem instanceof ContainerElement) {
+                ret.addAll(((ContainerElement) elem).getAllTextElementDepthFirst());
+            } else if (elem instanceof TextElement) {
+                ret.add((TextElement) elem);
+            }
+        }
+        return ret;
     }
 }

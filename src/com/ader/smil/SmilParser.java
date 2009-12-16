@@ -22,7 +22,7 @@ public class SmilParser extends DefaultHandler {
         PARA,
     }
     private Logger log = Logger.getAnonymousLogger();
-    private MediaElement currentElement;
+    private SmilElement currentElement;
     private Attributes attributes;
     private State state;
     private SequenceElement rootSequence;
@@ -105,8 +105,9 @@ public class SmilParser extends DefaultHandler {
     private AudioElement createAudioElement() {
         return new AudioElement(currentElement,
                 attributes.getValue("src"),
-                attributes.getValue("clip-begin"),
-                attributes.getValue("clip-end"),
+                // TODO: support more time formats
+                Double.parseDouble(attributes.getValue("clip-begin").replace("npt=", "").replace("s", "")),
+                Double.parseDouble(attributes.getValue("clip-end").replace("npt=", "").replace("s", "")),
                 attributes.getValue("id"));
     }
 
