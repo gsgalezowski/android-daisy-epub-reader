@@ -3,7 +3,7 @@
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry kind="lib" path="libs/EyesFreeUtils.jar"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="tests"/>
 	<classpathentry kind="src" path="gen"/>
+	<classpathentry kind="src" path="tests"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
