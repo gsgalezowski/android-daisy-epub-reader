@@ -1,17 +1,16 @@
 package com.ader;
 
+import android.app.ListActivity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.ArrayAdapter;
+
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
-import android.app.ListActivity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.widget.ArrayAdapter;
 
 public class DaisyBrowser extends ListActivity {
     File currentDirectory = new File("/sdcard/");
@@ -22,7 +21,7 @@ public class DaisyBrowser extends ListActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i(TAG, "onCreate");
+        Util.logInfo(TAG, "onCreate");
         GenerateBrowserData();
     }
 

@@ -1,11 +1,5 @@
 package com.ader;
 
-import java.io.IOException;
-
-import com.google.marvin.widget.TouchGestureControlOverlay;
-import com.google.marvin.widget.TouchGestureControlOverlay.Gesture;
-import com.google.marvin.widget.TouchGestureControlOverlay.GestureListener;
-
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +9,12 @@ import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
+
+import com.google.marvin.widget.TouchGestureControlOverlay;
+import com.google.marvin.widget.TouchGestureControlOverlay.Gesture;
+import com.google.marvin.widget.TouchGestureControlOverlay.GestureListener;
+
+import java.io.IOException;
 
 public class DaisyReader extends ListActivity {
 	private DaisyBook book = new DaisyBook();

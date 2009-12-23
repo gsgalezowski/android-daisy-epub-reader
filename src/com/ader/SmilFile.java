@@ -3,8 +3,6 @@ package com.ader;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import android.util.Log;
-
 public class SmilFile implements Serializable {
 	private static final String TAG = "SimlFile";
 	private String fileName;
@@ -16,7 +14,7 @@ public class SmilFile implements Serializable {
 	}
 
 	public void open(String filename) {
-		Log.i(TAG, "Open " + filename);
+		Util.logInfo(TAG, "Open " + filename);
 		clear();
 		this.fileName = filename;
 		DaisyParser parser = new DaisyParser();
@@ -35,7 +33,7 @@ public class SmilFile implements Serializable {
 				entry = new SmilEntry(name);
 				textSegments.add(entry);
 			}
-			Log.i(TAG, "Adding segment " + entry);
+			Util.logInfo(TAG, "Adding segment " + entry);
 		}
 	}
 	

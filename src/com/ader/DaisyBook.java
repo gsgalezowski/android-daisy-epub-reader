@@ -1,7 +1,5 @@
 package com.ader;
 
-import android.util.Log;
-
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,6 +16,7 @@ public class DaisyBook implements Serializable {
 	private int NCCDepth = 0;
 	private int selectedLevel = 1;
 	private List<NCCEntry> nccEntries = new ArrayList<NCCEntry>();
+	
 
 	public Bookmark getBookmark() {
 		return bookmark;
@@ -93,7 +92,7 @@ public class DaisyBook implements Serializable {
 	}
 	
 	NCCEntry current() {
-		Log.i(TAG, String.format("Current entry is index:%d, ncc:%s",
+		Util.logInfo(TAG, String.format("Current entry is index:%d, ncc:%s",
 				bookmark.getNccIndex(),
 				nccEntries.get(bookmark.getNccIndex())));
 		return nccEntries.get(bookmark.getNccIndex());
@@ -110,12 +109,12 @@ public class DaisyBook implements Serializable {
 
 	public void goTo(NCCEntry nccEntry) {
 		int index = nccEntries.indexOf(nccEntry);
-		Log.i(TAG, "goto " + index);
+		Util.logInfo(TAG, "goto " + index);
 		bookmark.setNccIndex(index);
 	}
 
 	public void next(Boolean includeLevels) {
-		Log.i(TAG, "next");
+		Util.logInfo(TAG, "next");
 		if (! includeLevels) {
 			if (currentnccIndex < nccEntries.size())
 				bookmark.setNccIndex(currentnccIndex + 1);
@@ -128,7 +127,7 @@ public class DaisyBook implements Serializable {
 	}
 
 	public void previous() {
-		Log.i(TAG, "previous");
+		Util.logInfo(TAG, "previous");
 		for (int i = bookmark.getNccIndex() -1; i > 0; i--)
 			if (nccEntries.get(i).getLevel() <= selectedLevel) {
 				bookmark.setNccIndex(i);
@@ -137,6 +136,7 @@ public class DaisyBook implements Serializable {
 	}
 
 	void openSmil() {
+		Util.logInfo(TAG, "Test Logger");
 	if (currentnccIndex != bookmark.getNccIndex()
 		|| smilFile.getFilename() == null) 
 		{

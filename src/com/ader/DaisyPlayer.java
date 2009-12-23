@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.FrameLayout;
 
 import com.google.marvin.widget.TouchGestureControlOverlay;
@@ -46,7 +45,7 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	}
 
 	public void play() {
-		Log.i(TAG, "play");
+		Util.logInfo(TAG, "play");
 		player.reset();
 		book.openSmil();
 		read();
@@ -60,7 +59,7 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 
 		if (book.hasAudioSegments()) {
 			try {
-				Log.i(TAG, "Start playing " + bookmark.getFilename() + " " + bookmark.getPosition());
+				Util.logInfo(TAG, "Start playing " + bookmark.getFilename() + " " + bookmark.getPosition());
 				player.setDataSource(bookmark.getFilename());
 				player.prepare();
 			} catch (IllegalArgumentException e) {
@@ -76,12 +75,12 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 			// TODO(jharty): add TTS to speak the text section
 			// Note: we need to decide how to handle things like \n
 			// For now, perhaps we can simply display the text in a new view.
-			Log.i("We need to read the text from: ", bookmark.getFilename());
+			Util.logInfo("We need to read the text from: ", bookmark.getFilename());
 		}
 	}
     
 	public void stop() {
-		Log.i(TAG, "stop");
+		Util.logInfo(TAG, "stop");
 		player.pause();
 		book.getBookmark().setPosition(player.getCurrentPosition());
 		player.reset();
