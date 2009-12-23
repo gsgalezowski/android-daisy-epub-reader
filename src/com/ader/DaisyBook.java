@@ -1,12 +1,11 @@
 package com.ader;
 
+import android.util.Log;
+
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import android.media.MediaPlayer;
-import android.util.Log;
 
 public class DaisyBook implements Serializable {
 	// public static final long serialVersionUID = 1;
@@ -153,31 +152,21 @@ public class DaisyBook implements Serializable {
 			
 		}
 	}
-	
+
 	/**
-	 * Start reading the current section of the book
-	 * @param player
+	 * TODO: Refactor once the new code is integrated.
+	 * @return true if the book has at least one audio segment.
 	 */
-	public void read(MediaPlayer player) {
-		if (smilFile.getAudioSegments().size() > 0) {
-			try {
-				Log.i(TAG, "Start playing " + bookmark.getFilename() + " " + bookmark.getPosition());
-				player.setDataSource(bookmark.getFilename());
-				player.prepare();
-			} catch (IllegalArgumentException e) {
-				throw new RuntimeException(e);
-			} catch (IllegalStateException e) {
-				throw new RuntimeException(e);
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
-			player.seekTo(bookmark.getPosition());
-			player.start();
-		} else if (smilFile.getTextSegments().size() > 0) {
-			// TODO(jharty): add TTS to speak the text section
-			// Note: we need to decide how to handle things like \n
-			// For now, perhaps we can simply display the text in a new view.
-			Log.i("We need to read the text from: ", bookmark.getFilename());
-		}
+	public boolean hasAudioSegments() {
+		return smilFile.getAudioSegments().size() > 0;
 	}
+
+	/**
+	 * TODO: Refactor ASAP :)
+	 * @return true if the book has at least one text segment.
+	 */
+	public boolean hasTextSegments() {
+		return smilFile.getTextSegments().size() > 0;
+	}
+	
 }
