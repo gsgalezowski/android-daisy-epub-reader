@@ -1,5 +1,6 @@
 package com.ader;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -67,6 +68,12 @@ public class DaisyBook implements Serializable {
 		nccEntries.clear();
 		this.path = nccPath;
 		DaisyParser parser = new DaisyParser();
+		try {
+			Util.logInfo(TAG, new File(".").getCanonicalPath());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		ArrayList<DaisyElement> elements = parser.parse(path + "ncc.html");
 		int level = 0;
 
