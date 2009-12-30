@@ -93,7 +93,7 @@ public class DaisyBook implements Serializable {
 		}
 	}
 
-	public void LoadAutoBookmark() throws IOException  {
+	public void loadAutoBookmark() throws IOException  {
 		bookmark.load(path + "auto.bmk");
 		currentnccIndex = bookmark.getNccIndex();
 	}
