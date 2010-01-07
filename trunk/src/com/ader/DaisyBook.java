@@ -94,7 +94,8 @@ public class DaisyBook implements Serializable {
 	}
 
 	public void loadAutoBookmark() throws IOException  {
-		bookmark.load(path + "auto.bmk");
+		String bookmarkFilename = path + "auto.bmk";
+		bookmark.load(bookmarkFilename);
 		currentnccIndex = bookmark.getNccIndex();
 	}
 	
@@ -143,7 +144,7 @@ public class DaisyBook implements Serializable {
 	}
 
 	void openSmil() {
-		Util.logInfo(TAG, "Test Logger");
+		Util.logInfo(TAG, "Open SMIL file");
 	if (currentnccIndex != bookmark.getNccIndex()
 		|| smilFile.getFilename() == null) 
 		{

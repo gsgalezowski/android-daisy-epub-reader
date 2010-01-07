@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.Serializable;
 
 public class Bookmark implements Serializable {
@@ -14,6 +16,8 @@ public class Bookmark implements Serializable {
 	private int nccIndex;
 	private int position;
 
+	// TODO: redesign this class so the class variables are always initialized.
+	// Consider adding a factory and making the constructors private.
 	public Bookmark() {
 	}
 
@@ -51,26 +55,41 @@ public class Bookmark implements Serializable {
 	void load(String bookmarkFilename) throws IOException {
 
 		if (new File(bookmarkFilename).exists()) {
-			DataInputStream in;
-			in = new DataInputStream(new FileInputStream(bookmarkFilename));
-			filename = in.readUTF();
-			nccIndex = in.readInt();
-			position = in.readInt();
-			in.close();
+			FileInputStream fileInputStream = new FileInputStream(bookmarkFilename);
+			load(fileInputStream);
 		}
+	}
+
+	/* non javadoc
+	 * Extracted this method to improve the testability of this class.
+	 */
+	void load(InputStream inputStream) throws IOException {
+		DataInputStream in = new DataInputStream(inputStream);
+		filename = in.readUTF();
+		nccIndex = in.readInt();
+		position = in.readInt();
+		in.close();
 	}
 
 	public void save(String bookmarkFilename) {
 		try {
-			DataOutputStream out = new DataOutputStream(new FileOutputStream(bookmarkFilename));
-
-			out.writeUTF(filename);
-			out.writeInt(nccIndex);
-			out.writeInt(position);
-			out.flush();
-			out.close();
+			FileOutputStream fileOutputStream = new FileOutputStream(bookmarkFilename);
+			save(fileOutputStream);
 		} catch (IOException ex) {
 			throw new RuntimeException(ex);
 		}
+	}
+
+	/* non javadoc
+	 * Extracted this method to improve the testability of this class.
+	 */
+	void save(OutputStream outputStream) throws IOException {
+		DataOutputStream out = new DataOutputStream(outputStream);
+
+		out.writeUTF(filename);
+		out.writeInt(nccIndex);
+		out.writeInt(position);
+		out.flush();
+		out.close();
 	}
 }
