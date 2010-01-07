@@ -91,6 +91,13 @@ public class DaisyParser extends DefaultHandler {
 		super.startElement(uri, localName, name, attributes);
 		builder.setLength(0);
 		current = new DaisyElement();
+		// Possible bug between Android and Java...
+		// On Android the element name is returned in localName, on the
+		// workstation it's returned in 'name'
+		// Adding a temporary workaround until I understand what's happening!
+		if (localName.length() == 0) {
+			localName = name;
+		}
 		current.setName(localName);
 		current.setAttributes(attributes);
 		daisyElements.add(current);

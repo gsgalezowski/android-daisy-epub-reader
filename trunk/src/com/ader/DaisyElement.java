@@ -3,10 +3,6 @@ package com.ader;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.AttributesImpl;
 
-
-
-
-
 public class DaisyElement {
 	private AttributesImpl attributes;	  
 	private String name = "";

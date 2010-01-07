@@ -38,5 +38,7 @@ public class DaisyBookTest extends TestCase {
 		String path = new File(".").getCanonicalPath();
 		Util.logInfo("Path", path);
 		daisyBook.open(path + "/Resources/light-man/");
+		daisyBook.loadAutoBookmark();
+		daisyBook.openSmil();
 	}
 }
