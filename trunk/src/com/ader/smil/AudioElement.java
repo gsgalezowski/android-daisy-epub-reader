@@ -3,7 +3,7 @@ package com.ader.smil;
 /**
  * Encapsulates the <audio> tag.
  */
-public class AudioElement implements SmilElement {
+public class AudioElement implements MediaElement {
     
     private String src;
     private double clipBegin;

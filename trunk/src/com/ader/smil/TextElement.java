@@ -3,7 +3,7 @@ package com.ader.smil;
 /**
  * Encapsulates the <text> tag.
  */
-public class TextElement implements SmilElement {
+public class TextElement implements MediaElement {
     String src;
     String id;
     private SmilElement parent;
