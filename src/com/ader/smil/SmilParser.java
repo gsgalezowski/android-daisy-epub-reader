@@ -1,6 +1,8 @@
 package com.ader.smil;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.logging.Logger;
@@ -9,9 +11,13 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.Attributes;
+import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
+
+import com.ader.DummyDtdResolver;
 
 
 public class SmilParser extends DefaultHandler {
@@ -21,7 +27,7 @@ public class SmilParser extends DefaultHandler {
         SEQ,
         PARA,
     }
-    private Logger log = Logger.getAnonymousLogger();
+    private Logger log = Logger.getLogger(SmilParser.class.getSimpleName());
     private SmilElement currentElement;
     private Attributes attributes;
     private State state;
@@ -35,9 +41,11 @@ public class SmilParser extends DefaultHandler {
         state = State.INIT;
         SAXParserFactory factory = SAXParserFactory.newInstance();
         try {
-            SAXParser parser = factory.newSAXParser();
+            XMLReader parser = factory.newSAXParser().getXMLReader();
+            parser.setEntityResolver(new DummyDtdResolver());
+            parser.setContentHandler(this);
             org.xml.sax.InputSource input = new InputSource(stream);
-            parser.parse(input, this);
+            parser.parse(input);
             return rootSequence;
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -45,9 +53,10 @@ public class SmilParser extends DefaultHandler {
     }
 
     @Override
-    public void startElement(String uri, String localName, String name,
+    public void startElement(String uri, String localName, String qName,
             Attributes attributes) throws SAXException {
-        super.startElement(uri, localName, name, attributes);
+        super.startElement(uri, localName, qName, attributes);
+        String name = localName.length() != 0 ? localName : qName;
         this.attributes = attributes;
         switch (state) {
             case INIT: {

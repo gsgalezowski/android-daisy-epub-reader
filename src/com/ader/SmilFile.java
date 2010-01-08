@@ -1,52 +1,40 @@
 package com.ader;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
+
+import com.ader.smil.AudioElement;
+import com.ader.smil.SequenceElement;
+import com.ader.smil.SmilParser;
+import com.ader.smil.TextElement;
 
 public class SmilFile implements Serializable {
 	private static final String TAG = "SimlFile";
 	private String fileName;
-	private ArrayList<SmilEntry> audioSegments = new ArrayList<SmilEntry>(); 
-	private ArrayList<SmilEntry> textSegments = new ArrayList<SmilEntry>();
+	private SequenceElement elements;
 	
 	public String getFilename() {
 		return this.fileName;
 	}
 
 	public void open(String filename) {
-		Util.logInfo(TAG, "Open " + filename);
-		clear();
-		this.fileName = filename;
-		DaisyParser parser = new DaisyParser();
-		String elementName;
-		
-		ArrayList<DaisyElement> elements = parser.parse(filename);
-		
-		for (int i = 0; i < elements.size(); i++) {
-			elementName = elements.get(i).getName();
-			SmilEntry entry = null;
-			if (elementName.equalsIgnoreCase("audio")) {
-			    entry = new SmilEntry(elements.get(i));
-				audioSegments.add(entry);
-			} else if (elementName.equalsIgnoreCase("text")){
-				DaisyElement name = elements.get(i);
-				entry = new SmilEntry(name);
-				textSegments.add(entry);
-			}
-			Util.logInfo(TAG, "Adding segment " + entry);
-		}
+		try {
+            elements = new SmilParser().parse(new FileInputStream(filename));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 	}
 	
-	public ArrayList<SmilEntry> getAudioSegments() {
-		return audioSegments;
+	public List<AudioElement> getAudioSegments() {
+		return elements.getAllAudioElementDepthFirst();
 	}
 	
-	public ArrayList<SmilEntry> getTextSegments() {
-		return textSegments;
-	}
-	
-	public void clear() {
-		audioSegments.clear();
-		textSegments.clear();
+	public List<TextElement> getTextSegments() {
+		return elements.getAllTextElementDepthFirst();
 	}
 }

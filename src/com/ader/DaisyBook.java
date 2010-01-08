@@ -152,7 +152,7 @@ public class DaisyBook implements Serializable {
 			smilFile.open(path + current().getSmil());
 			if (smilFile.getAudioSegments().size() > 0) {
 				bookmark.setFilename(path + smilFile.getAudioSegments().get(0).getSrc());
-				bookmark.setPosition(smilFile.getAudioSegments().get(0).getClipBegin());
+				bookmark.setPosition((int) smilFile.getAudioSegments().get(0).getClipBegin());
 			} else if (smilFile.getTextSegments().size() > 0) {
 				bookmark.setFilename(path + smilFile.getTextSegments().get(0).getSrc());
 				bookmark.setPosition(0);
