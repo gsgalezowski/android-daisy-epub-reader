@@ -1,3 +1,6 @@
+r81 11 Jan 2010
+- We've now integrated the new SMIL parser with the rest of the project. We've also added Junit tests for several classes, and intend to add more. The Wiki pages include some of our design notes and current intentions, including some thoughts on segmenting the functionality into distinct software modules. Currently support is still limited to DAISY 202 audio books, we still expect to add support for DAISY3 and epub book formats soon. The project received it's first structured User Experience (UX) review last week, and the results will be added to the site, hopefully by the end of this week.
+
 r44 13 Dec 2009
 - A mid-point in a re-design to enable the player to handle DAISY books which don't have audio. Earlier versions went into an infinite loop when the program tried to open and play a text-based DAISY book. The re-design is incomplete and there seem to be a few new problems I've introduced during the rework that affects the playing of the audio books. However, rather than wait several days and risk having to merge my changes with other changes, etc. I've decided to share the interim work.
 
