@@ -20,6 +20,7 @@ public class DaisyReader extends ListActivity {
 	private DaisyBook book = new DaisyBook();
 	private TouchGestureControlOverlay gestureOverlay;
 	private FrameLayout frameLayout;
+	private String TAG = "DaisyReader";
 
 	/** Called when the activity is first created. */
 	@Override
@@ -30,10 +31,10 @@ public class DaisyReader extends ListActivity {
 			activateGesture();
 			book.open(getIntent().getStringExtra("daisyPath"));
 			book.loadAutoBookmark();
-			play();
 			displayContents();
 			 getListView().setSelection(book.getDisplayPosition());
 			registerForContextMenu(getListView());
+			play();
 			
 			
 		} catch (IOException e) {
@@ -92,9 +93,12 @@ public class DaisyReader extends ListActivity {
 
 		public void onGestureFinish(Gesture g) {
 			if (g == Gesture.LEFT) {
-				book.decrementSelectedLevel();
+				int levelSetTo = book.decrementSelectedLevel();
+				Util.logInfo(TAG, "Decremented Level to: " + levelSetTo);
 			} else if (g == Gesture.RIGHT) {
 				book.incrementSelectedLevel();
+				int levelSetTo = book.decrementSelectedLevel();
+				Util.logInfo(TAG, "Incremented Level to: " + levelSetTo);
 			} else if (g == Gesture.CENTER) {
 				// play((NCCEntry) getListAdapter().getItem(0));
 				play();

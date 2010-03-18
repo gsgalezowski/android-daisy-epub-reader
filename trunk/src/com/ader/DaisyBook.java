@@ -48,16 +48,18 @@ public class DaisyBook implements Serializable {
 		this.selectedLevel = level;
 	}
 
-	public void incrementSelectedLevel() {
+	public int incrementSelectedLevel() {
 		if (this.selectedLevel < NCCDepth) {
 			this.selectedLevel++;
 		}
+		return this.selectedLevel;
 	}
 
-	public void decrementSelectedLevel() {
+	public int decrementSelectedLevel() {
 		if (this.selectedLevel > 1) {
 			this.selectedLevel--;
 		}
+		return this.selectedLevel;
 	}
 
 	public String getPath() {
