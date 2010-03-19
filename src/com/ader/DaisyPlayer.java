@@ -1,9 +1,13 @@
 package com.ader;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.google.marvin.widget.TouchGestureControlOverlay;
@@ -38,6 +42,29 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 		//player.release();
 // 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		new MenuInflater(getApplication()).inflate(R.menu.playermenu, menu);
+		return(super.onCreateOptionsMenu(menu));
+	}
+	
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.player_instructions:
+			AlertDialog.Builder builder=new AlertDialog.Builder(this);
+			
+			builder
+				.setTitle(R.string.player_instructions_description)
+				.setMessage(R.string.player_instructions)
+				.setPositiveButton(R.string.close_instructions, null)
+				.show();
+			break;
+		}
+		return true;
+	}
+	
 	public void onCompletion(MediaPlayer mp) {
 		Util.logInfo(TAG, "onCompletion called.");
 		// stop();

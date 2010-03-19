@@ -5,4 +5,22 @@
     <string name="playing">Playing</string>
     <string name="stopped">Stopped</string>
     <string name="unable_to_open_file">Unable to open file</string>
+    <string name="return_to_homescreen">Return to home screen</string>
+    <string name="player_instructions">Gestures are used to control the player.
+    Tap the center of the screen to stop and restart the current audio.
+    Swipes (where you drag your finger in a straight line on the screen, 
+    then lift the finger) are used for the remaining gestures:
+    Swipe Up to go to the previous audio segment at the current depth in the book.
+    Swipe Down to go to the next audio segment at the current depth in the book.
+    Swipe from left to right to increase the depth.
+    Swipe from right to left to decrease the depth.
+    
+    DAISY books can contain material at a single depth, or at multiple depths 
+    e.g. to represent chapters (where the depth might be level 1) 
+    and sections (where the depth might be level 2).
+
+    </string>
+    <string name="player_instructions_description">Instructions for the DAISY player</string>
+    <string name="close_instructions">Close Instructions</string>
+   
 </resources>
