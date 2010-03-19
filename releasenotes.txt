@@ -1,3 +1,8 @@
+r99 19 Mar 2010
+- Development has restarted after a hiatus (where we were distracted by day jobs). r99 now supports the new gestures (described on the wiki http://code.google.com/p/android-daisy-epub-reader/wiki/UxReviewForAndroidDaisyBookReader ) and has some crude instructions for the player available from the menu button. There is a long-term and annoying bug in the player where some content is played several times http://code.google.com/p/android-daisy-epub-reader/issues/detail?id=14 and we are still only supporting DAISY 202 format books. 
+
+We need to restructure the code (as described in the wiki page mentioned in the previous paragraph).
+
 r81 11 Jan 2010
 - We've now integrated the new SMIL parser with the rest of the project. We've also added Junit tests for several classes, and intend to add more. The Wiki pages include some of our design notes and current intentions, including some thoughts on segmenting the functionality into distinct software modules. Currently support is still limited to DAISY 202 audio books, we still expect to add support for DAISY3 and epub book formats soon. The project received it's first structured User Experience (UX) review last week, and the results will be added to the site, hopefully by the end of this week.
 
