@@ -118,9 +118,11 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	public void togglePlay() {
 		Util.logInfo(TAG, "togglePlay called.");
 		if (player.isPlaying())
-			stop();
+			// stop();
+			player.pause();
 		else
-			play();
+			// play();
+			player.start();
 	}
 
 	@Override
