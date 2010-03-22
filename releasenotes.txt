@@ -1,3 +1,6 @@
+r101 22 Mar 2010
+- Added a rough-cut icon for the application, it doesn't have transparancy and will need replacing at some point :)
+
 r99 19 Mar 2010
 - Development has restarted after a hiatus (where we were distracted by day jobs). r99 now supports the new gestures (described on the wiki http://code.google.com/p/android-daisy-epub-reader/wiki/UxReviewForAndroidDaisyBookReader ) and has some crude instructions for the player available from the menu button. There is a long-term and annoying bug in the player where some content is played several times http://code.google.com/p/android-daisy-epub-reader/issues/detail?id=14 and we are still only supporting DAISY 202 format books. 
 
