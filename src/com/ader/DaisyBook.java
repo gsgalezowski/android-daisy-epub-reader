@@ -1,6 +1,7 @@
 package com.ader;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -66,7 +67,7 @@ public class DaisyBook implements Serializable {
 		return path;
 	}
 
-	public void open(String nccPath) {
+	public void open(String nccPath) throws FileNotFoundException {
 		nccEntries.clear();
 		this.path = nccPath;
 		DaisyParser parser = new DaisyParser();
@@ -76,7 +77,7 @@ public class DaisyBook implements Serializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		ArrayList<DaisyElement> elements = parser.parse(path + "ncc.html");
+		ArrayList<DaisyElement> elements = parser.openAndParseFromFile(path + "ncc.html");
 		int level = 0;
 
 		for (int i = 0; i < elements.size(); i++) {
@@ -123,8 +124,16 @@ public class DaisyBook implements Serializable {
 		bookmark.setNccIndex(index);
 	}
 
+	/**
+	 * Go to the next section in the eBook
+	 * @param includeLevels - when true, pick the next section at a level
+	 * equal or higher than the level selected by the user, else simply go to
+	 * the next section.
+	 */
 	public void next(Boolean includeLevels) {
-		Util.logInfo(TAG, "next");
+		Util.logInfo(TAG, String.format(
+				"next called; includelevels: %b selectedLevel: %d, currentnccIndex: %d bookmark.getNccIndex: %d", 
+				includeLevels, selectedLevel, currentnccIndex, bookmark.getNccIndex()));
 		if (! includeLevels) {
 			if (currentnccIndex < nccEntries.size())
 				bookmark.setNccIndex(currentnccIndex + 1);
@@ -153,6 +162,7 @@ public class DaisyBook implements Serializable {
 			currentnccIndex = bookmark.getNccIndex();
 			smilFile.open(path + current().getSmil());
 			if (smilFile.getAudioSegments().size() > 0) {
+				// TODO (jharty): are we assuming we always get the first entry?
 				bookmark.setFilename(path + smilFile.getAudioSegments().get(0).getSrc());
 				bookmark.setPosition((int) smilFile.getAudioSegments().get(0).getClipBegin());
 			} else if (smilFile.getTextSegments().size() > 0) {
