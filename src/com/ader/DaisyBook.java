@@ -79,18 +79,36 @@ public class DaisyBook implements Serializable {
 		}
 		ArrayList<DaisyElement> elements = parser.openAndParseFromFile(path + "ncc.html");
 		int level = 0;
+		NCCEntryType type = NCCEntryType.UNKNOWN;
 
 		for (int i = 0; i < elements.size(); i++) {
+			String elementName = elements.get(i).getName();
+
 			// is it a heading element
-			if (elements.get(i).getName().matches("h[123456]")) {
-				level = Integer.decode(elements.get(i).getName().substring(1));
+			if (elementName.matches("h[123456]")) {
+				level = Integer.decode(elementName.substring(1));
+				type = NCCEntryType.LEVEL;
 				if (level > NCCDepth)
 					NCCDepth = level;
+				continue;
+			}
+
+			// Really just to speed the debugging...
+			if (elementName.matches("meta")) continue;
+
+			// Note: The following is a hack, we should check the 'class'
+			// attribute for a value containing "page-"
+			if (elementName.contains("span")
+				&& elements.get(i).getAttributes().getValue(0).contains("page-")) {
+				
+				type = NCCEntryType.PAGENUMBER;
 			}
 
 			// is it an anchor element
-			if (elements.get(i).getName().equalsIgnoreCase("a")) {
-				nccEntries.add(new NCCEntry(elements.get(i), level));
+			if (elementName.equalsIgnoreCase("a")) {
+				// TODO (jharty): level should only be set for content, not
+				// page-numbers, etc. However let's see where this takes us
+				nccEntries.add(new NCCEntry(elements.get(i), type, level));
 			}
 				
 		}
@@ -113,7 +131,8 @@ public class DaisyBook implements Serializable {
 		ArrayList<NCCEntry> displayItems = new ArrayList<NCCEntry>();
 
 		for (int i = 0; i < nccEntries.size(); i++)
-			if (nccEntries.get(i).getLevel() <= selectedLevel)
+			if (nccEntries.get(i).getLevel() <= selectedLevel 
+				&& nccEntries.get(i).getType() == NCCEntryType.LEVEL)
 				displayItems.add(nccEntries.get(i));
 		return displayItems;
 	}
@@ -135,11 +154,14 @@ public class DaisyBook implements Serializable {
 				"next called; includelevels: %b selectedLevel: %d, currentnccIndex: %d bookmark.getNccIndex: %d", 
 				includeLevels, selectedLevel, currentnccIndex, bookmark.getNccIndex()));
 		if (! includeLevels) {
-			if (currentnccIndex < nccEntries.size())
+			if (currentnccIndex < nccEntries.size()) {
+				// Note: this may need to go to the next entry with a type of 'LEVEL'
 				bookmark.setNccIndex(currentnccIndex + 1);
+			}
 		} else
 			for (int i = bookmark.getNccIndex() + 1; i < nccEntries.size(); i++)
-				if (nccEntries.get(i).getLevel() <= selectedLevel) {
+				if (nccEntries.get(i).getLevel() <= selectedLevel 
+					&& nccEntries.get(i).getType() == NCCEntryType.LEVEL) {
 					bookmark.setNccIndex(i);
 					break;
 				}
@@ -148,7 +170,8 @@ public class DaisyBook implements Serializable {
 	public void previous() {
 		Util.logInfo(TAG, "previous");
 		for (int i = bookmark.getNccIndex() -1; i > 0; i--)
-			if (nccEntries.get(i).getLevel() <= selectedLevel) {
+			if (nccEntries.get(i).getLevel() <= selectedLevel
+				&& nccEntries.get(i).getType() == NCCEntryType.LEVEL) {
 				bookmark.setNccIndex(i);
 				break;
 			}

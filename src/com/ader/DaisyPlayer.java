@@ -166,7 +166,7 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 				book.previous();
 				play();
 			} else if (g == Gesture.DOWN) {
-				book.next(false); // TODO (jharty): swapped from true to see if it helps
+				book.next(true);
 				play();
 			} else if (g == Gesture.LEFT) {
 				int levelSetTo = book.decrementSelectedLevel();
