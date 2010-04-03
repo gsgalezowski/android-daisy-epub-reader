@@ -4,14 +4,17 @@ import java.io.Serializable;
 
 public class NCCEntry implements Serializable {
 	
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
     private String smil;
 	private String smilRef;
 	private String text;
 	private int level;
+	private NCCEntryType type;
+	
 
-	public NCCEntry(DaisyElement element, int level) {
+	public NCCEntry(DaisyElement element, NCCEntryType type, int level) {
 		text  = element.getText();
+		this.type = type;
 		this.level = level;
 		smil = element.getAttributes().getValue("", "href");
 		int hashPosition = smil.indexOf("#");
@@ -19,6 +22,10 @@ public class NCCEntry implements Serializable {
 		smil = smil.substring(0, hashPosition);
 	}
 
+	public NCCEntryType getType() {
+		return type;
+	}
+	
 	public int getLevel() {
 		return level;
 	}
@@ -29,6 +36,10 @@ public class NCCEntry implements Serializable {
 
 	public String getSmilRef() {
 		return smilRef;
+	}
+	
+	public void setType(NCCEntryType type) {
+		this.type = type;
 	}
 	
 	public void setLevel(int level) {
