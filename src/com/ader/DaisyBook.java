@@ -149,32 +149,35 @@ public class DaisyBook implements Serializable {
 	 * equal or higher than the level selected by the user, else simply go to
 	 * the next section.
 	 */
-	public void next(Boolean includeLevels) {
+	public boolean next(Boolean includeLevels) {
 		Util.logInfo(TAG, String.format(
 				"next called; includelevels: %b selectedLevel: %d, currentnccIndex: %d bookmark.getNccIndex: %d", 
 				includeLevels, selectedLevel, currentnccIndex, bookmark.getNccIndex()));
-		if (! includeLevels) {
-			if (currentnccIndex < nccEntries.size()) {
-				// Note: this may need to go to the next entry with a type of 'LEVEL'
-				bookmark.setNccIndex(currentnccIndex + 1);
+		for (int i = bookmark.getNccIndex() + 1; i < nccEntries.size(); i++) {
+			if (nccEntries.get(i).getType() != NCCEntryType.LEVEL) {
+				continue;
 			}
-		} else
-			for (int i = bookmark.getNccIndex() + 1; i < nccEntries.size(); i++)
-				if (nccEntries.get(i).getLevel() <= selectedLevel 
-					&& nccEntries.get(i).getType() == NCCEntryType.LEVEL) {
-					bookmark.setNccIndex(i);
-					break;
-				}
+			
+			if (nccEntries.get(i).getLevel() > selectedLevel && includeLevels) {
+				continue;
+			}
+			
+			bookmark.setNccIndex(i);
+			return true;
+		}
+		// TODO (jharty): this seems dodgy, e.g. we could fall off the end of the structure without updating the bookmark.
+		return false;
 	}
 
-	public void previous() {
+	public boolean previous() {
 		Util.logInfo(TAG, "previous");
 		for (int i = bookmark.getNccIndex() -1; i > 0; i--)
 			if (nccEntries.get(i).getLevel() <= selectedLevel
 				&& nccEntries.get(i).getType() == NCCEntryType.LEVEL) {
 				bookmark.setNccIndex(i);
-				break;
+				return true;
 			}
+		return false;
 	}
 
 	void openSmil() {
