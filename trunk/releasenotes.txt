@@ -1,3 +1,6 @@
+r106 02 Apr 2010
+- This just might work well enough to be tolerable by users. There's still a lot that needs to be cleaned up in the code in order to make the player support things like navigation by page number, and there are some fairly ugly hacks in the code at the moment. However I've managed to address some of the navigation issues so that sections are no longer played several times when the book contains page numbers for a given section. Some tests have also been added over the last few changes for DaisyParser as a pre-cursor for restructuring of the code. Retrofitting tests should help to improve the code further :)
+
 r101 22 Mar 2010
 - Added a rough-cut icon for the application, it doesn't have transparancy and will need replacing at some point :)
 
