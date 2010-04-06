@@ -1,5 +1,13 @@
 package com.ader;
-
+/**
+ * This parser processes DAISY 2.02 specification, albeit incompletely.
+ * 
+ * We intend to add support for DAISY 3 and epub formats.
+ * 
+ * Currently the parsing is limited and does not detect malformed books. We
+ * want to add logic to detect malformed books. The reference will be the DAISY
+ * 2.02 Specification http://www.daisy.org/z3986/specifications/daisy_202.html
+ */
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
@@ -54,8 +62,6 @@ public class DaisyParser extends DefaultHandler {
 	@Override
 	public void endElement(String uri, String localName, String name)
 	throws SAXException {
-		// if (localName.equalsIgnoreCase("a"))
-		
 		current.setText(builder.toString());
 	}
 	
@@ -94,8 +100,8 @@ public class DaisyParser extends DefaultHandler {
         	saxParser.setEntityResolver(er);
         	saxParser.setContentHandler(this);
         	saxParser.parse(input);
-			// parser.parse(input, this);
-			return daisyElements;
+
+        	return daisyElements;
 		} catch (SAXException e) {
 			throw new RuntimeException(e);
 		} catch (IOException e) {

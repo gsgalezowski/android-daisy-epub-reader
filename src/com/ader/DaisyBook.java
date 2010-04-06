@@ -70,7 +70,16 @@ public class DaisyBook implements Serializable {
 		return path;
 	}
 
-	public void open(String nccPath) throws FileNotFoundException {
+	/**
+	 * Opens a Daisy Book from a file path.
+	 * 
+	 * Note: this is limited to the lower-case filename representing the ncc
+	 * file. TODO (jharty): add support for the upper-case equivalent (see the
+	 * DAISY 2.02 specification).
+	 * @param nccPath path to the ncc file
+	 * @throws FileNotFoundException if the file cannot be found or opened.
+	 */
+	public void openFromPath(String nccPath) throws FileNotFoundException {
 		nccEntries.clear();
 		this.path = nccPath;
 		DaisyParser parser = new DaisyParser();
@@ -81,6 +90,29 @@ public class DaisyBook implements Serializable {
 			e.printStackTrace();
 		}
 		ArrayList<DaisyElement> elements = parser.openAndParseFromFile(path + "ncc.html");
+		processDaisyElements(elements);
+	}
+	
+	/**
+	 * Open a Daisy Book using a text stream. 
+	 * 
+	 * This is intended to facilitate automated tests.
+	 * @param contents The text representing the contents of a DAISY 2.02
+	 * ncc.html file. 
+	 */
+	protected void open(String contents) {
+		DaisyParser parser = new DaisyParser();
+		ArrayList<DaisyElement> elements = parser.parse(contents);
+		processDaisyElements(elements);
+	}
+
+	/**
+	 * Processes the Daisy Elements, e.g. from DaisyParser()
+	 * @param elements The Daisy Book Elements
+	 * @throws NumberFormatException
+	 */
+	private void processDaisyElements(ArrayList<DaisyElement> elements)
+			throws NumberFormatException {
 		int level = 0;
 		NCCEntryType type = NCCEntryType.UNKNOWN;
 
@@ -117,6 +149,16 @@ public class DaisyBook implements Serializable {
 		}
 	}
 
+	/**
+	 * Loads the automatically created bookmark.
+	 * 
+	 * This bookmark keeps track of where the user is in this book. If it
+	 * doesn't exist, e.g. if this is the first time the user has opened this
+	 * book, then the bookmark will be created once the user starts reading the
+	 * book.
+	 * @throws IOException If there is a problem opening the file representing
+	 * the bookmark.
+	 */
 	public void loadAutoBookmark() throws IOException  {
 		String bookmarkFilename = path + "auto.bmk";
 		bookmark.load(bookmarkFilename);
