@@ -45,8 +45,11 @@ public class DaisyBook implements Serializable {
 		return NCCDepth;
 	}
 
-	public void setSelectedLevel(int level) {
-		this.selectedLevel = level;
+	public int setSelectedLevel(int level) {
+		if (level >= 1 && level <= NCCDepth) {
+			this.selectedLevel = level;
+		}
+		return this.selectedLevel;
 	}
 
 	public int incrementSelectedLevel() {
@@ -149,7 +152,7 @@ public class DaisyBook implements Serializable {
 	 * equal or higher than the level selected by the user, else simply go to
 	 * the next section.
 	 */
-	public boolean next(Boolean includeLevels) {
+	public boolean nextSection(Boolean includeLevels) {
 		Util.logInfo(TAG, String.format(
 				"next called; includelevels: %b selectedLevel: %d, currentnccIndex: %d bookmark.getNccIndex: %d", 
 				includeLevels, selectedLevel, currentnccIndex, bookmark.getNccIndex()));
@@ -169,7 +172,7 @@ public class DaisyBook implements Serializable {
 		return false;
 	}
 
-	public boolean previous() {
+	public boolean previousSection() {
 		Util.logInfo(TAG, "previous");
 		for (int i = bookmark.getNccIndex() -1; i > 0; i--)
 			if (nccEntries.get(i).getLevel() <= selectedLevel
