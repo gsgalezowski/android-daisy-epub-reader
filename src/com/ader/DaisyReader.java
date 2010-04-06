@@ -29,7 +29,12 @@ public class DaisyReader extends ListActivity {
 
 		try {
 			activateGesture();
-			book.openFromPath(getIntent().getStringExtra("daisyPath"));
+			try {
+				book.openFromPath(getIntent().getStringExtra("daisyPath"));
+			} catch (InvalidDaisyStructureException idse) {
+				// TODO(jharty): add a UI to help the user address the problem.
+				idse.printStackTrace();
+			}
 			book.loadAutoBookmark();
 			displayContents();
 			 getListView().setSelection(book.getDisplayPosition());
