@@ -25,9 +25,6 @@ public class DaisyBookTest extends TestCase {
 	 * to 'fix' the paths. This test makes sure that that code enables the
 	 * SAX parser to find the referenced files.
 	 * 
-	 *  We may make the test more potent in future revisions as currently it
-	 *  lacks asserts.
-	 *  
 	 * @throws IOException - only for the logging code (we may remove it soon).
 	 */
 	public void testDaisy202BookCanBeOpenedWithoutError() throws IOException {
@@ -40,5 +37,24 @@ public class DaisyBookTest extends TestCase {
 		daisyBook.open(path + "/Resources/light-man/");
 		daisyBook.loadAutoBookmark();
 		daisyBook.openSmil();
+		assertEquals("The light-man book should have 1 level of content", 1, daisyBook.getNCCDepth());
+		daisyBook.setSelectedLevel(1);
+		assertEquals("The light-man book should have.. ", 17, daisyBook.getNavigationDisplay().size());
+	}
+	
+	public void testLevelsCanBeSetCorrentlyFor1LevelDaisy202Book() throws IOException {
+		String path = new File(".").getCanonicalPath();
+		Util.logInfo("Path", path);
+		daisyBook.open(path + "/Resources/light-man/");
+		daisyBook.loadAutoBookmark();
+		daisyBook.openSmil();
+		assertEquals("The light-man book should have 1 level of content", 1, daisyBook.getNCCDepth());
+		daisyBook.setSelectedLevel(1);
+		assertEquals("The light-man book should have.. ", 17, daisyBook.getNavigationDisplay().size());
+		daisyBook.setSelectedLevel(2);
+		assertEquals("The light-man book should still have 17 levels even if the selected " 
+				+ "depth > than the number of levels in the book.. ", 17, daisyBook.getNavigationDisplay().size());
+		assertEquals("The minimum selected level should be 1, even if we select 0", 1, daisyBook.setSelectedLevel(0));
+		assertEquals("The light-man book should have.. ", 17, daisyBook.getNavigationDisplay().size());
 	}
 }

@@ -68,7 +68,7 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	public void onCompletion(MediaPlayer mp) {
 		Util.logInfo(TAG, "onCompletion called.");
 		// stop();
-		if (book.next(false)) {
+		if (book.nextSection(false)) {
 			play();
 		}
 	}
@@ -164,11 +164,11 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 			if (g == Gesture.CENTER) {
 				togglePlay();
 			} else if (g == Gesture.UP) {
-				if (book.previous()) {
+				if (book.previousSection()) {
 					play();
 				}
 			} else if (g == Gesture.DOWN) {
-				if (book.next(true)) {
+				if (book.nextSection(true)) {
 					play();
 				}
 			} else if (g == Gesture.LEFT) {
