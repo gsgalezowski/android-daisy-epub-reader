@@ -29,7 +29,7 @@ public class DaisyReader extends ListActivity {
 
 		try {
 			activateGesture();
-			book.open(getIntent().getStringExtra("daisyPath"));
+			book.openFromPath(getIntent().getStringExtra("daisyPath"));
 			book.loadAutoBookmark();
 			displayContents();
 			 getListView().setSelection(book.getDisplayPosition());
