@@ -78,8 +78,10 @@ public class DaisyBook implements Serializable {
 	 * DAISY 2.02 specification).
 	 * @param nccPath path to the ncc file
 	 * @throws FileNotFoundException if the file cannot be found or opened.
+	 * @throws InvalidDaisyStructureException if there are serious problems in
+	 * the book structure.
 	 */
-	public void openFromPath(String nccPath) throws FileNotFoundException {
+	public void openFromPath(String nccPath) throws FileNotFoundException, InvalidDaisyStructureException {
 		nccEntries.clear();
 		this.path = nccPath;
 		DaisyParser parser = new DaisyParser();
@@ -91,6 +93,7 @@ public class DaisyBook implements Serializable {
 		}
 		ArrayList<DaisyElement> elements = parser.openAndParseFromFile(path + "ncc.html");
 		processDaisyElements(elements);
+		validateDaisyContents();
 	}
 	
 	/**
@@ -100,54 +103,13 @@ public class DaisyBook implements Serializable {
 	 * @param contents The text representing the contents of a DAISY 2.02
 	 * ncc.html file. 
 	 */
-	protected void open(String contents) {
+	protected void open(String contents) throws InvalidDaisyStructureException {
 		DaisyParser parser = new DaisyParser();
 		ArrayList<DaisyElement> elements = parser.parse(contents);
 		processDaisyElements(elements);
+		validateDaisyContents();
 	}
 
-	/**
-	 * Processes the Daisy Elements, e.g. from DaisyParser()
-	 * @param elements The Daisy Book Elements
-	 * @throws NumberFormatException
-	 */
-	private void processDaisyElements(ArrayList<DaisyElement> elements)
-			throws NumberFormatException {
-		int level = 0;
-		NCCEntryType type = NCCEntryType.UNKNOWN;
-
-		for (int i = 0; i < elements.size(); i++) {
-			String elementName = elements.get(i).getName();
-
-			// is it a heading element
-			if (elementName.matches("h[123456]")) {
-				level = Integer.decode(elementName.substring(1));
-				type = NCCEntryType.LEVEL;
-				if (level > NCCDepth)
-					NCCDepth = level;
-				continue;
-			}
-
-			// Really just to speed the debugging...
-			if (elementName.matches("meta")) continue;
-
-			// Note: The following is a hack, we should check the 'class'
-			// attribute for a value containing "page-"
-			if (elementName.contains("span")
-				&& elements.get(i).getAttributes().getValue(0).contains("page-")) {
-				
-				type = NCCEntryType.PAGENUMBER;
-			}
-
-			// is it an anchor element
-			if (elementName.equalsIgnoreCase("a")) {
-				// TODO (jharty): level should only be set for content, not
-				// page-numbers, etc. However let's see where this takes us
-				nccEntries.add(new NCCEntry(elements.get(i), type, level));
-			}
-				
-		}
-	}
 
 	/**
 	 * Loads the automatically created bookmark.
@@ -260,4 +222,56 @@ public class DaisyBook implements Serializable {
 		return smilFile.getTextSegments().size() > 0;
 	}
 	
+	protected void validateDaisyContents() throws InvalidDaisyStructureException {
+		// Check there is at least one H1 element
+		for (int i = 0; i < nccEntries.size(); i++) {
+			NCCEntry entry = nccEntries.get(i);
+			if (entry.getType() == NCCEntryType.LEVEL && entry.getLevel() == 1) {
+				return;
+			}
+		}
+		throw new InvalidDaisyStructureException("No H1 level in the book");
+	}
+	
+	/**
+	 * Processes the Daisy Elements, e.g. from DaisyParser()
+	 * @param elements The Daisy Book Elements
+	 * @throws NumberFormatException
+	 */
+	private void processDaisyElements(ArrayList<DaisyElement> elements)
+	throws NumberFormatException {
+		int level = 0;
+		NCCEntryType type = NCCEntryType.UNKNOWN;
+		
+		for (int i = 0; i < elements.size(); i++) {
+			String elementName = elements.get(i).getName();
+			
+			// is it a heading element
+			if (elementName.matches("h[123456]")) {
+				level = Integer.decode(elementName.substring(1));
+				type = NCCEntryType.LEVEL;
+				if (level > NCCDepth)
+					NCCDepth = level;
+				continue;
+			}
+			
+			// Really just to speed the debugging...
+			if (elementName.matches("meta")) continue;
+			
+			// Note: The following is a hack, we should check the 'class'
+			// attribute for a value containing "page-"
+			if (elementName.contains("span")
+					&& elements.get(i).getAttributes().getValue(0).contains("page-")) {
+				
+				type = NCCEntryType.PAGENUMBER;
+			}
+			
+			// is it an anchor element
+			if (elementName.equalsIgnoreCase("a")) {
+				// TODO (jharty): level should only be set for content, not
+				// page-numbers, etc. However let's see where this takes us
+				nccEntries.add(new NCCEntry(elements.get(i), type, level));
+			}
+		}
+	}
 }

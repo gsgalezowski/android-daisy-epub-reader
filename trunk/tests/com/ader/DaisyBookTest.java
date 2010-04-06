@@ -27,7 +27,7 @@ public class DaisyBookTest extends TestCase {
 	 * 
 	 * @throws IOException - only for the logging code (we may remove it soon).
 	 */
-	public void testDaisy202BookCanBeOpenedWithoutError() throws IOException {
+	public void testDaisy202BookCanBeOpenedWithoutError() throws Exception {
 		for(String name : new File(".").list()) {
 			Util.logInfo("DaisyBookTest", name);
 		}
@@ -42,7 +42,7 @@ public class DaisyBookTest extends TestCase {
 		assertEquals("The light-man book should have.. ", 17, daisyBook.getNavigationDisplay().size());
 	}
 	
-	public void testLevelsCanBeSetCorrentlyFor1LevelDaisy202Book() throws IOException {
+	public void testLevelsCanBeSetCorrentlyFor1LevelDaisy202Book() throws Exception {
 		String path = new File(".").getCanonicalPath();
 		Util.logInfo("Path", path);
 		daisyBook.openFromPath(path + "/Resources/light-man/");
