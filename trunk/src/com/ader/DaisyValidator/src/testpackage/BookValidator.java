@@ -1,4 +1,4 @@
-package testpackage;
+package com.ader.DaisyValidator.src.testpackage;
 
 import java.io.File;
 import java.io.FilenameFilter;

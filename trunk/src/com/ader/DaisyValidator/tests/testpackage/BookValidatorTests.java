@@ -1,4 +1,6 @@
-package testpackage;
+package com.ader.DaisyValidator.tests.testpackage;
+
+import com.ader.DaisyValidator.src.testpackage.BookValidator;
 
 import junit.framework.TestCase;
 
