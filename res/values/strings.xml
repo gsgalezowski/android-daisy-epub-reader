@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="hello">Hello World, DaisyReader!</string>
-    <string name="app_name">Daisy Reader</string>
+    <string name="app_name">Android Daisy Epub Reader</string>
     <string name="playing">Playing</string>
     <string name="stopped">Stopped</string>
     <string name="unable_to_open_file">Unable to open file</string>
@@ -22,5 +22,10 @@
     </string>
     <string name="player_instructions_description">Instructions for the DAISY player</string>
     <string name="close_instructions">Close Instructions</string>
-   
+   	<string name="homepage_title">Android Daisy Epub Reader</string>
+    <string name="open_book">Open book</string>
+    <string name="search_books">Search for books</string>
+    <string name="open_last_book">Open last book</string>
+    <string name="settings">Settings</string>
+    <string name="help">Help</string>
 </resources>

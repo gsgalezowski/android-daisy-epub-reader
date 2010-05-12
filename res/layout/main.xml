@@ -1,12 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:padding="10dip"
+    android:background="@color/background_colour"
     >
-<TextView  
-    android:layout_width="fill_parent" 
-    android:layout_height="wrap_content" 
-    android:text="@string/hello"
-    />
+    <LinearLayout
+		android:orientation="vertical"
+		android:layout_height="wrap_content"
+		android:layout_width="fill_parent"
+		android:layout_gravity="center" >
+		<TextView  
+		    android:layout_width="wrap_content" 
+		    android:layout_height="wrap_content" 
+		    android:layout_gravity="center"
+			android:layout_marginBottom="25dip"
+			android:textSize="21sp"
+		    android:text="@string/homepage_title"
+		    android:textColor="@color/titles_colour"
+		    android:textStyle="bold"
+		    />
+		<Button
+			android:id="@+id/open_button"
+			android:layout_width="fill_parent" 
+		    android:layout_height="wrap_content" 
+		    android:text="@string/open_book"
+		    android:textStyle="bold"
+		    />
+		<Button
+			android:id="@+id/search_button"
+			android:layout_width="fill_parent" 
+		    android:layout_height="wrap_content" 
+		    android:text="@string/search_books"
+		    android:textStyle="bold"
+		    />
+		<Button
+			android:id="@+id/open_last_button"
+			android:layout_width="fill_parent" 
+		    android:layout_height="wrap_content" 
+		    android:text="@string/open_last_book"
+		    android:textStyle="bold"
+		    />
+		<Button
+			android:id="@+id/settings_button"
+			android:layout_width="fill_parent" 
+		    android:layout_height="wrap_content" 
+		    android:text="@string/settings"
+		    android:textStyle="bold"
+		    />
+		<Button
+			android:id="@+id/help_button"
+			android:layout_width="fill_parent" 
+		    android:layout_height="wrap_content" 
+		    android:text="@string/help"
+		    android:textStyle="bold"
+		    />
+    </LinearLayout>
 </LinearLayout>
