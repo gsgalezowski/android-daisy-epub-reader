@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_height="fill_parent"
+	android:layout_width="fill_parent"
+	android:padding="15dip"
+	android:orientation="horizontal"	
+    android:background="@color/background_colour"
+     >
+		<LinearLayout
+			android:orientation="vertical"
+			android:layout_height="wrap_content"
+			android:layout_width="fill_parent"
+			android:layout_gravity="center"
+			android:paddingLeft="20dip"
+			android:paddingRight="20dip" >
+				<TextView
+					android:text="@string/homepage_title"
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:layout_gravity="center"
+					android:layout_marginBottom="20dip"
+					android:textSize="21sp"
+					android:textColor="@color/titles_colour"
+		    		android:textStyle="bold" 
+		    		/>
+				<TableLayout
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:layout_gravity="center"
+					android:stretchColumns="*" >
+					<TableRow>
+						<Button
+							android:id="@+id/open_button"
+							android:text="@string/open_book"
+		    				android:textStyle="bold" />
+						<Button
+							android:id="@+id/search_button"
+							android:text="@string/search_books"
+		    				android:textStyle="bold" />
+					</TableRow>
+					<TableRow>
+						<Button
+							android:id="@+id/open_last_button"
+							android:text="@string/open_last_book"
+		    				android:textStyle="bold" />
+						<Button
+							android:id="@+id/setting_button"
+							android:text="@string/settings"
+		    				android:textStyle="bold" />
+					</TableRow>
+					
+						<Button
+							android:id="@+id/help_button"
+							android:text="@string/help"
+		    				android:textStyle="bold" />
+					
+				</TableLayout>
+		</LinearLayout>
+</LinearLayout>
