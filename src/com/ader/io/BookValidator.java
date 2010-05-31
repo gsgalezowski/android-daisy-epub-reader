@@ -1,4 +1,4 @@
-package com.ader.DaisyValidator.src.testpackage;
+package com.ader.io;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -11,6 +11,13 @@ public class BookValidator {
 	private ArrayList<String> BookList = new ArrayList<String>();
 	private File fileSystem;
 
+	/*
+	 * Notes to Gary:
+	 * 1. What are your thoughts on returning the set of books here?
+	 * 2. Currently a NullPointerException is thrown if the path isn't found;
+	 *    Either return a NoFilesFound (or similar) exception or return an
+	 *    empty list of books.
+	 */
 	public void findBooks(String path) {
 		
 		
