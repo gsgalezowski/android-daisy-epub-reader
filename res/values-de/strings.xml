@@ -4,27 +4,27 @@
     <string name="app_name">Android Daisy Epub Reader</string>
     <string name="playing">Spielen</string>
     <string name="stopped">Gestoppt</string>
-    <string name="unable_to_open_file">Datei kann nicht geöffnet werden</string>
-    <string name="return_to_homescreen">Zurück zum Hauptbildschirm</string>
+    <string name="unable_to_open_file">Datei kann nicht geï¿½ffnet werden</string>
+    <string name="return_to_homescreen">Zurï¿½ck zum Hauptbildschirm</string>
     <string name="player_instructions">Gesten zum Steuern des Spielers.
     
     Tippe auf die Mitte des Bildschirms um den aktuellen titel anzuhalten oder fortzusetzen.
     
-    Ziehen (Berühre mit deinem Finger den bildschirm, bewege ihn in einer geraden Linie und hebe ihn wieder.) Wird für die folgenden Gesten verwendet:
+    Ziehen (Berï¿½hre mit deinem Finger den bildschirm, bewege ihn in einer geraden Linie und hebe ihn wieder.) Wird fï¿½r die folgenden Gesten verwendet:
 
     Nach oben ziehen, um zum vorherigen Abschnitt auf der aktuellen Ebene zu gehen.
-    Nach unten ziehen, um zum nächsten Abschnitt auf der aktuellen Ebene zu gehen.
-   Von Links nach Rechts ziehen, um die Ebene zu erhöhen.
+    Nach unten ziehen, um zum nï¿½chsten Abschnitt auf der aktuellen Ebene zu gehen.
+   Von Links nach Rechts ziehen, um die Ebene zu erhï¿½hen.
     Von Rechts nach Links ziehen, um die Ebene zu verringern.
     
-    Der Inhalt eines Daisy-Buchs kann sich auf einer einzelnen oder auf mehreren Ebenen befinden. Z. B. können die Kapitel auf der ersten und die einzelnen Abschnitte auf der zweiten Ebene dargestellt sein.
+    Der Inhalt eines Daisy-Buchs kann sich auf einer einzelnen oder auf mehreren Ebenen befinden. Z. B. kï¿½nnen die Kapitel auf der ersten und die einzelnen Abschnitte auf der zweiten Ebene dargestellt sein.
     </string>
-    <string name="player_instructions_description">Anleitung für den DAISY player</string>
-    <string name="close_instructions">Anleitung schließen</string>
+    <string name="player_instructions_description">Anleitung fï¿½r den DAISY player</string>
+    <string name="close_instructions">Anleitung schlieï¿½en</string>
    	<string name="homepage_title">Android Daisy Epub Reader</string>
-    <string name="open_book">Buch öffnen</string>
+    <string name="open_book">Buch ï¿½ffnen</string>
     <string name="search_books">Buch suchen</string>
-    <string name="open_last_book">Letztes Buch öffnen</string>
+    <string name="open_last_book">Letztes Buch ï¿½ffnen</string>
     <string name="settings">Einstellungen</string>
     <string name="help">Hilfe</string>
 </resources>
