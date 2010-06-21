@@ -13,7 +13,6 @@ public class DaisyBookFinder {
 
 	public void findBooks(String path) {
 		
-		
 		FilenameFilter dirFilter = new FilenameFilter() {
 			
 			public boolean accept(File dir, String name) {
