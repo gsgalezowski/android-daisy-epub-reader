@@ -4,6 +4,7 @@ package com.ader.io;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 
@@ -18,6 +19,8 @@ public class BookValidatorTests extends TestCase {
 	private final String dummyValidTextFile = dummyValidPath + "dummyfile.txt";
 	private final String dummyValidDaisyBookFolder = dummyValidPath + "validbook";
 	private final String dummyValidDaisy202IndexFile = dummyValidDaisyBookFolder + "/ncc.html";
+	private final String dummySecondDaisyBookFolder = dummyValidPath + "anotherbook";
+	private final String dummyValidDaisy202UpperCaseIndexFile = dummySecondDaisyBookFolder + "/NCC.HTML";
 	private final String dummyValidBook = dummyValidDaisyBookFolder;
 	private final String dummyEmptyFolder = dummyValidPath + "emptyfolder/";
 	BookValidator validator = new BookValidator();
@@ -119,8 +122,39 @@ public class BookValidatorTests extends TestCase {
 		// external content as these tests mature.
 		// validator.findBooks("d:\\books"); -- commented out until I check the previous source
 		validator.findBooks(dummyValidPath);
-		assertTrue("there should be at least one book in the book list", validator.getBookList().size() > 0);  
-		assertEquals("The path for the valid book is incorrect", dummyValidBook, validator.getBookList().get(0));
+		assertTrue("there should be at least one book in the book list",
+				validator.getBookList().size() > 0);  
+		assertEquals("The path for the valid book is incorrect",
+				dummyValidBook, validator.getBookList().get(0));
+	}
+	
+	public void testValidBookWithUpperCaseIndexFileFound() throws Exception {
+		
+		if (new File(dummySecondDaisyBookFolder).exists() || new File(dummySecondDaisyBookFolder).mkdirs()) {
+			File validUpperCaseDaisy202BookOnDisk = new File(dummyValidDaisy202UpperCaseIndexFile);
+			FileOutputStream out = new FileOutputStream(validUpperCaseDaisy202BookOnDisk); 
+			eBook = new CreateDaisy202Book(out);
+			eBook.writeXmlHeader();
+			eBook.writeDoctype();
+			eBook.writeXmlns();
+			eBook.writeBasicMetadata();
+			eBook.addLevelOne();
+			eBook.writeEndOfDocument();
+			out.close(); // Now, save the changes.
+			
+		}
+		
+		assertTrue("The newly created book should exist.",
+				new File(dummyValidDaisy202UpperCaseIndexFile).exists());
+		
+		validator.validFileSystemRoot(dummySecondDaisyBookFolder);
+		validator.findBooks(dummySecondDaisyBookFolder);
+
+		assertTrue("there should be one book in the book list",
+				validator.getBookList().size() == 1);  
+		assertEquals("The path for the valid book is incorrect",
+				dummySecondDaisyBookFolder, validator.getBookList().get(0));
+
 	}
 	
 	/*
