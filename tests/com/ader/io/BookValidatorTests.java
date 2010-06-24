@@ -15,10 +15,10 @@ import junit.framework.TestCase;
 
 public class BookValidatorTests extends TestCase {
 	private final String dummyValidPath = System.getProperty("java.io.tmpdir") + "/daisyreadertests/";
-	private final String DUMMYTEXTFILE = dummyValidPath + "dummyfile.txt";
-	private final String DUMMYVALIDDAISYBOOKFOLDER = dummyValidPath + "validbook/";
-	private final String DUMMYVALIDDAISY202INDEXFILE = DUMMYVALIDDAISYBOOKFOLDER + "ncc.html";
-	private final String dummyValidBook = DUMMYVALIDDAISYBOOKFOLDER;
+	private final String dummyValidTextFile = dummyValidPath + "dummyfile.txt";
+	private final String dummyValidDaisyBookFolder = dummyValidPath + "validbook";
+	private final String dummyValidDaisy202IndexFile = dummyValidDaisyBookFolder + "/ncc.html";
+	private final String dummyValidBook = dummyValidDaisyBookFolder;
 	private final String dummyEmptyFolder = dummyValidPath + "emptyfolder/";
 	BookValidator validator = new BookValidator();
 	CreateDaisy202Book eBook;
@@ -36,19 +36,19 @@ public class BookValidatorTests extends TestCase {
 		// TODO (jharty): find out how to stop needing so many 'new File(...)' calls
 		if (new File(dummyValidPath).exists() || new File(dummyValidPath).mkdirs()) {}
 		if (new File(dummyEmptyFolder).exists() || new File(dummyEmptyFolder).mkdirs()) {}
-		if (!new File(DUMMYTEXTFILE).exists()) {
+		if (!new File(dummyValidTextFile).exists()) {
 			// TODO (jharty): There MUST be a cleaner way to code this!
-			File dummyFile = new File(DUMMYTEXTFILE);
+			File dummyFile = new File(dummyValidTextFile);
 			FileOutputStream myFile = new FileOutputStream(dummyFile);
 			new PrintStream(myFile).println("some junk text which should be ignored.");
 			myFile.close();
 		}
 		// Check whether the folder already exists
-		if (new File(DUMMYVALIDDAISYBOOKFOLDER).exists() || new File(DUMMYVALIDDAISYBOOKFOLDER).mkdirs()) {
+		if (new File(dummyValidDaisyBookFolder).exists() || new File(dummyValidDaisyBookFolder).mkdirs()) {
 			// If the ncc.html file doesn't exist, create it
-			if(!new File(DUMMYVALIDDAISY202INDEXFILE).exists()) {
+			if(!new File(dummyValidDaisy202IndexFile).exists()) {
 				// How about creating a helper method WriteableFile(...)? to make the code readable
-				File validDaisy202BookOnDisk = new File(DUMMYVALIDDAISY202INDEXFILE);
+				File validDaisy202BookOnDisk = new File(dummyValidDaisy202IndexFile);
 				FileOutputStream out = new FileOutputStream(validDaisy202BookOnDisk); 
 				eBook = new CreateDaisy202Book(out);
 				eBook.writeXmlHeader();
@@ -83,7 +83,7 @@ public class BookValidatorTests extends TestCase {
 
 	public void testShouldFailForFileWhichIsNotAFolder() {
 		assertFalse("an valid path should pass", validator
-				.validFileSystemRoot(DUMMYTEXTFILE));
+				.validFileSystemRoot(dummyValidTextFile));
 	}
 
 	public void testEmptySubfolderListWhenNoSubfolders() {
@@ -120,6 +120,7 @@ public class BookValidatorTests extends TestCase {
 		// validator.findBooks("d:\\books"); -- commented out until I check the previous source
 		validator.findBooks(dummyValidPath);
 		assertTrue("there should be at least one book in the book list", validator.getBookList().size() > 0);  
+		assertEquals("The path for the valid book is incorrect", dummyValidBook, validator.getBookList().get(0));
 	}
 	
 	/*

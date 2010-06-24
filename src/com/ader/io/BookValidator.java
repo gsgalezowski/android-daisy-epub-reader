@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
+import com.ader.Util;
+
 public class BookValidator {
 	private ArrayList<String> folderList = new ArrayList<String>();
 	private ArrayList<String> BookList = new ArrayList<String>();
@@ -64,7 +66,7 @@ public class BookValidator {
 
 	public ArrayList<String> getBookList() {
 		for (String path : BookList)
-			System.out.println(path);
+			Util.logInfo("BookValidator", "Book available at : " + path);
 		return BookList;
 	}
 
