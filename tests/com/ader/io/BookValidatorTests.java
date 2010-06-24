@@ -7,24 +7,25 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 
+import android.util.Log;
+
 import com.ader.testutilities.CreateDaisy202Book;
 
 import junit.framework.TestCase;
 
 public class BookValidatorTests extends TestCase {
-	private static final String dummyValidPath = "/tmp/sdcard/daisyreadertests/";
-	private static final String dummyFileWhichIsNotAFolder = dummyValidPath + "dummyfile.txt";
-	private static final String DUMMYVALIDDAISYBOOKFOLDER = dummyValidPath + "validbook/";
-	private static final String DUMMYVALIDDAISY202INDEXFILE = DUMMYVALIDDAISYBOOKFOLDER + "ncc.html";
-	private static final String dummyValidBook = DUMMYVALIDDAISYBOOKFOLDER;
-	private static final String dummyEmptyFolder = dummyValidPath + "emptyfolder/";
+	private final String dummyValidPath = System.getProperty("java.io.tmpdir") + "/daisyreadertests/";
+	private final String DUMMYTEXTFILE = dummyValidPath + "dummyfile.txt";
+	private final String DUMMYVALIDDAISYBOOKFOLDER = dummyValidPath + "validbook/";
+	private final String DUMMYVALIDDAISY202INDEXFILE = DUMMYVALIDDAISYBOOKFOLDER + "ncc.html";
+	private final String dummyValidBook = DUMMYVALIDDAISYBOOKFOLDER;
+	private final String dummyEmptyFolder = dummyValidPath + "emptyfolder/";
 	BookValidator validator = new BookValidator();
 	CreateDaisy202Book eBook;
 	
 	
 	@Override
 	protected void setUp() throws Exception {
-		// TODO Auto-generated method stub
 		// TODO (jharty): We need to create the folders and files that will be
 		// used by these tests. At first we can probably live with creating and
 		// purging the folders and files for each test, but we should try to
@@ -35,9 +36,9 @@ public class BookValidatorTests extends TestCase {
 		// TODO (jharty): find out how to stop needing so many 'new File(...)' calls
 		if (new File(dummyValidPath).exists() || new File(dummyValidPath).mkdirs()) {}
 		if (new File(dummyEmptyFolder).exists() || new File(dummyEmptyFolder).mkdirs()) {}
-		if (!new File(dummyFileWhichIsNotAFolder).exists()) {
+		if (!new File(DUMMYTEXTFILE).exists()) {
 			// TODO (jharty): There MUST be a cleaner way to code this!
-			File dummyFile = new File(dummyFileWhichIsNotAFolder);
+			File dummyFile = new File(DUMMYTEXTFILE);
 			FileOutputStream myFile = new FileOutputStream(dummyFile);
 			new PrintStream(myFile).println("some junk text which should be ignored.");
 			myFile.close();
@@ -65,12 +66,9 @@ public class BookValidatorTests extends TestCase {
 
 	@Override
 	protected void tearDown() throws Exception {
-		// TODO (jharty): see note in setUp() about streamlining the file and
-		// folder creation, etc.
 		super.tearDown();
-		File cleanup = new File("/tmp/sdcard/");
-		// TODO (jharty): I still need to delete the folders and files
-		cleanup.delete();
+		File cleanup = new File(dummyValidPath);
+		recursiveDelete(cleanup);
 	}
 
 	public void testShouldFailForInvalidFileSystemRoot() {
@@ -85,7 +83,7 @@ public class BookValidatorTests extends TestCase {
 
 	public void testShouldFailForFileWhichIsNotAFolder() {
 		assertFalse("an valid path should pass", validator
-				.validFileSystemRoot(dummyFileWhichIsNotAFolder));
+				.validFileSystemRoot(DUMMYTEXTFILE));
 	}
 
 	public void testEmptySubfolderListWhenNoSubfolders() {
@@ -123,4 +121,30 @@ public class BookValidatorTests extends TestCase {
 		validator.findBooks(dummyValidPath);
 		assertTrue("there should be at least one book in the book list", validator.getBookList().size() > 0);  
 	}
+	
+	/*
+	 * Recursively delete file or directory
+	 * @param fileOrDir the file or dir to delete
+	 * @return true iff all files are successfully deleted
+	 * 
+	 * This code based on an answer from:
+	 * http://stackoverflow.com/questions/617414/create-a-temporary-directory-in-java
+	 */
+	private static boolean recursiveDelete(File fileOrDir)
+	{
+	    if(fileOrDir.isDirectory())
+	    {
+	        // recursively delete contents
+	        for(File innerFile: fileOrDir.listFiles())
+	        {
+	            if(!BookValidatorTests.recursiveDelete(innerFile))
+	            {
+	                return false;
+	            }
+	        }
+	    }
+
+	    return fileOrDir.delete();
+	}
+
 }
