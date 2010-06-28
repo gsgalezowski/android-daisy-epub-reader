@@ -120,7 +120,7 @@ public class BookValidatorTests extends TestCase {
 		// read an external book from the filesystem (rather than one we
 		// create in these tests. We need to decide how much to rely on
 		// external content as these tests mature.
-		// validator.findBooks("d:\\books"); -- commented out until I check the previous source
+
 		validator.findBooks(dummyValidPath);
 		assertTrue("there should be at least one book in the book list",
 				validator.getBookList().size() > 0);  

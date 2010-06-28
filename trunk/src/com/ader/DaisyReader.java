@@ -30,7 +30,8 @@ public class DaisyReader extends ListActivity {
 		try {
 			activateGesture();
 			try {
-				book.openFromPath(getIntent().getStringExtra("daisyPath"));
+				book.openFromFile(getIntent().getStringExtra("daisyPath") 
+						+ getIntent().getStringExtra("daisyNccFile"));
 			} catch (InvalidDaisyStructureException idse) {
 				// TODO(jharty): add a UI to help the user address the problem.
 				idse.printStackTrace();

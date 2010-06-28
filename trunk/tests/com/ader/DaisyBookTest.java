@@ -34,7 +34,7 @@ public class DaisyBookTest extends TestCase {
 		
 		String path = new File(".").getCanonicalPath();
 		Util.logInfo("Path", path);
-		daisyBook.openFromPath(path + "/Resources/light-man/");
+		daisyBook.openFromFile(path + "/Resources/light-man/ncc.html");
 		daisyBook.loadAutoBookmark();
 		daisyBook.openSmil();
 		assertEquals("The light-man book should have 1 level of content", 1, daisyBook.getNCCDepth());
@@ -45,7 +45,7 @@ public class DaisyBookTest extends TestCase {
 	public void testLevelsCanBeSetCorrentlyFor1LevelDaisy202Book() throws Exception {
 		String path = new File(".").getCanonicalPath();
 		Util.logInfo("Path", path);
-		daisyBook.openFromPath(path + "/Resources/light-man/");
+		daisyBook.openFromFile(path + "/Resources/light-man/ncc.html");
 		daisyBook.loadAutoBookmark();
 		daisyBook.openSmil();
 		assertEquals("The light-man book should have 1 level of content", 1, daisyBook.getNCCDepth());
