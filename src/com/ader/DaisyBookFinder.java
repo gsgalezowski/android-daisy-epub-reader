@@ -20,13 +20,15 @@ import com.ader.io.BookValidator;
 
 public class DaisyBookFinder extends ListActivity {
 	private ArrayList<String> books;
+	BookValidator validator;
 	private static final String TAG = "DaisyBookFinder";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
         Util.logInfo(TAG, "onCreate");
-        BookValidator validator = new BookValidator();
+                
+        validator = new BookValidator();
         validator.findBooks("/sdcard/");
         books = validator.getBookList();
         PopulateList();
@@ -47,6 +49,7 @@ public class DaisyBookFinder extends ListActivity {
 	void PopulateList() {
 		// TODO (jharty): format the list of books more attractively.
 		setListAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, books));
+		getListView().setTextFilterEnabled(true);
 	}
 	
 }
