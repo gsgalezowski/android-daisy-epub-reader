@@ -1,5 +1,18 @@
 package com.ader;
 
+/**
+ * DaisyBrowser enables the user to pick the book they want to read.
+ * 
+ * It is used to navigate through a folder structure on the device, starting
+ * with the /sdcard/ For now we assume always exists, we need to make the code
+ * both more robust e.g. in case the sdcard is busy or unavailable, and more
+ * flexible e.g. the user may want to store the books elsewhere.
+ * 
+ * This code is getting kinda creaky and is due for revamping. As we're
+ * actively integrating BookValidator I can accept the current code for now
+ * since some of the current hacks should be able to be removed during the
+ * integration work.
+ */
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,7 +42,9 @@ public class DaisyBrowser extends ListActivity {
         if (!aFile.isDirectory())
             return false;
 
-        if (new File(aFile, "ncc.html").exists())
+        // Minor hack to cope with the potential of ALL CAPS filename, as per
+        // http://www.daisy.org/z3986/specifications/daisy_202.html#ncc
+        if (new File(aFile, "ncc.html").exists() || new File(aFile, "NCC.HTML").exists())
             return true;
         else
             return false;
@@ -41,12 +56,12 @@ public class DaisyBrowser extends ListActivity {
         super.onListItemClick(l, v, position, id);
         String item = files.get(position);
 
-        if (isDaisyDirectory(new File(currentDirectory, item))) {
+        File daisyPath = new File(currentDirectory, item);
+		if (isDaisyDirectory(daisyPath)) {
             Intent i = new Intent(this, DaisyReader.class);
 
-            i.putExtra("daisyPath", new File(currentDirectory, item)
-                    .getAbsolutePath()
-                    + "/");
+            i.putExtra("daisyPath", daisyPath.getAbsolutePath() + "/");
+            i.putExtra("daisyNccFile", getNccFileName(daisyPath));
             startActivity(i);
             return;
         }
@@ -57,14 +72,24 @@ public class DaisyBrowser extends ListActivity {
             return;
         }
 
-        File temp = new File(currentDirectory, item);
+        File temp = daisyPath;
         if (temp.isDirectory()) {
             currentDirectory = temp;
             GenerateBrowserData();
         }
     }
 
-    void GenerateBrowserData() {
+    private String getNccFileName(File currentDirectory) {
+    	if (new File(currentDirectory, "ncc.html").exists())
+    		return "ncc.html";
+
+    	if (new File(currentDirectory, "NCC.HTML").exists())
+    		return "NCC.HTML";
+
+		return null;
+	}
+
+	void GenerateBrowserData() {
         FilenameFilter dirFilter = new FilenameFilter() {
             public boolean accept(File dir, String name) {
                 return new File(dir, name).isDirectory();

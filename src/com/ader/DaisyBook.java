@@ -13,11 +13,12 @@ public class DaisyBook implements Serializable {
 	private static final String TAG = DaisyBook.class.getSimpleName();
 	private Bookmark bookmark = new Bookmark();
 	private SmilFile smilFile = new SmilFile();
-	private String path = "";
+	private String filename = "";
 	private int currentnccIndex = -1;
 	private int NCCDepth = 0;
 	private int selectedLevel = 1;
 	private List<NCCEntry> nccEntries = new ArrayList<NCCEntry>();
+	private String path;
 	
 
 	public Bookmark getBookmark() {
@@ -71,19 +72,17 @@ public class DaisyBook implements Serializable {
 	}
 
 	/**
-	 * Opens a Daisy Book from a file path.
+	 * Opens a Daisy Book from a full path and filename.
 	 * 
-	 * Note: this is limited to the lower-case filename representing the ncc
-	 * file. TODO (jharty): add support for the upper-case equivalent (see the
-	 * DAISY 2.02 specification).
-	 * @param nccPath path to the ncc file
+	 * @param nccFullPathAndFilename The ncc file
 	 * @throws FileNotFoundException if the file cannot be found or opened.
 	 * @throws InvalidDaisyStructureException if there are serious problems in
 	 * the book structure.
 	 */
-	public void openFromPath(String nccPath) throws FileNotFoundException, InvalidDaisyStructureException {
+	public void openFromFile(String nccFullPathAndFilename) throws FileNotFoundException, InvalidDaisyStructureException {
 		nccEntries.clear();
-		this.path = nccPath;
+		this.filename = nccFullPathAndFilename;
+		this.path = new File(nccFullPathAndFilename).getParent() + "/";
 		DaisyParser parser = new DaisyParser();
 		try {
 			Util.logInfo(TAG, new File(".").getCanonicalPath());
@@ -91,7 +90,7 @@ public class DaisyBook implements Serializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		ArrayList<DaisyElement> elements = parser.openAndParseFromFile(path + "ncc.html");
+		ArrayList<DaisyElement> elements = parser.openAndParseFromFile(filename);
 		processDaisyElements(elements);
 		validateDaisyContents();
 	}

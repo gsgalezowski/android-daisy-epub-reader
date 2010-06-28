@@ -61,7 +61,6 @@ public class BookValidator {
 
 	public Boolean containsBook(String path) {
 		return ((new File(path, "ncc.html").exists()) || (new File(path, "NCC.HTML").exists()));
-
 	}
 
 	public ArrayList<String> getBookList() {
