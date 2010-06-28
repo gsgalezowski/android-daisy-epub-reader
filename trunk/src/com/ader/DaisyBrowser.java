@@ -13,17 +13,17 @@ package com.ader;
  * since some of the current hacks should be able to be removed during the
  * integration work.
  */
-import android.app.ListActivity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.widget.ArrayAdapter;
-
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+import android.app.ListActivity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.ArrayAdapter;
 
 public class DaisyBrowser extends ListActivity {
     File currentDirectory = new File("/sdcard/");
@@ -56,7 +56,7 @@ public class DaisyBrowser extends ListActivity {
         super.onListItemClick(l, v, position, id);
         String item = files.get(position);
 
-        File daisyPath = new File(currentDirectory, item);
+        File daisyPath = new File(item);
 		if (isDaisyDirectory(daisyPath)) {
             Intent i = new Intent(this, DaisyReader.class);
 
