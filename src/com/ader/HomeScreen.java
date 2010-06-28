@@ -16,6 +16,10 @@ public class HomeScreen extends Activity implements OnClickListener {
         
         View openButton = findViewById(R.id.open_button);
         openButton.setOnClickListener(this);
+        View searchButton = findViewById(R.id.search_button);
+        searchButton.setOnClickListener(this);
+        View helpButton = findViewById(R.id.help_button);
+        helpButton.setOnClickListener(this);
     }
     
     public void onClick(View v)

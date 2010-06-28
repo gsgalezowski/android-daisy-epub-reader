@@ -1,67 +1,52 @@
 package com.ader;
 
-import java.io.File;
-import java.io.FilenameFilter;
+/**
+ * DaisyBookFinder automatically searches for suitable books on the sdcard.
+ * 
+ * This is a first cut of the implementation as it's slow, uncommunicative,
+ * and calls BookValidator that currently assumes the books are in /sdcard/ on
+ * the device.
+ */
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 
-public class DaisyBookFinder {
-	private ArrayList<String> folderList = new ArrayList<String>();
-	private ArrayList<String> BookList = new ArrayList<String>();
-	private File fileSystem;
+import android.app.ListActivity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
-	public void findBooks(String path) {
+import com.ader.io.BookValidator;
+
+public class DaisyBookFinder extends ListActivity {
+	private ArrayList<String> books;
+	private static final String TAG = "DaisyBookFinder";
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+        Util.logInfo(TAG, "onCreate");
+        BookValidator validator = new BookValidator();
+        validator.findBooks("/sdcard/");
+        books = validator.getBookList();
+        PopulateList();
+	}
+	
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		String item = books.get(position);
 		
-		FilenameFilter dirFilter = new FilenameFilter() {
-			
-			public boolean accept(File dir, String name) {
-				return new File(dir, name).isDirectory();
-			}
-		};
-
-		if (containsBook(path))
-			BookList.add(path);
-		else
-			for (File folder : new File(path).listFiles(dirFilter))
-				findBooks(folder.toString());
-
+		Intent i = new Intent(this, DaisyReader.class);
+		i.putExtra("daisyPath", item + "/");
+		// TODO (jharty): replace hard-coded filename with call the getNccFileName
+		i.putExtra("daisyNccFile", "ncc.html");
+		startActivity(i);
 		return;
 	}
-
-	public Boolean validFileSystemRoot(String path) {
-		fileSystem = new File(path);
-
-		return fileSystem.isDirectory();
+	
+	void PopulateList() {
+		// TODO (jharty): format the list of books more attractively.
+		setListAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, books));
 	}
-
-	public void addFolders(String path) {
-		File currentDirectory = new File(path);
-
-		FilenameFilter dirFilter = new FilenameFilter() {
-			public boolean accept(File dir, String name) {
-				return new File(dir, name).isDirectory();
-			}
-		};
-
-		folderList.addAll(new ArrayList<String>(Arrays.asList(currentDirectory
-				.list(dirFilter))));
-
-		Collections.sort(folderList, String.CASE_INSENSITIVE_ORDER);
-	}
-
-	public Boolean containsBook(String path) {
-		return new File(path, "ncc.html").exists();
-
-	}
-
-	public ArrayList<String> getBookList() {
-		for (String path : BookList)
-			System.out.println(path);
-		return BookList;
-	}
-
-	public ArrayList<String> getFolderList() {
-		return folderList;
-	}
+	
 }
