@@ -38,17 +38,6 @@ public class DaisyBrowser extends ListActivity {
         GenerateBrowserData();
     }
 
-    boolean isDaisyDirectory(File aFile) {
-        if (!aFile.isDirectory())
-            return false;
-
-        // Minor hack to cope with the potential of ALL CAPS filename, as per
-        // http://www.daisy.org/z3986/specifications/daisy_202.html#ncc
-        if (new File(aFile, "ncc.html").exists() || new File(aFile, "NCC.HTML").exists())
-            return true;
-        else
-            return false;
-    }
 
     @Override
     protected void onListItemClick(android.widget.ListView l,
@@ -56,12 +45,12 @@ public class DaisyBrowser extends ListActivity {
         super.onListItemClick(l, v, position, id);
         String item = files.get(position);
 
-        File daisyPath = new File(item);
-		if (isDaisyDirectory(daisyPath)) {
+        File daisyPath = new File(currentDirectory, item);
+		if (DaisyBookUtils.isDaisyDirectory(daisyPath)) {
             Intent i = new Intent(this, DaisyReader.class);
 
             i.putExtra("daisyPath", daisyPath.getAbsolutePath() + "/");
-            i.putExtra("daisyNccFile", getNccFileName(daisyPath));
+            i.putExtra("daisyNccFile", DaisyBookUtils.getNccFileName(daisyPath));
             startActivity(i);
             return;
         }
@@ -78,16 +67,6 @@ public class DaisyBrowser extends ListActivity {
             GenerateBrowserData();
         }
     }
-
-    private String getNccFileName(File currentDirectory) {
-    	if (new File(currentDirectory, "ncc.html").exists())
-    		return "ncc.html";
-
-    	if (new File(currentDirectory, "NCC.HTML").exists())
-    		return "NCC.HTML";
-
-		return null;
-	}
 
 	void GenerateBrowserData() {
         FilenameFilter dirFilter = new FilenameFilter() {
