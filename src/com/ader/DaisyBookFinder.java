@@ -7,6 +7,7 @@ package com.ader;
  * and calls BookValidator that currently assumes the books are in /sdcard/ on
  * the device.
  */
+import java.io.File;
 import java.util.ArrayList;
 
 import android.app.ListActivity;
@@ -40,8 +41,7 @@ public class DaisyBookFinder extends ListActivity {
 		
 		Intent i = new Intent(this, DaisyReader.class);
 		i.putExtra("daisyPath", item + "/");
-		// TODO (jharty): replace hard-coded filename with call the getNccFileName
-		i.putExtra("daisyNccFile", "ncc.html");
+		i.putExtra("daisyNccFile", DaisyBookUtils.getNccFileName(new File(item)));
 		startActivity(i);
 		return;
 	}

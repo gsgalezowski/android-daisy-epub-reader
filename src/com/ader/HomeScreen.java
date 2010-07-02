@@ -1,8 +1,11 @@
 package com.ader;
 
+import java.io.File;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,16 +23,52 @@ public class HomeScreen extends Activity implements OnClickListener {
         searchButton.setOnClickListener(this);
         View helpButton = findViewById(R.id.help_button);
         helpButton.setOnClickListener(this);
+        
+        // TODO (jharty): how about only enabling this button if we have saved
+        // a book previously?
+        View lastBookButton = findViewById(R.id.open_last_button);
+        lastBookButton.setOnClickListener(this);
     }
     
     public void onClick(View v)
     {
     	switch (v.getId()){
     	case R.id.open_button:
-    		Intent i = new Intent(this, DaisyBrowser.class);
-    		startActivity(i);
+    		Intent daisyBrowserIntent = new Intent(this, DaisyBrowser.class);
+    		startActivity(daisyBrowserIntent);
     		break;
     	
+    	case R.id.open_last_button:
+    		
+			SharedPreferences settings = getSharedPreferences(DaisyBookUtils.PREFS_FILE, 0);
+			String pathToLastBookOpen = settings.getString(DaisyBookUtils.LAST_BOOK, "");
+			Util.logInfo("HomeScreen", "Path to last book = " + pathToLastBookOpen);
+    		
+            File daisyPath = new File(pathToLastBookOpen);
+    		if (pathToLastBookOpen.length() > 1 && DaisyBookUtils.isDaisyDirectory(daisyPath)) {
+                Intent daisyBookIntent = new Intent(this, DaisyReader.class);
+
+                daisyBookIntent.putExtra("daisyPath", daisyPath.getAbsolutePath() + "/");
+                daisyBookIntent.putExtra("daisyNccFile", DaisyBookUtils.getNccFileName(daisyPath));
+                startActivity(daisyBookIntent);
+                return;
+    		}
+    		
+    		// TODO(jharty): this is a rough first-cut, not intended as the
+    		// finished code. We'll clean up once the UI has been tested.
+    		AlertDialog.Builder noPreviousBookOpen = new AlertDialog.Builder(this);
+    		noPreviousBookOpen
+    			// TODO(jharty): move text to the resources so they can be translated.
+    			.setTitle("No previous book saved")
+    			.setMessage("Sorry either no details of book were saved, " 
+    					+ "or there is a problem with the stored book. "
+    					+ "Please use another menu option to find a book to read.")
+    			// TODO(jharty): use a specific string, rather than repurposing this one!
+    			.setPositiveButton(R.string.close_instructions, null)
+    			.show();
+			
+    		break;
+    		
     	case R.id.search_button:
     		// TODO (jharty): there are disconnects between the name of this
     		// button and the Intent we're calling (which doesn't allow the

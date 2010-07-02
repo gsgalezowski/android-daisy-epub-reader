@@ -2,6 +2,7 @@ package com.ader;
 
 import android.app.ListActivity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -20,7 +21,8 @@ public class DaisyReader extends ListActivity {
 	private DaisyBook book = new DaisyBook();
 	private TouchGestureControlOverlay gestureOverlay;
 	private FrameLayout frameLayout;
-	private String TAG = "DaisyReader";
+	private String path;
+	private static final String TAG = "DaisyReader";
 
 	/** Called when the activity is first created. */
 	@Override
@@ -30,18 +32,24 @@ public class DaisyReader extends ListActivity {
 		try {
 			activateGesture();
 			try {
-				book.openFromFile(getIntent().getStringExtra("daisyPath") 
-						+ getIntent().getStringExtra("daisyNccFile"));
+				path = getIntent().getStringExtra("daisyPath");
+				book.openFromFile(path + getIntent().getStringExtra("daisyNccFile"));
 			} catch (InvalidDaisyStructureException idse) {
 				// TODO(jharty): add a UI to help the user address the problem.
 				idse.printStackTrace();
 			}
 			book.loadAutoBookmark();
+			// Now let's save details of the this book, as the most recent book
+			SharedPreferences bookSettings = getSharedPreferences(DaisyBookUtils.PREFS_FILE, 0);
+			SharedPreferences.Editor editor = bookSettings.edit();
+			editor.putString(DaisyBookUtils.LAST_BOOK, this.path);
+			// Commit the edits!
+			editor.commit();
+
 			displayContents();
-			 getListView().setSelection(book.getDisplayPosition());
+			getListView().setSelection(book.getDisplayPosition());
 			registerForContextMenu(getListView());
 			play();
-			
 			
 		} catch (IOException e) {
 			UiHelper.alert(this, R.string.unable_to_open_file);
@@ -79,6 +87,7 @@ public class DaisyReader extends ListActivity {
 	}
 
 	void displayContents() {
+		Util.logInfo(TAG, "displayContents called - should we bother?");
 		setListAdapter(new ArrayAdapter<NCCEntry>(this, android.R.layout.simple_list_item_1, book
 				.getNavigationDisplay()));
 	}
