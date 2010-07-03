@@ -18,6 +18,7 @@
 		<uses-library android:name="android.test.runner" />
 		
 	<activity android:name="DaisyBookFinder" android:label="DaisyBookFinder"></activity>
+<activity android:name="Preferences"></activity>
 </application>
 	<uses-sdk android:minSdkVersion="3" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
