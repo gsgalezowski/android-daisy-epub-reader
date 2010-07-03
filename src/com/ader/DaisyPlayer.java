@@ -43,6 +43,14 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 // 	}
 
 	@Override
+	protected void onDestroy() {
+		// Let's stop playing the book if the user presses back, etc.
+		stop();
+		player.release();
+		super.onDestroy();
+	}
+
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		new MenuInflater(getApplication()).inflate(R.menu.playermenu, menu);
 		return(super.onCreateOptionsMenu(menu));
