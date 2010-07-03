@@ -30,7 +30,9 @@ public class DaisyBookFinder extends ListActivity {
         Util.logInfo(TAG, "onCreate");
                 
         validator = new BookValidator();
-        validator.findBooks("/sdcard/");
+        String rootfolder = Preferences.getRootfolder(getBaseContext());
+		Util.logInfo(TAG, "The root folder to search is: " + rootfolder);
+        validator.findBooks(rootfolder);
         books = validator.getBookList();
         PopulateList();
 	}

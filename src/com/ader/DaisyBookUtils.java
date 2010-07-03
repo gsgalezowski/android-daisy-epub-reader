@@ -11,6 +11,8 @@ import java.io.File;
 public class DaisyBookUtils {
 	public static final String LAST_BOOK = "last_book_open";
 	public static final String PREFS_FILE = "DaisyReaderPreferences";
+	public static final String DEFAULT_ROOT_FOLDER = "/sdcard/";
+	public static final String OPT_ROOT_FOLDER = "rootfolder";
 	
 	/**
 	 * Tests if the directory contains the essential root file for a Daisy book
