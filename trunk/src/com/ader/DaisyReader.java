@@ -1,5 +1,6 @@
 package com.ader;
 
+import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.google.marvin.widget.TouchGestureControlOverlay;
 import com.google.marvin.widget.TouchGestureControlOverlay.Gesture;
@@ -31,6 +33,7 @@ public class DaisyReader extends ListActivity {
 
 		try {
 			activateGesture();
+
 			try {
 				path = getIntent().getStringExtra("daisyPath");
 				book.openFromFile(path + getIntent().getStringExtra("daisyNccFile"));
@@ -50,9 +53,29 @@ public class DaisyReader extends ListActivity {
 			getListView().setSelection(book.getDisplayPosition());
 			registerForContextMenu(getListView());
 			play();
+			// This stops the list of sections from appearing after back is pressed.
+			// But it doesn't stop the audio...
+			this.finish();
 			
 		} catch (IOException e) {
-			UiHelper.alert(this, R.string.unable_to_open_file);
+			// TODO(jharty): Remove the Toast error message once the AlertDialog works
+    		CharSequence text = "Cannot open book :( " + e.getLocalizedMessage();
+    		int duration = Toast.LENGTH_SHORT;
+
+    		Toast toast = Toast.makeText(this, text, duration);
+    		toast.show();
+			
+    		// TODO(jharty): Find out why the AlertDialog does not get displayed :(
+			AlertDialog.Builder explainProblem = new AlertDialog.Builder(this);
+			
+			explainProblem
+				.setTitle("Problem opening the book")
+				.setMessage(R.string.unable_to_open_file)
+				.setPositiveButton(R.string.close_instructions, null)
+				.show();
+			explainProblem.show();
+			Util.logInfo(TAG, "Cannot open book :( see:" + e.getLocalizedMessage());
+			// UiHelper.alert(this, R.string.unable_to_open_file);
 			finish();
 		}
 	}
