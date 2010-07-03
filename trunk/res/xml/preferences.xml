@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+xmlns:android="http://schemas.android.com/apk/res/android">
+
+	
+	<EditTextPreference
+  		android:key="rootfolder" 
+  		android:summary="Root Folder for DAISY books" 
+  		android:defaultValue="/sdcard/" 
+  		android:title="Root Folder">
+	</EditTextPreference>
+</PreferenceScreen>

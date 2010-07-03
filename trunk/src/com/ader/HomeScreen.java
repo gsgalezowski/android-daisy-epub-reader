@@ -28,6 +28,9 @@ public class HomeScreen extends Activity implements OnClickListener {
         // a book previously?
         View lastBookButton = findViewById(R.id.open_last_button);
         lastBookButton.setOnClickListener(this);
+        
+        View preferencesButton = findViewById(R.id.settings_button);
+        preferencesButton.setOnClickListener(this);
     }
     
     public void onClick(View v)
@@ -78,6 +81,10 @@ public class HomeScreen extends Activity implements OnClickListener {
     		// been integrated.
     		Intent iSearch = new Intent(this, DaisyBookFinder.class);
     		startActivity(iSearch);
+    		break;
+    
+    	case R.id.settings_button:
+    		startActivity(new Intent(this, Preferences.class));
     		break;
     		
     	case R.id.help_button:
