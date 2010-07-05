@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="no_previous_book_saved_title">No previous book saved</string>
     <string name="hello">Hello World, DaisyReader!</string>
     <string name="app_name">Android Daisy Epub Reader</string>
     <string name="playing">Playing</string>
@@ -30,4 +31,5 @@
     <string name="help">Help</string>
 <string name="sdcard_title">SD card</string>
 <string name="sdcard_mounted">The SD Card appears to be in use (mounted); can you unmount it, then try again?</string>
+<string name="no_previous_book_saved_msg">Sorry either no details of book were saved, or there is a problem with the stored book. Please use another menu option to find a book to read.</string>
 </resources>
