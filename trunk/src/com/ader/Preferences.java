@@ -14,6 +14,9 @@ import android.widget.Toast;
 
 /**
  * Preferences handles the various preferences used by the DaisyReader.
+ * 
+ * TODO(jharty): add onSuspend and onResume and register / de-register the
+ * listeners in these methods.
  */
 public class Preferences extends PreferenceActivity implements OnSharedPreferenceChangeListener {
 	private static final String TAG = "Perferences";
