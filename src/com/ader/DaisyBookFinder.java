@@ -31,6 +31,7 @@ public class DaisyBookFinder extends ListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
         Util.logInfo(TAG, "onCreate");
+        setContentView(R.layout.find_books_list);
                 
         validator = new BookValidator();
         String rootfolder = Preferences.getRootfolder(getBaseContext());
@@ -76,7 +77,9 @@ public class DaisyBookFinder extends ListActivity {
 
 		
 		// TODO (jharty): format the list of books more attractively.
-		setListAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, books));
+		// setListAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, books));
+		setListAdapter(new ArrayAdapter<String>(this, R.layout.listrow, R.id.textview, books));
+		
 		getListView().setTextFilterEnabled(true);
 	}
 	

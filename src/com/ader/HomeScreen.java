@@ -32,6 +32,7 @@ public class HomeScreen extends Activity implements OnClickListener {
         
         View preferencesButton = findViewById(R.id.settings_button);
         preferencesButton.setOnClickListener(this);
+        
     }
     
     public void onClick(View v)

@@ -34,12 +34,15 @@ public class DaisyBrowser extends ListActivity {
     File currentDirectory = new File("/sdcard/");
     private List<String> files;
     private static final String TAG = "DaisyBrowser";
+    final static String[] ITEMS = {"blah", "floop", "gnarlp", "stuff"};
+
 
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Util.logInfo(TAG, "onCreate");
+        setContentView(R.layout.find_books_list);
         GenerateBrowserData();
     }
 
@@ -117,7 +120,7 @@ public class DaisyBrowser extends ListActivity {
         }
 
         setListAdapter(new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, files));
+        		R.layout.listrow, R.id.textview, files));
         return;
 
     }
