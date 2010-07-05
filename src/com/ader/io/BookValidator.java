@@ -9,6 +9,7 @@ import java.util.Collections;
 import com.ader.Util;
 
 public class BookValidator {
+	private static final String TAG = "BookValidator";
 	private ArrayList<String> folderList = new ArrayList<String>();
 	private ArrayList<String> BookList = new ArrayList<String>();
 	private File fileSystem;
@@ -22,6 +23,18 @@ public class BookValidator {
 	 */
 	public void findBooks(String path) {
 		
+		// Some guard code follows.
+		if (path == null) {
+			Util.logInfo(TAG, "null string passed as the path to findBooks. Exiting method.");
+			return;
+		}
+			
+		if (path.length() == 0 || path.startsWith(".")) {
+			Util.logInfo(TAG, String.format(
+				"path [%s]is either zero length or starts with . Exiting method", path));
+			return;
+		}
+		
 		FilenameFilter dirFilter = new FilenameFilter() {
 			
 			public boolean accept(File dir, String name) {
@@ -31,10 +44,23 @@ public class BookValidator {
 
 		if (containsBook(path))
 			BookList.add(path);
-		else
-			for (File folder : new File(path).listFiles(dirFilter))
-				findBooks(folder.toString());
+		else {
+			File temp = new File(path);
+			if (temp == null) {
+				Util.logInfo(TAG, String.format(
+						"Cannot create new File() for %s, exiting function", path));
+				return;
+			}
 
+			// listFiles can throw a NPE when it tries to navigate folders e.g. 
+			// /sdcard/.android_secure 
+			// This was found on a HTC Hero with Android 2.2
+			File[] files = temp.listFiles(dirFilter);
+			if (files != null) {
+				for (File folder : files)
+					findBooks(folder.toString());
+			}
+		}
 		return;
 	}
 
