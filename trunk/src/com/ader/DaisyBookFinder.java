@@ -31,7 +31,7 @@ public class DaisyBookFinder extends ListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
         Util.logInfo(TAG, "onCreate");
-        setContentView(R.layout.find_books_list);
+        setContentView(R.layout.results_list);
                 
         validator = new BookValidator();
         String rootfolder = Preferences.getRootfolder(getBaseContext());

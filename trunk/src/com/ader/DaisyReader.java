@@ -30,7 +30,7 @@ public class DaisyReader extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-        setContentView(R.layout.find_books_list);
+        setContentView(R.layout.results_list);
 
 		try {
 			activateGesture();
@@ -116,7 +116,7 @@ public class DaisyReader extends ListActivity {
 		setListAdapter(new ArrayAdapter<NCCEntry>(this, android.R.layout.simple_list_item_1, book
 				.getNavigationDisplay()));
 		*/
-		setListAdapter(new ArrayAdapter<NCCEntry>(this, R.layout.find_books_list, R.layout.listrow, book
+		setListAdapter(new ArrayAdapter<NCCEntry>(this, R.layout.results_list, R.layout.listrow, book
 				.getNavigationDisplay()));
 	}
 
