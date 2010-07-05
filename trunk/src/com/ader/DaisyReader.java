@@ -143,7 +143,6 @@ public class DaisyReader extends ListActivity {
 				int levelSetTo = book.decrementSelectedLevel();
 				Util.logInfo(TAG, "Incremented Level to: " + levelSetTo);
 			} else if (g == Gesture.CENTER) {
-				// play((NCCEntry) getListAdapter().getItem(0));
 				play();
 			}
 			displayContents();
