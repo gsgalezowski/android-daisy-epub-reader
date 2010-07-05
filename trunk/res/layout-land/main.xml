@@ -45,7 +45,7 @@
 							android:text="@string/open_last_book"
 		    				android:textStyle="bold" />
 						<Button
-							android:id="@+id/setting_button"
+							android:id="@+id/settings_button"
 							android:text="@string/settings"
 		    				android:textStyle="bold" />
 					</TableRow>				
