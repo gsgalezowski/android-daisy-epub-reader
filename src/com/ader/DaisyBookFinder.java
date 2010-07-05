@@ -75,11 +75,8 @@ public class DaisyBookFinder extends ListActivity {
 		  alertDialog.show();
 		};
 
-		
 		// TODO (jharty): format the list of books more attractively.
-		// setListAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, books));
 		setListAdapter(new ArrayAdapter<String>(this, R.layout.listrow, R.id.textview, books));
-		
 		getListView().setTextFilterEnabled(true);
 	}
 	

@@ -34,8 +34,6 @@ public class DaisyBrowser extends ListActivity {
     File currentDirectory = new File("/sdcard/");
     private List<String> files;
     private static final String TAG = "DaisyBrowser";
-    final static String[] ITEMS = {"blah", "floop", "gnarlp", "stuff"};
-
 
     /** Called when the activity is first created. */
     @Override
@@ -106,7 +104,6 @@ public class DaisyBrowser extends ListActivity {
             }
         };
         
-        // TODO(jharty): Work-in-progress to handle any IO problems
         String[] listOfFiles = currentDirectory
                 .list(dirFilter);
         if (listOfFiles != null) {
