@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.view.View.OnClickListener;
 
@@ -57,15 +58,30 @@ public class HomeScreen extends Activity implements OnClickListener {
                 return;
     		}
     		
+    		String title;
+    		String message;
+    		
+    		String storagestate = Environment.getExternalStorageState();
+    		if (!storagestate.equals(Environment.MEDIA_MOUNTED) ) {
+    			title = getString(R.string.sdcard_title);
+    			message = getString(R.string.sdcard_mounted);
+    		} else {
+    			// For now we assume the problem is that no previous title
+    			// was saved. We could easily fall foul of displaying the
+    			// incorrect message. 
+    			// TODO(jharty): clean up this code when making the overall
+    			// application more robust.
+    			title = getString(R.string.no_previous_book_saved_title);
+    			message = getString(R.string.no_previous_book_saved_msg);
+    		}
+    		
     		// TODO(jharty): this is a rough first-cut, not intended as the
     		// finished code. We'll clean up once the UI has been tested.
-    		AlertDialog.Builder noPreviousBookOpen = new AlertDialog.Builder(this);
-    		noPreviousBookOpen
+    		AlertDialog.Builder whatWentWrong = new AlertDialog.Builder(this);
+    		whatWentWrong
     			// TODO(jharty): move text to the resources so they can be translated.
-    			.setTitle("No previous book saved")
-    			.setMessage("Sorry either no details of book were saved, " 
-    					+ "or there is a problem with the stored book. "
-    					+ "Please use another menu option to find a book to read.")
+    			.setTitle(title)
+    			.setMessage(message)
     			// TODO(jharty): use a specific string, rather than repurposing this one!
     			.setPositiveButton(R.string.close_instructions, null)
     			.show();
