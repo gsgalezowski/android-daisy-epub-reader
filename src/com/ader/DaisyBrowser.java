@@ -20,9 +20,14 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.widget.ArrayAdapter;
 
 public class DaisyBrowser extends ListActivity {
@@ -69,16 +74,46 @@ public class DaisyBrowser extends ListActivity {
     }
 
 	void GenerateBrowserData() {
+
+		// TODO(jharty): Check if currentDirectory maps to ExternalStorageDirectory
+		Util.logInfo(TAG, "External Storage is: " + Environment.getExternalStorageDirectory());
+		// TODO(jharty): remove this hack once I've debugged the interaction
+		// It probably needs to move to a more general FileIO class that'd be
+		// used by the rest of the application. That way we can reduce
+		// duplication of code e.g. with DaisyBookFinder and make the 
+		// application more robust against events such as the sdcard becoming
+		// unavailable while the application is in use.
+		String storagestate = Environment.getExternalStorageState();
+		if (!storagestate.equals(Environment.MEDIA_MOUNTED) ) {
+		  AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+		  alertDialog.setTitle(R.string.sdcard_title);
+		  alertDialog.setMessage(this.getString(R.string.sdcard_mounted));
+		  alertDialog.setButton(this.getString(R.string.close_instructions), 
+				  new DialogInterface.OnClickListener() {
+		    public void onClick(DialogInterface dialog, int which) {
+		      finish();
+		      return;
+		  } });
+		  alertDialog.show();
+		};
+
         FilenameFilter dirFilter = new FilenameFilter() {
             public boolean accept(File dir, String name) {
                 return new File(dir, name).isDirectory();
             }
         };
-        files = new ArrayList<String>(Arrays.asList(currentDirectory
-                .list(dirFilter)));
-        Collections.sort(files, String.CASE_INSENSITIVE_ORDER);
-        if (!currentDirectory.getParent().equals("/")) {
-            files.add("Up 1 Level");
+        
+        // TODO(jharty): Work-in-progress to handle any IO problems
+        String[] listOfFiles = currentDirectory
+                .list(dirFilter);
+        if (listOfFiles != null) {
+        	files = new ArrayList<String>(Arrays.asList(listOfFiles));
+        	Collections.sort(files, String.CASE_INSENSITIVE_ORDER);
+        	if (!currentDirectory.getParent().equals("/")) {
+        		files.add("Up 1 Level");
+        	}
+        } else {
+        	files = new ArrayList<String>();
         }
 
         setListAdapter(new ArrayAdapter<String>(this,
