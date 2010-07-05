@@ -40,7 +40,7 @@ public class DaisyBrowser extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Util.logInfo(TAG, "onCreate");
-        setContentView(R.layout.find_books_list);
+        setContentView(R.layout.results_list);
         GenerateBrowserData();
     }
 
