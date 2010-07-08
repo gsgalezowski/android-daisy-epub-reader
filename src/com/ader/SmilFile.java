@@ -12,7 +12,6 @@ import com.ader.smil.SmilParser;
 import com.ader.smil.TextElement;
 
 public class SmilFile implements Serializable {
-	private static final String TAG = "SimlFile";
 	private String fileName;
 	private SequenceElement elements;
 	

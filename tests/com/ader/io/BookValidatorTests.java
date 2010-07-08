@@ -1,18 +1,13 @@
 package com.ader.io;
 
 
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 
-import android.util.Log;
+import junit.framework.TestCase;
 
 import com.ader.testutilities.CreateDaisy202Book;
-
-import junit.framework.TestCase;
 
 public class BookValidatorTests extends TestCase {
 	private final String dummyValidPath = System.getProperty("java.io.tmpdir") + "/daisyreadertests/";

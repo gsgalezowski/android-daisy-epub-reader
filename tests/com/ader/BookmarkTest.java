@@ -11,14 +11,12 @@ package com.ader;
  * for a new eBook that doesn't yet have an auto-bookmark, as the fields are not
  * initialised in the class during the load() method.
  */
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 
 import junit.framework.TestCase;
@@ -29,7 +27,6 @@ public class BookmarkTest extends TestCase {
 	private static final int DUMMY_POSITION = 73;
 
 	public void testWriteReadOldBookmarkFileStructure() throws IOException {
-		BufferedReader br;
 		DataInputStream dis;
 		String bookmarkFilename = "/tmp/auto.bmk";
 		

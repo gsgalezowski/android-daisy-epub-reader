@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -62,22 +63,22 @@ public class DaisyBookFinder extends ListActivity {
 		// application more robust against events such as the sdcard becoming
 		// unavailable while the application is in use.
 		String storagestate = Environment.getExternalStorageState();
+
 		if (!storagestate.equals(Environment.MEDIA_MOUNTED) ) {
-		  AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-		  alertDialog.setTitle(R.string.sdcard_title);
-		  alertDialog.setMessage(this.getString(R.string.sdcard_mounted));
-		  alertDialog.setButton(this.getString(R.string.close_instructions), 
-				  new DialogInterface.OnClickListener() {
-		    public void onClick(DialogInterface dialog, int which) {
-		      finish();
-		      return;
-		  } });
-		  alertDialog.show();
-		};
+			AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+			alertDialog.setTitle(R.string.sdcard_title);
+			alertDialog.setMessage(getString(R.string.sdcard_mounted));
+			alertDialog.setButton(getString(R.string.close_instructions), 
+					new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					finish();
+					return;
+				} });
+			alertDialog.show();  
+		}
 
 		// TODO (jharty): format the list of books more attractively.
 		setListAdapter(new ArrayAdapter<String>(this, R.layout.listrow, R.id.textview, books));
 		getListView().setTextFilterEnabled(true);
 	}
-	
 }

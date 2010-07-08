@@ -2,6 +2,7 @@ package com.ader;
 
 import java.io.File;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -22,36 +23,38 @@ public class Preferences extends PreferenceActivity implements OnSharedPreferenc
 	private static final String TAG = "Perferences";
 	SharedPreferences sp;
 	private EditTextPreference rootiefolder;
+	private boolean validRootFolder;
 
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.xml.preferences);
 		sp = PreferenceManager.getDefaultSharedPreferences(this);
 		sp.registerOnSharedPreferenceChangeListener(this);
+		// showDialog(R.id.xxxx));
 		final Context context = this;
 
 		// Temporary hack to see if it compiles
 		 this.rootiefolder = (EditTextPreference)findPreference(DaisyBookUtils.OPT_ROOT_FOLDER);
 	        this.rootiefolder.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener(){
-	          public boolean onPreferenceChange(Preference preference,
+
+			public boolean onPreferenceChange(Preference preference,
 	          Object newValue) {
 	        	  String foldername = newValue.toString();
 	        	  File temp = new File(foldername);
-	        	  boolean validRootFolder = foldername.endsWith("/") && temp.isDirectory();
+	        	  validRootFolder = foldername.endsWith("/") && temp.isDirectory();
 	        	  // TODO (harty): find a better way to notify the user when
 	        	  // there's a problem with the name of the root folder as
 	        	  // Toasts don't seem to be detected or spoken by the
 	        	  // Accessibility API.
 	        	  if (validRootFolder) {
 	        		  Util.logInfo(TAG, "Seems like the new folder is ok: " + foldername);
-	        		  Toast toast = Toast.makeText(context, "New folder name saved", Toast.LENGTH_SHORT);
+	        		  Toast toast = Toast.makeText(context, R.string.new_folder_name_saved, Toast.LENGTH_SHORT);
 	        		  toast.show();
 	        		  return true;
 	        	  } else {
 	        		  Util.logInfo(TAG, "Seems like there's a problem with the folder name: " + foldername);
-	        		  Toast toast = Toast.makeText(context, "New folder name NOT saved", Toast.LENGTH_LONG);
+	        		  Toast toast = Toast.makeText(context, R.string.new_folder_name_not_saved, Toast.LENGTH_LONG);
 	        		  toast.show();
 	        		  return false;
 	        	  }
@@ -81,8 +84,10 @@ public class Preferences extends PreferenceActivity implements OnSharedPreferenc
 				Util.logInfo(TAG, "Odd length root folder");
 			}
 
+			new AlertDialog.Builder(this)
+			.setTitle(R.string.sd_card_folder_changed_successfully)
+			.setMessage(R.string.new_value + value)
+			.show();
 		}
-		
 	}
-
 }

@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="new_folder_name_not_saved">New folder name NOT saved</string>
+    <string name="new_folder_name_saved">New folder name saved</string>
+    <string name="new_value">New value is </string>
+    <string name="sd_card_folder_changed_successfully">SD Card folder changed successfully</string>
     <string name="no_previous_book_saved_title">No previous book saved</string>
     <string name="hello">Hello World, DaisyReader!</string>
     <string name="app_name">Android Daisy Epub Reader</string>
