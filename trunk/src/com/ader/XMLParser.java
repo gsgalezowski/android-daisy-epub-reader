@@ -62,9 +62,7 @@ public class XMLParser {
 
 		
 		
-		navCentre.addNavPoint(
-		navPoint		
-				);
+		navCentre.addNavPoint(navPoint);
 	}
 
 	private void handleNCCspanTag(Node span) {
