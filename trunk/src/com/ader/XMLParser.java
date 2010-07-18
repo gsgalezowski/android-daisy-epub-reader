@@ -21,6 +21,7 @@ import org.xml.sax.SAXException;
  *  checking for nulls being returned by the intervening calls.
  */
 public class XMLParser {
+	private static final String TAG = "XMLParser";
 	private Document document;
 	private NavCentre navCentre;
 
@@ -69,8 +70,8 @@ public class XMLParser {
 				handleNCChTag(currentNode);
 			
 			// is it a span tag
-			// if (currentNode.getNodeName().equalsIgnoreCase("span"))
-	//			handleNCCspanTag(currentNode);
+			 if (currentNode.getNodeName().equalsIgnoreCase("span"))
+				handleNCCspanTag(currentNode);
 		}
 		
 		return navCentre;
@@ -85,6 +86,7 @@ public class XMLParser {
 
 	// TODO(gary): How do you suggest we handle page-numbers? 
 	private void handleNCCspanTag(Node span) {
+		Util.logInfo(TAG, "span found");
 //		NCCEntry entry = new NCCEntry(span.getFirstChild(), NCCEntryType.PAGENUMBER, 0);	
 		//System.out.println(entry.getText());	
 	}
