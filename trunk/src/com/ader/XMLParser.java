@@ -86,7 +86,8 @@ public class XMLParser {
 
 	// TODO(gary): How do you suggest we handle page-numbers? 
 	private void handleNCCspanTag(Node span) {
-		Util.logInfo(TAG, "span found");
+		Node value = span.getFirstChild();
+		Util.logInfo(TAG, "span found, containing: " + value.toString());
 //		NCCEntry entry = new NCCEntry(span.getFirstChild(), NCCEntryType.PAGENUMBER, 0);	
 		//System.out.println(entry.getText());	
 	}
