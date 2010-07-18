@@ -10,12 +10,15 @@ import junit.framework.TestCase;
 import com.ader.testutilities.CreateDaisy202Book;
 
 public class BookValidatorTests extends TestCase {
-	private final String dummyValidPath = System.getProperty("java.io.tmpdir") + "/daisyreadertests/";
+	private final String dummyValidPath = System.getProperty("java.io.tmpdir") 
+		+ "daisyreadertests" + File.separator;
 	private final String dummyValidTextFile = dummyValidPath + "dummyfile.txt";
 	private final String dummyValidDaisyBookFolder = dummyValidPath + "validbook";
-	private final String dummyValidDaisy202IndexFile = dummyValidDaisyBookFolder + "/ncc.html";
+	private final String dummyValidDaisy202IndexFile = dummyValidDaisyBookFolder 
+		+ File.separator + "ncc.html";
 	private final String dummySecondDaisyBookFolder = dummyValidPath + "anotherbook";
-	private final String dummyValidDaisy202UpperCaseIndexFile = dummySecondDaisyBookFolder + "/NCC.HTML";
+	private final String dummyValidDaisy202UpperCaseIndexFile = dummySecondDaisyBookFolder 
+		+ File.separator + "NCC.HTML";
 	private final String dummyValidBook = dummyValidDaisyBookFolder;
 	private final String dummyEmptyFolder = dummyValidPath + "emptyfolder/";
 	BookValidator validator = new BookValidator();
