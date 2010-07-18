@@ -15,6 +15,7 @@ import com.ader.NotImplementedException;
  * TODO(jharty): Continue enhancing this class.
  */
 public class CreateDaisy202Book extends CreateEBook {
+	private int countOfLevelOneSections = 0;
 
 	public CreateDaisy202Book() throws NotImplementedException {
 		super();
@@ -43,16 +44,19 @@ public class CreateDaisy202Book extends CreateEBook {
 		new PrintStream(out).println("  <head>");
 		new PrintStream(out).println("    <meta name=\"dc:title\" content=\"basic title\"/>");
 		new PrintStream(out).println("    <meta name=\"dc:format\" content=\"Daisy 2.02\"/>");
-		new PrintStream(out).println("  </head>");
+		new PrintStream(out).println("  </head><body>");
 	}
 
 	@Override
 	public void writeEndOfDocument() {
-		new PrintStream(out).println("</html>");
+		new PrintStream(out).println("</body></html>");
 	}
 	
 	public void addLevelOne() {
-		new PrintStream(out).print("<h1 id=\"test_0001\"><a href=\"test_001.smil#text_0001\">");
+		int counter = countOfLevelOneSections + 1;
+		new PrintStream(out).print("<h1 id=\"test_" + counter + "\">");
+		new PrintStream(out).print("<a href=\"test_" + counter + ".smil#text_" + counter + "\">");
 		new PrintStream(out).println("This is a dummy level one entry that doesn't match a file</a></h1>");
+		countOfLevelOneSections++; // Now we can update the counter
 	}
 }
