@@ -1,7 +1,7 @@
 package com.ader;
 
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -14,20 +14,17 @@ import org.xml.sax.SAXException;
 public class XMLParser {
 	private Document document;
 	private NavCentre navCentre;
-	
 
-	public XMLParser(String filename) {
+	public XMLParser(InputStream input) {
 		navCentre = new NavCentre();	
-		DocumentBuilderFactory builderFactory = DocumentBuilderFactory
-				.newInstance();
+		DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
 
 		try {
 			builderFactory
 					.setFeature(
 							"http://apache.org/xml/features/nonvalidating/load-external-dtd",
 							false);
-			document = builderFactory.newDocumentBuilder().parse(
-					new FileInputStream(filename));
+			document = builderFactory.newDocumentBuilder().parse(input);
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
 		} catch (SAXException e) {
@@ -60,11 +57,10 @@ public class XMLParser {
 		int level = Integer.decode(heading.getNodeName().substring(1));
 		NavPoint navPoint = new NavPoint(heading.getFirstChild(), level);
 
-		
-		
 		navCentre.addNavPoint(navPoint);
 	}
 
+	// TODO(gary): How do you suggest we handle page-numbers? 
 	private void handleNCCspanTag(Node span) {
 //		NCCEntry entry = new NCCEntry(span.getFirstChild(), NCCEntryType.PAGENUMBER, 0);	
 		//System.out.println(entry.getText());	
