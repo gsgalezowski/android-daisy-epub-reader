@@ -3,7 +3,9 @@ package com.ader;
  * Tests for the XML Parser class.
  */
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 
+import com.ader.testutilities.CreateDaisy202Book;
 import com.ader.testutilities.SampleContent;
 
 import junit.framework.TestCase;
@@ -34,5 +36,24 @@ public class XMLParserTest extends TestCase {
 	public void testWhatHappensIfWeAskForANegativeIndex() {
 		NavPoint n = navCenter.getNavPoint(-1);
 		assertNull("Asking for a negative index should return null", n);
+	}
+	
+	public void testALargerGeneratedBookContainsTheExpectedSections() throws Exception {
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		CreateDaisy202Book eBook = new CreateDaisy202Book(out);
+		eBook.writeXmlHeader();
+		eBook.writeDoctype();
+		eBook.writeXmlns();
+		eBook.writeBasicMetadata();
+		int numLevelOneSections = 10;
+		for (int i = 1; i <= numLevelOneSections; i++) {
+			eBook.addLevelOne();
+		}
+		eBook.writeEndOfDocument();
+		ByteArrayInputStream newBook = new ByteArrayInputStream(out.toByteArray());
+		XMLParser anotherParser = new XMLParser(newBook);
+		NavCentre nc = anotherParser.processNCC();
+		assertEquals("Expected a 1:1 match of NavPoints and sections", 
+				numLevelOneSections, nc.count());
 	}
 }

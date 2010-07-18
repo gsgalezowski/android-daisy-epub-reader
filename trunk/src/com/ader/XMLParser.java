@@ -11,10 +11,24 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+/*
+ * Non JavaDoc
+ * TODO(jharty):
+ * 1. Somewhere we need to either add preconditions (to assert the basic
+ *  structure is acceptable and as expected) or handle problematic content more
+ *  robustly. e.g. at the moment we gayly dereference things like:
+ *  document.getElementsByTagName("body").item(0).getChildNodes() without
+ *  checking for nulls being returned by the intervening calls.
+ */
 public class XMLParser {
 	private Document document;
 	private NavCentre navCentre;
 
+	/**
+	 * Parses a valid Daisy 2.02 ncc.html document.
+	 * 
+	 * @param input valid Daisy 2.02 content.
+	 */
 	public XMLParser(InputStream input) {
 		navCentre = new NavCentre();	
 		DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
@@ -34,6 +48,15 @@ public class XMLParser {
 		}
 	}
 
+	/**
+	 * Processes the NCC contents to generate a NavCentre object.
+	 * 
+	 * Currently we only process the h1 through h1 elements. And we assume
+	 * the content is valid, otherwise various exceptions, including a null
+	 * pointer may be thrown.
+	 * 
+	 * @return the NavCentre object.
+	 */
 	public NavCentre processNCC() {
 		// get a list of all the tags inside the body element
 		NodeList body = document.getElementsByTagName("body").item(0).getChildNodes();
