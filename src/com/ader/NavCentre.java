@@ -1,13 +1,18 @@
 package com.ader;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * NavCenter stores and represents the navigable sections in an eBook.
+ * 
+ * It's based on the structures defined for DAISY 3 books, e.g. it contains a
+ * NavMap, etc. See http://www.daisy.org/z3986/2005/Z3986-2005.html#NCX for
+ * more information on the DAISY 3 specification. 
  * 
  * Currently it is limited to sections in the eBook e.g. page-numbers aren't
  * included - this is a short-term limitation we expect to address.
  */
-import java.util.ArrayList;
-import java.util.List;
-
 public class NavCentre {
 	private List<NavPoint> navMap = new ArrayList<NavPoint>();
 	
