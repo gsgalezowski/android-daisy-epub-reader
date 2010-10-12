@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.marvin.widget.TouchGestureControlOverlay;
@@ -23,6 +25,7 @@ public class DaisyReader extends ListActivity {
 	private DaisyBook book = new DaisyBook();
 	private TouchGestureControlOverlay gestureOverlay;
 	private FrameLayout frameLayout;
+	private LinearLayout linearLayout;
 	private String path;
 	private static final String TAG = "DaisyReader";
 
@@ -121,9 +124,10 @@ public class DaisyReader extends ListActivity {
 	}
 
 	private void activateGesture() {
-		frameLayout = (FrameLayout) getListView().getParent();
+		ListView listView = getListView();
+		linearLayout = (LinearLayout) listView.getParent();
 		gestureOverlay = new TouchGestureControlOverlay(this, gestureListener);
-		frameLayout.addView(gestureOverlay);
+		linearLayout.addView(gestureOverlay);
 	}
 
 	private GestureListener gestureListener = new GestureListener() {
