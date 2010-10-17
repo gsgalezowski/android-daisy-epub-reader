@@ -70,14 +70,14 @@ public class DaisyReader extends ListActivity {
     		toast.show();
 			
     		// TODO(jharty): Find out why the AlertDialog does not get displayed :(
-			AlertDialog.Builder explainProblem = new AlertDialog.Builder(this);
+/*			AlertDialog.Builder explainProblem = new AlertDialog.Builder(this);
 			
 			explainProblem
 				.setTitle("Problem opening the book")
 				.setMessage(R.string.unable_to_open_file)
 				.setPositiveButton(R.string.close_instructions, null)
 				.show();
-			explainProblem.show();
+			explainProblem.show();*/
 			Util.logInfo(TAG, "Cannot open book :( see:" + e.getLocalizedMessage());
 			// UiHelper.alert(this, R.string.unable_to_open_file);
 			finish();

@@ -186,7 +186,7 @@ public class DaisyBook implements Serializable {
 		return false;
 	}
 
-	void openSmil() {
+	void openSmil() throws FileNotFoundException, IOException {
 		Util.logInfo(TAG, "Open SMIL file");
 	if (currentnccIndex != bookmark.getNccIndex()
 		|| smilFile.getFilename() == null) 
@@ -201,7 +201,6 @@ public class DaisyBook implements Serializable {
 				bookmark.setFilename(path + smilFile.getTextSegments().get(0).getSrc());
 				bookmark.setPosition(0);
 			}
-			
 		}
 	}
 

@@ -19,14 +19,8 @@ public class SmilFile implements Serializable {
 		return this.fileName;
 	}
 
-	public void open(String filename) {
-		try {
-            elements = new SmilParser().parse(new FileInputStream(filename));
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+	public void open(String filename) throws FileNotFoundException, IOException {
+           elements = new SmilParser().parse(new FileInputStream(filename));
 	}
 	
 	public List<AudioElement> getAudioSegments() {
