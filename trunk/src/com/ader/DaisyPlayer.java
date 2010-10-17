@@ -2,6 +2,7 @@ package com.ader;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
@@ -9,11 +10,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.google.marvin.widget.TouchGestureControlOverlay;
 import com.google.marvin.widget.TouchGestureControlOverlay.Gesture;
 import com.google.marvin.widget.TouchGestureControlOverlay.GestureListener;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class DaisyPlayer extends Activity implements OnCompletionListener {
@@ -84,8 +87,65 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	public void play() {
 		Util.logInfo(TAG, "play");
 		player.reset();
-		book.openSmil();
-		read();
+		int duration = Toast.LENGTH_LONG;
+
+		Toast toast; 
+		try {
+			book.openSmil();
+			read();
+		} catch (FileNotFoundException fnfe) {
+			CharSequence text = "Cannot open book :( A file is missing. " + fnfe.getLocalizedMessage();
+			toast = Toast.makeText(this, text, duration);
+			toast.show();
+			AlertDialog.Builder explainProblem = new AlertDialog.Builder(this);
+			explainProblem
+			.setCancelable(false)
+			.setTitle(R.string.unable_to_open_file)
+			.setMessage(fnfe.getLocalizedMessage())
+			.setPositiveButton(R.string.close_instructions, new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int id) {
+					DaisyPlayer.this.finish();
+				}
+			})
+			.show();
+			// finish();
+		Util.logInfo(TAG, "Cannot open file :( problem with permissions for the files." + fnfe.getLocalizedMessage());
+		} catch (IOException ioe) {
+			CharSequence text = "Cannot open book :( " + ioe.getLocalizedMessage();
+			toast = Toast.makeText(this, text, duration);
+			toast.show();			
+			
+			AlertDialog.Builder explainProblem = new AlertDialog.Builder(this);
+			explainProblem
+			.setTitle("Permission Problem opening a file")
+			.setMessage(ioe.getLocalizedMessage())
+			.setPositiveButton(R.string.close_instructions, new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int id) {
+					DaisyPlayer.this.finish();
+				}
+			})
+			.show();
+			// finish();
+		} catch (RuntimeException re) {
+			CharSequence text = "Cannot open book :( A Runtime error occured." + re.getLocalizedMessage();
+			toast = Toast.makeText(this, text, duration);
+			toast.show();
+			
+			AlertDialog.Builder explainProblem = new AlertDialog.Builder(this);
+			explainProblem
+			.setTitle("Serious Problem found")
+			.setMessage(re.getLocalizedMessage())
+			.setPositiveButton(R.string.close_instructions, new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int id) {
+					DaisyPlayer.this.finish();
+				}
+			})
+			.show();
+			// finish();
+		}
 	}
 
 	/**
@@ -119,9 +179,14 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	public void stop() {
 		Util.logInfo(TAG, "stop");
 		player.pause();
-		book.getBookmark().setPosition(player.getCurrentPosition());
+		Bookmark bookmark = book.getBookmark();
+		bookmark.setPosition(player.getCurrentPosition());
 		player.reset();
-		book.getBookmark().save(book.getPath() + "auto.bmk");
+		if (bookmark.getFilename() != null) {
+			// We only save the bookmark if there's a valid file, problems e.g.
+			// reading a smil file might mean the bookmark hasn't been assigned.
+			book.getBookmark().save(book.getPath() + "auto.bmk");
+		}
 	}
 
 	public void togglePlay() {
