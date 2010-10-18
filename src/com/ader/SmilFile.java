@@ -6,6 +6,10 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
+
 import com.ader.smil.AudioElement;
 import com.ader.smil.SequenceElement;
 import com.ader.smil.SmilParser;
@@ -20,7 +24,15 @@ public class SmilFile implements Serializable {
 	}
 
 	public void open(String filename) throws FileNotFoundException, IOException {
-           elements = new SmilParser().parse(new FileInputStream(filename));
+           try {
+			elements = new SmilParser().parse(new FileInputStream(filename));
+		} catch (SAXException e) {
+			throw new RuntimeException("Problem with file: " + filename 
+					+ "\n" + e.getLocalizedMessage());
+		} catch (ParserConfigurationException e) {
+			throw new RuntimeException("Problem with the XML Parser on the Android platform." 
+					+ "\n" + e.getLocalizedMessage());
+		}
 	}
 	
 	public List<AudioElement> getAudioSegments() {

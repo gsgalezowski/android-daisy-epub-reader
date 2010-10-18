@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.logging.Logger;
 
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.Attributes;
@@ -29,23 +30,23 @@ public class SmilParser extends DefaultHandler {
     private State state;
     private SequenceElement rootSequence;
     
-    public SequenceElement parse(String content) throws IOException {
+    public SequenceElement parse(String content) throws IOException, SAXException, ParserConfigurationException {
        return this.parse(new ByteArrayInputStream(content.getBytes()));
     }
     
-    public SequenceElement parse(InputStream stream) throws IOException {
+    public SequenceElement parse(InputStream stream) throws IOException, SAXException, ParserConfigurationException {
         state = State.INIT;
         SAXParserFactory factory = SAXParserFactory.newInstance();
-        try {
+//        try {
             XMLReader parser = factory.newSAXParser().getXMLReader();
             parser.setEntityResolver(new DummyDtdResolver());
             parser.setContentHandler(this);
             org.xml.sax.InputSource input = new InputSource(stream);
             parser.parse(input);
             return rootSequence;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
     }
 
     @Override

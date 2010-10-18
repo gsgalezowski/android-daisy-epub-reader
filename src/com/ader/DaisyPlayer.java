@@ -109,8 +109,6 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 				}
 			})
 			.show();
-			// finish();
-		Util.logInfo(TAG, "Cannot open file :( problem with permissions for the files." + fnfe.getLocalizedMessage());
 		} catch (IOException ioe) {
 			CharSequence text = "Cannot open book :( " + ioe.getLocalizedMessage();
 			toast = Toast.makeText(this, text, duration);
@@ -127,7 +125,6 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 				}
 			})
 			.show();
-			// finish();
 		} catch (RuntimeException re) {
 			CharSequence text = "Cannot open book :( A Runtime error occured." + re.getLocalizedMessage();
 			toast = Toast.makeText(this, text, duration);
@@ -144,7 +141,6 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 				}
 			})
 			.show();
-			// finish();
 		}
 	}
 
