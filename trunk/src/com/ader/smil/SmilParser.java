@@ -34,19 +34,27 @@ public class SmilParser extends DefaultHandler {
        return this.parse(new ByteArrayInputStream(content.getBytes()));
     }
     
+    /**
+     * Parses the input stream of content with a default encoding of UTF-8. 
+     * 
+     * Calls parse(InputStream stream, String encoding);
+     */
     public SequenceElement parse(InputStream stream) throws IOException, SAXException, ParserConfigurationException {
+        return parse(stream, "UTF-8");
+    }
+
+    // Many thanks to the following link which provided the final piece for me,
+    // http://stackoverflow.com/questions/293728/e-is-not-correctly-parsed
+    public SequenceElement parse(InputStream stream, String encoding) throws IOException, SAXException, ParserConfigurationException {
         state = State.INIT;
         SAXParserFactory factory = SAXParserFactory.newInstance();
-//        try {
-            XMLReader parser = factory.newSAXParser().getXMLReader();
-            parser.setEntityResolver(new DummyDtdResolver());
-            parser.setContentHandler(this);
-            org.xml.sax.InputSource input = new InputSource(stream);
-            parser.parse(input);
-            return rootSequence;
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
+        XMLReader parser = factory.newSAXParser().getXMLReader();
+        parser.setEntityResolver(new DummyDtdResolver());
+        parser.setContentHandler(this);
+        org.xml.sax.InputSource input = new InputSource(stream);
+        input.setEncoding(encoding);
+        parser.parse(input);
+        return rootSequence;
     }
 
     @Override
