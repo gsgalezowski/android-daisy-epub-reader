@@ -1,11 +1,8 @@
 package com.ader;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import junit.framework.TestCase;
 
 import com.ader.smil.TextElement;
-
-import junit.framework.TestCase;
 
 public class SmilFileTest extends TestCase {
 

@@ -1,5 +1,6 @@
 package com.ader.testutilities;
 
+import java.io.ByteArrayInputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
@@ -93,4 +94,25 @@ public class CreateDaisy202Book extends CreateEBook {
 		new PrintStream(out).println("This is a dummy level one entry that doesn't match a file</a></h1>");
 		sectionsCreatedAutomatically++; // Now we can update the counter
 	}
+	
+	/**
+	 * TODO(jharty): Silly me, I thought I was adding a SMIL file directly, I 
+	 * should be creating an entry for the SMIL file in the ncc.html file...
+	 * 
+	 * @param smilFileContents The contents of the SMIL file TODO do we need
+	 *  the contents or the name?
+	 */
+
+	public void addSmilFile(ByteArrayInputStream smilFileContents) {
+		// TODO(jharty): clean up this code
+		StringBuffer bfr = new StringBuffer();
+		int read = smilFileContents.read();
+		while(read >-1) {
+		bfr.append((char)read);
+		read = smilFileContents.read();
+		}
+		new PrintStream(out).print(bfr.toString());
+	}
+
+
 }
