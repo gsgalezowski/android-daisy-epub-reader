@@ -1,6 +1,5 @@
 package com.ader.testutilities;
 
-import java.io.ByteArrayInputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
@@ -99,19 +98,35 @@ public class CreateDaisy202Book extends CreateEBook {
 	 * TODO(jharty): Silly me, I thought I was adding a SMIL file directly, I 
 	 * should be creating an entry for the SMIL file in the ncc.html file...
 	 * 
-	 * @param smilFileContents The contents of the SMIL file TODO do we need
+	 * @param level the level to include this smil file
+	 * @param smilFilename the name to add to the ncc.html contents
 	 *  the contents or the name?
 	 */
 
-	public void addSmilFile(ByteArrayInputStream smilFileContents) {
-		// TODO(jharty): clean up this code
-		StringBuffer bfr = new StringBuffer();
-		int read = smilFileContents.read();
-		while(read >-1) {
-		bfr.append((char)read);
-		read = smilFileContents.read();
+	public void addSmilFile(int level, String smilFilename) {
+		if (filenameSeemsInvalid(smilFilename)) {
+			return;
 		}
-		new PrintStream(out).print(bfr.toString());
+		int counter = sectionsCreatedAutomatically + 1;
+		new PrintStream(out).print("<h" + level + " id=\"smil_" + counter + "\">");
+		new PrintStream(out).print("<a href=\"" + smilFilename + "#text_" + counter + "\">");
+		// TODO(jharty): bug in the next line - write a test for it and then fix!
+		new PrintStream(out).println("This is a dummy level one entry that doesn't match a file</a></h1>");
+		sectionsCreatedAutomatically++; // Now we can update the counter
+	}
+
+	/**
+	 * Helper method to detect filenames for smil files that seem invalid.
+	 * 
+	 * Extend as your tests guide you :)
+	 * @param smilFilename The filename to test
+	 * @return true if the filename seems invalid, else false.
+	 */
+	private boolean filenameSeemsInvalid(String smilFilename) {
+		if (smilFilename.length() < "x.smil".length()) {
+			return true;
+		}
+		return false;
 	}
 
 
