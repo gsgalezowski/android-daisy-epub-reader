@@ -9,7 +9,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
+import com.ader.smil.AudioElement;
 import com.ader.testutilities.CreateDaisy202Book;
 
 import junit.framework.TestCase;
@@ -34,10 +36,14 @@ public class TestAbilityToGenerateDaisy202Book extends TestCase {
 		eBook.writeXmlns();
 		eBook.writeBasicMetadata();
 	}
-	
+	/**
+	 * Note: this test confirms we are able to insert incorrect content e.g.
+	 * for testing. It confirms the code we're testing is *NOT* intended for
+	 * real-world use.
+	 */
 	// @SmallTest
 	public void testAbilityToInjectEmptySmilFile() {
-		eBook.addSmilFile(1, "");
+		eBook.addSmilFileEntry(1, "", "");
 		eBook.writeEndOfDocument();
 
 		ByteArrayInputStream newBook = new ByteArrayInputStream(out.toByteArray());
@@ -49,8 +55,12 @@ public class TestAbilityToGenerateDaisy202Book extends TestCase {
 	
 	// @SmallTest
 	public void testAbilityToInjectSingleItemSmilFile() throws Exception {
-		File smilFile = new File("Resources/testfiles/singleEntry.smil");
-		eBook.addSmilFile(1, "singleEntry.smil");
+		SmilFile singleEntry = new SmilFile();
+		singleEntry.open("Resources/testfiles/singleEntry.smil");
+		List <AudioElement> audio = singleEntry.getAudioSegments();
+		String id = audio.get(0).getId();
+		assertEquals("ID of the audio element incorrect", "audio_0001", id);
+		eBook.addSmilFileEntry(1, "singleEntry.smil", id);
 		eBook.writeEndOfDocument();
 
 		ByteArrayInputStream newBook = new ByteArrayInputStream(out.toByteArray());

@@ -95,21 +95,26 @@ public class CreateDaisy202Book extends CreateEBook {
 	}
 	
 	/**
-	 * TODO(jharty): Silly me, I thought I was adding a SMIL file directly, I 
-	 * should be creating an entry for the SMIL file in the ncc.html file...
+	 * Adds an entry for a SMIL file to the contents of ncc.html
+	 * 
+	 * Note: this does NOT check for correctness of the values being added. It
+	 * is intended to facilitate testing of the DaisyReader and related code;
+	 * not to generate real DAISY books.
 	 * 
 	 * @param level the level to include this smil file
 	 * @param smilFilename the name to add to the ncc.html contents
 	 *  the contents or the name?
+	 * @param idToInsert the value of the this is appended as a 'fragment' to
+	 *  the smilFilename in  ncc.html
 	 */
 
-	public void addSmilFile(int level, String smilFilename) {
+	public void addSmilFileEntry(int level, String smilFilename, String idToInsert) {
 		if (filenameSeemsInvalid(smilFilename)) {
 			return;
 		}
 		int counter = sectionsCreatedAutomatically + 1;
 		new PrintStream(out).print("<h" + level + " id=\"smil_" + counter + "\">");
-		new PrintStream(out).print("<a href=\"" + smilFilename + "#text_" + counter + "\">");
+		new PrintStream(out).print("<a href=\"" + smilFilename + "#" + idToInsert + "\">");
 		// TODO(jharty): bug in the next line - write a test for it and then fix!
 		new PrintStream(out).println("This is a dummy level one entry that doesn't match a file</a></h1>");
 		sectionsCreatedAutomatically++; // Now we can update the counter

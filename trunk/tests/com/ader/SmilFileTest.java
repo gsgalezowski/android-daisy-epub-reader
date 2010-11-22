@@ -21,4 +21,17 @@ public class SmilFileTest extends TestCase {
         assertEquals(smilFile.getAudioSegments().get(0).getClipBegin(), 0.0);
         assertEquals(smilFile.getAudioSegments().get(1).getClipBegin(), 1.384);
     }
-}
+    
+    public void testParsingFileWithWindows1252Encoding() throws Exception {
+    	SmilFile smilfile = new SmilFile();
+    	smilfile.open("Resources/problemcontent/bcbw0001.smil");
+    	assertEquals("Expected correct count of audio segments", 
+    			9, smilfile.getAudioSegments().size());
+    }
+    
+    public void testParsingCBFW000BWithWindows1252Encoding() throws Exception {
+    	SmilFile smilfile = new SmilFile();
+    	smilfile.open("Resources/problemcontent/cbfw000B.smil");
+    	assertEquals("Expected correct count of audio segments", 
+    			11, smilfile.getAudioSegments().size());
+    }}
