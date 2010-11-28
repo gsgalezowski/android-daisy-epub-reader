@@ -34,4 +34,8 @@ public class SmilFileTest extends TestCase {
     	smilfile.open("Resources/problemcontent/cbfw000B.smil");
     	assertEquals("Expected correct count of audio segments", 
     			11, smilfile.getAudioSegments().size());
+    	
+    	SmilFile smilfile2 = new SmilFile();
+    	smilfile2.open("/sdcard/problemcontent/cbfw0029.smil");
+    	
     }}

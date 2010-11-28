@@ -39,12 +39,6 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 		play();
 	}
 
-	//@Override
-	//protected void onStop() {
-//		super.onStop();
-		//player.release();
-// 	}
-
 	@Override
 	protected void onDestroy() {
 		// Let's stop playing the book if the user presses back, etc.
@@ -164,6 +158,7 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 						+ "\n" + e.getLocalizedMessage());
 			}
 			player.seekTo(bookmark.getPosition());
+			player.setScreenOnWhilePlaying(true);
 			player.start();
 		} else if (book.hasTextSegments()) {
 			// TODO(jharty): add TTS to speak the text section
