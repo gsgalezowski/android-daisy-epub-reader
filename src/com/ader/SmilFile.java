@@ -32,7 +32,6 @@ public class SmilFile implements Serializable {
 
 	public void open(String filename) throws FileNotFoundException, IOException {
 		String encoding = "UTF-8";
-           try {
 			FileInputStream fis = new FileInputStream(filename);
 			BufferedInputStream bis = new BufferedInputStream(fis);
 			if (bis.markSupported()) {
@@ -44,18 +43,47 @@ public class SmilFile implements Serializable {
 				line = dis.readLine();
 				if (line.matches(SmilFile.XML_FIRST_LINE_REGEX)) {
 					encoding = extractEncoding(line);
+					// encoding = mapUnsupportedEncoding(encoding);
 				}
 				bis.reset();
 			}
 			
+		try {
 			elements = new SmilParser().parse(bis, encoding);
 		} catch (SAXException e) {
+			// TODO(jharty): The following code seems to allow us to re-parse
+			// an unsupported encoding (windows-1252). However it's messy and
+			// ugly. I'll check in this version, then try to clean up the code.
+			try {
+				encoding = mapUnsupportedEncoding(encoding);
+				fis.close();
+				bis.close();
+				fis = new FileInputStream(filename);
+				bis = new BufferedInputStream(fis);
+				elements = new SmilParser().parse(bis, encoding);
+				return;
+			} catch (SAXException e2) {
+				// Do nothing, allow the first error to be reported.
+			} catch (ParserConfigurationException e2) {
+				// This seems an extremely unlikely scenario, that the second
+				// attempt would fail with a configuration exception, however
+				// catching it explicitly seems the least ugly approach for now
+				throw new RuntimeException("Problem with the XML Parser on the Android platform." 
+						+ "\n" + e.getLocalizedMessage());
+			}
 			throw new RuntimeException("Problem with file: " + filename 
 					+ "\n" + e.getLocalizedMessage());
 		} catch (ParserConfigurationException e) {
 			throw new RuntimeException("Problem with the XML Parser on the Android platform." 
 					+ "\n" + e.getLocalizedMessage());
 		}
+	}
+
+	protected String mapUnsupportedEncoding(String encoding) {
+		if (encoding.equalsIgnoreCase("windows-1252")) {
+			encoding = "iso-8859-1";
+		}
+		return encoding;
 	}
 	
 	public List<AudioElement> getAudioSegments() {
