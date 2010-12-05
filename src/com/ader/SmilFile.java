@@ -31,23 +31,11 @@ public class SmilFile implements Serializable {
 	}
 
 	public void open(String filename) throws FileNotFoundException, IOException {
-		String encoding = "UTF-8";
-			FileInputStream fis = new FileInputStream(filename);
-			BufferedInputStream bis = new BufferedInputStream(fis);
-			if (bis.markSupported()) {
-				String line = null;
-				// read the first line after setting the mark, then reset
-				// before calling the parser.
-				bis.mark(200);
-				DataInputStream dis = new DataInputStream(bis);
-				line = dis.readLine();
-				if (line.matches(SmilFile.XML_FIRST_LINE_REGEX)) {
-					encoding = extractEncoding(line);
-					// encoding = mapUnsupportedEncoding(encoding);
-				}
-				bis.reset();
-			}
-			
+		String encoding = obtainEncodingStringFromFile(filename);
+
+		FileInputStream fis = new FileInputStream(filename);
+		BufferedInputStream bis = new BufferedInputStream(fis);
+
 		try {
 			elements = new SmilParser().parse(bis, encoding);
 		} catch (SAXException e) {
@@ -79,6 +67,14 @@ public class SmilFile implements Serializable {
 		}
 	}
 
+	/**
+	 * Helper method to map an unsupported XML encoding to a similar encoding.
+	 * 
+	 * Currently limited to processing windows-1252 encoding.
+	 * @param encoding The encoding string e.g. "windows-1252"
+	 * @return a similar, hopefully supported encoding, where we have a 
+	 * suitable match, else the original encoding.
+	 */
 	protected String mapUnsupportedEncoding(String encoding) {
 		if (encoding.equalsIgnoreCase("windows-1252")) {
 			encoding = "iso-8859-1";
@@ -104,5 +100,33 @@ public class SmilFile implements Serializable {
 		String matches[] = p.split(line);
 		String encoding = matches[1].replace(XML_TRAILER, "");
 		return encoding.toLowerCase();
+	}
+	
+	/**
+	 * Helper method to obtain the content encoding from an file.
+	 * @param filename file to parse
+	 * @return the encoding if we are able to extract and parse it, else the
+	 * default value expected by the expat parser, i.e. "UTF-8"
+	 * @throws IOException if there is a problem reading from the file.
+	 */
+	protected String obtainEncodingStringFromFile(String filename) throws IOException {
+		String encoding = "UTF-8";
+		FileInputStream fis = new FileInputStream(filename);
+		BufferedInputStream bis = new BufferedInputStream(fis);
+		if (bis.markSupported()) {
+			String line = null;
+			// read the first line after setting the mark, then reset
+			// before calling the parser.
+			bis.mark(200);
+			DataInputStream dis = new DataInputStream(bis);
+			line = dis.readLine();
+			if (line.matches(SmilFile.XML_FIRST_LINE_REGEX)) {
+				encoding = extractEncoding(line);
+			}
+			bis.reset();
+		}
+		fis.close();
+		bis.close();
+		return encoding;
 	}
 }
