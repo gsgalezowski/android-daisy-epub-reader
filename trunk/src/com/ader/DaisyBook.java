@@ -67,6 +67,14 @@ public class DaisyBook implements Serializable {
 		return this.selectedLevel;
 	}
 
+	public int getCurrentDepthInDaisyBook() {
+		return selectedLevel;
+	}
+	
+	public int getMaximumDepthInDaisyBook() {
+		return NCCDepth;
+	}
+	
 	public String getPath() {
 		return path;
 	}

@@ -31,6 +31,7 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	private FrameLayout frameLayout;
 	private TextView mainText;
 	private TextView statusText;
+	private TextView depthText;
 	private int audioOffset ;
 
 	@Override
@@ -154,6 +155,8 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	private void read() {
 		Bookmark bookmark = book.getBookmark();
 
+		depthText.setText("Depth " + book.getCurrentDepthInDaisyBook() + " of " + book.getMaximumDepthInDaisyBook());
+		
 		if (book.hasAudioSegments()) {
 			try {
 				mainText.setText("Reading " + book.current().getText());
@@ -244,6 +247,7 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	
 	private void activateGesture() {
 		setContentView(R.layout.daisyplayerframe);
+		depthText = (TextView) findViewById(R.id.depthText);
 		mainText = (TextView) findViewById(R.id.mainText);
         statusText = (TextView) findViewById(R.id.statusText);
 		frameLayout = (FrameLayout) findViewById(R.id.daisyPlayerLayout);
@@ -277,9 +281,12 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 			} else if (g == Gesture.LEFT) {
 				int levelSetTo = book.decrementSelectedLevel();
 				Util.logInfo(TAG, "Decremented Level to: " + levelSetTo);
+				depthText.setText("Depth " + levelSetTo + " of " + book.getMaximumDepthInDaisyBook());
 			} else if (g == Gesture.RIGHT) {
 				int levelSetTo = book.incrementSelectedLevel();
 				Util.logInfo(TAG, "Incremented Level to: " + levelSetTo);
+				// TODO(jharty): Localize all the recently added hardcoded text e.g. here!
+				depthText.setText("Depth " + levelSetTo + " of " + book.getMaximumDepthInDaisyBook());
 			}
 		}
 	};
