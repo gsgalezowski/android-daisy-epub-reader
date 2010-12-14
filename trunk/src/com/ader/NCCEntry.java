@@ -54,6 +54,15 @@ public class NCCEntry implements Serializable {
 		this.smilRef = smilRef;
 	}
 
+	/**
+	 * Returns the text for this NCC entry.
+	 * 
+	 * Typically a brief description of this section in the book.
+	 */
+	public String getText() {
+		return text;
+	}
+	
 	public void setText(String text) {
 		this.text = text;
 	}

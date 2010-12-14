@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.marvin.widget.TouchGestureControlOverlay;
@@ -21,12 +22,16 @@ import java.io.IOException;
 
 public class DaisyPlayer extends Activity implements OnCompletionListener {
 
+	private static final String AUDIO_OFFSET = "Offset";
 	private static final String IS_THE_BOOK_PLAYING = "Playing";
 	private static final String TAG = "DaisyPlayer";
 	private DaisyBook book;
 	private MediaPlayer player;
 	private TouchGestureControlOverlay gestureOverlay;
 	private FrameLayout frameLayout;
+	private TextView mainText;
+	private TextView statusText;
+	private int audioOffset ;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +79,11 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 		Util.logInfo(TAG, "onCompletion called.");
 		// stop();
 		if (book.nextSection(false)) {
+			Util.logInfo(TAG, "PLAYING section: " + book.getDisplayPosition() + " " +
+					book.current().getText());
+			mainText.setText(book.current().getText());
+			// reset the audio Offset (used on device rotation)
+			audioOffset = 0;
 			play();
 		}
 	}
@@ -146,6 +156,7 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 
 		if (book.hasAudioSegments()) {
 			try {
+				mainText.setText("Reading " + book.current().getText());
 				Util.logInfo(TAG, "Start playing " + bookmark.getFilename() + " " + bookmark.getPosition());
 				player.setDataSource(bookmark.getFilename());
 				player.prepare();
@@ -157,8 +168,12 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 				throw new RuntimeException(bookmark.getFilename() 
 						+ "\n" + e.getLocalizedMessage());
 			}
-			player.seekTo(bookmark.getPosition());
+			// Part of my experiment to stop the player restarting the audio
+			// when the device is rotated between landscape and portrait modes.
+			// player.seekTo(bookmark.getPosition());
+			player.seekTo(audioOffset);
 			player.setScreenOnWhilePlaying(true);
+			statusText.setText("Playing...");
 			player.start();
 		} else if (book.hasTextSegments()) {
 			// TODO(jharty): add TTS to speak the text section
@@ -183,19 +198,26 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 
 	public void togglePlay() {
 		Util.logInfo(TAG, "togglePlay called.");
-		if (player.isPlaying())
-			// stop();
+		if (player.isPlaying()) {
+			statusText.setText("Paused");
 			player.pause();
-		else
-			// play();
+		} else {
+			statusText.setText("Playing");
 			player.start();
+		}
 	}
 
 	@Override
 	public void onSaveInstanceState(Bundle savedInstanceState) {
+		audioOffset = player.getCurrentPosition();
+		Util.logInfo(TAG, "Length in media player is: " + audioOffset);
+		
 		savedInstanceState.putBoolean(IS_THE_BOOK_PLAYING, player.isPlaying());
+		savedInstanceState.putInt(AUDIO_OFFSET, audioOffset);
 		if (player.isPlaying()) {
-			stop();
+			// Try seeing if I can pause the player on rotation rather than stopping it
+			player.pause();
+			// stop();
 		}
 		super.onSaveInstanceState(savedInstanceState);
 	}
@@ -204,13 +226,27 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	public void onRestoreInstanceState(Bundle savedInstanceState) {
 		super.onRestoreInstanceState(savedInstanceState);
 		Boolean isPlaying = savedInstanceState.getBoolean(IS_THE_BOOK_PLAYING, true);
+		Util.logInfo(TAG, "Offset at start of onRestoreInstanceState is: " + audioOffset);
+		audioOffset = savedInstanceState.getInt(AUDIO_OFFSET, 0);
+		Util.logInfo(TAG, "Offset after retrieving saved offset value is: " + audioOffset);
+		player.seekTo(audioOffset);
 		if (!isPlaying) {
-			stop();
+			// Try seeing if I can pause the player on rotation rather than stopping it
+			statusText.setText("Paused...");
+			player.pause();
+			// stop();
+		} else {
+			player.start();
 		}
+		
+
 	}
 	
 	private void activateGesture() {
-		frameLayout = new FrameLayout(this);
+		setContentView(R.layout.daisyplayerframe);
+		mainText = (TextView) findViewById(R.id.mainText);
+        statusText = (TextView) findViewById(R.id.statusText);
+		frameLayout = (FrameLayout) findViewById(R.id.daisyPlayerLayout);
 		gestureOverlay = new TouchGestureControlOverlay(this, gestureListener);
 		frameLayout.addView(gestureOverlay);
 		setContentView(frameLayout);
@@ -230,10 +266,12 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 				togglePlay();
 			} else if (g == Gesture.UP) {
 				if (book.previousSection()) {
+					audioOffset = 0;
 					play();
 				}
 			} else if (g == Gesture.DOWN) {
 				if (book.nextSection(true)) {
+					audioOffset = 0;
 					play();
 				}
 			} else if (g == Gesture.LEFT) {
