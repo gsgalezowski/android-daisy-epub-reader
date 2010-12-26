@@ -53,6 +53,10 @@ public class SmilParser extends DefaultHandler {
         parser.setContentHandler(this);
         org.xml.sax.InputSource input = new InputSource(stream);
         input.setEncoding(encoding);
+
+        // TODO(jharty): temporary debug...
+        String s = input.getEncoding();
+    	
         parser.parse(input);
         return rootSequence;
     }
@@ -68,7 +72,7 @@ public class SmilParser extends DefaultHandler {
                 log.info("init " + name);
                 if ("seq".equalsIgnoreCase(name)) {
                     state = State.SEQ;
-                    rootSequence = createSequenceElment();
+                    rootSequence = createSequenceElement();
                     currentElement = rootSequence;
                 }
                 break;
@@ -98,7 +102,7 @@ public class SmilParser extends DefaultHandler {
                     par.setAudioSequence(seq);
                     seq.add(createAudioElement());
                 } else if ("seq".equalsIgnoreCase(name)) {
-                    SequenceElement seq = createSequenceElment();
+                    SequenceElement seq = createSequenceElement();
                     par.setAudioSequence(seq);
                     currentElement = seq;
                     state = State.SEQ;
@@ -108,7 +112,7 @@ public class SmilParser extends DefaultHandler {
         }
     }
     
-    private SequenceElement createSequenceElment() {
+    private SequenceElement createSequenceElement() {
         double duration = 0;
         if (attributes.getValue("dur") != null) {
             duration = Double.parseDouble(attributes.getValue("dur").replace("s", ""));

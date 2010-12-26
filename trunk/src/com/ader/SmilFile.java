@@ -13,15 +13,13 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
 
+import com.ader.io.ExtractXMLEncoding;
 import com.ader.smil.AudioElement;
 import com.ader.smil.SequenceElement;
 import com.ader.smil.SmilParser;
 import com.ader.smil.TextElement;
 
 public class SmilFile implements Serializable {
-	protected static final String XML_TRAILER = "\"?>";
-	protected static final String EXTRACT_ENCODING_REGEX = ".*encoding=\"";
-	protected static final String XML_FIRST_LINE_REGEX = "<\\?xml version=\"1\\.0\" encoding=\"(.*)\"?>";
 	
 	private String fileName;
 	private SequenceElement elements;
@@ -31,7 +29,7 @@ public class SmilFile implements Serializable {
 	}
 
 	public void open(String filename) throws FileNotFoundException, IOException {
-		String encoding = obtainEncodingStringFromFile(filename);
+		String encoding = ExtractXMLEncoding.obtainEncodingStringFromFile(filename);
 
 		FileInputStream fis = new FileInputStream(filename);
 		BufferedInputStream bis = new BufferedInputStream(fis);
@@ -43,7 +41,7 @@ public class SmilFile implements Serializable {
 			// an unsupported encoding (windows-1252). However it's messy and
 			// ugly. I'll check in this version, then try to clean up the code.
 			try {
-				encoding = mapUnsupportedEncoding(encoding);
+				encoding = ExtractXMLEncoding.mapUnsupportedEncoding(encoding);
 				fis.close();
 				bis.close();
 				fis = new FileInputStream(filename);
@@ -67,20 +65,6 @@ public class SmilFile implements Serializable {
 		}
 	}
 
-	/**
-	 * Helper method to map an unsupported XML encoding to a similar encoding.
-	 * 
-	 * Currently limited to processing windows-1252 encoding.
-	 * @param encoding The encoding string e.g. "windows-1252"
-	 * @return a similar, hopefully supported encoding, where we have a 
-	 * suitable match, else the original encoding.
-	 */
-	protected String mapUnsupportedEncoding(String encoding) {
-		if (encoding.equalsIgnoreCase("windows-1252")) {
-			encoding = "iso-8859-1";
-		}
-		return encoding;
-	}
 	
 	public List<AudioElement> getAudioSegments() {
 		return elements.getAllAudioElementDepthFirst();
@@ -90,43 +74,5 @@ public class SmilFile implements Serializable {
 		return elements.getAllTextElementDepthFirst();
 	}
 	
-	/**
-	 * Helper method to extract the XML file encoding
-	 * @param line the first line of an XML file
-	 * @return The value of the encoding in lower-case.
-	 */
-	protected static String extractEncoding(String line) {
-		Pattern p = Pattern.compile(EXTRACT_ENCODING_REGEX);
-		String matches[] = p.split(line);
-		String encoding = matches[1].replace(XML_TRAILER, "");
-		return encoding.toLowerCase();
-	}
-	
-	/**
-	 * Helper method to obtain the content encoding from an file.
-	 * @param filename file to parse
-	 * @return the encoding if we are able to extract and parse it, else the
-	 * default value expected by the expat parser, i.e. "UTF-8"
-	 * @throws IOException if there is a problem reading from the file.
-	 */
-	protected String obtainEncodingStringFromFile(String filename) throws IOException {
-		String encoding = "UTF-8";
-		FileInputStream fis = new FileInputStream(filename);
-		BufferedInputStream bis = new BufferedInputStream(fis);
-		if (bis.markSupported()) {
-			String line = null;
-			// read the first line after setting the mark, then reset
-			// before calling the parser.
-			bis.mark(200);
-			DataInputStream dis = new DataInputStream(bis);
-			line = dis.readLine();
-			if (line.matches(SmilFile.XML_FIRST_LINE_REGEX)) {
-				encoding = extractEncoding(line);
-			}
-			bis.reset();
-		}
-		fis.close();
-		bis.close();
-		return encoding;
-	}
+
 }

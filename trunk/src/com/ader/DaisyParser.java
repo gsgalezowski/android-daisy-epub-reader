@@ -8,8 +8,10 @@ package com.ader;
  * want to add logic to detect malformed books. The reference will be the DAISY
  * 2.02 Specification http://www.daisy.org/z3986/specifications/daisy_202.html
  */
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -27,6 +29,8 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
+
+import com.ader.io.ExtractXMLEncoding;
 
 public class DaisyParser extends DefaultHandler {
 	private static final String TAG = DaisyParser.class.getSimpleName();
@@ -47,16 +51,20 @@ public class DaisyParser extends DefaultHandler {
 
 	public ArrayList<DaisyElement> parse(InputStream stream) {
 		
-		org.xml.sax.InputSource input = new InputSource(stream);
 		EntityResolver der = dummyEntityResolver();
-		return parseNccContents(input, der);
+		// TODO (jharty): Extract the encoding from the stream
+		return parseNccContents(stream, der, "UTF-8");
 	}
 	
-	public ArrayList<DaisyElement> openAndParseFromFile(final String XMLFile) throws FileNotFoundException {
+	public ArrayList<DaisyElement> openAndParseFromFile(final String XMLFile) throws IOException {
 		Util.logInfo(TAG, "XMLFILE " + XMLFile);
-		org.xml.sax.InputSource input = new InputSource(new FileReader(XMLFile));
+		String encoding = ExtractXMLEncoding.obtainEncodingStringFromFile(XMLFile); 
+		encoding = ExtractXMLEncoding.mapUnsupportedEncoding(encoding);
+
+		FileInputStream fis = new FileInputStream(XMLFile);
+		BufferedInputStream bis = new BufferedInputStream(fis);
 		EntityResolver er = entityResolverForExternalFile(XMLFile);
-		return parseNccContents(input, er);
+		return parseNccContents(bis, er, encoding);
 	}
 
 	@Override
@@ -83,7 +91,19 @@ public class DaisyParser extends DefaultHandler {
 		current.setAttributes(attributes);
 		daisyElements.add(current);
 	}
-	private ArrayList<DaisyElement> parseNccContents(org.xml.sax.InputSource input, EntityResolver er) throws FactoryConfigurationError,
+	
+	/** 
+	 * Parse the contents of the DAISY 2.02 ncc.html file.
+	 * 
+	 * I've had to change the call to accept an InputStream rather than an
+	 * InputSource in order to have the encoding take effect. I'm not sure
+	 * quite why this makes a difference, however I noticed the parser now has
+	 * a buffered input stream as the byteStream (which was null before). 
+	 * 
+	 * Note: this code is modelled on the code in SmilParser.java which
+	 * correctly supports the encoding.
+	 */
+	private ArrayList<DaisyElement> parseNccContents(InputStream stream, EntityResolver er, String encoding) throws FactoryConfigurationError,
 			RuntimeException {
 		try {
 			SAXParserFactory factory = SAXParserFactory.newInstance();
@@ -99,8 +119,10 @@ public class DaisyParser extends DefaultHandler {
 			
         	saxParser.setEntityResolver(er);
         	saxParser.setContentHandler(this);
+        	org.xml.sax.InputSource input = new InputSource(stream);
+        	input.setEncoding(encoding);
         	saxParser.parse(input);
-
+        	
         	return daisyElements;
 		} catch (SAXException e) {
 			throw new RuntimeException(e);
