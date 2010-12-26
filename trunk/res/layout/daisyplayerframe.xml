@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20px"
-        android:text="no text yet" />
+        android:text="@string/no_text_yet" />
 
       <TextView
         android:id="@+id/depthText"
@@ -25,7 +25,7 @@
         android:textSize="30px"
         android:layout_centerVertical="true"
         android:textColor="#ffffff"
-        android:text="Depth?" />
+        android:text="@string/no_depth_yet" />
         
       <TextView
         android:id="@+id/statusText"
@@ -36,7 +36,7 @@
         android:textSize="40px"
         android:textColor="#ffffff"
         android:textStyle="bold"
-        android:text="Status?" />
+        android:text="@string/no_status_yet" />
       
     </RelativeLayout>
 

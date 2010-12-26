@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Android Daisy 2.02 Reader</string>
+    <string name="cannot_open_book">Cannot open book :( </string>
+    <string name="close_instructions">Close Instructions</string>
+    <string name="hello">Hello World, DaisyReader!</string>
+    <string name="help">Help</string>
+   	<string name="homepage_title">Android Daisy 2.02 Reader</string>
     <string name="new_folder_name_not_saved">New folder name NOT saved</string>
     <string name="new_folder_name_saved">New folder name saved</string>
     <string name="new_value">New value is </string>
-    <string name="sd_card_folder_changed_successfully">SD Card folder changed successfully</string>
+    <string name="no_depth_yet">Depth?</string>
+    <string name="no_previous_book_saved_msg">Sorry either no details of book were saved, or there is a problem with the stored book. Please use another menu option to find a book to read.</string>
     <string name="no_previous_book_saved_title">No previous book saved</string>
-    <string name="hello">Hello World, DaisyReader!</string>
-    <string name="app_name">Android Daisy Epub Reader</string>
-    <string name="playing">Playing</string>
-    <string name="stopped">Stopped</string>
-    <string name="unable_to_open_file">Unable to open file</string>
-    <string name="return_to_homescreen">Return to home screen</string>
+    <string name="no_status_yet">Status?</string>
+    <string name="no_text_yet">no text yet</string>
+    <string name="open_book">Open book</string>
+    <string name="open_last_book">Open last book</string>
+    <string name="paused_message">Paused</string>
+    <string name="permission_problem_opening_a_file">Permission Problem opening a file</string>
     <string name="player_instructions">Gestures are used to control the player.
     Tap the center of the screen to stop and restart the current audio.
     Swipes (where you drag your finger in a straight line on the screen, 
@@ -26,14 +33,21 @@
 
     </string>
     <string name="player_instructions_description">Instructions for the DAISY player</string>
-    <string name="close_instructions">Close Instructions</string>
-   	<string name="homepage_title">Android Daisy Epub Reader</string>
-    <string name="open_book">Open book</string>
+    <string name="playing_message">Playing</string>
+    <string name="reading_message">Reading </string>
+    <string name="return_to_homescreen">Return to home screen</string>
+    <string name="sd_card_folder_changed_successfully">SD Card folder changed successfully</string>
+    <string name="sdcard_mounted">The SD Card appears to be in use (mounted); can you unmount it, then try again?</string>
+    <string name="sdcard_title">SD card</string>
     <string name="search_books">Search for books</string>
-    <string name="open_last_book">Open last book</string>
+    <string name="serious_problem_found">Serious Problem found</string>
     <string name="settings">Settings</string>
-    <string name="help">Help</string>
-<string name="sdcard_title">SD card</string>
-<string name="sdcard_mounted">The SD Card appears to be in use (mounted); can you unmount it, then try again?</string>
-<string name="no_previous_book_saved_msg">Sorry either no details of book were saved, or there is a problem with the stored book. Please use another menu option to find a book to read.</string>
+    <string name="stopped">Stopped</string>
+    <string name="text_content_not_supported_yet">
+    This book seems to be a full text book. However, DAISY full text books are not supported yet. 
+    Please request the feature on the project\'s web site at 
+    http://code.google.com/p/android-daisy-epub-reader/issues/list 
+    so we know that people actually want this feature.
+    </string>
+    <string name="unable_to_open_file">Unable to open file</string>
 </resources>
