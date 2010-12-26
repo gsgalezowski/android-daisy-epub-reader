@@ -23,7 +23,7 @@ import java.io.IOException;
 public class DaisyPlayer extends Activity implements OnCompletionListener {
 
 	private static final String AUDIO_OFFSET = "Offset";
-	private static final String IS_THE_BOOK_PLAYING = "Playing";
+	private static final String IS_THE_BOOK_PLAYING = "playing";
 	private static final String TAG = "DaisyPlayer";
 	private DaisyBook book;
 	private MediaPlayer player;
@@ -115,13 +115,13 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 			})
 			.show();
 		} catch (IOException ioe) {
-			CharSequence text = "Cannot open book :( " + ioe.getLocalizedMessage();
+			CharSequence text = getString(R.string.cannot_open_book) + ioe.getLocalizedMessage();
 			toast = Toast.makeText(this, text, duration);
 			toast.show();			
 			
 			AlertDialog.Builder explainProblem = new AlertDialog.Builder(this);
 			explainProblem
-			.setTitle("Permission Problem opening a file")
+			.setTitle(R.string.permission_problem_opening_a_file)
 			.setMessage(ioe.getLocalizedMessage())
 			.setPositiveButton(R.string.close_instructions, new DialogInterface.OnClickListener() {
 				@Override
@@ -131,13 +131,14 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 			})
 			.show();
 		} catch (RuntimeException re) {
-			CharSequence text = "Cannot open book :( A Runtime error occured." + re.getLocalizedMessage();
+			CharSequence text = R.string.cannot_open_book + " A Runtime error occured." 
+				+ re.getLocalizedMessage();
 			toast = Toast.makeText(this, text, duration);
 			toast.show();
 			
 			AlertDialog.Builder explainProblem = new AlertDialog.Builder(this);
 			explainProblem
-			.setTitle("Serious Problem found")
+			.setTitle(R.string.serious_problem_found)
 			.setMessage(re.getLocalizedMessage())
 			.setPositiveButton(R.string.close_instructions, new DialogInterface.OnClickListener() {
 				@Override
@@ -155,12 +156,12 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	private void read() {
 		Bookmark bookmark = book.getBookmark();
 
+		// TODO(jharty): Find a practical way to format these messages for i18n and l10n
 		depthText.setText("Depth " + book.getCurrentDepthInDaisyBook() + " of " + book.getMaximumDepthInDaisyBook());
 		
 		if (book.hasAudioSegments()) {
 			try {
-				mainText.setText("Reading " + book.current().getText() +  " " 
-						+ new String(book.current().getText().getBytes("ISO8859_1"), "ISO8859_1"));
+				mainText.setText(R.string.reading_message + book.current().getText());
 				Util.logInfo(TAG, "Start playing " + bookmark.getFilename() + " " + bookmark.getPosition());
 				player.setDataSource(bookmark.getFilename());
 				player.prepare();
@@ -177,13 +178,21 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 			// player.seekTo(bookmark.getPosition());
 			player.seekTo(audioOffset);
 			player.setScreenOnWhilePlaying(true);
-			statusText.setText("Playing...");
+			statusText.setText(R.string.playing_message + "...");
 			player.start();
 		} else if (book.hasTextSegments()) {
 			// TODO(jharty): add TTS to speak the text section
 			// Note: we need to decide how to handle things like \n
 			// For now, perhaps we can simply display the text in a new view.
 			Util.logInfo("We need to read the text from: ", bookmark.getFilename());
+			
+			// For now, here is some information for the user. Perhaps I could
+			// add a way to automatically send a request e.g. by email?
+			mainText.setText(bookmark.getFilename());
+			// TODO(jharty): Test whether the status is visible at this size.
+			statusText.setTextSize(10.0f);
+			statusText.setText(R.string.text_content_not_supported_yet);
+			depthText.setText("");  // Blank out the depth message.
 		}
 	}
     
@@ -203,10 +212,10 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	public void togglePlay() {
 		Util.logInfo(TAG, "togglePlay called.");
 		if (player.isPlaying()) {
-			statusText.setText("Paused");
+			statusText.setText(R.string.paused_message);
 			player.pause();
 		} else {
-			statusText.setText("Playing");
+			statusText.setText(R.string.playing_message);
 			player.start();
 		}
 	}
@@ -236,7 +245,7 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 		player.seekTo(audioOffset);
 		if (!isPlaying) {
 			// Try seeing if I can pause the player on rotation rather than stopping it
-			statusText.setText("Paused...");
+			statusText.setText(R.string.paused_message + "...");
 			player.pause();
 			// stop();
 		} else {
