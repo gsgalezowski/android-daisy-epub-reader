@@ -159,7 +159,8 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 		
 		if (book.hasAudioSegments()) {
 			try {
-				mainText.setText("Reading " + book.current().getText());
+				mainText.setText("Reading " + book.current().getText() +  " " 
+						+ new String(book.current().getText().getBytes("ISO8859_1"), "ISO8859_1"));
 				Util.logInfo(TAG, "Start playing " + bookmark.getFilename() + " " + bookmark.getPosition());
 				player.setDataSource(bookmark.getFilename());
 				player.prepare();

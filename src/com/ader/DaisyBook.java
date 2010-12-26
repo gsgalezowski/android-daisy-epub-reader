@@ -83,11 +83,11 @@ public class DaisyBook implements Serializable {
 	 * Opens a Daisy Book from a full path and filename.
 	 * 
 	 * @param nccFullPathAndFilename The ncc file
-	 * @throws FileNotFoundException if the file cannot be found or opened.
 	 * @throws InvalidDaisyStructureException if there are serious problems in
 	 * the book structure.
+	 * @throws IOException 
 	 */
-	public void openFromFile(String nccFullPathAndFilename) throws FileNotFoundException, InvalidDaisyStructureException {
+	public void openFromFile(String nccFullPathAndFilename) throws InvalidDaisyStructureException, IOException {
 		nccEntries.clear();
 		this.filename = nccFullPathAndFilename;
 		this.path = new File(nccFullPathAndFilename).getParent() + "/";
