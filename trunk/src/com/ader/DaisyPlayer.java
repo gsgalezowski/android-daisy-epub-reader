@@ -99,7 +99,7 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 			book.openSmil();
 			read();
 		} catch (FileNotFoundException fnfe) {
-			CharSequence text = "Cannot open book :( A file is missing. " + fnfe.getLocalizedMessage();
+			CharSequence text = getString(R.string.cannot_open_book_a_file_is_missing) + fnfe.getLocalizedMessage();
 			toast = Toast.makeText(this, text, duration);
 			toast.show();
 			AlertDialog.Builder explainProblem = new AlertDialog.Builder(this);
