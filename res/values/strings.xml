@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">Android Daisy 2.02 Reader</string>
     <string name="cannot_open_book">Cannot open book :( </string>
+    <string name="cannot_open_book_a_file_is_missing">Cannot open book :( A file is missing. </string>
     <string name="close_instructions">Close Instructions</string>
     <string name="hello">Hello World, DaisyReader!</string>
     <string name="help">Help</string>
