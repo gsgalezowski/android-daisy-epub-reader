@@ -131,7 +131,7 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 			})
 			.show();
 		} catch (RuntimeException re) {
-			CharSequence text = R.string.cannot_open_book + " A Runtime error occured." 
+			CharSequence text = getString(R.string.cannot_open_book) + " A Runtime error occured." 
 				+ re.getLocalizedMessage();
 			toast = Toast.makeText(this, text, duration);
 			toast.show();
@@ -161,7 +161,7 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 		
 		if (book.hasAudioSegments()) {
 			try {
-				mainText.setText(R.string.reading_message + book.current().getText());
+				mainText.setText(getText(R.string.reading_message) + " " + book.current().getText());
 				Util.logInfo(TAG, "Start playing " + bookmark.getFilename() + " " + bookmark.getPosition());
 				player.setDataSource(bookmark.getFilename());
 				player.prepare();
@@ -178,7 +178,7 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 			// player.seekTo(bookmark.getPosition());
 			player.seekTo(audioOffset);
 			player.setScreenOnWhilePlaying(true);
-			statusText.setText(R.string.playing_message + "...");
+			statusText.setText(getText(R.string.playing_message) + "...");
 			player.start();
 		} else if (book.hasTextSegments()) {
 			// TODO(jharty): add TTS to speak the text section
@@ -212,10 +212,10 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	public void togglePlay() {
 		Util.logInfo(TAG, "togglePlay called.");
 		if (player.isPlaying()) {
-			statusText.setText(R.string.paused_message);
+			statusText.setText(getText(R.string.paused_message));
 			player.pause();
 		} else {
-			statusText.setText(R.string.playing_message);
+			statusText.setText(getText(R.string.playing_message));
 			player.start();
 		}
 	}
@@ -229,8 +229,7 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 		savedInstanceState.putInt(AUDIO_OFFSET, audioOffset);
 		if (player.isPlaying()) {
 			// Try seeing if I can pause the player on rotation rather than stopping it
-			player.pause();
-			// stop();
+			// player.pause();
 		}
 		super.onSaveInstanceState(savedInstanceState);
 	}
@@ -245,9 +244,8 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 		player.seekTo(audioOffset);
 		if (!isPlaying) {
 			// Try seeing if I can pause the player on rotation rather than stopping it
-			statusText.setText(R.string.paused_message + "...");
+			statusText.setText(getText(R.string.paused_message) + "...");
 			player.pause();
-			// stop();
 		} else {
 			player.start();
 		}
