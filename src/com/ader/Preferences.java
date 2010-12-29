@@ -18,6 +18,7 @@ import android.widget.Toast;
  * 
  * TODO(jharty): add onSuspend and onResume and register / de-register the
  * listeners in these methods.
+ * Also: find a way to auto-complete folders e.g. to add the final '/'
  */
 public class Preferences extends PreferenceActivity implements OnSharedPreferenceChangeListener {
 	private static final String TAG = "Perferences";
@@ -34,7 +35,6 @@ public class Preferences extends PreferenceActivity implements OnSharedPreferenc
 		// showDialog(R.id.xxxx));
 		final Context context = this;
 
-		// Temporary hack to see if it compiles
 		 this.rootiefolder = (EditTextPreference)findPreference(DaisyBookUtils.OPT_ROOT_FOLDER);
 	        this.rootiefolder.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener(){
 
