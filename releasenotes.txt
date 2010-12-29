@@ -1,3 +1,22 @@
+r192 29 Dec 2010
+- Sorry for the lack of updates to this document. Here's a summary of the work since r106, 8 months ago.
+--- Added support for Daisy books from European sources e.g. Spanish, Norwegian, Danish, etc. The challenge was handling various forms of encoding of the XML files and convincing the SAX parser to process them correctly.
+--- There are partial German and Norwegian translations provided by users. I'm happy to add other translations and localization to the software if you're willing to help translate the software.
+--- Adding a simple visual user-interface to make the software more useful to users who can see text, e.g. users with dyslexia.
+--- Adding an initial menu to allow users to manage their existing books, the books still need to be installed independently of this program.
+--- Numerous improvements and fixes to the code.
+
+Active development now relies on my work, other contributors seem to have stopped contributing over the last 6 months or so. They, and new contributors, are welcome.
+
+There are plenty of improvements I'd like to include. These are grouped into core player functions, support for more formats of books, and providing better support to download and store Daisy books.
+- core player functions: The player still 'stops' after a period of inactivity - probably the activity is paused by Android to save power. Users would like it to continue reading to the end of a book. Potentially they might like a sleep function (to allow the player to play for a period before stopping when the user is going to sleep).
+- support for more formats: Gary contributed some code that interprets DAISY 2.02 files into the DAISY 3 structures. We still need to integrate this work, and add support for full-audio Daisy 3 books. We'd also like to add support for full-text books and for multi-media content (e.g. with synchronized text and audio).
+- better support to download and store Daisy books: Currently books have to be downloaded independently of this program. We've planned to add a module to make downloading easier (and for that module to be replaceable e.g. by specific digital libraries such as the NLB, ONCE, etc.). Also, since many of the books are packaged in a zip file format we want to enable the software to read such zipped books directly rather than needing them to be unpacked first.
+
+There are about 12 downloads of the current version of the software from the development site, enough to encourage me to continue this work :)
+
+Julian Harty 29 December 2010
+
 r106 02 Apr 2010
 - This just might work well enough to be tolerable by users. There's still a lot that needs to be cleaned up in the code in order to make the player support things like navigation by page number, and there are some fairly ugly hacks in the code at the moment. However I've managed to address some of the navigation issues so that sections are no longer played several times when the book contains page numbers for a given section. Some tests have also been added over the last few changes for DaisyParser as a pre-cursor for restructuring of the code. Retrofitting tests should help to improve the code further :)
 
