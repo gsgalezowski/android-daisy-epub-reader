@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Android Daisy 2.02 Leser</string>
     <string name="help">Hjelp</string>
@@ -25,4 +25,5 @@
     <string name="playing_message">Leser</string>
     <string name="reading_message">Tittel </string>
     <string name="search_books">Søk etter bok</string>
+    <string name="settings">Innstillinger</string>
 </resources>
