@@ -108,7 +108,6 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 			.setTitle(R.string.unable_to_open_file)
 			.setMessage(fnfe.getLocalizedMessage())
 			.setPositiveButton(R.string.close_instructions, new DialogInterface.OnClickListener() {
-				@Override
 				public void onClick(DialogInterface dialog, int id) {
 					DaisyPlayer.this.finish();
 				}
@@ -124,7 +123,6 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 			.setTitle(R.string.permission_problem_opening_a_file)
 			.setMessage(ioe.getLocalizedMessage())
 			.setPositiveButton(R.string.close_instructions, new DialogInterface.OnClickListener() {
-				@Override
 				public void onClick(DialogInterface dialog, int id) {
 					DaisyPlayer.this.finish();
 				}
@@ -141,7 +139,6 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 			.setTitle(R.string.serious_problem_found)
 			.setMessage(re.getLocalizedMessage())
 			.setPositiveButton(R.string.close_instructions, new DialogInterface.OnClickListener() {
-				@Override
 				public void onClick(DialogInterface dialog, int id) {
 					DaisyPlayer.this.finish();
 				}
