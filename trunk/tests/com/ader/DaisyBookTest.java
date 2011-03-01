@@ -5,6 +5,8 @@ import junit.framework.TestCase;
 import java.io.File;
 import java.io.IOException;
 
+import android.test.suitebuilder.annotation.MediumTest;
+
 public class DaisyBookTest extends TestCase {
 	private DaisyBook daisyBook;
 
@@ -27,6 +29,7 @@ public class DaisyBookTest extends TestCase {
 	 * 
 	 * @throws IOException - only for the logging code (we may remove it soon).
 	 */
+	@MediumTest
 	public void testDaisy202BookCanBeOpenedWithoutError() throws Exception {
 		for(String name : new File(".").list()) {
 			Util.logInfo("DaisyBookTest", name);
@@ -42,6 +45,7 @@ public class DaisyBookTest extends TestCase {
 		assertEquals("The light-man book should have.. ", 17, daisyBook.getNavigationDisplay().size());
 	}
 	
+	@MediumTest
 	public void testLevelsCanBeSetCorrentlyFor1LevelDaisy202Book() throws Exception {
 		String path = new File(".").getCanonicalPath();
 		Util.logInfo("Path", path);

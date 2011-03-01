@@ -19,6 +19,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import android.test.suitebuilder.annotation.MediumTest;
+
 import junit.framework.TestCase;
 
 public class BookmarkTest extends TestCase {
@@ -26,6 +28,7 @@ public class BookmarkTest extends TestCase {
 	private static final int DUMMY_NCCINDEX = 2;
 	private static final int DUMMY_POSITION = 73;
 
+	@MediumTest
 	public void testWriteReadOldBookmarkFileStructure() throws IOException {
 		DataInputStream dis;
 		String bookmarkFilename = "/tmp/auto.bmk";
@@ -64,6 +67,7 @@ public class BookmarkTest extends TestCase {
 		dis2.close();
 	}
 	
+	@MediumTest
 	public void testOpenBookmarkForNonExistantBookmark() throws IOException {
 		Bookmark bookmark = new Bookmark();
 		
@@ -72,6 +76,7 @@ public class BookmarkTest extends TestCase {
 				true);
 	}
 
+	@MediumTest
 	public void testSaveForNewBookmarkUsingAByteArray() throws IOException {
 		// Note: we need to call load() with a non-existant filename to initialize things
 		Bookmark bookmark = new Bookmark();

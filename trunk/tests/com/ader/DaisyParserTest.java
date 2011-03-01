@@ -10,6 +10,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import android.test.suitebuilder.annotation.SmallTest;
+
 import com.ader.testutilities.SampleContent;
 
 import junit.framework.TestCase;
@@ -40,6 +42,7 @@ public class DaisyParserTest extends TestCase {
 		assertTrue("There should be SOME content", elements.size() > 0);
 	}
 	
+	@SmallTest
 	public void testCanParseFromInputStream() throws Exception {
 		ArrayList<DaisyElement> elements = parser.parse(new FileInputStream(filename));
 		assertTrue("There should be SOME content", elements.size() > 0);
