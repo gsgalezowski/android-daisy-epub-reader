@@ -3,6 +3,8 @@ package com.ader.smil;
 import java.io.File;
 import java.io.IOException;
 
+import android.test.suitebuilder.annotation.MediumTest;
+
 import junit.framework.TestCase;
 
 public class TextLocatorTest extends TestCase {
@@ -14,15 +16,18 @@ public class TextLocatorTest extends TestCase {
         wipoTextLocator = new TextLocator(new File("./Resources/WIPO-Treaty-D202Fileset"));
     }
     
+    @MediumTest
     public void testLoadFromFile() throws IOException {
         assertEquals("test1\ntest2\ntest3\n", generalTextLocator.getText("test.txt"));
     }
     
+    @MediumTest
     public void testLoadFromTag() throws IOException {
         assertEquals("Hello World", generalTextLocator.getText("test.xml#001"));
         assertEquals("Test", generalTextLocator.getText("test.xml#002"));
     }
     
+    @MediumTest
     public void testLoadFromWipoDaisy202Book() throws IOException {
     	// TODO: Decide how to handle tabs, new line characters, etc.
     	assertEquals("Nature and Scope of Obligations \n",
@@ -42,3 +47,4 @@ public class TextLocatorTest extends TestCase {
     		wipoTextLocator.getText("WIPOTreatyForVisuallyImpaired.html#id_92"));
     }
 }
+//
