@@ -1,0 +1,51 @@
+                                                                     
+                                                                     
+                                                                     
+                                             
+  <?xml version="1.0" encoding="utf-8" ?> 
+- <resources>
+  <string name="app_name">Lecteur Daisy Android 2.02</string> 
+  <string name="cannot_open_book">Ne peut pas ouvrir le livre :(</string> 
+  <string name="cannot_open_book_a_file_is_missing">Ne peut pas ouvrir le livre :(un fichier manque)</string> 
+  <string name="close_instructions">fermer Instructions</string> 
+  <string name="hello">Bonjour lecteur Daisy !</string> 
+  <string name="help">Aide</string> 
+  <string name="homepage_title">Lecteur Daisy Android 2.02</string> 
+  <string name="new_folder_name_not_saved">Nouveau nom de dossier NON enregistré</string> 
+  <string name="new_folder_name_saved">Nouveau nom de dossier enregistré</string> 
+  <string name="new_value">La nouvelle valeur est</string> 
+  <string name="no_depth_yet">Profondeur?</string> 
+  <string name="no_previous_book_saved_msg">Désolé, soit les détails du livre n'ont pas été enregistrés, soit il y a un problème avec le livre enregistré. 
+Merci d'utiliser une autre option du menu pour trouver un livre à lire.</string> 
+  <string name="no_previous_book_saved_title">Pas de livre enregistré</string> 
+  <string name="no_status_yet">Etat?</string> 
+  <string name="no_text_yet">aucun texte</string> 
+  <string name="open_book">ouvrir livre</string> 
+  <string name="open_last_book">ouvrir dernier livre</string> 
+  <string name="paused_message">Pause</string> 
+  <string name="permission_problem_opening_a_file">Problème d'autorisation pour ouvrir un fichier</string> 
+  <string name="player_instructions">Le lecteur est contrôlé manuellement. 
+Taper sur le centre de l'écran pour arrêter et redémarrer la lecture audio. 
+Les défilements (faire glisser votre doigt en ligne droite sur l'écran, puis le lever) complètent les gestes: 
+Vers le haut pour réécouter la précédente section audio à la profondeur courante du livre. 
+Vers le bas pour aller à la section audio suivante à la profondeur courante du livre. 
+De gauche à droite pour augmenter la profondeur. 
+De droite à gauche pour diminuer la profondeur. 
+Les livres DAISY peuvent être monoprofondeur, ou multi-profondeurs, 
+par exemple pour des chapitres (où la profondeur pourrait être niveau 1) et sections (où la profondeur pourrait être niveau 2).</string> 
+  <string name="player_instructions_description">Instructions pour le lecteur DAISY</string> 
+  <string name="playing_message">en lecture</string> 
+  <string name="reading_message">en lecture</string> 
+  <string name="return_to_homescreen">retour à la page d'accueil</string> 
+  <string name="sd_card_folder_changed_successfully">le dossier de la carte SD a été changé</string> 
+  <string name="sdcard_mounted">La carte SD a l'air d"être en cours d'utilisation; pouvez vous l'éjecter et recommencer?</string> 
+  <string name="sdcard_title">carte SD</string> 
+  <string name="search_books">chercher livres</string> 
+  <string name="serious_problem_found">Attention, problème Serieux</string> 
+  <string name="settings">Paramètres</string> 
+  <string name="stopped">Arrêt</string> 
+  <string name="text_content_not_supported_yet">Ce livre semble être du plein texte. Les livres DAISY plein texte ne sont pas actuellement pris en charge. 
+Veuillez en faire la demande sur le site web du projet http://code.google.com/p/android-daisy-epub-reader/issues/list pour que nous sachions que des gens souhaitent cette fonction.</string> 
+  <string name="unable_to_open_file">Impossible d'ouvrir le fichier</string> 
+  </resources>
+  
