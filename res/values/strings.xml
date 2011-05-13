@@ -10,6 +10,7 @@
     <string name="new_folder_name_not_saved">New folder name NOT saved</string>
     <string name="new_folder_name_saved">New folder name saved</string>
     <string name="new_value">New value is </string>
+    <string name="no_books_found">No books found</string>
     <string name="no_depth_yet">Depth?</string>
     <string name="no_previous_book_saved_msg">Sorry either no details of book were saved, or there is a problem with the stored book. Please use another menu option to find a book to read.</string>
     <string name="no_previous_book_saved_title">No previous book saved</string>
@@ -33,10 +34,13 @@
     and sections (where the depth might be level 2).
 
     </string>
+    <string name="playing">Playing</string>
     <string name="player_instructions_description">Instructions for the DAISY player</string>
     <string name="playing_message">Playing</string>
     <string name="reading_message">Reading </string>
     <string name="return_to_homescreen">Return to home screen</string>
+    <string name="root_folder">Root Folder</string>
+    <string name="root_folder_for_daisy_books">Root Folder for DAISY books</string>
     <string name="sd_card_folder_changed_successfully">SD Card folder changed successfully</string>
     <string name="sdcard_mounted">The SD Card appears to be in use (mounted); can you unmount it, then try again?</string>
     <string name="sdcard_title">SD card</string>
