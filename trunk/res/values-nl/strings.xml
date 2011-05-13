@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Android Daisy 2.02 Reader</string>
+    <string name="cannot_open_book">Kan boek niet openen :( </string>
+    <string name="cannot_open_book_a_file_is_missing">Kan boek niet openen :( Er mist een bestand. </string>
+    <string name="close_instructions">Instructies sluiten</string>
+    <string name="hello">Hallo Wereld, DaisyReader!</string>
+    <string name="help">Hulp</string>
+   	<string name="homepage_title">Android Daisy 2.02 Reader</string>
+    <string name="new_folder_name_not_saved">Nieuwe mapnaam NIET opgeslagen</string>
+    <string name="new_folder_name_saved">Nieuwe mapnaam opgeslagen</string>
+    <string name="new_value">De nieuwe waarde is </string>
+    <string name="no_depth_yet">Niveau?</string>
+    <string name="no_previous_book_saved_msg">Sorry, of er zijn geen detals van het boek opgeslagen, of er is een probleem met het opgeslagen boek. Gebruik s.v.p. een andere menu-optie om een boek te vinden.</string>
+    <string name="no_previous_book_saved_title">Geen boeken opgeslagen</string>
+    <string name="no_status_yet">Status?</string>
+    <string name="no_text_yet">Nog geen tekst</string>
+    <string name="open_book">Open boek</string>
+    <string name="open_last_book">Open laatst geopende boek</string>
+    <string name="paused_message">Gepauzeerd</string>
+    <string name="permission_problem_opening_a_file">Probleem met permissies bij openen bestand</string>
+    <string name="player_instructions">U kunt gebaren gebruiken om de speler te besturen.
+	Tik op het midden van het scherm om het geluid te stoppen en de starten.
+    Vegen (veeg met uw vinger in een rechte lijn op het scherm, 
+	til dan uw vinger op) wordt gebruikt voor de rest van de functies:
+	Veeg omhoog om naar het vorige audio fragment in de huidige niveau van het boek te gaan.
+    Veeg naar beneden om naar het volgende audio fragment in de huidige niveau van het boek te gaan.
+    Veeg van links naar rechts om een niveau dieper te gaan.
+	Veeg van rechts naar links om een niveau omhoog te gaan.
+    
+	DAISY boeken kunnen een enkele of meerdere niveau\'s bevatten, 
+	bijvoorbeeld om hoofdstukken (Niveau 1) en paragrafen (Niveau 2) aan te geven.
+   
+    </string>
+    <string name="player_instructions_description">Instructies voor de DAISY speler</string>
+    <string name="playing_message">Speelt</string>
+    <string name="reading_message">Leest </string>
+    <string name="return_to_homescreen">Terug naar Begin Pagina</string>
+    <string name="sd_card_folder_changed_successfully">SD Kaart Map succesvol gewijzigd</string>
+    <string name="sdcard_mounted">De SD Kaart lijkt in gebruik te zijn; kunt u de kaart verwijderen en het nog eens proberen?</string>
+    <string name="sdcard_title">SD Kaart</string>
+    <string name="search_books">Zoek naar boeken</string>
+    <string name="serious_problem_found">Ernstig probleem gevonden</string>
+    <string name="settings">Instellingen</string>
+    <string name="stopped">Gestopt</string>
+    <string name="text_content_not_supported_yet">
+    Dit boek lijkt alleen tekst te bevatten. Helaas worden DAISY boeken die alleen tekst bevatten nog niet ondersteund.
+	Vraag deze optie s.v.p. aan op de webpagina van het project op 
+	http://code.google.com/p/android-daisy-epub-reader/issues/list 
+    zodat we weten dat er vraag is naar deze optie.	
+    </string>
+    <string name="unable_to_open_file">Kan bestand niet openen</string>
+</resources>

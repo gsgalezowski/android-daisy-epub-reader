@@ -8,6 +8,7 @@
     <string name="new_folder_name_not_saved">Neuer Ordnername nicht gespeichert</string>
     <string name="new_folder_name_saved">Neuer Ordnername gespeichert</string>
     <string name="new_value">Neuer Wert lautet </string>
+    <string name="no_books_found">Kein Bücher gefunden</string>
     <string name="no_previous_book_saved_title">Kein vorheriges Buch gespeichert</string>
     <string name="open_book">Buch Öffnen</string>
     <string name="open_last_book">Letztes Buch Öffnen</string>
@@ -30,6 +31,8 @@
     <string name="playing">Wiedergabe</string>
     <string name="playing_message">Spielen</string>
     <string name="return_to_homescreen">Zurück zum Hauptbildschirm</string>
+    <string name="root_folder">Root Folder</string>
+    <string name="root_folder_for_daisy_books">Root Folder für DAISY-Bücher</string>
     <string name="sd_card_folder_changed_successfully">SD-Karten-Verzeichnis wurde erfolgreich geändert</string>
     <string name="stopped">Stop</string>
     <string name="search_books">Buch suchen</string>

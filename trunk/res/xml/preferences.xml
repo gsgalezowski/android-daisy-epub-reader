@@ -5,8 +5,8 @@ xmlns:android="http://schemas.android.com/apk/res/android">
 	
 	<EditTextPreference
   		android:key="rootfolder" 
-  		android:summary="Root Folder for DAISY books" 
+  		android:summary="@string/root_folder_for_daisy_books" 
   		android:defaultValue="/sdcard/" 
-  		android:title="Root Folder">
+  		android:title="@string/root_folder">
 	</EditTextPreference>
 </PreferenceScreen>

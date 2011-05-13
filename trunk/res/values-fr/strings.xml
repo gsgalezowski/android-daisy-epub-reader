@@ -1,9 +1,5 @@
-                                                                     
-                                                                     
-                                                                     
-                                             
-  <?xml version="1.0" encoding="utf-8" ?> 
-- <resources>
+<?xml version="1.0" encoding="utf-8" ?>
+<resources>
   <string name="app_name">Lecteur Daisy Android 2.02</string> 
   <string name="cannot_open_book">Ne peut pas ouvrir le livre :(</string> 
   <string name="cannot_open_book_a_file_is_missing">Ne peut pas ouvrir le livre :(un fichier manque)</string> 
@@ -11,41 +7,44 @@
   <string name="hello">Bonjour lecteur Daisy !</string> 
   <string name="help">Aide</string> 
   <string name="homepage_title">Lecteur Daisy Android 2.02</string> 
-  <string name="new_folder_name_not_saved">Nouveau nom de dossier NON enregistré</string> 
-  <string name="new_folder_name_saved">Nouveau nom de dossier enregistré</string> 
+  <string name="new_folder_name_not_saved">Nouveau nom de dossier NON enregistrÃ©</string> 
+  <string name="new_folder_name_saved">Nouveau nom de dossier enregistrÃ©</string> 
   <string name="new_value">La nouvelle valeur est</string> 
+  <string name="no_books_found">Pas de livres trouvÃ©s</string>
   <string name="no_depth_yet">Profondeur?</string> 
-  <string name="no_previous_book_saved_msg">Désolé, soit les détails du livre n'ont pas été enregistrés, soit il y a un problème avec le livre enregistré. 
-Merci d'utiliser une autre option du menu pour trouver un livre à lire.</string> 
-  <string name="no_previous_book_saved_title">Pas de livre enregistré</string> 
+  <string name="no_previous_book_saved_msg">DÃ©solÃ©, soit les dÃ©tails du livre n\'ont pas Ã©tÃ© enregistrÃ©s, soit il y a un problÃ¨me avec le livre enregistrÃ©. 
+Merci d\'utiliser une autre option du menu pour trouver un livre Ã  lire.</string> 
+  <string name="no_previous_book_saved_title">Pas de livre enregistrÃ©</string> 
   <string name="no_status_yet">Etat?</string> 
   <string name="no_text_yet">aucun texte</string> 
   <string name="open_book">ouvrir livre</string> 
   <string name="open_last_book">ouvrir dernier livre</string> 
   <string name="paused_message">Pause</string> 
-  <string name="permission_problem_opening_a_file">Problème d'autorisation pour ouvrir un fichier</string> 
-  <string name="player_instructions">Le lecteur est contrôlé manuellement. 
-Taper sur le centre de l'écran pour arrêter et redémarrer la lecture audio. 
-Les défilements (faire glisser votre doigt en ligne droite sur l'écran, puis le lever) complètent les gestes: 
-Vers le haut pour réécouter la précédente section audio à la profondeur courante du livre. 
-Vers le bas pour aller à la section audio suivante à la profondeur courante du livre. 
-De gauche à droite pour augmenter la profondeur. 
-De droite à gauche pour diminuer la profondeur. 
-Les livres DAISY peuvent être monoprofondeur, ou multi-profondeurs, 
-par exemple pour des chapitres (où la profondeur pourrait être niveau 1) et sections (où la profondeur pourrait être niveau 2).</string> 
+  <string name="permission_problem_opening_a_file">ProblÃ¨me d\'autorisation pour ouvrir un fichier</string> 
+  <string name="player_instructions">Le lecteur est contrÃ´lÃ© manuellement. 
+Taper sur le centre de l\'Ã©cran pour arrÃªter et redÃ©marrer la lecture audio. 
+Les dÃ©filements (faire glisser votre doigt en ligne droite sur l\'Ã©cran, puis le lever) complÃ¨tent les gestes: 
+Vers le haut pour rÃ©Ã©couter la prÃ©cÃ©dente section audio Ã  la profondeur courante du livre. 
+Vers le bas pour aller Ã  la section audio suivante Ã  la profondeur courante du livre. 
+De gauche Ã  droite pour augmenter la profondeur. 
+De droite Ã  gauche pour diminuer la profondeur. 
+Les livres DAISY peuvent Ãªtre monoprofondeur, ou multi-profondeurs, 
+par exemple pour des chapitres (oÃ¹ la profondeur pourrait Ãªtre niveau 1) et sections (oÃ¹ la profondeur pourrait Ãªtre niveau 2).</string> 
+  <string name="playing">jouer</string>
   <string name="player_instructions_description">Instructions pour le lecteur DAISY</string> 
   <string name="playing_message">en lecture</string> 
   <string name="reading_message">en lecture</string> 
-  <string name="return_to_homescreen">retour à la page d'accueil</string> 
-  <string name="sd_card_folder_changed_successfully">le dossier de la carte SD a été changé</string> 
-  <string name="sdcard_mounted">La carte SD a l'air d"être en cours d'utilisation; pouvez vous l'éjecter et recommencer?</string> 
+  <string name="return_to_homescreen">retour Ã  la page d\'accueil</string>
+  <string name="root_folder">Dossier racine</string>
+  <string name="root_folder_for_daisy_books">Dossier racine pour les livres DAISY</string> 
+  <string name="sd_card_folder_changed_successfully">le dossier de la carte SD a Ã©tÃ© changÃ©</string> 
+  <string name="sdcard_mounted">La carte SD a l\'air d"Ãªtre en cours d\'utilisation; pouvez vous l\'Ã©jecter et recommencer?</string> 
   <string name="sdcard_title">carte SD</string> 
   <string name="search_books">chercher livres</string> 
-  <string name="serious_problem_found">Attention, problème Serieux</string> 
-  <string name="settings">Paramètres</string> 
-  <string name="stopped">Arrêt</string> 
-  <string name="text_content_not_supported_yet">Ce livre semble être du plein texte. Les livres DAISY plein texte ne sont pas actuellement pris en charge. 
+  <string name="serious_problem_found">Attention, problÃ¨me Serieux</string> 
+  <string name="settings">ParamÃ¨tres</string> 
+  <string name="stopped">ArrÃªt</string> 
+  <string name="text_content_not_supported_yet">Ce livre semble Ãªtre du plein texte. Les livres DAISY plein texte ne sont pas actuellement pris en charge. 
 Veuillez en faire la demande sur le site web du projet http://code.google.com/p/android-daisy-epub-reader/issues/list pour que nous sachions que des gens souhaitent cette fonction.</string> 
-  <string name="unable_to_open_file">Impossible d'ouvrir le fichier</string> 
-  </resources>
-  
+  <string name="unable_to_open_file">Impossible d\'ouvrir le fichier</string> 
+</resources>
