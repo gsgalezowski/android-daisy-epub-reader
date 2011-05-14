@@ -10,6 +10,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import android.test.suitebuilder.annotation.MediumTest;
 import android.test.suitebuilder.annotation.SmallTest;
 
 import com.ader.testutilities.SampleContent;
@@ -18,32 +19,40 @@ import junit.framework.TestCase;
 
 public class DaisyParserTest extends TestCase {
 	DaisyParser parser;
-	String path;
-	String filename;
 	
 	public void setUp() throws Exception {
 		parser = new DaisyParser();
-		path = new File(".").getCanonicalPath();
-		filename = path + "/Resources/light-man/ncc.html";
+	}
+	
+	/* A private helper method to open a test file, used by some tests. */
+	private String openTestFile() throws IOException {
+		String path = new File(".").getCanonicalPath();
+		String filename = path + "/Resources/light-man/ncc.html";
+		return filename;
 	}
 	
 	/**
 	 * Ensures we can parse the ncc.html content from a file. Runs in JUnit3 
 	 * @throws IOException
 	 */
+	@MediumTest
 	public void testCanParseFromFile() throws IOException {
+		String filename = openTestFile();
 		ArrayList<DaisyElement> elements = parser.openAndParseFromFile(filename);
 		assertTrue("There should be SOME content", elements.size() > 0);
 	}
 
+
+	@SmallTest
 	public void testCanParseFromTextContent() {
 		System.out.println(SampleContent.simpleValidNccHtml);
 		ArrayList<DaisyElement> elements = parser.parse(SampleContent.simpleValidNccHtml);
 		assertTrue("There should be SOME content", elements.size() > 0);
 	}
 	
-	@SmallTest
+	@MediumTest
 	public void testCanParseFromInputStream() throws Exception {
+		String filename = openTestFile();
 		ArrayList<DaisyElement> elements = parser.parse(new FileInputStream(filename));
 		assertTrue("There should be SOME content", elements.size() > 0);
 	}
