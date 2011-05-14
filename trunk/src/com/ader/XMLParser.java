@@ -7,6 +7,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -85,20 +87,14 @@ public class XMLParser {
 	}
 
 	private void handleNCCspanTag(Node span) {
-		Node value = span.getFirstChild();
-		Util.logInfo(TAG, "span found, containing: " + value.toString());
-		// This was my first attempt to add support for PageNumbers. It isn't
-		// suitable as we need to create and populate a PageTarget, which also
-		// needs refining as it doesn't seem to have been used in the codebase
-		// yet.
-		// TODO(jharty): Remove this code once I've added support for PageTarget.
-		NCCEntry entry = new NCCEntry(
-				value.getNodeValue(), 
-				value.getAttributes().getNamedItem("href").getNodeValue(),
-				NCCEntryType.PAGENUMBER, 
-				0);	
 		
-		System.out.println(entry.getText());	
+		Node value = span.getFirstChild();
+		System.out.println("Page No: " + value.getFirstChild().getNodeValue());
+		
+		// This is still imperfect, however it should be better than the previous code.
+		// TODO(jharty): Decide what parameters to pass to PageTarget, etc.
+		PageTarget target = new PageTarget(value, "page-normal");
+		navCentre.addPageTarget(target);
 	}
 }
 

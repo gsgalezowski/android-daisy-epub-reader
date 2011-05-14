@@ -15,13 +15,23 @@ import java.util.List;
  */
 public class NavCentre {
 	private List<NavPoint> navMap = new ArrayList<NavPoint>();
-	
-	// TODO(gary): What's your plan for pagelist? currently it's not used....
-	// I'm assuming this will be used to store page-numbers?
 	private List<PageTarget> pageList = new ArrayList<PageTarget>();
 
+	/**
+	 * add a Navigation Point e.g. a Heading in a DAISY 2.02 document
+	 * @param navPoint the structure containing the Navigation Point
+	 */
 	public void addNavPoint(NavPoint navPoint) {
 		this.navMap.add(navPoint);
+	}
+	
+	/**
+	 * Add a Page Target e.g. a Page Number in a DAISY 2.02 document
+	 * @param target the structure containing the Page Number
+	 */
+	public void addPageTarget(PageTarget target) {
+		this.pageList.add(target);
+		
 	}
 	
 	/**
@@ -42,10 +52,10 @@ public class NavCentre {
 		}
 	}
 	/**
-	 * A NavCenter contains NavPoints, get the count of items.
+	 * A NavCenter contains NavPoints and PageTargets, get the count of items.
 	 * @return the number of items in the NavCenter.
 	 */
 	public int count() {
-		return navMap.size();
+		return navMap.size() + pageList.size();
 	}
 }
