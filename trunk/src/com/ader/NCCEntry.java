@@ -12,14 +12,36 @@ public class NCCEntry implements Serializable {
 	private NCCEntryType type;
 	
 
+	/**
+	 * Retained for now to enable easier migration. Will be deprecated once the
+	 * new XMLParser works.
+	 * @param element the DaisyElement to process
+	 * @param type the type of the entry
+	 * @param level the level of the element on the DAISY book hierarchy
+	 */
 	public NCCEntry(DaisyElement element, NCCEntryType type, int level) {
-		text  = element.getText();
+		this(element.getText(), element.getAttributes().getValue("", "href"), type, level);
+	}
+
+	/** 
+	 * Creates an NCC Entry.
+	 * 
+	 * This signature helps with the migration from the old DaisyParser to the
+	 * new XMLParser (that uses DAISY3 constructs).
+	 * @param text the text content
+	 * @param smil the smil reference to the content
+	 * @param type the type of NCC Entry e.g. HEADING
+	 * @param level the level of the element in the DAISY book hierarchy
+	 */
+	public NCCEntry(String text, String smil, NCCEntryType type, int level) {
+		this.text = text;
 		this.type = type;
 		this.level = level;
-		smil = element.getAttributes().getValue("", "href");
 		int hashPosition = smil.indexOf("#");
 		smilRef = smil.substring(hashPosition + 1);
-		smil = smil.substring(0, hashPosition);
+		String tempStr = smil.substring(0, hashPosition);
+		this.smil = tempStr;
+		
 	}
 
 	public NCCEntryType getType() {

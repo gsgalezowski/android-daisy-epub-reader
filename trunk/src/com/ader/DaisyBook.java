@@ -99,7 +99,7 @@ public class DaisyBook implements Serializable {
 			e.printStackTrace();
 		}
 		ArrayList<DaisyElement> elements = parser.openAndParseFromFile(filename);
-		processDaisyElements(elements);
+		nccEntries = processDaisyElements(elements);
 		validateDaisyContents();
 	}
 	
@@ -113,7 +113,7 @@ public class DaisyBook implements Serializable {
 	protected void open(String contents) throws InvalidDaisyStructureException {
 		DaisyParser parser = new DaisyParser();
 		ArrayList<DaisyElement> elements = parser.parse(contents);
-		processDaisyElements(elements);
+		nccEntries = processDaisyElements(elements);
 		validateDaisyContents();
 	}
 
@@ -244,8 +244,9 @@ public class DaisyBook implements Serializable {
 	 * @param elements The Daisy Book Elements
 	 * @throws NumberFormatException
 	 */
-	private void processDaisyElements(ArrayList<DaisyElement> elements)
+	public List<NCCEntry> processDaisyElements(ArrayList<DaisyElement> elements)
 	throws NumberFormatException {
+		List<NCCEntry> nccEntries = new ArrayList<NCCEntry>();
 		int level = 0;
 		NCCEntryType type = NCCEntryType.UNKNOWN;
 		
@@ -279,5 +280,6 @@ public class DaisyBook implements Serializable {
 				nccEntries.add(new NCCEntry(elements.get(i), type, level));
 			}
 		}
+		return nccEntries;
 	}
 }

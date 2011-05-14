@@ -84,12 +84,21 @@ public class XMLParser {
 		navCentre.addNavPoint(navPoint);
 	}
 
-	// TODO(gary): How do you suggest we handle page-numbers? 
 	private void handleNCCspanTag(Node span) {
 		Node value = span.getFirstChild();
 		Util.logInfo(TAG, "span found, containing: " + value.toString());
-//		NCCEntry entry = new NCCEntry(span.getFirstChild(), NCCEntryType.PAGENUMBER, 0);	
-		//System.out.println(entry.getText());	
+		// This was my first attempt to add support for PageNumbers. It isn't
+		// suitable as we need to create and populate a PageTarget, which also
+		// needs refining as it doesn't seem to have been used in the codebase
+		// yet.
+		// TODO(jharty): Remove this code once I've added support for PageTarget.
+		NCCEntry entry = new NCCEntry(
+				value.getNodeValue(), 
+				value.getAttributes().getNamedItem("href").getNodeValue(),
+				NCCEntryType.PAGENUMBER, 
+				0);	
+		
+		System.out.println(entry.getText());	
 	}
 }
 
