@@ -179,7 +179,10 @@ public class DaisyBook implements Serializable {
 			bookmark.setNccIndex(i);
 			return true;
 		}
-		// TODO (jharty): this seems dodgy, e.g. we could fall off the end of the structure without updating the bookmark.
+		// TODO (jharty): this seems dodgy, e.g. we could fall off the end of
+		// the structure without updating the bookmark. Perhaps we should reset
+		// the bookmark to the beginning of the book? We need to consider what
+		// users would expect / prefer.
 		return false;
 	}
 

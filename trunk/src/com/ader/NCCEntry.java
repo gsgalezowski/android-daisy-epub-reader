@@ -34,7 +34,13 @@ public class NCCEntry implements Serializable {
 	 * @param level the level of the element in the DAISY book hierarchy
 	 */
 	public NCCEntry(String text, String smil, NCCEntryType type, int level) {
-		this.text = text;
+		// I discovered the parser (or something) added newline and tab characters
+		// to the last page-number for light-man. This is a crude workaround until
+		// I get to the bottom of the issue. Since I want to retire this, old
+		// parser, I'm fairly relaxed about the problem, but am curious to learn
+		// the cause so I make sure the new parser doesn't suffer from similar
+		// problems.
+		this.text = text.trim();  // Strips off extraneous new line characters, etc.
 		this.type = type;
 		this.level = level;
 		int hashPosition = smil.indexOf("#");
