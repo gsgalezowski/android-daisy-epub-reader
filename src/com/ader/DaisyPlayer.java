@@ -48,6 +48,10 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	@Override
 	protected void onDestroy() {
 		// Let's stop playing the book if the user presses back, etc.
+		// TODO(jharty): Can we detect how far through the audio segment we
+		// are here? If so, perhaps we can save / update the auto-bookmark.
+		// Anyhow we need to be able to save bookmarks part way through audio
+		// segments. Worth investigating...
 		stop();
 		player.release();
 		super.onDestroy();

@@ -51,6 +51,23 @@ public class NavCentre {
 			return null;
 		}
 	}
+	
+	/**
+	 * Return the PageTarget that matches the index.
+	 * 
+	 * The index matches the order that navigation points were found in the
+	 * source document.
+	 * @param index between 0 and count() items
+	 * @return the specified PageTarget, or null if the index is outside the
+	 * valid range.
+	 */
+	public PageTarget getPageTarget(int index) {
+		if (index >= 0 && index < pageList.size()) {
+			return pageList.get(index);
+		} else {
+			return null;
+		}
+	}
 	/**
 	 * A NavCenter contains NavPoints and PageTargets, get the count of items.
 	 * @return the number of items in the NavCenter.

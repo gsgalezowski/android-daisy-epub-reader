@@ -54,9 +54,9 @@ public class XMLParser {
 	/**
 	 * Processes the NCC contents to generate a NavCentre object.
 	 * 
-	 * Currently we only process the h1 through h1 elements. And we assume
-	 * the content is valid, otherwise various exceptions, including a null
-	 * pointer may be thrown.
+	 * Currently we only process the h1 through h6 elements & page-numbers.
+	 * And we assume the content is valid, otherwise various exceptions, 
+	 * including a null pointer may be thrown.
 	 * 
 	 * @return the NavCentre object.
 	 */

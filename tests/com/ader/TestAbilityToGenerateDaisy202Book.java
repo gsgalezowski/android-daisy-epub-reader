@@ -1,27 +1,24 @@
 package com.ader;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+import junit.framework.TestCase;
+import android.test.suitebuilder.annotation.MediumTest;
+import android.test.suitebuilder.annotation.SmallTest;
+
 import com.ader.smil.AudioElement;
 import com.ader.testutilities.CreateDaisy202Book;
-
-import junit.framework.TestCase;
 
 public class TestAbilityToGenerateDaisy202Book extends TestCase {
 
 	private ByteArrayOutputStream out;
 	private CreateDaisy202Book eBook;
-	private static final String singleValueSmilFileContents = 
-		"";
 	
 	@Override
 	protected void setUp() {
@@ -41,7 +38,7 @@ public class TestAbilityToGenerateDaisy202Book extends TestCase {
 	 * for testing. It confirms the code we're testing is *NOT* intended for
 	 * real-world use.
 	 */
-	// @SmallTest
+	@SmallTest
 	public void testAbilityToInjectEmptySmilFile() {
 		eBook.addSmilFileEntry(1, "", "");
 		eBook.writeEndOfDocument();
@@ -53,7 +50,7 @@ public class TestAbilityToGenerateDaisy202Book extends TestCase {
 		assertEquals("Expected a 1:1 match of NavPoints and sections", 0, nc.count());
 	}
 	
-	// @SmallTest
+	@MediumTest
 	public void testAbilityToInjectSingleItemSmilFile() throws Exception {
 		SmilFile singleEntry = new SmilFile();
 		singleEntry.open("Resources/testfiles/singleEntry.smil");
