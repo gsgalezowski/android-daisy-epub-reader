@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources version="1.0">
+    <string name="app_name">Android Daisy 2.02 Reader</string>
+    <string name="cannot_open_book">Impossibile aprire il libro :( </string>
+    <string name="cannot_open_book_a_file_is_missing">Impossibile aprire il libro :( File mancante. </string>
+    <string name="close_instructions">Chiudi istruzioni</string>
+    <string name="hello">Hello World, DaisyReader!</string>
+    <string name="help">Aiuto</string>
+   	<string name="homepage_title">Android Daisy 2.02 Reader</string>
+    <string name="new_folder_name_not_saved">Il nuovo nome della cartella NON è stato salvato</string>
+    <string name="new_folder_name_saved">Il nuovo nome della cartella è stato salvato</string>
+    <string name="new_value">Il nuovo valore è </string>
+    <string name="no_books_found">Nessun libro trovato</string>
+    <string name="no_depth_yet">Profondità?</string>
+    <string name="no_previous_book_saved_msg">Siamo spiacenti, o nessun dettaglio del libro era stato salvato o si è verificato un problema col salvataggio del libro. Riprovate usando una diversa opzione di menu per trovare un libro da leggere.</string>
+    <string name="no_previous_book_saved_title">Nessun libro è stato precedentemente salvato.</string>
+    <string name="no_status_yet">Stato?</string>
+    <string name="no_text_yet">nessun testo fin ora</string>
+    <string name="open_book">Apri libro</string>
+    <string name="open_last_book">Riapri l'ultimo libro</string>
+    <string name="paused_message">In pausa</string>
+    <string name="permission_problem_opening_a_file">Si è verificato un errore di permessi nell'apertura del file</string>
+    <string name="player_instructions">
+	Una serie gesti sono utilizzati per controllare il lettore.
+	Clicca il centro dello schermo per fermare e riavviare la riproduzione corrente.
+	Trascinamenti (quando tracci una linea premendo lo schermo col dito, alzando il dito al termine della linea) sono utilizzati per i gesti rimanenti:
+	trascina in alto per andare alla traccia audio precedente del libro alla profondità attuale;
+	trascina in basso per andare alla traccia successiva del libro alla profondità attuale;
+	trascina a sinistra per aumentare la profondità;
+	trascina a destra per diminuire la profondità.
+    
+    	DAISY books gestisce libri a singola profindità o a profondità multipla, utilizzata ad esempio,
+	per rappresentare i capitoli (a profondità 1) e le sezioni (a profondità 2 o inferiore).
+    </string>
+    <string name="playing">Riproduci</string>
+    <string name="player_instructions_description">Istruzioni per il DAISY player</string>
+    <string name="playing_message">Sto riproducendo</string>
+    <string name="reading_message">Sto leggendo</string>
+    <string name="return_to_homescreen">Torna alla schermata iniziale</string>
+    <string name="root_folder">Cartella principale</string>
+    <string name="root_folder_for_daisy_books">Cartella principale per DAISY books</string>
+    <string name="sd_card_folder_changed_successfully">Cartella per la SD Card Cambiata con successo</string>
+    <string name="sdcard_mounted">La SD Card sembra essere in uso; puoi disattivarla, e riprovare.</string>
+    <string name="sdcard_title">SD card</string>
+    <string name="search_books">Cerca libri</string>
+    <string name="serious_problem_found">E' stato rilevato un problema serio</string>
+    <string name="settings">Configurazione</string>
+    <string name="stopped">Fermo</string>
+    <string name="text_content_not_supported_yet">
+	Questo libro sembra un libro di solo testo. Purtroppo DAISY non supporta ancora libri di solo testo.
+	Potete richiedere l'implementazione di tale funzione al sito
+	http://code.google.com/p/android-daisy-epub-reader/issues/list 
+	in modo tale da rendere noto agli sviluppatori che qualcuno ha bisogno di questa funzionalità.
+    </string>
+    <string name="unable_to_open_file">Impossibile aprire il file</string>
+</resources>
