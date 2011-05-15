@@ -198,15 +198,22 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	}
     
 	public void stop() {
-		Util.logInfo(TAG, "stop");
 		player.pause();
 		Bookmark bookmark = book.getBookmark();
-		bookmark.setPosition(player.getCurrentPosition());
+		
+		// The following change is to see whether the player updates the
+		// bookmark with the current offset into the audio file when the book
+		// is closed e.g. by pressing the back button on the Android device.
+		int currentPosition = player.getCurrentPosition();
+		Util.logInfo(TAG, "stop called at: " +currentPosition);
+		bookmark.setPosition(currentPosition);
 		player.reset();
 		if (bookmark.getFilename() != null) {
 			// We only save the bookmark if there's a valid file, problems e.g.
 			// reading a smil file might mean the bookmark hasn't been assigned.
 			book.getBookmark().save(book.getPath() + "auto.bmk");
+		} else {
+			Util.logInfo(TAG, "No filename, so we didn't save the auto-bookmark");
 		}
 	}
 

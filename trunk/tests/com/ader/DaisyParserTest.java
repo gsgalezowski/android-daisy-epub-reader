@@ -47,7 +47,7 @@ public class DaisyParserTest extends TestCase {
 	public void testCanParseFromTextContent() {
 		System.out.println(SampleContent.simpleValidNccHtml);
 		ArrayList<DaisyElement> elements = parser.parse(SampleContent.simpleValidNccHtml);
-		assertTrue("There should be SOME content", elements.size() > 0);
+		assertEquals("The elements should be: html head, body, title, h1, a.", 6, elements.size());
 	}
 	
 	@MediumTest

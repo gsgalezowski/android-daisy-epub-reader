@@ -13,6 +13,7 @@ import android.test.suitebuilder.annotation.MediumTest;
 
 public class ParserMigrationTest extends TestCase {
 
+	private static final String PATH_TO_LIGHT_MAN_FILES = "/Resources/light-man/";
 	private DaisyParser oldParser;
 	private XMLParser newParser;
 	private NCCEntry entry;
@@ -25,7 +26,7 @@ public class ParserMigrationTest extends TestCase {
 	@MediumTest
 	public void testSideBySideContent() throws IOException {
 		String path = new File(".").getCanonicalPath();
-		String filename = path + "/Resources/light-man/ncc.html";
+		String filename = path + PATH_TO_LIGHT_MAN_FILES + "ncc.html";
 		FileInputStream stream1 = new FileInputStream(filename);
 		FileInputStream stream2 = new FileInputStream(filename);
 		ArrayList <DaisyElement> oldElements = oldParser.parse(stream1);
@@ -77,6 +78,18 @@ public class ParserMigrationTest extends TestCase {
 			assertEquals(String.format("Page numbers should match, item [%s] didn't.", i),
 					pageNumbers.get(i), navCentre.getPageTarget(i).getText());
 		}
+		
+		// The next test is to see if we can open a smil file processed by the
+		// new parser. Turns out, we can...
+		SmilFile smilFile = new SmilFile();
+		path = new File(".").getCanonicalPath();
+		filename = path + PATH_TO_LIGHT_MAN_FILES + "/" + navCentre.getNavPoint(0).getSmil();
+		smilFile.open(filename);
+        assertEquals("The external file should have 3 short audio elements.", 
+        		3, smilFile.getAudioSegments().size());
+        assertEquals(smilFile.getAudioSegments().get(0).getClipBegin(), 0.0);
+        assertEquals(smilFile.getAudioSegments().get(1).getClipBegin(), 1.384);
+		
 	}
 
 }
