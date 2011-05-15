@@ -10,7 +10,6 @@ public class NCCEntry implements Serializable {
 	private String text;
 	private int level;
 	private NCCEntryType type;
-	
 
 	/**
 	 * Retained for now to enable easier migration. Will be deprecated once the
@@ -62,26 +61,6 @@ public class NCCEntry implements Serializable {
 		return smil;
 	}
 
-	public String getSmilRef() {
-		return smilRef;
-	}
-	
-	public void setType(NCCEntryType type) {
-		this.type = type;
-	}
-	
-	public void setLevel(int level) {
-		this.level = level;
-	}
-
-	public void setSmil(String smil) {
-		this.smil = smil;
-	}
-
-	public void setSmilRef(String smilRef) {
-		this.smilRef = smilRef;
-	}
-
 	/**
 	 * Returns the text for this NCC entry.
 	 * 
@@ -89,10 +68,6 @@ public class NCCEntry implements Serializable {
 	 */
 	public String getText() {
 		return text;
-	}
-	
-	public void setText(String text) {
-		this.text = text;
 	}
 	
 	@Override

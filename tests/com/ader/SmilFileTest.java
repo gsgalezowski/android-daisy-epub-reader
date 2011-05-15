@@ -20,6 +20,7 @@ public class SmilFileTest extends TestCase {
         assertTrue(smilFile.getAudioSegments().size() > 0);
         assertEquals(smilFile.getAudioSegments().get(0).getClipBegin(), 0.0);
         assertEquals(smilFile.getAudioSegments().get(1).getClipBegin(), 1.384);
+        assertEquals(smilFile.getAudioSegments().get(2).getClipBegin(), 4.441);
     }
     
     public void testParsingFileWithWindows1252Encoding() throws Exception {

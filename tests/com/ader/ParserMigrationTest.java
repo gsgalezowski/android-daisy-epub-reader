@@ -89,6 +89,7 @@ public class ParserMigrationTest extends TestCase {
         		3, smilFile.getAudioSegments().size());
         assertEquals(smilFile.getAudioSegments().get(0).getClipBegin(), 0.0);
         assertEquals(smilFile.getAudioSegments().get(1).getClipBegin(), 1.384);
+        assertEquals(smilFile.getAudioSegments().get(2).getClipBegin(), 4.441);
 		
 	}
 
