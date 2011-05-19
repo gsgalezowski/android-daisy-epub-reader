@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+<string name="app_name">Lector Daisy 2.02 de Android</string>
+<string name="cannot_open_book">Esta aplicación no puede abrir el libro:(</string>
+<string name="cannot_open_book_a_file_is_missing ">Esta aplicación no puede abrir el libro:( Falta un archivo.</string>
+<string name="close_instructions">Cerrar instrucciones</string>
+<string name="hello">¡Saludos del Lector Daisy!</string>
+<string name="help">Ayuda</string>
+<string name="homepage_title">Lector Daisy 2.02 de Android</string>
+<string name="new_folder_name_not_saved">El nuevo nombre de la carpeta no se guardó</string>
+<string name="new_folder_name_saved">El nuevo nombre de la carpeta se guardó correctamente</string>
+<string name="new_value">El nuevo valor es </string>
+<string name="no_books_found">No se encuentran libros</string>
+<string name="no_depth_yet">¿Niveles?</string>
+<string name="no_previous_book_saved_msg">Lo siento. Los detalles del libro no se guardaron, o existe un problema con el libro que está en el dispositivo. Favor de usar otra opción del menú para buscar otro libro.</string>
+<string name="no_previous_book_saved_title">No se ha guardado un libro previamente</string>
+<string name="no_status_yet">¿Estado?</string>
+<string name="no_text_yet">no hay texto todavíia</string>
+<string name="open_book">Abrir libro</string>
+<string name="open_last_book">Abrir último libro</string>
+<string name="paused_message">En pausa</string>
+<string name="permission_problem_opening_a_file">Problema de permisos para abrir el archivo</string>
+<string name="player_instructions">El reproductor se controla mediante gestos. Pulsar el centro de la pantalla para parar y continuar con el audio actual. Deslizar (arrastrar el dedo en línea recta sobre la pantalla, luego levantar el dedo) para las siguientes funciones: Deslizar hacia arriba para regresar al bloque sonoro anterior del nivel actual del libro. Deslizar hacia abajo para avanzar al bloque sonoro posterior del nivel actual del libro. Deslizar de izquierda a derecha para incrementar el nivel. Deslizar de derecha a izquierda para decrementar el nivel. Los libros DAISY pueden contener material a un nivel o a varios niveles, p. ej., Que representan capítulos (digamos a Nivel 1) y secciones (digamos a Nivel 2).</string>
+<string name="playing">Reproduciendo</string>
+<string name="player_instructions_description">Instrucciones del reproductor DAISY</string>
+<string name="playing_message">Reproduciendo</string>
+<string name="reading_message">Leyendo</string>
+<string name="return_to_homescreen">Volver a Pantalla de inicio</string>
+<string name="root_folder">Carpeta raíz</string>
+<string name="root_folder_for_daisy_books">Carpeta raíz para libros DAISY</string>
+<string name="sd_card_folder_changed_successfully">Se ha cambiado la carpeta de la targeta SD correctamente</string>
+<string name="sdcard_mounted">La tarjeta SD parece estar en uso (montada). Puede usted desmontarla, luego hacer otro intento.</string>
+<string name="sdcard_title">Tarjeta SD</string>
+<string name="search_books">Buscar libros</string>
+<string name="serious_problem_found">Se ha detectado un problema grave</string>
+<string name="settings">ajustes</string>
+<string name="stopped">Se ha parado la operación</string>
+<string name="text_content_not_supported_yet">Este libro parece contener texto solamente. Los libros DAISY de texto solamente todavía no son compatibles con este reproductor. Favor de pedir esta función en la web del proyecto ubicada en el http://code.google.com/p/android-daisy-epub-reader/issues/list para informarnos que hay personas que realmente desean esta función.</string>
+<string name="unable_to_open_file">Esta aplicación no puede abrir el archivo</string>
+</resources>
+
