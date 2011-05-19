@@ -17,9 +17,9 @@
     <string name="no_status_yet">Stato?</string>
     <string name="no_text_yet">nessun testo fin ora</string>
     <string name="open_book">Apri libro</string>
-    <string name="open_last_book">Riapri l'ultimo libro</string>
+    <string name="open_last_book">Riapri l\'ultimo libro</string>
     <string name="paused_message">In pausa</string>
-    <string name="permission_problem_opening_a_file">Si è verificato un errore di permessi nell'apertura del file</string>
+    <string name="permission_problem_opening_a_file">Si è verificato un errore di permessi nell\'apertura del file</string>
     <string name="player_instructions">
 	Una serie gesti sono utilizzati per controllare il lettore.
 	Clicca il centro dello schermo per fermare e riavviare la riproduzione corrente.
@@ -43,12 +43,12 @@
     <string name="sdcard_mounted">La SD Card sembra essere in uso; puoi disattivarla, e riprovare.</string>
     <string name="sdcard_title">SD card</string>
     <string name="search_books">Cerca libri</string>
-    <string name="serious_problem_found">E' stato rilevato un problema serio</string>
+    <string name="serious_problem_found">E\' stato rilevato un problema serio</string>
     <string name="settings">Configurazione</string>
     <string name="stopped">Fermo</string>
     <string name="text_content_not_supported_yet">
 	Questo libro sembra un libro di solo testo. Purtroppo DAISY non supporta ancora libri di solo testo.
-	Potete richiedere l'implementazione di tale funzione al sito
+	Potete richiedere l\'implementazione di tale funzione al sito
 	http://code.google.com/p/android-daisy-epub-reader/issues/list 
 	in modo tale da rendere noto agli sviluppatori che qualcuno ha bisogno di questa funzionalità.
     </string>

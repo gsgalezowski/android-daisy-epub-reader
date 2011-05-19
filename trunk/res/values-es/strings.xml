@@ -2,7 +2,7 @@
 <resources>
 <string name="app_name">Lector Daisy 2.02 de Android</string>
 <string name="cannot_open_book">Esta aplicación no puede abrir el libro:(</string>
-<string name="cannot_open_book_a_file_is_missing ">Esta aplicación no puede abrir el libro:( Falta un archivo.</string>
+<string name="cannot_open_book_a_file_is_missing">Esta aplicación no puede abrir el libro:( Falta un archivo.</string>
 <string name="close_instructions">Cerrar instrucciones</string>
 <string name="hello">¡Saludos del Lector Daisy!</string>
 <string name="help">Ayuda</string>
