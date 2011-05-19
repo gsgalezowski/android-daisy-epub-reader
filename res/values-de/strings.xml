@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Android Daisy 2.02 Reader</string>
+    <string name="cannot_open_book">Buch konnte nicht geöffnet werden:( </string>
+    <string name="cannot_open_book_a_file_is_missing">Buch konnte nicht geöffnet werden:( Datei fehlt. </string>
     <string name="close_instructions">Anleitung schließen</string>
     <string name="hello">Hallo Welt, DaisyReader!</string>
     <string name="help">Hilfe</string>
@@ -8,12 +10,17 @@
     <string name="new_folder_name_not_saved">Neuer Ordnername nicht gespeichert</string>
     <string name="new_folder_name_saved">Neuer Ordnername gespeichert</string>
     <string name="new_value">Neuer Wert lautet </string>
-    <string name="no_books_found">Kein Bücher gefunden</string>
+    <string name="no_books_found">Keine Bücher gefunden</string>
+    <string name="no_depth_yet">Tiefe?</string>
+    <string name="no_previous_book_saved_msg">Leider sind zu diesem Buch keine Details vorhanden oder es besteht ein Problem mit dem gespeicherten Buch. Bitte nutzen Sie einen anderen Menüpunkt um ein Buch zum Lesen zu öffnen.</string>
     <string name="no_previous_book_saved_title">Kein vorheriges Buch gespeichert</string>
-    <string name="open_book">Buch Öffnen</string>
-    <string name="open_last_book">Letztes Buch Öffnen</string>
+    <string name="no_status_yet">Status?</string>
+    <string name="no_text_yet">Kein Text</string>
+    <string name="open_book">Buch öffnen</string>
+    <string name="open_last_book">Letztes Buch öffnen</string>
+    <string name="paused_message">Wiedergabe unterbrochen</string>
+    <string name="permission_problem_opening_a_file">Zugriffsproblem beim Öffnen einer Datei</string>
     <string name="player_instructions">Gesten zum Steuern des Spielers.
-    
     Tippe auf die Mitte des Bildschirms um den aktuellen titel anzuhalten oder fortzusetzen.
     
     Ziehen (Berühre mit deinem Finger den bildschirm, bewege ihn in einer geraden Linie und hebe ihn wieder.) 
@@ -27,23 +34,25 @@
     Der Inhalt eines Daisy-Buchs kann sich auf einer einzelnen oder auf mehreren Ebenen befinden. 
     Z. B. können die Kapitel auf der ersten und die einzelnen Abschnitte auf der zweiten Ebene dargestellt sein.
     </string>
-    <string name="player_instructions_description">Anleitung für den Daisy Player</string>
     <string name="playing">Wiedergabe</string>
-    <string name="playing_message">Spielen</string>
+    <string name="player_instructions_description">Anleitung für den Daisy Player</string>
+    <string name="playing_message">Wiedergabe läuft</string>
+    <string name="reading_message">Inhalt wird eingelesen</string>
     <string name="return_to_homescreen">Zurück zum Hauptbildschirm</string>
-    <string name="root_folder">Root Folder</string>
-    <string name="root_folder_for_daisy_books">Root Folder für DAISY-Bücher</string>
+    <string name="root_folder">Hauptverzeichnis</string>
+    <string name="root_folder_for_daisy_books">Hauptverzeichnis für DAISY Bücher</string>
     <string name="sd_card_folder_changed_successfully">SD-Karten-Verzeichnis wurde erfolgreich geändert</string>
-    <string name="stopped">Stop</string>
+    <string name="sdcard_mounted">Die SD-Karte scheint in Benutzung (Eingehangen) zu sein. Bitte hängen Sie die Karte aus und versuchen Sie es erneut.</string>
+    <string name="sdcard_title">SD Karte</string>
     <string name="search_books">Buch suchen</string>
+    <string name="serious_problem_found">Ein schwerwiegendes Problem ist aufgetreten</string>
     <string name="settings">Einstellungen</string>
-    <string name="sdcard_title">SD-Karte</string>
-    <string name="sdcard_mounted">Die SD-Karte scheint in Benutzung (Eingehangen) zu sein. 
-    Bitte hängen Sie die Karte aus und versuchen Sie es erneut.</string>
-    <string name="no_previous_book_saved_msg">Leider sind zu diesem Buch keine Details 
-    vorhanden oder es besteht ein Problem mit dem gespeicherten Buch. 
-    Bitte nutzen Sie einen anderen Menüpunkt um ein Buch zum Lesen zu Öffnen.
+    <string name="stopped">Angehalten</string>
+    <string name="text_content_not_supported_yet">
+    Es scheint sich um ein Volltext Daisy-Buch zu handeln. Leider wird dies derzeit noch nicht unterstützt. 
+    Bitte erstelle einen Feature-Request auf der Projektseite 
+    http://code.google.com/p/android-daisy-epub-reader/issues/list 
+    So erfahren wir, dass das Feature auch gewünscht wird.
     </string>
     <string name="unable_to_open_file">Datei kann nicht geöffnet werden</string>
 </resources>
-
