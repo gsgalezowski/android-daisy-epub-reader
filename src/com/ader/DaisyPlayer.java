@@ -111,10 +111,10 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 			explainProblem
 			.setCancelable(false)
 			.setTitle(R.string.unable_to_open_file)
-			.setMessage(fnfe.getLocalizedMessage())
+			.setMessage(text)
 			.setPositiveButton(R.string.close_instructions, new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int id) {
-					DaisyPlayer.this.finish();
+					return;
 				}
 			})
 			.show();
@@ -154,11 +154,14 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 
 	/**
 	 * Start reading the current section of the book
+	 * @throws FileNotFoundException 
 	 */
-	private void read() {
+	private void read() throws FileNotFoundException {
 		int duration = Toast.LENGTH_LONG;
 		
 		Bookmark bookmark = book.getBookmark();
+		// TODO(jharty): remove the bookmark log messages added in r226 once 
+		// I'm happy the code works properly.
 		Util.logInfo(TAG, String.format(
 				"Loaded Bookmark details SMILfile[%s] NCC index[%d] offset[%d]",
 				bookmark.getFilename(),bookmark.getNccIndex(), bookmark.getPosition()));
@@ -169,28 +172,15 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 		if (book.hasAudioSegments()) {
 			try {
 				mainText.setText(getText(R.string.reading_message) + " " + book.current().getText());
-				// TODO(jharty): Add check that the audio file exists and we
-				// have read permissions to it.
 				
-				// Pseudo logic: Test if the file exists and we have read permission.
-				// IF NOT, then offer the user a dialog with 3 choices:
-				// Next section, Previous section, Close book.
-				// The main challenge for me is likely to be coping with the
-				// Android lifecycle to close the player.
-				
+				// Note: Allow Java Garbage Collection to close the file.
 				File f = new File(bookmark.getFilename());
 				if (!(f.exists() && f.canRead())) {
-					Util.logInfo(TAG, "Couldn't access audio file" + bookmark.getFilename());
-					Toast toast;
-					CharSequence text = getString(R.string.cannot_open_book_a_file_is_missing)
-												+ bookmark.getFilename();
-					toast = Toast.makeText(this, text, duration);
-					toast.show();
-					// For now let's try to simply skip to the next section.
-					if (book.nextSection(true)) {
-						audioOffset = 0;
-					}
-					return;
+					// TODO(jharty): Add a localised message to advise users
+					// to upload a valid book. I could also provide a book
+					// validation tool at some point.
+					Util.logInfo(TAG, "File Not Available: " + bookmark.getFilename());
+					throw new FileNotFoundException(bookmark.getFilename());
 				}
 				
 				Util.logInfo(TAG, "Start playing " + bookmark.getFilename() + " " + bookmark.getPosition());
@@ -200,6 +190,8 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 				throw new RuntimeException(e);
 			} catch (IllegalStateException e) {
 				throw new RuntimeException(e);
+			} catch (FileNotFoundException fnfe) {
+				throw fnfe;
 			} catch (IOException e) {
 				throw new RuntimeException(bookmark.getFilename() 
 						+ "\n" + e.getLocalizedMessage());
