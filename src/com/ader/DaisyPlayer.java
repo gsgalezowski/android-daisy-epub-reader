@@ -156,6 +156,9 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	 */
 	private void read() {
 		Bookmark bookmark = book.getBookmark();
+		Util.logInfo(TAG, String.format(
+				"Loaded Bookmark details SMILfile[%s] NCC index[%d] offset[%d]",
+				bookmark.getFilename(),bookmark.getNccIndex(), bookmark.getPosition()));
 
 		// TODO(jharty): Find a practical way to format these messages for i18n and l10n
 		depthText.setText("Depth " + book.getCurrentDepthInDaisyBook() + " of " + book.getMaximumDepthInDaisyBook());
@@ -163,6 +166,8 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 		if (book.hasAudioSegments()) {
 			try {
 				mainText.setText(getText(R.string.reading_message) + " " + book.current().getText());
+				// TODO(jharty): Add check that the audio file exists and we
+				// have read permissions to it.
 				Util.logInfo(TAG, "Start playing " + bookmark.getFilename() + " " + bookmark.getPosition());
 				player.setDataSource(bookmark.getFilename());
 				player.prepare();
@@ -177,9 +182,21 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 			// Part of my experiment to stop the player restarting the audio
 			// when the device is rotated between landscape and portrait modes.
 			// player.seekTo(bookmark.getPosition());
-			player.seekTo(audioOffset);
 			player.setScreenOnWhilePlaying(true);
 			statusText.setText(getText(R.string.playing_message) + "...");
+			try {
+				player.prepare();
+			} catch (IllegalStateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			// Trying the following to see if I can start playing part way
+			// into the audio.
+			Util.logInfo(TAG, String.format("Setting offset to %d", bookmark.getPosition()));
+			player.seekTo(bookmark.getPosition());
 			player.start();
 		} else if (book.hasTextSegments()) {
 			// TODO(jharty): add TTS to speak the text section

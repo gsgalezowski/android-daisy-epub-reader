@@ -37,5 +37,6 @@
 <string name="stopped">Se ha parado la operación</string>
 <string name="text_content_not_supported_yet">Este libro parece contener texto solamente. Los libros DAISY de texto solamente todavía no son compatibles con este reproductor. Favor de pedir esta función en la web del proyecto ubicada en el http://code.google.com/p/android-daisy-epub-reader/issues/list para informarnos que hay personas que realmente desean esta función.</string>
 <string name="unable_to_open_file">Esta aplicación no puede abrir el archivo</string>
+<string name="up_1_level">Regresa un nivel</string>
 </resources>
 
