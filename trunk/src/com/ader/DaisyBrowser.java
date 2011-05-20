@@ -59,7 +59,7 @@ public class DaisyBrowser extends ListActivity {
             return;
         }
 
-        if (item.equals("Up 1 Level")) {
+        if (item.equals(this.getString(R.string.up_1_level))) {
             currentDirectory = new File(currentDirectory.getParent());
             GenerateBrowserData();
             return;
@@ -108,7 +108,7 @@ public class DaisyBrowser extends ListActivity {
         	files = new ArrayList<String>(Arrays.asList(listOfFiles));
         	Collections.sort(files, String.CASE_INSENSITIVE_ORDER);
         	if (!currentDirectory.getParent().equals("/")) {
-        		files.add("Up 1 Level");
+        		files.add(this.getString(R.string.up_1_level));
         	}
         } else {
         	files = new ArrayList<String>();

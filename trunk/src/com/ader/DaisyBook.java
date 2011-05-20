@@ -131,6 +131,9 @@ public class DaisyBook implements Serializable {
 	public void loadAutoBookmark() throws IOException  {
 		String bookmarkFilename = path + "auto.bmk";
 		bookmark.load(bookmarkFilename);
+		Util.logInfo(TAG, String.format(
+				"Loaded Bookmark details SMILfile[%s] NCC index[%d] offset[%d]",
+				bookmark.getFilename(),bookmark.getNccIndex(), bookmark.getPosition()));
 		currentnccIndex = bookmark.getNccIndex();
 	}
 	
@@ -177,6 +180,7 @@ public class DaisyBook implements Serializable {
 			}
 			
 			bookmark.setNccIndex(i);
+			bookmark.setPosition(0);
 			return true;
 		}
 		// TODO (jharty): this seems dodgy, e.g. we could fall off the end of
@@ -192,6 +196,7 @@ public class DaisyBook implements Serializable {
 			if (nccEntries.get(i).getLevel() <= selectedLevel
 				&& nccEntries.get(i).getType() == NCCEntryType.LEVEL) {
 				bookmark.setNccIndex(i);
+				bookmark.setPosition(0);
 				return true;
 			}
 		return false;
@@ -207,7 +212,21 @@ public class DaisyBook implements Serializable {
 			if (smilFile.getAudioSegments().size() > 0) {
 				// TODO (jharty): are we assuming we always get the first entry?
 				bookmark.setFilename(path + smilFile.getAudioSegments().get(0).getSrc());
-				bookmark.setPosition((int) smilFile.getAudioSegments().get(0).getClipBegin());
+				Util.logInfo(TAG, String.format(
+						"Before calling setPosition SMILfile[%s] NCC index[%d] offset[%d]",
+						bookmark.getFilename(),bookmark.getNccIndex(), bookmark.getPosition()));
+				
+				// Only set the start if we don't already have an offset into
+				// this file from an existing bookmark. NB: needs good testing
+				// as I may well break some logic related to loading the next
+				// SMIL file, etc. (I did! :) I'll try to fix it now...
+				if (bookmark.getPosition() <= 0) {
+					bookmark.setPosition((int) smilFile.getAudioSegments().get(0).getClipBegin());
+					Util.logInfo(TAG, String.format(
+						"After calling setPosition SMILfile[%s] NCC index[%d] offset[%d]",
+						bookmark.getFilename(),bookmark.getNccIndex(), bookmark.getPosition()));
+				}
+				
 			} else if (smilFile.getTextSegments().size() > 0) {
 				bookmark.setFilename(path + smilFile.getTextSegments().get(0).getSrc());
 				bookmark.setPosition(0);

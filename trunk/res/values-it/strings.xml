@@ -53,4 +53,5 @@
 	in modo tale da rendere noto agli sviluppatori che qualcuno ha bisogno di questa funzionalità.
     </string>
     <string name="unable_to_open_file">Impossibile aprire il file</string>
+    <string name="up_1_level">Tornare 1 livello</string>
 </resources>

@@ -68,6 +68,9 @@ public class Bookmark implements Serializable {
 		filename = in.readUTF();
 		nccIndex = in.readInt();
 		position = in.readInt();
+		Util.logInfo(TAG, String.format(
+				"Reading Bookmark details SMILfile[%s] NCC index[%d] offset[%d]",
+				filename, nccIndex, position));
 		in.close();
 	}
 
@@ -86,6 +89,9 @@ public class Bookmark implements Serializable {
 	void save(OutputStream outputStream) throws IOException {
 		DataOutputStream out = new DataOutputStream(outputStream);
 
+		Util.logInfo(TAG, String.format(
+				"Saving Bookmark details SMILfile[%s] NCC index[%d] offset[%d]",
+				filename, nccIndex, position));
 		out.writeUTF(filename);
 		out.writeInt(nccIndex);
 		out.writeInt(position);
