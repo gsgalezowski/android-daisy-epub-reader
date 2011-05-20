@@ -17,6 +17,7 @@ import com.google.marvin.widget.TouchGestureControlOverlay;
 import com.google.marvin.widget.TouchGestureControlOverlay.Gesture;
 import com.google.marvin.widget.TouchGestureControlOverlay.GestureListener;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -155,6 +156,8 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	 * Start reading the current section of the book
 	 */
 	private void read() {
+		int duration = Toast.LENGTH_LONG;
+		
 		Bookmark bookmark = book.getBookmark();
 		Util.logInfo(TAG, String.format(
 				"Loaded Bookmark details SMILfile[%s] NCC index[%d] offset[%d]",
@@ -168,6 +171,28 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 				mainText.setText(getText(R.string.reading_message) + " " + book.current().getText());
 				// TODO(jharty): Add check that the audio file exists and we
 				// have read permissions to it.
+				
+				// Pseudo logic: Test if the file exists and we have read permission.
+				// IF NOT, then offer the user a dialog with 3 choices:
+				// Next section, Previous section, Close book.
+				// The main challenge for me is likely to be coping with the
+				// Android lifecycle to close the player.
+				
+				File f = new File(bookmark.getFilename());
+				if (!(f.exists() && f.canRead())) {
+					Util.logInfo(TAG, "Couldn't access audio file" + bookmark.getFilename());
+					Toast toast;
+					CharSequence text = getString(R.string.cannot_open_book_a_file_is_missing)
+												+ bookmark.getFilename();
+					toast = Toast.makeText(this, text, duration);
+					toast.show();
+					// For now let's try to simply skip to the next section.
+					if (book.nextSection(true)) {
+						audioOffset = 0;
+					}
+					return;
+				}
+				
 				Util.logInfo(TAG, "Start playing " + bookmark.getFilename() + " " + bookmark.getPosition());
 				player.setDataSource(bookmark.getFilename());
 				player.prepare();
