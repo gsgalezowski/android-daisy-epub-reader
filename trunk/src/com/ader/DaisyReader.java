@@ -106,7 +106,7 @@ public class DaisyReader extends ListActivity {
 	protected void onListItemClick(android.widget.ListView l, android.view.View v, int position,
 			long id) {
 		super.onListItemClick(l, v, position, id);
-		book.goTo((NCCEntry) l.getItemAtPosition(position));
+		book.goTo((DaisyItem) l.getItemAtPosition(position));
 		play();
 	}
 

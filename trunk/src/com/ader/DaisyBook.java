@@ -137,7 +137,7 @@ public class DaisyBook implements Serializable {
 		currentnccIndex = bookmark.getNccIndex();
 	}
 	
-	NCCEntry current() {
+	DaisyItem current() {
 		Util.logInfo(TAG, String.format("Current entry is index:%d, ncc:%s",
 				bookmark.getNccIndex(),
 				nccEntries.get(bookmark.getNccIndex())));
@@ -149,12 +149,12 @@ public class DaisyBook implements Serializable {
 
 		for (int i = 0; i < nccEntries.size(); i++)
 			if (nccEntries.get(i).getLevel() <= selectedLevel 
-				&& nccEntries.get(i).getType() == NCCEntryType.LEVEL)
+				&& nccEntries.get(i).getType() == DaisyItemType.LEVEL)
 				displayItems.add(nccEntries.get(i));
 		return displayItems;
 	}
 
-	public void goTo(NCCEntry nccEntry) {
+	public void goTo(DaisyItem nccEntry) {
 		int index = nccEntries.indexOf(nccEntry);
 		Util.logInfo(TAG, "goto " + index);
 		bookmark.setNccIndex(index);
@@ -171,7 +171,7 @@ public class DaisyBook implements Serializable {
 				"next called; includelevels: %b selectedLevel: %d, currentnccIndex: %d bookmark.getNccIndex: %d", 
 				includeLevels, selectedLevel, currentnccIndex, bookmark.getNccIndex()));
 		for (int i = bookmark.getNccIndex() + 1; i < nccEntries.size(); i++) {
-			if (nccEntries.get(i).getType() != NCCEntryType.LEVEL) {
+			if (nccEntries.get(i).getType() != DaisyItemType.LEVEL) {
 				continue;
 			}
 			
@@ -194,7 +194,7 @@ public class DaisyBook implements Serializable {
 		Util.logInfo(TAG, "previous");
 		for (int i = bookmark.getNccIndex() -1; i > 0; i--)
 			if (nccEntries.get(i).getLevel() <= selectedLevel
-				&& nccEntries.get(i).getType() == NCCEntryType.LEVEL) {
+				&& nccEntries.get(i).getType() == DaisyItemType.LEVEL) {
 				bookmark.setNccIndex(i);
 				bookmark.setPosition(0);
 				return true;
@@ -253,8 +253,8 @@ public class DaisyBook implements Serializable {
 	protected void validateDaisyContents() throws InvalidDaisyStructureException {
 		// Check there is at least one H1 element
 		for (int i = 0; i < nccEntries.size(); i++) {
-			NCCEntry entry = nccEntries.get(i);
-			if (entry.getType() == NCCEntryType.LEVEL && entry.getLevel() == 1) {
+			DaisyItem entry = nccEntries.get(i);
+			if (entry.getType() == DaisyItemType.LEVEL && entry.getLevel() == 1) {
 				return;
 			}
 		}
@@ -270,7 +270,7 @@ public class DaisyBook implements Serializable {
 	throws NumberFormatException {
 		List<NCCEntry> nccEntries = new ArrayList<NCCEntry>();
 		int level = 0;
-		NCCEntryType type = NCCEntryType.UNKNOWN;
+		DaisyItemType type = DaisyItemType.UNKNOWN;
 		
 		for (int i = 0; i < elements.size(); i++) {
 			String elementName = elements.get(i).getName();
@@ -278,7 +278,7 @@ public class DaisyBook implements Serializable {
 			// is it a heading element
 			if (elementName.matches("h[123456]")) {
 				level = Integer.decode(elementName.substring(1));
-				type = NCCEntryType.LEVEL;
+				type = DaisyItemType.LEVEL;
 				if (level > NCCDepth)
 					NCCDepth = level;
 				continue;
@@ -292,7 +292,7 @@ public class DaisyBook implements Serializable {
 			if (elementName.contains("span")
 					&& elements.get(i).getAttributes().getValue(0).contains("page-")) {
 				
-				type = NCCEntryType.PAGENUMBER;
+				type = DaisyItemType.PAGENUMBER;
 			}
 			
 			// is it an anchor element
