@@ -16,7 +16,7 @@ public class ParserMigrationTest extends TestCase {
 	private static final String PATH_TO_LIGHT_MAN_FILES = "/Resources/light-man/";
 	private DaisyParser oldParser;
 	private XMLParser newParser;
-	private NCCEntry entry;
+	private DaisyItem entry;
 
 	protected void setUp() throws Exception {
 		oldParser = new DaisyParser();

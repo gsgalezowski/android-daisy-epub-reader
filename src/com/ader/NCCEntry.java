@@ -2,14 +2,14 @@ package com.ader;
 
 import java.io.Serializable;
 
-public class NCCEntry implements Serializable {
+public class NCCEntry implements Serializable, DaisyItem {
 	
     private static final long serialVersionUID = 2L;
     private String smil;
 	private String smilRef;
 	private String text;
 	private int level;
-	private NCCEntryType type;
+	private DaisyItemType type;
 
 	/**
 	 * Retained for now to enable easier migration. Will be deprecated once the
@@ -18,7 +18,7 @@ public class NCCEntry implements Serializable {
 	 * @param type the type of the entry
 	 * @param level the level of the element on the DAISY book hierarchy
 	 */
-	public NCCEntry(DaisyElement element, NCCEntryType type, int level) {
+	public NCCEntry(DaisyElement element, DaisyItemType type, int level) {
 		this(element.getText(), element.getAttributes().getValue("", "href"), type, level);
 	}
 
@@ -32,7 +32,7 @@ public class NCCEntry implements Serializable {
 	 * @param type the type of NCC Entry e.g. HEADING
 	 * @param level the level of the element in the DAISY book hierarchy
 	 */
-	public NCCEntry(String text, String smil, NCCEntryType type, int level) {
+	public NCCEntry(String text, String smil, DaisyItemType type, int level) {
 		// I discovered the parser (or something) added newline and tab characters
 		// to the last page-number for light-man. This is a crude workaround until
 		// I get to the bottom of the issue. Since I want to retire this, old
@@ -49,32 +49,45 @@ public class NCCEntry implements Serializable {
 		
 	}
 
-	public NCCEntryType getType() {
+	/* (non-Javadoc)
+	 * @see com.ader.DaisyItem#getType()
+	 */
+	public DaisyItemType getType() {
 		return type;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.ader.DaisyItem#getLevel()
+	 */
 	public int getLevel() {
 		return level;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.ader.DaisyItem#getSmil()
+	 */
 	public String getSmil() {
 		return smil;
 	}
 
-	/**
-	 * Returns the text for this NCC entry.
-	 * 
-	 * Typically a brief description of this section in the book.
+	/* (non-Javadoc)
+	 * @see com.ader.DaisyItem#getText()
 	 */
 	public String getText() {
 		return text;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.ader.DaisyItem#toString()
+	 */
 	@Override
 	public String toString() {
 		return "smil:" + smil + " text: " + text;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.ader.DaisyItem#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 	    if (!(obj instanceof NCCEntry)) {
@@ -85,6 +98,9 @@ public class NCCEntry implements Serializable {
             && text.equals(rhs.text);
 	}
 
+    /* (non-Javadoc)
+	 * @see com.ader.DaisyItem#hashCode()
+	 */
     @Override
     public int hashCode() {
         final int prime = 31;
