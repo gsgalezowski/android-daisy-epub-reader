@@ -20,7 +20,7 @@ import com.google.marvin.widget.TouchGestureControlOverlay.Gesture;
 import com.google.marvin.widget.TouchGestureControlOverlay.GestureListener;
 
 public class DaisyReader extends ListActivity {
-	private DaisyBook book = new DaisyBook();
+	private OldDaisyBookImplementation book = new OldDaisyBookImplementation();
 	private TouchGestureControlOverlay gestureOverlay;
 	private LinearLayout linearLayout;
 	private String path;

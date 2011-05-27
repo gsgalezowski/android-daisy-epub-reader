@@ -26,7 +26,7 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	private static final String AUDIO_OFFSET = "Offset";
 	private static final String IS_THE_BOOK_PLAYING = "playing";
 	private static final String TAG = "DaisyPlayer";
-	private DaisyBook book;
+	private OldDaisyBookImplementation book;
 	private MediaPlayer player;
 	private TouchGestureControlOverlay gestureOverlay;
 	private FrameLayout frameLayout;
@@ -38,7 +38,7 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		book = (DaisyBook) getIntent().getSerializableExtra(
+		book = (OldDaisyBookImplementation) getIntent().getSerializableExtra(
 				"com.ader.DaisyBook");
 		activateGesture();
 		player = new MediaPlayer();
