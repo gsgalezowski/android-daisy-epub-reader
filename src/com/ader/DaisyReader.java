@@ -116,7 +116,7 @@ public class DaisyReader extends ListActivity {
 		setListAdapter(new ArrayAdapter<NCCEntry>(this, android.R.layout.simple_list_item_1, book
 				.getNavigationDisplay()));
 		*/
-		setListAdapter(new ArrayAdapter<NCCEntry>(this, R.layout.results_list, R.layout.listrow, book
+		setListAdapter(new ArrayAdapter<DaisyItem>(this, R.layout.results_list, R.layout.listrow, book
 				.getNavigationDisplay()));
 	}
 
