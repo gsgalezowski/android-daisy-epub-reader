@@ -31,7 +31,7 @@ public class ParserMigrationTest extends TestCase {
 		FileInputStream stream2 = new FileInputStream(filename);
 		ArrayList <DaisyElement> oldElements = oldParser.parse(stream1);
 		DaisyBook tempBook = new DaisyBook();
-		List<NCCEntry> nccEntries = tempBook.processDaisyElements(oldElements);
+		List<DaisyItem> nccEntries = tempBook.processDaisyElements(oldElements);
 		
 		newParser = new XMLParser(stream2);
 		NavCentre navCentre = newParser.processNCC();
@@ -51,7 +51,7 @@ public class ParserMigrationTest extends TestCase {
 		// I need to clean up the code and make the test(s) simpler.
 		ArrayList<String> headings = new ArrayList<String>();
 		ArrayList<String> pageNumbers = new ArrayList<String>();
-		Iterator<NCCEntry> iterator = nccEntries.iterator();
+		Iterator<DaisyItem> iterator = nccEntries.iterator();
 		while(iterator.hasNext()) {
 			entry = iterator.next();
 			switch(entry.getType()) {
