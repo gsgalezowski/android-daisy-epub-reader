@@ -31,7 +31,7 @@ public class ParserMigrationTest extends TestCase {
 		FileInputStream stream2 = new FileInputStream(filename);
 		ArrayList <DaisyElement> oldElements = oldParser.parse(stream1);
 		DaisyBook tempBook = new DaisyBook();
-		List<DaisyItem> nccEntries = tempBook.processDaisyElements(oldElements);
+		List<DaisyItem> items = tempBook.processDaisyElements(oldElements);
 		
 		newParser = new XMLParser(stream2);
 		NavCentre navCentre = newParser.processNCC();
@@ -41,7 +41,7 @@ public class ParserMigrationTest extends TestCase {
 		// refine the match once this test runs and as the new parser matures.
 		assertEquals(
 			"Expected identical results for NavCentre and the ncc Entries for the old DaisyParser",
-			navCentre.count(), nccEntries.size());
+			navCentre.count(), items.size());
 		
 		// First go at using an Iterator to compare the elements
 		// At this stage I don't know whether the order of elements needs to be
@@ -51,7 +51,7 @@ public class ParserMigrationTest extends TestCase {
 		// I need to clean up the code and make the test(s) simpler.
 		ArrayList<String> headings = new ArrayList<String>();
 		ArrayList<String> pageNumbers = new ArrayList<String>();
-		Iterator<DaisyItem> iterator = nccEntries.iterator();
+		Iterator<DaisyItem> iterator = items.iterator();
 		while(iterator.hasNext()) {
 			entry = iterator.next();
 			switch(entry.getType()) {
