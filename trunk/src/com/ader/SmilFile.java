@@ -1,13 +1,11 @@
 package com.ader;
 
 import java.io.BufferedInputStream;
-import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
-import java.util.regex.Pattern;
 
 import javax.xml.parsers.ParserConfigurationException;
 
