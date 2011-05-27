@@ -9,8 +9,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.regex.Pattern;
 
-import com.ader.SmilFile;
-
 /**
  * @author Julian Harty
  *
