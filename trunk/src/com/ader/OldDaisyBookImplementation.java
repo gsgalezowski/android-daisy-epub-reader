@@ -7,10 +7,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DaisyBook implements Serializable, SectionNavigation {
+public class OldDaisyBookImplementation implements Serializable, SectionNavigation {
 	// public static final long serialVersionUID = 1;
 
-	private static final String TAG = DaisyBook.class.getSimpleName();
+	private static final String TAG = OldDaisyBookImplementation.class.getSimpleName();
 	private Bookmark bookmark = new Bookmark();
 	private SmilFile smilFile = new SmilFile();
 	private String filename = "";
