@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OldDaisyBookImplementation implements Serializable, SectionNavigation {
+public class OldDaisyBookImplementation implements Serializable, SectionNavigation, DaisyBook {
 	// public static final long serialVersionUID = 1;
 
 	private static final String TAG = OldDaisyBookImplementation.class.getSimpleName();
@@ -21,10 +21,16 @@ public class OldDaisyBookImplementation implements Serializable, SectionNavigati
 	private String path;
 	
 
+	/* (non-Javadoc)
+	 * @see com.ader.DaisyBook#getBookmark()
+	 */
 	public Bookmark getBookmark() {
 		return bookmark;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.ader.DaisyBook#getDisplayPosition()
+	 */
 	public int getDisplayPosition() {
 		if (current().getLevel() <= selectedLevel)
 			return getNavigationDisplay().indexOf(current());
@@ -42,10 +48,16 @@ public class OldDaisyBookImplementation implements Serializable, SectionNavigati
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.ader.DaisyBook#getNCCDepth()
+	 */
 	public int getNCCDepth() {
 		return NCCDepth;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.ader.DaisyBook#setSelectedLevel(int)
+	 */
 	public int setSelectedLevel(int level) {
 		if (level >= 1 && level <= NCCDepth) {
 			this.selectedLevel = level;
@@ -53,6 +65,9 @@ public class OldDaisyBookImplementation implements Serializable, SectionNavigati
 		return this.selectedLevel;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.ader.DaisyBook#incrementSelectedLevel()
+	 */
 	public int incrementSelectedLevel() {
 		if (this.selectedLevel < NCCDepth) {
 			this.selectedLevel++;
@@ -60,6 +75,9 @@ public class OldDaisyBookImplementation implements Serializable, SectionNavigati
 		return this.selectedLevel;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.ader.DaisyBook#decrementSelectedLevel()
+	 */
 	public int decrementSelectedLevel() {
 		if (this.selectedLevel > 1) {
 			this.selectedLevel--;
@@ -67,25 +85,29 @@ public class OldDaisyBookImplementation implements Serializable, SectionNavigati
 		return this.selectedLevel;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.ader.DaisyBook#getCurrentDepthInDaisyBook()
+	 */
 	public int getCurrentDepthInDaisyBook() {
 		return selectedLevel;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.ader.DaisyBook#getMaximumDepthInDaisyBook()
+	 */
 	public int getMaximumDepthInDaisyBook() {
 		return NCCDepth;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.ader.DaisyBook#getPath()
+	 */
 	public String getPath() {
 		return path;
 	}
 
-	/**
-	 * Opens a Daisy Book from a full path and filename.
-	 * 
-	 * @param nccFullPathAndFilename The ncc file
-	 * @throws InvalidDaisyStructureException if there are serious problems in
-	 * the book structure.
-	 * @throws IOException 
+	/* (non-Javadoc)
+	 * @see com.ader.DaisyBook#openFromFile(java.lang.String)
 	 */
 	public void openFromFile(String nccFullPathAndFilename) throws InvalidDaisyStructureException, IOException {
 		items.clear();
@@ -118,15 +140,8 @@ public class OldDaisyBookImplementation implements Serializable, SectionNavigati
 	}
 
 
-	/**
-	 * Loads the automatically created bookmark.
-	 * 
-	 * This bookmark keeps track of where the user is in this book. If it
-	 * doesn't exist, e.g. if this is the first time the user has opened this
-	 * book, then the bookmark will be created once the user starts reading the
-	 * book.
-	 * @throws IOException If there is a problem opening the file representing
-	 * the bookmark.
+	/* (non-Javadoc)
+	 * @see com.ader.DaisyBook#loadAutoBookmark()
 	 */
 	public void loadAutoBookmark() throws IOException  {
 		String bookmarkFilename = path + "auto.bmk";
@@ -144,6 +159,9 @@ public class OldDaisyBookImplementation implements Serializable, SectionNavigati
 		return items.get(bookmark.getNccIndex());
 	}
 
+	/* (non-Javadoc)
+	 * @see com.ader.DaisyBook#getNavigationDisplay()
+	 */
 	public List<DaisyItem> getNavigationDisplay() {
 		ArrayList<DaisyItem> displayItems = new ArrayList<DaisyItem>();
 
@@ -157,6 +175,9 @@ public class OldDaisyBookImplementation implements Serializable, SectionNavigati
 	/* (non-Javadoc)
 	 * @see com.ader.SectionNavigation#goTo(com.ader.DaisyItem)
 	 */
+	/* (non-Javadoc)
+	 * @see com.ader.DaisyBook#goTo(com.ader.DaisyItem)
+	 */
 	public void goTo(DaisyItem nccEntry) {
 		int index = items.indexOf(nccEntry);
 		Util.logInfo(TAG, "goto " + index);
@@ -165,6 +186,9 @@ public class OldDaisyBookImplementation implements Serializable, SectionNavigati
 
 	/* (non-Javadoc)
 	 * @see com.ader.SectionNavigation#nextSection(java.lang.Boolean)
+	 */
+	/* (non-Javadoc)
+	 * @see com.ader.DaisyBook#nextSection(java.lang.Boolean)
 	 */
 	public boolean nextSection(Boolean includeLevels) {
 		Util.logInfo(TAG, String.format(
@@ -192,6 +216,9 @@ public class OldDaisyBookImplementation implements Serializable, SectionNavigati
 
 	/* (non-Javadoc)
 	 * @see com.ader.SectionNavigation#previousSection()
+	 */
+	/* (non-Javadoc)
+	 * @see com.ader.DaisyBook#previousSection()
 	 */
 	public boolean previousSection() {
 		Util.logInfo(TAG, "previous");
@@ -237,17 +264,15 @@ public class OldDaisyBookImplementation implements Serializable, SectionNavigati
 		}
 	}
 
-	/**
-	 * TODO: Refactor once the new code is integrated.
-	 * @return true if the book has at least one audio segment.
+	/* (non-Javadoc)
+	 * @see com.ader.DaisyBook#hasAudioSegments()
 	 */
 	public boolean hasAudioSegments() {
 		return smilFile.getAudioSegments().size() > 0;
 	}
 
-	/**
-	 * TODO: Refactor ASAP :)
-	 * @return true if the book has at least one text segment.
+	/* (non-Javadoc)
+	 * @see com.ader.DaisyBook#hasTextSegments()
 	 */
 	public boolean hasTextSegments() {
 		return smilFile.getTextSegments().size() > 0;
@@ -264,10 +289,8 @@ public class OldDaisyBookImplementation implements Serializable, SectionNavigati
 		throw new InvalidDaisyStructureException("No H1 level in the book");
 	}
 	
-	/**
-	 * Processes the Daisy Elements, e.g. from DaisyParser()
-	 * @param elements The Daisy Book Elements
-	 * @throws NumberFormatException
+	/* (non-Javadoc)
+	 * @see com.ader.DaisyBook#processDaisyElements(java.util.ArrayList)
 	 */
 	public List<DaisyItem> processDaisyElements(ArrayList<DaisyElement> elements)
 	throws NumberFormatException {
