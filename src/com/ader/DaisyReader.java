@@ -42,7 +42,7 @@ public class DaisyReader extends ListActivity {
 				// TODO(jharty): add a UI to help the user address the problem.
 				idse.printStackTrace();
 			}
-			book.loadAutoBookmark();
+			// FIXME: book.loadAutoBookmark();
 			// Now let's save details of the this book, as the most recent book
 			SharedPreferences bookSettings = getSharedPreferences(DaisyBookUtils.PREFS_FILE, 0);
 			SharedPreferences.Editor editor = bookSettings.edit();

@@ -6,8 +6,6 @@ import java.util.List;
 
 public interface DaisyBook {
 
-	Bookmark getBookmark();
-
 	int getDisplayPosition();
 
 	int getNCCDepth();
@@ -22,6 +20,15 @@ public interface DaisyBook {
 
 	int getMaximumDepthInDaisyBook();
 
+	/**
+	 * FIXME: Currently returns the path for the book. This is no longer needed 
+	 * by the book, rather, the player needs it to manage bookmarks. However I
+	 * need to change the design so DaisyReader (which *knows* the path) can 
+	 * pass the path to DaisyPlayer. Rather than make the change in this 
+	 * refactoring; I'll do so later.
+	 * @return
+	 */
+	@Deprecated
 	String getPath();
 
 	/**
@@ -34,18 +41,6 @@ public interface DaisyBook {
 	 */
 	void openFromFile(String nccFullPathAndFilename)
 			throws InvalidDaisyStructureException, IOException;
-
-	/**
-	 * Loads the automatically created bookmark.
-	 * 
-	 * This bookmark keeps track of where the user is in this book. If it
-	 * doesn't exist, e.g. if this is the first time the user has opened this
-	 * book, then the bookmark will be created once the user starts reading the
-	 * book.
-	 * @throws IOException If there is a problem opening the file representing
-	 * the bookmark.
-	 */
-	void loadAutoBookmark() throws IOException;
 
 	List<DaisyItem> getNavigationDisplay();
 
@@ -63,18 +58,6 @@ public interface DaisyBook {
 	 * @see com.ader.SectionNavigation#previousSection()
 	 */
 	boolean previousSection();
-
-	/**
-	 * TODO: Refactor once the new code is integrated.
-	 * @return true if the book has at least one audio segment.
-	 */
-	boolean hasAudioSegments();
-
-	/**
-	 * TODO: Refactor ASAP :)
-	 * @return true if the book has at least one text segment.
-	 */
-	boolean hasTextSegments();
 
 	/**
 	 * Processes the Daisy Elements, e.g. from DaisyParser()

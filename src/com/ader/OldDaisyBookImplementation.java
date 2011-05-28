@@ -7,26 +7,19 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("serial")
 public class OldDaisyBookImplementation implements Serializable, SectionNavigation, DaisyBook {
 	// public static final long serialVersionUID = 1;
 
 	private static final String TAG = OldDaisyBookImplementation.class.getSimpleName();
-	private Bookmark bookmark = new Bookmark();
 	private SmilFile smilFile = new SmilFile();
 	private String filename = "";
-	private int currentnccIndex = -1;
+	private int currentnccIndex = 0; // FIXME: Was -1 Temporary change during restructuring
 	private int NCCDepth = 0;
 	private int selectedLevel = 1;
 	private List<DaisyItem> items = new ArrayList<DaisyItem>();
 	private String path;
 	
-
-	/* (non-Javadoc)
-	 * @see com.ader.DaisyBook#getBookmark()
-	 */
-	public Bookmark getBookmark() {
-		return bookmark;
-	}
 
 	/* (non-Javadoc)
 	 * @see com.ader.DaisyBook#getDisplayPosition()
@@ -139,24 +132,11 @@ public class OldDaisyBookImplementation implements Serializable, SectionNavigati
 		validateDaisyContents();
 	}
 
-
-	/* (non-Javadoc)
-	 * @see com.ader.DaisyBook#loadAutoBookmark()
-	 */
-	public void loadAutoBookmark() throws IOException  {
-		String bookmarkFilename = path + "auto.bmk";
-		bookmark.load(bookmarkFilename);
-		Util.logInfo(TAG, String.format(
-				"Loaded Bookmark details SMILfile[%s] NCC index[%d] offset[%d]",
-				bookmark.getFilename(),bookmark.getNccIndex(), bookmark.getPosition()));
-		currentnccIndex = bookmark.getNccIndex();
-	}
-	
 	DaisyItem current() {
 		Util.logInfo(TAG, String.format("Current entry is index:%d, ncc:%s",
-				bookmark.getNccIndex(),
-				items.get(bookmark.getNccIndex())));
-		return items.get(bookmark.getNccIndex());
+				currentnccIndex,
+				items.get(currentnccIndex)));
+		return items.get(currentnccIndex);
 	}
 
 	/* (non-Javadoc)
@@ -181,7 +161,38 @@ public class OldDaisyBookImplementation implements Serializable, SectionNavigati
 	public void goTo(DaisyItem nccEntry) {
 		int index = items.indexOf(nccEntry);
 		Util.logInfo(TAG, "goto " + index);
-		bookmark.setNccIndex(index);
+		currentnccIndex = index;
+	}
+	
+	/**
+	 * FIXME: Temporary getter to help with restructuring the classes.
+	 * Cleanup the design as the code improves.
+	 * @return the current SmilFile in the Daisy Book
+	 */
+	public String getCurrentSmilFilename() {
+
+		return path + current().getSmil();
+	}
+	
+	/**
+	 * FIXME: Another temporary getter until I cleanup the implementation of
+	 * bookmark(s). This allows the extracted openSmil() code to function for
+	 * the moment.
+	 * @return the current index into the set of DaisyItems
+	 */
+	public int getCurrentIndex() {
+		return currentnccIndex;
+	}
+	
+	/**
+	 * FIXME: A temporary setter to tell the book the current offset
+	 * This breaks encapulation IMO. Also goTo() seems more appropriate, but
+	 * DaisyPlayer doesn't know which DaisyItem to generate. For the moment
+	 * I'll accept this ugly hack. I need to fix it as part of the current
+	 * cleanup ASAP. 
+	 */
+	public void setCurrentIndex(int index) {
+		currentnccIndex = index;
 	}
 
 	/* (non-Javadoc)
@@ -192,9 +203,9 @@ public class OldDaisyBookImplementation implements Serializable, SectionNavigati
 	 */
 	public boolean nextSection(Boolean includeLevels) {
 		Util.logInfo(TAG, String.format(
-				"next called; includelevels: %b selectedLevel: %d, currentnccIndex: %d bookmark.getNccIndex: %d", 
-				includeLevels, selectedLevel, currentnccIndex, bookmark.getNccIndex()));
-		for (int i = bookmark.getNccIndex() + 1; i < items.size(); i++) {
+				"next called; includelevels: %b selectedLevel: %d, currentnccIndex: %d", 
+				includeLevels, selectedLevel, currentnccIndex));
+		for (int i = currentnccIndex + 1; i < items.size(); i++) {
 			if (items.get(i).getType() != DaisyItemType.LEVEL) {
 				continue;
 			}
@@ -203,8 +214,8 @@ public class OldDaisyBookImplementation implements Serializable, SectionNavigati
 				continue;
 			}
 			
-			bookmark.setNccIndex(i);
-			bookmark.setPosition(0);
+			currentnccIndex = i;
+			// TODO (jharty): make sure bookmark is updated by caller. bookmark.setPosition(0);
 			return true;
 		}
 		// TODO (jharty): this seems dodgy, e.g. we could fall off the end of
@@ -222,60 +233,14 @@ public class OldDaisyBookImplementation implements Serializable, SectionNavigati
 	 */
 	public boolean previousSection() {
 		Util.logInfo(TAG, "previous");
-		for (int i = bookmark.getNccIndex() -1; i > 0; i--)
+		for (int i = currentnccIndex -1; i > 0; i--)
 			if (items.get(i).getLevel() <= selectedLevel
 				&& items.get(i).getType() == DaisyItemType.LEVEL) {
-				bookmark.setNccIndex(i);
-				bookmark.setPosition(0);
+				currentnccIndex = i;
+				// TODO (jharty): make sure bookmark is updated by caller. bookmark.setPosition(0);
 				return true;
 			}
 		return false;
-	}
-
-	void openSmil() throws FileNotFoundException, IOException {
-		Util.logInfo(TAG, "Open SMIL file");
-	if (currentnccIndex != bookmark.getNccIndex()
-		|| smilFile.getFilename() == null) 
-		{
-			currentnccIndex = bookmark.getNccIndex();
-			smilFile.open(path + current().getSmil());
-			if (smilFile.getAudioSegments().size() > 0) {
-				// TODO (jharty): are we assuming we always get the first entry?
-				bookmark.setFilename(path + smilFile.getAudioSegments().get(0).getSrc());
-				Util.logInfo(TAG, String.format(
-						"Before calling setPosition SMILfile[%s] NCC index[%d] offset[%d]",
-						bookmark.getFilename(),bookmark.getNccIndex(), bookmark.getPosition()));
-				
-				// Only set the start if we don't already have an offset into
-				// this file from an existing bookmark. NB: needs good testing
-				// as I may well break some logic related to loading the next
-				// SMIL file, etc. (I did! :) I'll try to fix it now...
-				if (bookmark.getPosition() <= 0) {
-					bookmark.setPosition((int) smilFile.getAudioSegments().get(0).getClipBegin());
-					Util.logInfo(TAG, String.format(
-						"After calling setPosition SMILfile[%s] NCC index[%d] offset[%d]",
-						bookmark.getFilename(),bookmark.getNccIndex(), bookmark.getPosition()));
-				}
-				
-			} else if (smilFile.getTextSegments().size() > 0) {
-				bookmark.setFilename(path + smilFile.getTextSegments().get(0).getSrc());
-				bookmark.setPosition(0);
-			}
-		}
-	}
-
-	/* (non-Javadoc)
-	 * @see com.ader.DaisyBook#hasAudioSegments()
-	 */
-	public boolean hasAudioSegments() {
-		return smilFile.getAudioSegments().size() > 0;
-	}
-
-	/* (non-Javadoc)
-	 * @see com.ader.DaisyBook#hasTextSegments()
-	 */
-	public boolean hasTextSegments() {
-		return smilFile.getTextSegments().size() > 0;
 	}
 	
 	protected void validateDaisyContents() throws InvalidDaisyStructureException {
