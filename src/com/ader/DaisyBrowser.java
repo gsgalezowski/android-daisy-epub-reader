@@ -50,7 +50,7 @@ public class DaisyBrowser extends ListActivity {
         String item = files.get(position);
 
         File daisyPath = new File(currentDirectory, item);
-		if (DaisyBookUtils.isDaisyDirectory(daisyPath)) {
+		if (DaisyBookUtils.folderContainsDaisy2_02Book(daisyPath)) {
             Intent i = new Intent(this, DaisyReader.class);
 
             i.putExtra("daisyPath", daisyPath.getAbsolutePath() + "/");

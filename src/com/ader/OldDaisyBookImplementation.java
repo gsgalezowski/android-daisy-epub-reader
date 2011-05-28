@@ -12,7 +12,6 @@ public class OldDaisyBookImplementation implements Serializable, DaisyBook {
 	// public static final long serialVersionUID = 1;
 
 	private static final String TAG = OldDaisyBookImplementation.class.getSimpleName();
-	private SmilFile smilFile = new SmilFile();
 	private String filename = "";
 	private int currentnccIndex = 0; // FIXME: Was -1 Temporary change during restructuring
 	private int NCCDepth = 0;

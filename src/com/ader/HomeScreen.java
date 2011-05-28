@@ -50,7 +50,7 @@ public class HomeScreen extends Activity implements OnClickListener {
 			Util.logInfo("HomeScreen", "Path to last book = " + pathToLastBookOpen);
     		
             File daisyPath = new File(pathToLastBookOpen);
-    		if (pathToLastBookOpen.length() > 1 && DaisyBookUtils.isDaisyDirectory(daisyPath)) {
+    		if (pathToLastBookOpen.length() > 1 && DaisyBookUtils.folderContainsDaisy2_02Book(daisyPath)) {
                 Intent daisyBookIntent = new Intent(this, DaisyReader.class);
 
                 daisyBookIntent.putExtra("daisyPath", daisyPath.getAbsolutePath() + "/");

@@ -54,9 +54,6 @@ public class SmilParser extends DefaultHandler {
         org.xml.sax.InputSource input = new InputSource(stream);
         input.setEncoding(encoding);
 
-        // TODO(jharty): temporary debug...
-        String s = input.getEncoding();
-    	
         parser.parse(input);
         return rootSequence;
     }
