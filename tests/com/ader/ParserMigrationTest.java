@@ -30,7 +30,7 @@ public class ParserMigrationTest extends TestCase {
 		FileInputStream stream1 = new FileInputStream(filename);
 		FileInputStream stream2 = new FileInputStream(filename);
 		ArrayList <DaisyElement> oldElements = oldParser.parse(stream1);
-		DaisyBook tempBook = new DaisyBook();
+		DaisyBook tempBook = new OldDaisyBookImplementation();
 		List<DaisyItem> items = tempBook.processDaisyElements(oldElements);
 		
 		newParser = new XMLParser(stream2);
