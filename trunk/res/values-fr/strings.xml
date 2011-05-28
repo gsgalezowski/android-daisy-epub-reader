@@ -47,4 +47,5 @@ par exemple pour des chapitres (où la profondeur pourrait être niveau 1) et se
 Veuillez en faire la demande sur le site web du projet http://code.google.com/p/android-daisy-epub-reader/issues/list pour que nous sachions que des gens souhaitent cette fonction.</string> 
   <string name="unable_to_open_file">Impossible d\'ouvrir le fichier</string>
   <string name="up_1_level">Revenir 1 étages</string>
+  <string name="finished_reading_book">Fini de lire ce livre</string>
 </resources>
