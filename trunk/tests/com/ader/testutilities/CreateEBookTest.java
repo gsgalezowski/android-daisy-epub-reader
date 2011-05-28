@@ -7,7 +7,6 @@ import junit.framework.TestCase;
 /**
  * Ensures we can create basic ncc.html files.
  * 
- * 
  * The ncc.html files can be used as part of automated tests to facilitate
  * testing. The files are not intended to be suitable for other purposes,
  * however if they suit your needs, good luck.
