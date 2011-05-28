@@ -8,16 +8,21 @@ public interface DaisyBook {
 
 	int getDisplayPosition();
 
-	int getNCCDepth();
-
 	int setSelectedLevel(int level);
 
 	int incrementSelectedLevel();
 
 	int decrementSelectedLevel();
 
+	/**
+	 * Returns the current depth in the book.
+	 */
 	int getCurrentDepthInDaisyBook();
 
+	/**
+	 * gets the maximum depth of the book
+	 * @return the depth of the book in sections.
+	 */
 	int getMaximumDepthInDaisyBook();
 
 	/**
@@ -44,18 +49,27 @@ public interface DaisyBook {
 
 	List<DaisyItem> getNavigationDisplay();
 
-	/* (non-Javadoc)
-	 * @see com.ader.SectionNavigation#goTo(com.ader.DaisyItem)
+	/**
+	 * Go to the specified item in the book.
+	 * @param item
 	 */
 	void goTo(DaisyItem nccEntry);
 
-	/* (non-Javadoc)
-	 * @see com.ader.SectionNavigation#nextSection(java.lang.Boolean)
+	/**
+	 * Go to the next section in the book
+	 * @param includeLevels - when true, pick the next section at a level
+	 * equal or higher than the level selected by the user, else simply go to
+	 * the next section.
+	 * @return true if the book has a next section and navigated successfully
+	 * to that section. If there is no next section, false is returned.
 	 */
 	boolean nextSection(Boolean includeLevels);
 
-	/* (non-Javadoc)
-	 * @see com.ader.SectionNavigation#previousSection()
+	/**
+	 * Go to the previous section in the book.
+	 * @return true when the book has a previous section and navigated
+	 * successfully to that section. If there is no previous section available,
+	 * false is returned.
 	 */
 	boolean previousSection();
 

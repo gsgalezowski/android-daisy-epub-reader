@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("serial")
-public class OldDaisyBookImplementation implements Serializable, SectionNavigation, DaisyBook {
+public class OldDaisyBookImplementation implements Serializable, DaisyBook {
 	// public static final long serialVersionUID = 1;
 
 	private static final String TAG = OldDaisyBookImplementation.class.getSimpleName();
@@ -39,13 +39,6 @@ public class OldDaisyBookImplementation implements Serializable, SectionNavigati
 			// return the position of the found item in the nav display
 			return getNavigationDisplay().indexOf(items.get(i));
 		}
-	}
-
-	/* (non-Javadoc)
-	 * @see com.ader.DaisyBook#getNCCDepth()
-	 */
-	public int getNCCDepth() {
-		return NCCDepth;
 	}
 
 	/* (non-Javadoc)
@@ -153,9 +146,6 @@ public class OldDaisyBookImplementation implements Serializable, SectionNavigati
 	}
 
 	/* (non-Javadoc)
-	 * @see com.ader.SectionNavigation#goTo(com.ader.DaisyItem)
-	 */
-	/* (non-Javadoc)
 	 * @see com.ader.DaisyBook#goTo(com.ader.DaisyItem)
 	 */
 	public void goTo(DaisyItem nccEntry) {
@@ -196,9 +186,6 @@ public class OldDaisyBookImplementation implements Serializable, SectionNavigati
 	}
 
 	/* (non-Javadoc)
-	 * @see com.ader.SectionNavigation#nextSection(java.lang.Boolean)
-	 */
-	/* (non-Javadoc)
 	 * @see com.ader.DaisyBook#nextSection(java.lang.Boolean)
 	 */
 	public boolean nextSection(Boolean includeLevels) {
@@ -215,19 +202,11 @@ public class OldDaisyBookImplementation implements Serializable, SectionNavigati
 			}
 			
 			currentnccIndex = i;
-			// TODO (jharty): make sure bookmark is updated by caller. bookmark.setPosition(0);
 			return true;
 		}
-		// TODO (jharty): this seems dodgy, e.g. we could fall off the end of
-		// the structure without updating the bookmark. Perhaps we should reset
-		// the bookmark to the beginning of the book? We need to consider what
-		// users would expect / prefer.
 		return false;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.ader.SectionNavigation#previousSection()
-	 */
 	/* (non-Javadoc)
 	 * @see com.ader.DaisyBook#previousSection()
 	 */

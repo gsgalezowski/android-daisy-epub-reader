@@ -84,7 +84,7 @@ public class DaisyReader extends ListActivity {
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
-		for (int i = 1; i <= book.getNCCDepth(); i++)
+		for (int i = 1; i <= book.getMaximumDepthInDaisyBook(); i++)
 			menu.add(Menu.NONE, i, Menu.NONE, "Level " + Integer.toString(i));
 	}
 
