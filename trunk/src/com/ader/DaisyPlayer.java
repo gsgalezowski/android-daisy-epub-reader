@@ -57,10 +57,6 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	@Override
 	protected void onDestroy() {
 		// Let's stop playing the book if the user presses back, etc.
-		// TODO(jharty): Can we detect how far through the audio segment we
-		// are here? If so, perhaps we can save / update the auto-bookmark.
-		// Anyhow we need to be able to save bookmarks part way through audio
-		// segments. Worth investigating...
 		stop();
 		player.release();
 		super.onDestroy();
@@ -91,7 +87,6 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	
 	public void onCompletion(MediaPlayer mp) {
 		Util.logInfo(TAG, "onCompletion called.");
-		// stop();
 		if (book.nextSection(false)) {
 			Util.logInfo(TAG, "PLAYING section: " + book.getDisplayPosition() + " " +
 					book.current().getText());
@@ -117,10 +112,6 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	public void loadAutoBookmark() throws IOException  {
 		String bookmarkFilename = book.getPath() + "auto.bmk";
 		autoBookmark.load(bookmarkFilename);
-		Util.logInfo(TAG, String.format(
-				"Loaded Bookmark details SMILfile[%s] NCC index[%d] offset[%d]",
-				autoBookmark.getFilename(),autoBookmark.getNccIndex(), autoBookmark.getPosition()));
-		
 		audioOffset = autoBookmark.getPosition();
 
 		// TODO (jharty): Tell the book where it needs to start from
@@ -147,14 +138,9 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 		if (smilfile.getAudioSegments().size() > 0) {
 			// TODO (jharty): are we assuming we always get the first entry?
 			autoBookmark.setFilename(book.getPath() + smilfile.getAudioSegments().get(0).getSrc());
-			Util.logInfo(TAG, String.format(
-					"Before calling setPosition SMILfile[%s] NCC index[%d] offset[%d]",
-					autoBookmark.getFilename(), autoBookmark.getNccIndex(), autoBookmark.getPosition()));
 
 			// Only set the start if we don't already have an offset into
-			// this file from an existing bookmark. NB: needs good testing
-			// as I may well break some logic related to loading the next
-			// SMIL file, etc. (I did! :) I'll try to fix it now...
+			// this file from an existing bookmark.
 			if (autoBookmark.getPosition() <= 0) {
 				autoBookmark.setPosition((int) smilfile.getAudioSegments().get(0).getClipBegin());
 				Util.logInfo(TAG, String.format(
@@ -232,8 +218,6 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	 * @throws FileNotFoundException 
 	 */
 	private void read() throws FileNotFoundException {
-		int duration = Toast.LENGTH_LONG;
-		
 		Util.logInfo(TAG, String.format(
 				"Reading from SMILfile[%s] NCC index[%d] offset[%d]",
 				autoBookmark.getFilename(), autoBookmark.getNccIndex(), autoBookmark.getPosition()));
@@ -268,9 +252,8 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 				throw new RuntimeException(autoBookmark.getFilename() 
 						+ "\n" + e.getLocalizedMessage());
 			}
-			// Part of my experiment to stop the player restarting the audio
-			// when the device is rotated between landscape and portrait modes.
-			// player.seekTo(bookmark.getPosition());
+
+			// TODO(jharty): I'm not sure if the following helps; keep for now.
 			player.setScreenOnWhilePlaying(true);
 			statusText.setText(getText(R.string.playing_message) + "...");
 			try {
@@ -280,9 +263,6 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			// Trying the following to see if I can start playing part way
-			// into the audio.
-			Util.logInfo(TAG, String.format("Setting offset to %d", audioOffset));
 			player.seekTo(audioOffset);
 			player.start();
 		} else if (smilfile.hasTextSegments()) {
@@ -303,12 +283,7 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
     
 	public void stop() {
 		player.pause();
-		
-		// The following change is to see whether the player updates the
-		// bookmark with the current offset into the audio file when the book
-		// is closed e.g. by pressing the back button on the Android device.
 		int currentPosition = player.getCurrentPosition();
-		Util.logInfo(TAG, "stop called at: " +currentPosition);
 		autoBookmark.setPosition(currentPosition);
 		autoBookmark.setNccIndex(book.getCurrentIndex());
 		player.reset();
@@ -356,7 +331,6 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 		Util.logInfo(TAG, "Offset after retrieving saved offset value is: " + audioOffset);
 		player.seekTo(audioOffset);
 		if (!isPlaying) {
-			// Try seeing if I can pause the player on rotation rather than stopping it
 			statusText.setText(getText(R.string.paused_message) + "...");
 			player.pause();
 		} else {
