@@ -18,24 +18,24 @@ public class DaisyBookUtils {
 	 * Tests if the directory contains the essential root file for a Daisy book
 	 * 
 	 * Currently it's limited to checking for Daisy 2.02 books.
-	 * @param aFile for the directory to check
+	 * @param folder for the directory to check
 	 * @return true if the directory is deemed to contain a Daisy Book, else
 	 * false.
 	 */
-    public static boolean isDaisyDirectory(File aFile) {
-        if (!aFile.isDirectory())
+    public static boolean folderContainsDaisy2_02Book(File folder) {
+        if (!folder.isDirectory())
             return false;
 
         // Minor hack to cope with the potential of ALL CAPS filename, as per
         // http://www.daisy.org/z3986/specifications/daisy_202.html#ncc
-        if (new File(aFile, "ncc.html").exists() || new File(aFile, "NCC.HTML").exists())
+        if (new File(folder, "ncc.html").exists() || new File(folder, "NCC.HTML").exists())
             return true;
         else
             return false;
     }
     
     /**
-     * returns the BccFileName for a given book's root folder.
+     * returns the NccFileName for a given book's root folder.
      * @param currentDirectory
      * @return the filename as a string if it exists, else null.
      */

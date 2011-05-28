@@ -358,7 +358,6 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	private GestureListener gestureListener = new GestureListener() {
 
 		public void onGestureStart(Gesture g) {
-
 		}
 
 		public void onGestureChange(Gesture g) {
