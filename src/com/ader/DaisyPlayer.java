@@ -94,6 +94,10 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 			// reset the audio Offset (used on device rotation)
 			audioOffset = 0;
 			play();
+		} else {
+			// Let's close this book. We could display a message to users instead.
+			statusText.setText(R.string.finished_reading_book);
+			stop();
 		}
 	}
 
