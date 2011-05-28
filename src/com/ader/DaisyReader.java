@@ -42,7 +42,7 @@ public class DaisyReader extends ListActivity {
 				// TODO(jharty): add a UI to help the user address the problem.
 				idse.printStackTrace();
 			}
-			// FIXME: book.loadAutoBookmark();
+			
 			// Now let's save details of the this book, as the most recent book
 			SharedPreferences bookSettings = getSharedPreferences(DaisyBookUtils.PREFS_FILE, 0);
 			SharedPreferences.Editor editor = bookSettings.edit();
@@ -112,10 +112,6 @@ public class DaisyReader extends ListActivity {
 
 	void displayContents() {
 		Util.logInfo(TAG, "displayContents called - should we bother?");
-		/*
-		setListAdapter(new ArrayAdapter<NCCEntry>(this, android.R.layout.simple_list_item_1, book
-				.getNavigationDisplay()));
-		*/
 		setListAdapter(new ArrayAdapter<DaisyItem>(this, R.layout.results_list, R.layout.listrow, book
 				.getNavigationDisplay()));
 	}
