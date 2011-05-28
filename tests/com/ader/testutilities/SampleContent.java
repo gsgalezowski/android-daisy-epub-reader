@@ -3,7 +3,6 @@ package com.ader.testutilities;
 /**
  * Here's a central place to hold content used for various tests.
  * 
- * 
  * @author Julian Harty
  */
 public class SampleContent {
