@@ -34,12 +34,20 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	private TextView statusText;
 	private TextView depthText;
 	private int audioOffset ;
+	private SmilFile smilfile = new SmilFile();
+	private Bookmark autoBookmark = new Bookmark();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		book = (OldDaisyBookImplementation) getIntent().getSerializableExtra(
 				"com.ader.DaisyBook");
+		try {
+			loadAutoBookmark();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		activateGesture();
 		player = new MediaPlayer();
 		player.setOnCompletionListener(this);
@@ -94,6 +102,73 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 		}
 	}
 
+	/**
+	 * Loads the automatically created bookmark.
+	 * 
+	 * Extracted from DaisyBook.
+	 * 
+	 * This bookmark keeps track of where the user is in this book. If it
+	 * doesn't exist, e.g. if this is the first time the user has opened this
+	 * book, then the bookmark will be created once the user starts reading the
+	 * book.
+	 * @throws IOException If there is a problem opening the file representing
+	 * the bookmark.
+	 */
+	public void loadAutoBookmark() throws IOException  {
+		String bookmarkFilename = book.getPath() + "auto.bmk";
+		autoBookmark.load(bookmarkFilename);
+		Util.logInfo(TAG, String.format(
+				"Loaded Bookmark details SMILfile[%s] NCC index[%d] offset[%d]",
+				autoBookmark.getFilename(),autoBookmark.getNccIndex(), autoBookmark.getPosition()));
+		
+		audioOffset = autoBookmark.getPosition();
+
+		// TODO (jharty): Tell the book where it needs to start from
+		book.setCurrentIndex(autoBookmark.getNccIndex());
+		// FIXME: We need to cleanly tell the book which item to return. The
+		// following calls will do for now, but need to be fixed / replaced ASAP
+		book.goTo(book.current());
+	}
+
+	/**
+	 * open the current Smil file. Sets the auto bookmark to the contents in
+	 * the current Smil file. 
+	 * TODO(jharty): remove the links to the bookmark file, at least extract
+	 * methods.
+	 * 
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 */
+	void openSmil() throws FileNotFoundException, IOException {
+		String smilfilename = book.getCurrentSmilFilename();
+		Util.logInfo(TAG, "Open SMIL file: " + smilfilename);
+		smilfile.open(smilfilename);
+
+		if (smilfile.getAudioSegments().size() > 0) {
+			// TODO (jharty): are we assuming we always get the first entry?
+			autoBookmark.setFilename(book.getPath() + smilfile.getAudioSegments().get(0).getSrc());
+			Util.logInfo(TAG, String.format(
+					"Before calling setPosition SMILfile[%s] NCC index[%d] offset[%d]",
+					autoBookmark.getFilename(), autoBookmark.getNccIndex(), autoBookmark.getPosition()));
+
+			// Only set the start if we don't already have an offset into
+			// this file from an existing bookmark. NB: needs good testing
+			// as I may well break some logic related to loading the next
+			// SMIL file, etc. (I did! :) I'll try to fix it now...
+			if (autoBookmark.getPosition() <= 0) {
+				autoBookmark.setPosition((int) smilfile.getAudioSegments().get(0).getClipBegin());
+				Util.logInfo(TAG, String.format(
+						"After calling setPosition SMILfile[%s] NCC index[%d] offset[%d]",
+						autoBookmark.getFilename(),autoBookmark.getNccIndex(), autoBookmark.getPosition()));
+			}
+
+		} else if (smilfile.getTextSegments().size() > 0) {
+			autoBookmark.setFilename(book.getPath() + smilfile.getTextSegments().get(0).getSrc());
+			autoBookmark.setPosition(0);
+		}
+
+	}
+
 	public void play() {
 		Util.logInfo(TAG, "play");
 		player.reset();
@@ -101,7 +176,7 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 
 		Toast toast; 
 		try {
-			book.openSmil();
+			openSmil();
 			read();
 		} catch (FileNotFoundException fnfe) {
 			CharSequence text = getString(R.string.cannot_open_book_a_file_is_missing) + fnfe.getLocalizedMessage();
@@ -159,32 +234,29 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	private void read() throws FileNotFoundException {
 		int duration = Toast.LENGTH_LONG;
 		
-		Bookmark bookmark = book.getBookmark();
-		// TODO(jharty): remove the bookmark log messages added in r226 once 
-		// I'm happy the code works properly.
 		Util.logInfo(TAG, String.format(
-				"Loaded Bookmark details SMILfile[%s] NCC index[%d] offset[%d]",
-				bookmark.getFilename(),bookmark.getNccIndex(), bookmark.getPosition()));
+				"Reading from SMILfile[%s] NCC index[%d] offset[%d]",
+				autoBookmark.getFilename(), autoBookmark.getNccIndex(), autoBookmark.getPosition()));
 
 		// TODO(jharty): Find a practical way to format these messages for i18n and l10n
 		depthText.setText("Depth " + book.getCurrentDepthInDaisyBook() + " of " + book.getMaximumDepthInDaisyBook());
 		
-		if (book.hasAudioSegments()) {
+		if (smilfile.hasAudioSegments()) {
 			try {
 				mainText.setText(getText(R.string.reading_message) + " " + book.current().getText());
 				
 				// Note: Allow Java Garbage Collection to close the file.
-				File f = new File(bookmark.getFilename());
+				File f = new File(autoBookmark.getFilename());
 				if (!(f.exists() && f.canRead())) {
 					// TODO(jharty): Add a localised message to advise users
 					// to upload a valid book. I could also provide a book
 					// validation tool at some point.
-					Util.logInfo(TAG, "File Not Available: " + bookmark.getFilename());
-					throw new FileNotFoundException(bookmark.getFilename());
+					Util.logInfo(TAG, "File Not Available: " + autoBookmark.getFilename());
+					throw new FileNotFoundException(autoBookmark.getFilename());
 				}
 				
-				Util.logInfo(TAG, "Start playing " + bookmark.getFilename() + " " + bookmark.getPosition());
-				player.setDataSource(bookmark.getFilename());
+				Util.logInfo(TAG, "Start playing " + autoBookmark.getFilename() + " " + audioOffset);
+				player.setDataSource(autoBookmark.getFilename());
 				player.prepare();
 			} catch (IllegalArgumentException e) {
 				throw new RuntimeException(e);
@@ -193,7 +265,7 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 			} catch (FileNotFoundException fnfe) {
 				throw fnfe;
 			} catch (IOException e) {
-				throw new RuntimeException(bookmark.getFilename() 
+				throw new RuntimeException(autoBookmark.getFilename() 
 						+ "\n" + e.getLocalizedMessage());
 			}
 			// Part of my experiment to stop the player restarting the audio
@@ -204,26 +276,24 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 			try {
 				player.prepare();
 			} catch (IllegalStateException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			// Trying the following to see if I can start playing part way
 			// into the audio.
-			Util.logInfo(TAG, String.format("Setting offset to %d", bookmark.getPosition()));
-			player.seekTo(bookmark.getPosition());
+			Util.logInfo(TAG, String.format("Setting offset to %d", audioOffset));
+			player.seekTo(audioOffset);
 			player.start();
-		} else if (book.hasTextSegments()) {
+		} else if (smilfile.hasTextSegments()) {
 			// TODO(jharty): add TTS to speak the text section
 			// Note: we need to decide how to handle things like \n
 			// For now, perhaps we can simply display the text in a new view.
-			Util.logInfo("We need to read the text from: ", bookmark.getFilename());
+			Util.logInfo("We need to read the text from: ", autoBookmark.getFilename());
 			
 			// For now, here is some information for the user. Perhaps I could
 			// add a way to automatically send a request e.g. by email?
-			mainText.setText(bookmark.getFilename());
+			mainText.setText(autoBookmark.getFilename());
 			// TODO(jharty): Test whether the status is visible at this size.
 			statusText.setTextSize(10.0f);
 			statusText.setText(R.string.text_content_not_supported_yet);
@@ -233,19 +303,19 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
     
 	public void stop() {
 		player.pause();
-		Bookmark bookmark = book.getBookmark();
 		
 		// The following change is to see whether the player updates the
 		// bookmark with the current offset into the audio file when the book
 		// is closed e.g. by pressing the back button on the Android device.
 		int currentPosition = player.getCurrentPosition();
 		Util.logInfo(TAG, "stop called at: " +currentPosition);
-		bookmark.setPosition(currentPosition);
+		autoBookmark.setPosition(currentPosition);
+		autoBookmark.setNccIndex(book.getCurrentIndex());
 		player.reset();
-		if (bookmark.getFilename() != null) {
+		if (autoBookmark.getFilename() != null) {
 			// We only save the bookmark if there's a valid file, problems e.g.
 			// reading a smil file might mean the bookmark hasn't been assigned.
-			book.getBookmark().save(book.getPath() + "auto.bmk");
+			autoBookmark.save(book.getPath() + "auto.bmk");
 		} else {
 			Util.logInfo(TAG, "No filename, so we didn't save the auto-bookmark");
 		}
@@ -266,7 +336,8 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	public void onSaveInstanceState(Bundle savedInstanceState) {
 		audioOffset = player.getCurrentPosition();
 		Util.logInfo(TAG, "Length in media player is: " + audioOffset);
-		
+		autoBookmark.setPosition(audioOffset);
+
 		savedInstanceState.putBoolean(IS_THE_BOOK_PLAYING, player.isPlaying());
 		savedInstanceState.putInt(AUDIO_OFFSET, audioOffset);
 		if (player.isPlaying()) {

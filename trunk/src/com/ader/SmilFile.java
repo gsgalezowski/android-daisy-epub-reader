@@ -27,6 +27,7 @@ public class SmilFile implements Serializable {
 	}
 
 	public void open(String filename) throws FileNotFoundException, IOException {
+		this.fileName = filename;
 		String encoding = ExtractXMLEncoding.obtainEncodingStringFromFile(filename);
 
 		FileInputStream fis = new FileInputStream(filename);
@@ -71,6 +72,22 @@ public class SmilFile implements Serializable {
 	public List<TextElement> getTextSegments() {
 		return elements.getAllTextElementDepthFirst();
 	}
-	
+
+
+	/**
+	 * Does this Smil file contain at least 1 audio segment?
+	 * @return true if it has, else false.
+	 */
+	public boolean hasAudioSegments() {
+		return getAudioSegments().size() > 0;
+	}
+
+	/**
+	 * Does this Smil file contain at least 1 text segment?
+	 * @return true if it has, else false.
+	 */
+	public boolean hasTextSegments() {
+		return getTextSegments().size() > 0;
+	}
 
 }
