@@ -11,7 +11,7 @@ public class DaisyBookTest extends TestCase {
 	private DaisyBook daisyBook;
 
 	public void setUp() {
-		daisyBook = new DaisyBook();
+		daisyBook = new OldDaisyBookImplementation();
 	}
 	
 	/**
@@ -38,8 +38,6 @@ public class DaisyBookTest extends TestCase {
 		String path = new File(".").getCanonicalPath();
 		Util.logInfo("Path", path);
 		daisyBook.openFromFile(path + "/Resources/light-man/ncc.html");
-		daisyBook.loadAutoBookmark();
-		daisyBook.openSmil();
 		assertEquals("The light-man book should have 1 level of content", 1, daisyBook.getNCCDepth());
 		daisyBook.setSelectedLevel(1);
 		assertEquals("The light-man book should have.. ", 17, daisyBook.getNavigationDisplay().size());
@@ -50,8 +48,6 @@ public class DaisyBookTest extends TestCase {
 		String path = new File(".").getCanonicalPath();
 		Util.logInfo("Path", path);
 		daisyBook.openFromFile(path + "/Resources/light-man/ncc.html");
-		daisyBook.loadAutoBookmark();
-		daisyBook.openSmil();
 		assertEquals("The light-man book should have 1 level of content", 1, daisyBook.getNCCDepth());
 		daisyBook.setSelectedLevel(1);
 		assertEquals("The light-man book should have.. ", 17, daisyBook.getNavigationDisplay().size());
