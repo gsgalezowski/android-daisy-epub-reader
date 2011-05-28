@@ -228,60 +228,45 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 
 		// TODO(jharty): Find a practical way to format these messages for i18n and l10n
 		depthText.setText("Depth " + book.getCurrentDepthInDaisyBook() + " of " + book.getMaximumDepthInDaisyBook());
-		
+		mainText.setText(getText(R.string.reading_message) + " " + book.current().getText());
+
 		if (smilfile.hasAudioSegments()) {
+			// Note: Allow Java Garbage Collection to close the file.
+			File f = new File(autoBookmark.getFilename());
+			if (!(f.exists() && f.canRead())) {
+				// TODO(jharty): Add a localised message to advise users
+				// to upload a valid book. I could also provide a book
+				// validation tool at some point.
+				Util.logInfo(TAG, "File Not Available: " + autoBookmark.getFilename());
+				throw new FileNotFoundException(autoBookmark.getFilename());
+			}
+
+			Util.logInfo(TAG, "Start playing " + autoBookmark.getFilename() + " " + audioOffset);
 			try {
-				mainText.setText(getText(R.string.reading_message) + " " + book.current().getText());
-				
-				// Note: Allow Java Garbage Collection to close the file.
-				File f = new File(autoBookmark.getFilename());
-				if (!(f.exists() && f.canRead())) {
-					// TODO(jharty): Add a localised message to advise users
-					// to upload a valid book. I could also provide a book
-					// validation tool at some point.
-					Util.logInfo(TAG, "File Not Available: " + autoBookmark.getFilename());
-					throw new FileNotFoundException(autoBookmark.getFilename());
-				}
-				
-				Util.logInfo(TAG, "Start playing " + autoBookmark.getFilename() + " " + audioOffset);
 				player.setDataSource(autoBookmark.getFilename());
 				player.prepare();
-			} catch (IllegalArgumentException e) {
-				throw new RuntimeException(e);
-			} catch (IllegalStateException e) {
-				throw new RuntimeException(e);
-			} catch (FileNotFoundException fnfe) {
-				throw fnfe;
 			} catch (IOException e) {
 				throw new RuntimeException(autoBookmark.getFilename() 
 						+ "\n" + e.getLocalizedMessage());
 			}
-
 			// TODO(jharty): I'm not sure if the following helps; keep for now.
 			player.setScreenOnWhilePlaying(true);
+			
 			statusText.setText(getText(R.string.playing_message) + "...");
-			try {
-				player.prepare();
-			} catch (IllegalStateException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 			player.seekTo(audioOffset);
 			player.start();
 		} else if (smilfile.hasTextSegments()) {
 			// TODO(jharty): add TTS to speak the text section
 			// Note: we need to decide how to handle things like \n
 			// For now, perhaps we can simply display the text in a new view.
-			Util.logInfo("We need to read the text from: ", autoBookmark.getFilename());
-			
+			Util.logInfo(TAG, "We need to read the text from: " + autoBookmark.getFilename());
+
 			// For now, here is some information for the user. Perhaps I could
 			// add a way to automatically send a request e.g. by email?
-			mainText.setText(autoBookmark.getFilename());
+
 			// TODO(jharty): Test whether the status is visible at this size.
-			statusText.setTextSize(10.0f);
+			statusText.setTextSize(11.0f);
 			statusText.setText(R.string.text_content_not_supported_yet);
-			depthText.setText("");  // Blank out the depth message.
 		}
 	}
     
