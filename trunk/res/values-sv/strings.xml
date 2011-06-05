@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Android Daisy 2.02 Reader</string>
+    <string name="cannot_open_book">Kan inte öppna boken :( </string>
+    <string name="cannot_open_book_a_file_is_missing">Kan inte öppna boken :( En fil saknas.  Du kan försöka navigera till andra delar i boken för att fortsätta läsa.</string>
+    <string name="close_instructions">Stäng instruktionerna</string>
+    <string name="hello">Hej Världen, DaisyReader!</string>
+    <string name="help">Hjälp</string>
+   	<string name="homepage_title">Android Daisy 2.02 Reader</string>
+    <string name="new_folder_name_not_saved">Nytt mappnamn sparades INTE</string>
+    <string name="new_folder_name_saved">Nytt mappnamn sparat</string>
+    <string name="new_value">Nytt värde är</string>
+    <string name="no_books_found">Inga böcker funna</string>
+    <string name="no_depth_yet">Nivå?</string>
+    <string name="no_previous_book_saved_msg">Antingen sparades ingen bokinformation eller så är det problem med den sparade boken. Välj ett annat menyalternativ för att hitta en annan bok.</string>
+    <string name="no_previous_book_saved_title">Ingen tidigare bok är sparad</string>
+    <string name="no_status_yet">Status?</string>
+    <string name="no_text_yet">ingen text än</string>
+    <string name="open_book">Öppna bok</string>
+    <string name="open_last_book">Senaste bok</string>
+    <string name="paused_message">Pausad</string>
+    <string name="permission_problem_opening_a_file">Åtkomstproblem vid öppnandet av en fil</string>
+    <string name="player_instructions">Gester används för att styra spelaren. Peka mitt på skärmen med fingret för att starta och stoppa aktuelltt ljudspår. Svep används för återstående gester (dra fingret i en rak linje över skärmen och lyft):
+	Svep uppåt för att gå till föregående ljudsegment, på aktuell nivå, i boken.
+    Svep nedåt för att gå till nästa ljudsegment, på aktuell nivå, i boken.
+    Svep från vänster till höger för att öka nivån.
+    Svep från höger till vänster för att minska nivån.
+    
+    DAISY böcker kan innehålla material på en eller på flera nivåer,
+	t.ex. för att representera kapitel (där nivån kan vara nivå 1) och stycken (där nivån kan vara nivå 2).
+    
+    </string>
+    <string name="playing">Spelar</string>
+    <string name="player_instructions_description">Instruktioner för DAISY-spelaren</string>
+    <string name="playing_message">Spelar</string>
+    <string name="reading_message">Läser </string>
+    <string name="return_to_homescreen">Till startsidan</string>
+    <string name="root_folder">Startmappen</string>
+    <string name="root_folder_for_daisy_books">Startmapp för DAISY-böcker</string>
+    <string name="sd_card_folder_changed_successfully">SD-kortsmapp byttes</string>
+    <string name="sdcard_mounted">SD-kortet verkar redan användas (monterat); avmontera kortet och försök igen.</string>
+    <string name="sdcard_title">SD-kort</string>
+    <string name="search_books">Sök böcker</string>
+    <string name="serious_problem_found">Allvarligt problem funnet</string>
+    <string name="settings">Inställningar</string>
+    <string name="stopped">Stoppad</string>
+    <string name="text_content_not_supported_yet">
+    Den här boken verkar vara en DAISY 3 bok. Tyvärr stöds inte DAISY 3 böcker än.
+	För att vi ska veta att någon vill använda den tjänsten ber vi er efterfråga den på
+	http://code.google.com/p/android-daisy-epub-reader/issues/list 
+    </string>
+    <string name="unable_to_open_file">Kan inte öppna filen</string>
+    <string name="up_1_level">Upp en nivå...</string>
+</resources>
