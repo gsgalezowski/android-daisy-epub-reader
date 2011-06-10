@@ -13,9 +13,9 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.marvin.widget.TouchGestureControlOverlay;
-import com.google.marvin.widget.TouchGestureControlOverlay.Gesture;
-import com.google.marvin.widget.TouchGestureControlOverlay.GestureListener;
+import com.google.marvin.widget.GestureOverlay;
+import com.google.marvin.widget.GestureOverlay.Gesture;
+import com.google.marvin.widget.GestureOverlay.GestureListener;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -23,12 +23,13 @@ import java.io.IOException;
 
 public class DaisyPlayer extends Activity implements OnCompletionListener {
 
+	private static final int MSECS_TO_JUMP = 10000;
 	private static final String AUDIO_OFFSET = "Offset";
 	private static final String IS_THE_BOOK_PLAYING = "playing";
 	private static final String TAG = "DaisyPlayer";
 	private OldDaisyBookImplementation book;
 	private MediaPlayer player;
-	private TouchGestureControlOverlay gestureOverlay;
+	private GestureOverlay gestureOverlay;
 	private FrameLayout frameLayout;
 	private TextView mainText;
 	private TextView statusText;
@@ -81,7 +82,11 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 				.setPositiveButton(R.string.close_instructions, null)
 				.show();
 			break;
+		
+		case R.id.return_to_homescreen:
+			DaisyPlayer.this.finish();
 		}
+		
 		return true;
 	}
 	
@@ -335,20 +340,20 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 		mainText = (TextView) findViewById(R.id.mainText);
         statusText = (TextView) findViewById(R.id.statusText);
 		frameLayout = (FrameLayout) findViewById(R.id.daisyPlayerLayout);
-		gestureOverlay = new TouchGestureControlOverlay(this, gestureListener);
+		gestureOverlay = new GestureOverlay(this, gestureListener);
 		frameLayout.addView(gestureOverlay);
 		setContentView(frameLayout);
 	}
 
 	private GestureListener gestureListener = new GestureListener() {
 
-		public void onGestureStart(Gesture g) {
+		public void onGestureStart(int g) {
 		}
 
-		public void onGestureChange(Gesture g) {
+		public void onGestureChange(int g) {
 		}
 
-		public void onGestureFinish(Gesture g) {
+		public void onGestureFinish(int g) {
 			if (g == Gesture.CENTER) {
 				togglePlay();
 			} else if (g == Gesture.UP) {
@@ -370,7 +375,37 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 				Util.logInfo(TAG, "Incremented Level to: " + levelSetTo);
 				// TODO(jharty): Localize all the recently added hardcoded text e.g. here!
 				depthText.setText("Depth " + levelSetTo + " of " + book.getMaximumDepthInDaisyBook());
+			} else if (g == Gesture.DOWNLEFT) {
+				Util.logInfo(TAG, "Rewind .");
+				// TODO (jharty): This is experimental code and needs refining
+				// TODO (jharty): Add ability for user to specify the interval.
+				int newValue = player.getCurrentPosition();
+				Util.logInfo(TAG, "Current Offset: " + newValue);
+				newValue -= MSECS_TO_JUMP; 
+				if (newValue < 0) {
+					// Consider jumping to previous track
+					newValue = 0;
+				} else {
+					Util.logInfo(TAG, "Seeking to: " + newValue);
+					player.seekTo(newValue);
+				}
+			} else if (g == Gesture.DOWNRIGHT) {
+				Util.logInfo(TAG, "Fast forward");
+				// TODO (jharty): This is experimental code and needs refining
+				// TODO (jharty): Add ability for user to specify the interval.
+				int newValue = player.getCurrentPosition();
+				Util.logInfo(TAG, "Current Offset: " + newValue);
+				newValue += MSECS_TO_JUMP; 
+				int duration = player.getDuration();
+				if (newValue >= duration) {
+					// Consider jumping to next track
+					newValue = duration;
+				} else {
+					Util.logInfo(TAG, "Seeking to: " + newValue);
+					player.seekTo(newValue);
+				}
 			}
 		}
+
 	};
 }

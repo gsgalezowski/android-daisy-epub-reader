@@ -31,6 +31,9 @@
     Swipe from left to right to increase the depth.
     Swipe from right to left to decrease the depth.
     
+    Swipe diagonally down and left to rewind.
+    Swipe diagonally down and right to fast-forward.
+    
     DAISY books can contain material at a single depth, or at multiple depths 
     e.g. to represent chapters (where the depth might be level 1) 
     and sections (where the depth might be level 2).
