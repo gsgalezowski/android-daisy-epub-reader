@@ -15,13 +15,13 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.google.marvin.widget.TouchGestureControlOverlay;
-import com.google.marvin.widget.TouchGestureControlOverlay.Gesture;
-import com.google.marvin.widget.TouchGestureControlOverlay.GestureListener;
+import com.google.marvin.widget.GestureOverlay;
+import com.google.marvin.widget.GestureOverlay.Gesture;
+import com.google.marvin.widget.GestureOverlay.GestureListener;
 
 public class DaisyReader extends ListActivity {
 	private OldDaisyBookImplementation book = new OldDaisyBookImplementation();
-	private TouchGestureControlOverlay gestureOverlay;
+	private GestureOverlay gestureOverlay;
 	private LinearLayout linearLayout;
 	private String path;
 	private static final String TAG = "DaisyReader";
@@ -119,19 +119,19 @@ public class DaisyReader extends ListActivity {
 	private void activateGesture() {
 		ListView listView = getListView();
 		linearLayout = (LinearLayout) listView.getParent();
-		gestureOverlay = new TouchGestureControlOverlay(this, gestureListener);
+		gestureOverlay = new GestureOverlay(this, gestureListener);
 		linearLayout.addView(gestureOverlay);
 	}
 
 	private GestureListener gestureListener = new GestureListener() {
 
-		public void onGestureStart(Gesture g) {
+		public void onGestureStart(int g) {
 		}
 
-		public void onGestureChange(Gesture g) {
+		public void onGestureChange(int g) {
 		}
 
-		public void onGestureFinish(Gesture g) {
+		public void onGestureFinish(int g) {
 			if (g == Gesture.LEFT) {
 				int levelSetTo = book.decrementSelectedLevel();
 				Util.logInfo(TAG, "Decremented Level to: " + levelSetTo);
