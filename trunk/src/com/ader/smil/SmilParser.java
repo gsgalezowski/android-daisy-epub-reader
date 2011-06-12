@@ -109,7 +109,16 @@ public class SmilParser extends DefaultHandler {
         }
     }
     
-    private SequenceElement createSequenceElement() {
+    @Override
+	public void endElement(String uri, String localName, String qName)
+			throws SAXException {
+		// TODO(jharty): determine when to restore the state to the previous
+    	// value. Currently we overwrite the contents of a nested parallel
+    	// element because the current implementation is flawed.
+		super.endElement(uri, localName, qName);
+	}
+
+	private SequenceElement createSequenceElement() {
         double duration = 0;
         if (attributes.getValue("dur") != null) {
             duration = Double.parseDouble(attributes.getValue("dur").replace("s", ""));
