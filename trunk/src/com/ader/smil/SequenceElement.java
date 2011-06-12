@@ -10,14 +10,14 @@ public class SequenceElement implements ContainerElement {
 
     private double duration;
     private List<SmilElement> elements = new ArrayList<SmilElement>();
-    private SmilElement parent;
+    private ContainerElement parent;
 
-    public SequenceElement(SmilElement parent, double duration) {
+    public SequenceElement(ContainerElement parent, double duration) {
         this.parent = parent;
         this.duration = duration;
     }
 
-    public SequenceElement(SmilElement parent) {
+    public SequenceElement(ContainerElement parent) {
         this.parent = parent;
     }
 
@@ -25,6 +25,11 @@ public class SequenceElement implements ContainerElement {
         elements.add(currentElement);
     }
 
+    @Override
+    public ContainerElement getParent() {
+    	return parent;
+    }
+    
     public SmilElement get(int i) {
         return elements.get(i);
     }

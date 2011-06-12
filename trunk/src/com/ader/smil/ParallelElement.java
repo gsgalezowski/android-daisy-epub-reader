@@ -13,12 +13,17 @@ import java.util.List;
 public class ParallelElement implements ContainerElement {
     private SequenceElement audioSequence;
     private TextElement textElement;
-    private SmilElement parent;
+    private ContainerElement parent;
     
-    public ParallelElement(SmilElement parent) {
+    public ParallelElement(ContainerElement parent) {
         this.parent = parent;
     }
 
+    @Override
+    public ContainerElement getParent() {
+    	return parent;
+    }
+    
     public TextElement getTextElement() {
         if (textElement != null) {
             return textElement;
