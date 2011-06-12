@@ -90,7 +90,8 @@ public class CreateDaisy202Book extends CreateEBook {
 		int counter = sectionsCreatedAutomatically + 1;
 		new PrintStream(out).print("<h" + level + " id=\"test_" + counter + "\">");
 		new PrintStream(out).print("<a href=\"test_" + counter + ".smil#text_" + counter + "\">");
-		new PrintStream(out).println("This is a dummy level one entry that doesn't match a file</a></h1>");
+		new PrintStream(out).print(
+				"This is a dummy level one entry that doesn't match a file</a></h" + level + ">");
 		sectionsCreatedAutomatically++; // Now we can update the counter
 	}
 	
