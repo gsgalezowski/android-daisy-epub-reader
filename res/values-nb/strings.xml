@@ -1,29 +1,59 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Android Daisy 2.02 Leser</string>
+    <string name="app_name">Android Daisy 2.02 Reader</string>
+    <string name="cannot_open_book">Kan ikke åpne boken :( </string>
+    <string name="cannot_open_book_a_file_is_missing"> Kan ikke åpne boken :( Fil mangler. 
+    
+   Prøv å gå til andre deler av boka for å fortsette opplesingen.</string>
+    <string name="close_instructions">Lukk instruksjoner</string>
+    <string name="hello">Hello World, DaisyReader!</string>
     <string name="help">Hjelp</string>
-    <string name="homepage_title">Android Daisy 2.02 Leser</string>
+    <string name="homepage_title">Android Daisy 2.02 Reader</string>
+    <string name="new_folder_name_not_saved">Navn på ny mappe er IKKE lagret</string>
+    <string name="new_folder_name_saved">Navn på ny mappe er lagret</string>
+    <string name="new_value">Ny verdi er</string>
+    <string name="no_books_found">Ingen bøker funnet</string>
+    <string name="no_depth_yet">Nivå?</string>
+    <string name="no_previous_book_saved_msg">Beklager, enten er bokdetaljer ikke lagret, eller det er et problem med den lagrede boken. Prøv et annet menyvalg for å finne en bok</string>
+    <string name="no_previous_book_saved_title">Din forrige bok er ikke tilgjengelig.
+Boken kan være slettet eller minnekortet byttet eller fjernet. Gå tilbake til hovedmenyen og velg en annen bok.</string>
+    <string name="no_status_yet">Status?</string>
+    <string name="no_text_yet">Ingen tekst enda</string>
     <string name="open_book">Åpne bok</string>
-    <string name="open_last_book">Åpne sist leste bok</string>
-     <string name="paused_message">Pause</string>
-    <string name="player_instructions">
-    Instruksjoner for Daisy-spilleren
-    Håndbevegelser brukes for å kontrollere spilleren. 
-    Et kort trykk på midten av skjermen vil stoppe eller starte boken igjen.
+    <string name="open_last_book">Åpne siste bok</string>
+    <string name="paused_message">Pause</string>
+    <string name="permission_problem_opening_a_file">Mangler tillatelse til å åpne en fil.</string>
+    <string name="player_instructions"> Håndbevegelser brukes for å kontrollere spilleren.
+    Et kort trykk på midten av skjermen vil stoppe eller starte boken.
     Stryk på skjermen for de øvrige kommandoene (trekk fingeren i rett linje over skjermen)
-    Daisybøker kan inneholde materiale på bare ett nivå, eller på flere nivåer 
-    (f.eks nivå 1 er kapittel, nivå 2 er avsnitt osv.)
-    
-    Stryk fra høyre til venstre for å gå til et lavere navigeringsnivå. 
-    Stryk fra venster til høyre for å gå til et høyere nivå.
-    
+    Daisybøker kan inneholde materiale som er inndelt på bare ett nivå, eller på flere nivåer 
+    (f.eks nivå 1 kapittel, nivå 2 avsnitt osv.)
     Navigering i boken: Stryk oppover for å gå til forrige område på det navigeringsnivå 
-    som er valgt (kapittel, avsnitt osv.).
-    Stryk nedover for å gå til neste segment på det valgte navigeringsnivået. 
-    </string>
-    <string name="player_instructions_description">Innstillinger</string>
-    <string name="playing_message">Leser</string>
-    <string name="reading_message">Tittel </string>
+    som er valgt (forrige kapittel, avsnitt osv.).
+    Stryk nedover for å gå til neste område på valgt navigeringsnivå.
+    Stryk fra venstre til høyre for å gå til et høyere navigeringsnivå.
+    Stryk fra høyre til venstre for å gå til et lavere navigeringsnivå.</string>
+    <string name="playing">Leser</string>
+    <string name="player_instructions_description">Instuksjoner for DAISYReader</string>
+    <string name="playing_message">Spiller</string>
+    <string name="reading_message">Leser </string>
+    <string name="return_to_homescreen">Gå tilbake til førstesiden</string>
+    <string name="root_folder">Daisy hovedmappe</string>
+    <string name="root_folder_for_daisy_books">Hovedmappe for DAISY bøker</string>
+    <string name="sd_card_folder_changed_successfully">SD-kort mappen er endret</string>
+    <string name="sdcard_mounted">SD-kortet ser ut til å være opptatt og ikke tilgjengelig for DaisyReader.</string>
+    <string name="sdcard_title">SD-kort</string>
     <string name="search_books">Søk etter bok</string>
+    <string name="serious_problem_found">Et alvorlig problem er oppstått</string>
     <string name="settings">Innstillinger</string>
+    <string name="stopped">Stoppet</string>
+    <string name="text_content_not_supported_yet">
+    Denne boken ser ut til å være en fulltekstbok. DAISY fulltekst er foreløpig ikke støttet. 
+    Vennligst etterspør mulighet for fulltekst på prosjektets hjemmeside
+    http://code.google.com/p/android-daisy-epub-reader/issues/list
+    så vi vet om det er behov for utvikling av en fulltekstspiller. 
+    </string>
+    <string name="unable_to_open_file">Filen kan ikke åpnes</string>
+    <string name="up_1_level">Opp ett nivå...</string>
+    <string name="finished_reading_book">Boken er ferdiglest</string>
 </resources>
