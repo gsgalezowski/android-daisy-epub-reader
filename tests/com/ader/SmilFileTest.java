@@ -1,10 +1,6 @@
 package com.ader;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 import junit.framework.TestCase;
-
 import android.test.suitebuilder.annotation.MediumTest;
 
 import com.ader.smil.TextElement;
@@ -15,9 +11,23 @@ public class SmilFileTest extends TestCase {
     public void testParsingTextOnlyFile() throws Exception {
         SmilFile smilFile = new SmilFile();
         smilFile.open("Resources/WIPO-Treaty-D202Fileset/d202_1.smil");
-        assertTrue(smilFile.getTextSegments().size() > 0);
-        TextElement textElement = smilFile.getTextSegments().get(0);
-        assertEquals("WIPOTreatyForVisuallyImpaired.html#id_4", textElement.getSrc());
+        assertEquals("For Resources/WIPO-Treaty-D202Fileset/d202_1.smil expected: ", 3, smilFile.getTextSegments().size());
+        for (int i = 0; i < smilFile.getTextSegments().size(); i++) {
+        	TextElement textElement = smilFile.getTextSegments().get(i);
+        	switch (i) {
+        	case 0:
+        		assertEquals("WIPOTreatyForVisuallyImpaired.html#h1classtitle", textElement.getSrc());
+        		break;
+        	
+        	case 1:
+        		assertEquals("WIPOTreatyForVisuallyImpaired.html#id_2", textElement.getSrc());
+        		break;
+        		
+        	case 2:
+        		assertEquals("WIPOTreatyForVisuallyImpaired.html#id_4", textElement.getSrc());
+        		break; 
+        	}
+        }
     }
 
 	@MediumTest

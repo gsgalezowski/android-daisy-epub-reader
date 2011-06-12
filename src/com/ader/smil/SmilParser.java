@@ -1,3 +1,19 @@
+/**
+ * Parser for version 1 Smil files.
+ * 
+ * Extracts the contents of the files, including the sequence of SEQ 
+ * (sequential) and PAR (parallel) elements. These often contain additional
+ * elements e.g. text and audio contents.
+ * 
+ * TODO(jharty):
+ *   We need to determine:
+ *   1. Can PAR elements be nested
+ *   2. Can SEQ elements be nested
+ *   
+ *   I also need to determine whether the current state machine is the
+ *   appropriate model to represent the contents of SMIL files. It's certainly
+ *   broken currently.
+ */
 package com.ader.smil;
 
 import java.io.ByteArrayInputStream;
@@ -16,7 +32,6 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import com.ader.DummyDtdResolver;
 
-
 public class SmilParser extends DefaultHandler {
     
     private enum State {
@@ -25,7 +40,7 @@ public class SmilParser extends DefaultHandler {
         PARA,
     }
     private Logger log = Logger.getLogger(SmilParser.class.getSimpleName());
-    private SmilElement currentElement;
+    private ContainerElement currentElement;
     private Attributes attributes;
     private State state;
     private SequenceElement rootSequence;
@@ -115,6 +130,24 @@ public class SmilParser extends DefaultHandler {
 		// TODO(jharty): determine when to restore the state to the previous
     	// value. Currently we overwrite the contents of a nested parallel
     	// element because the current implementation is flawed.
+    	
+    	String elementName = localName == null? localName: qName;
+    	
+    	// OK, let's see if we can determine the parent's type (SEQ/PAR)
+    	if (elementName.equalsIgnoreCase("seq") || elementName.equalsIgnoreCase("par")) {
+    		ContainerElement parent = currentElement.getParent();
+    		if (parent instanceof ParallelElement) {
+    			log.info("End: " + elementName + ", parent element type: PAR");
+    			currentElement = parent;
+    			state = State.PARA;
+    		} else if (parent instanceof SequenceElement) {
+    			log.info("End: " + elementName + ", parent element type: SEQ");
+    			currentElement = parent;
+    			state = State.SEQ;
+    		} else {
+    			log.info("End: " + elementName);
+    		}
+    	}
 		super.endElement(uri, localName, qName);
 	}
 
