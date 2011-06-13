@@ -25,10 +25,8 @@ public class CreateEBookTest extends TestCase {
 	}
 	
 	public void testCreateMinimalDaisy202Book() throws Exception {
-		eBook.writeXmlHeader();
-		eBook.writeDoctype();
-		eBook.writeXmlns();
-		eBook.writeBasicMetadata();
+		writeHeaders();
+		
 		eBook.addLevelOne();
 		eBook.writeEndOfDocument();
 		assertTrue("There should be some content", out.size() > 50);
@@ -40,10 +38,8 @@ public class CreateEBookTest extends TestCase {
 	 * Simply generate an unrealistic book with all the valid levels.
 	 */
 	public void testCreateARoccocoDaisy202Book() {
-		eBook.writeXmlHeader();
-		eBook.writeDoctype();
-		eBook.writeXmlns();
-		eBook.writeBasicMetadata();
+		writeHeaders();
+		
 		eBook.addLevelOne();
 		eBook.addLevelFive();
 		eBook.addLevelFour();
@@ -58,4 +54,21 @@ public class CreateEBookTest extends TestCase {
 		System.out.println(out.toString());
 	}
 
+	
+	public void testParameterizedBookSectionGenerator() {
+		writeHeaders();
+		eBook.addTheseLevels("12345653211234543211234321123211211");
+		eBook.writeEndOfDocument();
+		assertTrue("Generated book should have some content", out.size() > 100);
+	}
+
+	/**
+	 * Utility Helper to write the headers. Could be subsumed into setUp()
+	 */
+	private void writeHeaders() {
+		eBook.writeXmlHeader();
+		eBook.writeDoctype();
+		eBook.writeXmlns();
+		eBook.writeBasicMetadata();
+	}
 }

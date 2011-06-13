@@ -55,6 +55,9 @@ public class CreateDaisy202Book extends CreateEBook {
 		new PrintStream(out).println("</body></html>");
 	}
 	
+	public void addTheseLevels(String sections) {
+		
+	}
 	public void addLevelOne() {
 		addLevel(1);
 	}
