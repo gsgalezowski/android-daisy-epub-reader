@@ -55,9 +55,27 @@ public class CreateDaisy202Book extends CreateEBook {
 		new PrintStream(out).println("</body></html>");
 	}
 	
+	/**
+	 * Adds the levels specified in the section string.
+	 * 
+	 * Sections are validated. Invalid characters e.g. 'A' and out-of-range
+	 * values will be rejected with an exception.
+	 * @param sections A sequence of sections to add in the range 1 through 6
+	 * e.g. "1231"
+	 */
 	public void addTheseLevels(String sections) {
-		
+		for (int i = 0; i < sections.length(); i++) {
+			String s = Character.toString(sections.charAt(i));
+			int level = Integer.parseInt(s);
+			if (level < 1 || (level > 6)) {
+				throw new IllegalArgumentException(String.format(
+						"The format string needs in the range 1 through 6: found:%d in %s",
+						i, sections));
+			}
+			addLevel(level);
+		}
 	}
+
 	public void addLevelOne() {
 		addLevel(1);
 	}
