@@ -65,27 +65,5 @@ public class TestAbilityToGenerateDaisy202Book extends TestCase {
 		
 		NavCentre nc = anotherParser.processNCC();
 		assertEquals("Expected a 1:1 match of NavPoints and sections", 1, nc.count());
-	}
-
-	/* Hacky helper method 
-	 * TODO(jharty) clean up as I refactor this code. 
-	 */
-	private static byte[] toByteArray(File file) throws Exception {
-	    long length = file.length();
-	    if (length > Integer.MAX_VALUE) {
-	    	throw new IOException("File too large to process, sorry.");
-	    }
-	    
-	    byte[] array = new byte[(int) length];
-	    InputStream in = new FileInputStream(file);
-	    long offset = 0;
-	    while (offset < length) {
-	        int count = in.read(array, (int) offset, (int)(length - offset));
-	        offset += length;
-	    }
-	    in.close();
-	    return array;
-	}
-	
-	
+	}	
 }
