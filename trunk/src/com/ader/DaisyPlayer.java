@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -88,6 +89,40 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 		}
 		
 		return true;
+	}
+	
+	/**
+	 * This allows us to support bluetooth a2dp devices such as the BT3030.
+	 * 
+	 * I was surprised how easy the support was to add, once I'd spent an hour
+	 * trying to address a related problem, of supporting a Tekla Shield
+	 * controller. (I've yet to fathom out how to support this device).
+	 * 
+	 * The code that helped me is AudioPreview.java which seems to be part of
+	 * the default Android music player. Lots of clues and redirection got me
+	 * to this file...
+	 * 
+	 * Note: I noticed the playback and performance when using a bluetooth a2dp
+	 * device can collapse, causing the audio to be broken into tiny segments
+	 * interspersed with longer pauses. LogCat contains lots of messages like:
+	 * AudioFlinger   write blocked for ... msecs. This seems to be a known
+	 * issue, I doubt I can fix in my code. The workaround seems to be to
+	 * disable and then re-enable bluetooth on the Android device.
+	 */
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		switch (keyCode) {
+		case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
+			Util.logInfo(TAG, "PAUSE/PLAY TOGGLE RECEIVED");
+			togglePlay();
+			return true;
+		case KeyEvent.KEYCODE_MEDIA_NEXT:
+			gotoNextSection();
+			return true;
+		case KeyEvent.KEYCODE_MEDIA_PREVIOUS:
+			gotoPreviousSection();
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 	
 	public void onCompletion(MediaPlayer mp) {
@@ -357,15 +392,9 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 			if (g == Gesture.CENTER) {
 				togglePlay();
 			} else if (g == Gesture.UP) {
-				if (book.previousSection()) {
-					audioOffset = 0;
-					play();
-				}
+				gotoPreviousSection();
 			} else if (g == Gesture.DOWN) {
-				if (book.nextSection(true)) {
-					audioOffset = 0;
-					play();
-				}
+				gotoNextSection();
 			} else if (g == Gesture.LEFT) {
 				int levelSetTo = book.decrementSelectedLevel();
 				Util.logInfo(TAG, "Decremented Level to: " + levelSetTo);
@@ -407,5 +436,32 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 			}
 		}
 
+
 	};
+	
+	/**
+	 * Goto the next section in the audio book.
+	 * 
+	 * This command has no effect if we are at the end of the book.
+	 * This is one of 2 helper methods, extracted so we can support a2dp
+	 * and other key-based controllers.
+	 */
+	private void gotoNextSection() {
+		if (book.nextSection(true)) {
+			audioOffset = 0;
+			play();
+		}
+	}
+	
+	/**
+	 * Go to the previous section in the audio book.
+	 * 
+	 * This command has no effect if we are at the start of the book.
+	 */
+	private void gotoPreviousSection() {
+		if (book.previousSection()) {
+			audioOffset = 0;
+			play();
+		}
+	}
 }
