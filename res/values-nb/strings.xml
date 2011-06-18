@@ -32,7 +32,10 @@ Boken kan være slettet eller minnekortet byttet eller fjernet. Gå tilbake til 
     som er valgt (forrige kapittel, avsnitt osv.).
     Stryk nedover for å gå til neste område på valgt navigeringsnivå.
     Stryk fra venstre til høyre for å gå til et høyere navigeringsnivå.
-    Stryk fra høyre til venstre for å gå til et lavere navigeringsnivå.</string>
+    Stryk fra høyre til venstre for å gå til et lavere navigeringsnivå.
+    Stryk ned mot venstre for å spole tilbake.
+    Stryk ned mot høyre for å spole fremover.
+</string>
     <string name="playing">Leser</string>
     <string name="player_instructions_description">Instuksjoner for DAISYReader</string>
     <string name="playing_message">Spiller</string>
