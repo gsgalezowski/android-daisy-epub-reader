@@ -3,6 +3,11 @@
  */
 package com.ader;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+
+import com.ader.testutilities.CreateDaisy202Book;
+
 import junit.framework.TestCase;
 
 /**
@@ -11,9 +16,20 @@ import junit.framework.TestCase;
  */
 public class BookSectionIteratorTest extends TestCase {
 
-	protected void setUp() {
-		
+	private ByteArrayOutputStream out;
+	private CreateDaisy202Book eBookContents;
+	private NavCentre nc;
+
+	protected void setUp() throws Exception {
+	out = new ByteArrayOutputStream();
+	eBookContents = new CreateDaisy202Book(out);
+	eBookContents.addTheseLevels("12312321");
+	eBookContents.writeEndOfDocument();
+	ByteArrayInputStream bookContents = new ByteArrayInputStream(out.toByteArray());
+	XMLParser parser = new XMLParser(bookContents);
+	nc = parser.processNCC();
 	}
+
 	/**
 	 * Test method for {@link com.ader.BookSectionIterator#hasNext()}.
 	 */
