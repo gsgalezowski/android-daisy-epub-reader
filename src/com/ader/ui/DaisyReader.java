@@ -1,3 +1,9 @@
+/**
+ * The main DaisyReader UI that interacts with the user to play a Daisy book.
+ * 
+ * Currently an overstuffed class with more methods and code than sense. I have
+ * lots of work to do to redesign the class and simplify the code.
+ */
 package com.ader.ui;
 
 import java.io.IOException;
@@ -7,9 +13,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.View;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -21,7 +27,6 @@ import com.ader.InvalidDaisyStructureException;
 import com.ader.OldDaisyBookImplementation;
 import com.ader.R;
 import com.ader.Util;
-import com.ader.R.layout;
 import com.google.marvin.widget.GestureOverlay;
 import com.google.marvin.widget.GestureOverlay.Gesture;
 import com.google.marvin.widget.GestureOverlay.GestureListener;

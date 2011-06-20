@@ -40,6 +40,9 @@ public class HomeScreen extends Activity implements OnClickListener {
         View preferencesButton = findViewById(R.id.settings_button);
         preferencesButton.setOnClickListener(this);
         
+        View aboutButton = findViewById(R.id.about_button);
+        aboutButton.setOnClickListener(this);
+        
     }
     
     public void onClick(View v)
@@ -119,6 +122,10 @@ public class HomeScreen extends Activity implements OnClickListener {
 				.setMessage(R.string.player_instructions)
 				.setPositiveButton(R.string.close_instructions, null)
 				.show();
+    		break;
+    		
+    	case R.id.about_button:
+    		startActivity(new Intent(this, AboutView.class));
     		break;
     	}
     }

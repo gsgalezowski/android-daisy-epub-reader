@@ -48,11 +48,19 @@
 							android:id="@+id/settings_button"
 							android:text="@string/settings"
 		    				android:textStyle="bold" />
-					</TableRow>				
-					<Button
-						android:id="@+id/help_button"
-						android:text="@string/help"
-	    				android:textStyle="bold" />				
+					</TableRow>	
+					<TableRow>			
+						<Button
+							android:id="@+id/help_button"
+							android:text="@string/help"
+	    					android:textStyle="bold" />
+	    				<Button
+	    					android:id="@+id/about_button"
+							android:layout_width="fill_parent"
+							android:layout_height="wrap_content"
+							android:text="@string/about"
+							android:textStyle="bold" />	
+					</TableRow>			
 				</TableLayout>
 		</LinearLayout>
 </LinearLayout>
