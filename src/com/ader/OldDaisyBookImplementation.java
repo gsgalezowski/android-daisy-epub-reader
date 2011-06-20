@@ -123,7 +123,7 @@ public class OldDaisyBookImplementation implements Serializable, DaisyBook {
 		validateDaisyContents();
 	}
 
-	DaisyItem current() {
+	public DaisyItem current() {
 		Util.logInfo(TAG, String.format("Current entry is index:%d, ncc:%s",
 				currentnccIndex,
 				items.get(currentnccIndex)));

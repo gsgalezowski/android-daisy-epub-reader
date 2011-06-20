@@ -1,4 +1,4 @@
-package com.ader;
+package com.ader.ui;
 
 import java.io.IOException;
 
@@ -15,6 +15,13 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.ader.DaisyBookUtils;
+import com.ader.DaisyItem;
+import com.ader.InvalidDaisyStructureException;
+import com.ader.OldDaisyBookImplementation;
+import com.ader.R;
+import com.ader.Util;
+import com.ader.R.layout;
 import com.google.marvin.widget.GestureOverlay;
 import com.google.marvin.widget.GestureOverlay.Gesture;
 import com.google.marvin.widget.GestureOverlay.GestureListener;

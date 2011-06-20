@@ -19,7 +19,7 @@ public class ParallelElement implements ContainerElement {
         this.parent = parent;
     }
 
-    @Override
+    // Mac complains about this @Override
     public ContainerElement getParent() {
     	return parent;
     }

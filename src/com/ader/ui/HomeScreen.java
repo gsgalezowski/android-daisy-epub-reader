@@ -1,6 +1,13 @@
-package com.ader;
+package com.ader.ui;
 
 import java.io.File;
+
+import com.ader.DaisyBookUtils;
+import com.ader.R;
+import com.ader.Util;
+import com.ader.R.id;
+import com.ader.R.layout;
+import com.ader.R.string;
 
 import android.app.Activity;
 import android.app.AlertDialog;

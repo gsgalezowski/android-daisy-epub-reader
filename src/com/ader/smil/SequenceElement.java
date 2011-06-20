@@ -25,7 +25,7 @@ public class SequenceElement implements ContainerElement {
         elements.add(currentElement);
     }
 
-    @Override
+    // Mac complains about @Override
     public ContainerElement getParent() {
     	return parent;
     }
