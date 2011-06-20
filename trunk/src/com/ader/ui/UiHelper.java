@@ -1,4 +1,4 @@
-package com.ader;
+package com.ader.ui;
 
 import android.app.AlertDialog;
 import android.content.Context;

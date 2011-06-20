@@ -52,7 +52,7 @@ public class Bookmark implements Serializable {
 		this.position = position;
 	}
 
-	void load(String bookmarkFilename) throws IOException {
+	public void load(String bookmarkFilename) throws IOException {
 
 		if (new File(bookmarkFilename).exists()) {
 			FileInputStream fileInputStream = new FileInputStream(bookmarkFilename);

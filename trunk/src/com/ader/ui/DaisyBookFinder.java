@@ -1,4 +1,4 @@
-package com.ader;
+package com.ader.ui;
 
 /**
  * DaisyBookFinder automatically searches for suitable books on the sdcard.
@@ -20,6 +20,12 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.ader.DaisyBookUtils;
+import com.ader.R;
+import com.ader.Util;
+import com.ader.R.id;
+import com.ader.R.layout;
+import com.ader.R.string;
 import com.ader.io.BookValidator;
 
 public class DaisyBookFinder extends ListActivity {

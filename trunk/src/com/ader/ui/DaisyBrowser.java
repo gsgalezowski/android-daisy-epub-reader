@@ -1,4 +1,4 @@
-package com.ader;
+package com.ader.ui;
 
 /**
  * DaisyBrowser enables the user to pick the book they want to read.
@@ -19,6 +19,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+import com.ader.DaisyBookUtils;
+import com.ader.R;
+import com.ader.Util;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;

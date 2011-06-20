@@ -23,7 +23,6 @@ public class BookSectionIterator implements Iterator<DaisyItem> {
 	/* (non-Javadoc)
 	 * @see java.util.Iterator#hasNext()
 	 */
-	@Override
 	public boolean hasNext() {
 		if (position >= items.length || items[position] == null) {
 			return false;
@@ -35,7 +34,6 @@ public class BookSectionIterator implements Iterator<DaisyItem> {
 	/* (non-Javadoc)
 	 * @see java.util.Iterator#next()
 	 */
-	@Override
 	public DaisyItem next() {
 		DaisyItem daisyItem = items[position];
 		position = position + 1;
@@ -45,7 +43,6 @@ public class BookSectionIterator implements Iterator<DaisyItem> {
 	/* (non-Javadoc)
 	 * @see java.util.Iterator#remove()
 	 */
-	@Override
 	public void remove() {
 		throw new UnsupportedOperationException("Removing items from a Daisy Book is not supported.");
 

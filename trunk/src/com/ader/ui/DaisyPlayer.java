@@ -1,4 +1,4 @@
-package com.ader;
+package com.ader.ui;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -14,6 +14,15 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ader.Bookmark;
+import com.ader.OldDaisyBookImplementation;
+import com.ader.R;
+import com.ader.SmilFile;
+import com.ader.Util;
+import com.ader.R.id;
+import com.ader.R.layout;
+import com.ader.R.menu;
+import com.ader.R.string;
 import com.google.marvin.widget.GestureOverlay;
 import com.google.marvin.widget.GestureOverlay.Gesture;
 import com.google.marvin.widget.GestureOverlay.GestureListener;
