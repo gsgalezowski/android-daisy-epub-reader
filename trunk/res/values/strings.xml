@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="about">About</string>
     <string name="app_name">Android Daisy 2.02 Reader</string>
     <string name="cannot_open_book">Cannot open book :( </string>
     <string name="cannot_open_book_a_file_is_missing">Cannot open book :( A file is missing. 
@@ -61,5 +62,6 @@
     </string>
     <string name="unable_to_open_file">Unable to open file</string>
     <string name="up_1_level">Up 1 level...</string>
+    <string name="version">Version: %1$s.%2$s</string>
     <string name="finished_reading_book">Finished reading this book</string>
 </resources>
