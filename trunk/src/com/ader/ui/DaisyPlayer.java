@@ -120,6 +120,37 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	 */
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		switch (keyCode) {
+		case KeyEvent.KEYCODE_1:
+			// Yes this is a hack... enough to demo the tekla integration.
+			book.decrementSelectedLevel();
+			book.decrementSelectedLevel();
+			book.decrementSelectedLevel();
+			book.decrementSelectedLevel();
+			book.decrementSelectedLevel();
+			book.decrementSelectedLevel();
+			break;
+			
+		case KeyEvent.KEYCODE_6:
+			book.incrementSelectedLevel();
+			book.incrementSelectedLevel();
+			book.incrementSelectedLevel();
+			book.incrementSelectedLevel();
+			book.incrementSelectedLevel();
+			book.incrementSelectedLevel();
+			break;
+			
+		case KeyEvent.KEYCODE_B:
+			book.previousSection();
+			break;
+			
+		case KeyEvent.KEYCODE_F:
+			book.nextSection(true);
+			break;
+			
+		case KeyEvent.KEYCODE_P:
+			togglePlay();
+			break;
+			
 		case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
 			Util.logInfo(TAG, "PAUSE/PLAY TOGGLE RECEIVED");
 			togglePlay();
