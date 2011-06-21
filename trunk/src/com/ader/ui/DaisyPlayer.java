@@ -141,12 +141,13 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 			
 		case KeyEvent.KEYCODE_B:
 		case KeyEvent.KEYCODE_DPAD_UP:
-			book.previousSection();
+			gotoPreviousSection();
 			return true;
 			
 		case KeyEvent.KEYCODE_F:
 		case KeyEvent.KEYCODE_DPAD_DOWN:
-			book.nextSection(true);
+			Util.logInfo(TAG, "Down pressed  - help me...");
+			gotoNextSection();
 			return true;
 			
 		case KeyEvent.KEYCODE_P:
