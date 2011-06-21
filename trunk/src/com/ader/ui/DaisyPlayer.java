@@ -140,16 +140,18 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 			break;
 			
 		case KeyEvent.KEYCODE_B:
+		case KeyEvent.KEYCODE_DPAD_UP:
 			book.previousSection();
-			break;
+			return true;
 			
 		case KeyEvent.KEYCODE_F:
+		case KeyEvent.KEYCODE_DPAD_DOWN:
 			book.nextSection(true);
-			break;
+			return true;
 			
 		case KeyEvent.KEYCODE_P:
 			togglePlay();
-			break;
+			return true;
 			
 		case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
 			Util.logInfo(TAG, "PAUSE/PLAY TOGGLE RECEIVED");
@@ -161,6 +163,9 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 		case KeyEvent.KEYCODE_MEDIA_PREVIOUS:
 			gotoPreviousSection();
 			return true;
+		default:
+				Util.logInfo(TAG, "Unhandled keyboard event: " + keyCode);
+				break;
 		}
 		return super.onKeyDown(keyCode, event);
 	}
