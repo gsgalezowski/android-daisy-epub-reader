@@ -121,26 +121,21 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		switch (keyCode) {
 		case KeyEvent.KEYCODE_1:
+		case KeyEvent.KEYCODE_DPAD_LEFT:
 			// Yes this is a hack... enough to demo the tekla integration.
-			book.decrementSelectedLevel();
-			book.decrementSelectedLevel();
-			book.decrementSelectedLevel();
-			book.decrementSelectedLevel();
-			book.decrementSelectedLevel();
-			book.decrementSelectedLevel();
-			break;
+			Util.logInfo(TAG, "Going up...");
+			goUp();
+			return true;
 			
 		case KeyEvent.KEYCODE_6:
-			book.incrementSelectedLevel();
-			book.incrementSelectedLevel();
-			book.incrementSelectedLevel();
-			book.incrementSelectedLevel();
-			book.incrementSelectedLevel();
-			book.incrementSelectedLevel();
-			break;
+		case KeyEvent.KEYCODE_DPAD_RIGHT:
+			Util.logInfo(TAG, "Going down....");
+			goDown();
+			return true;
 			
 		case KeyEvent.KEYCODE_B:
 		case KeyEvent.KEYCODE_DPAD_UP:
+			Util.logInfo(TAG, "Up pressed, good to go...");
 			gotoPreviousSection();
 			return true;
 			
@@ -442,14 +437,9 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 			} else if (g == Gesture.DOWN) {
 				gotoNextSection();
 			} else if (g == Gesture.LEFT) {
-				int levelSetTo = book.decrementSelectedLevel();
-				Util.logInfo(TAG, "Decremented Level to: " + levelSetTo);
-				depthText.setText("Depth " + levelSetTo + " of " + book.getMaximumDepthInDaisyBook());
+				goUp();
 			} else if (g == Gesture.RIGHT) {
-				int levelSetTo = book.incrementSelectedLevel();
-				Util.logInfo(TAG, "Incremented Level to: " + levelSetTo);
-				// TODO(jharty): Localize all the recently added hardcoded text e.g. here!
-				depthText.setText("Depth " + levelSetTo + " of " + book.getMaximumDepthInDaisyBook());
+				int levelSetTo = goDown();
 			} else if (g == Gesture.DOWNLEFT) {
 				Util.logInfo(TAG, "Rewind .");
 				// TODO (jharty): This is experimental code and needs refining
@@ -484,6 +474,21 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 
 
 	};
+	
+	private int goDown() {
+		// TODO(jharty): Localize all the recently added hardcoded text e.g. here!
+		int levelSetTo = book.incrementSelectedLevel();
+		Util.logInfo(TAG, "Incremented Level to: " + levelSetTo);
+		depthText.setText("Depth " + levelSetTo + " of " + book.getMaximumDepthInDaisyBook());
+		return levelSetTo;
+	}
+	
+	private void goUp() {
+		// TODO(jharty): Localize all the recently added hardcoded text e.g. here!
+		int levelSetTo = book.decrementSelectedLevel();
+		Util.logInfo(TAG, "Decremented Level to: " + levelSetTo);
+		depthText.setText("Depth " + levelSetTo + " of " + book.getMaximumDepthInDaisyBook());
+	}
 	
 	/**
 	 * Goto the next section in the audio book.
