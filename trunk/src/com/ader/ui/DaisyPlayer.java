@@ -1,5 +1,9 @@
 package com.ader.ui;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -19,17 +23,9 @@ import com.ader.OldDaisyBookImplementation;
 import com.ader.R;
 import com.ader.SmilFile;
 import com.ader.Util;
-import com.ader.R.id;
-import com.ader.R.layout;
-import com.ader.R.menu;
-import com.ader.R.string;
 import com.google.marvin.widget.GestureOverlay;
 import com.google.marvin.widget.GestureOverlay.Gesture;
 import com.google.marvin.widget.GestureOverlay.GestureListener;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 public class DaisyPlayer extends Activity implements OnCompletionListener {
 
@@ -423,13 +419,22 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 
 	private GestureListener gestureListener = new GestureListener() {
 
+		long startTime;
+		 
 		public void onGestureStart(int g) {
+			startTime = System.currentTimeMillis();
+			Util.logInfo(TAG, "onGestureStart @" + startTime + " Value: " + g);
 		}
 
 		public void onGestureChange(int g) {
+			long interimValue = System.currentTimeMillis() - startTime;
+			Util.logInfo(TAG, "onGestureChange. Duration is: " + interimValue + " Value: " + g);
 		}
 
 		public void onGestureFinish(int g) {
+			long timeTaken = System.currentTimeMillis() - startTime;
+			Util.logInfo(TAG, "onGestureFinish. Duration is: " + timeTaken + " Value: " + g);
+			
 			if (g == Gesture.CENTER) {
 				togglePlay();
 			} else if (g == Gesture.UP) {
