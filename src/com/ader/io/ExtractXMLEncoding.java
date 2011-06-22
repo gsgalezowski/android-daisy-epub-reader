@@ -26,7 +26,10 @@ public class ExtractXMLEncoding {
 	protected static String extractEncoding(String line) {
 		Pattern p = Pattern.compile(EXTRACT_ENCODING_REGEX);
 		String matches[] = p.split(line);
-		String encoding = matches[1].replace(XML_TRAILER, "");
+		String value = matches[1];  // We want the value after encoding="
+		// We don't need anything after the first " after the value
+		String cleanup[] = value.split("\"");  
+		String encoding = cleanup[0];
 		return encoding.toLowerCase();
 	}
 	
