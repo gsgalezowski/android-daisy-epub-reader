@@ -1,5 +1,7 @@
 /**
+ * Tests for the navigation between the sections of a book.
  * 
+ * TODO(jharty): I need to implement the actual tests :)
  */
 package com.ader;
 
@@ -23,6 +25,10 @@ public class BookSectionIteratorTest extends TestCase {
 	protected void setUp() throws Exception {
 	out = new ByteArrayOutputStream();
 	eBookContents = new CreateDaisy202Book(out);
+	eBookContents.writeXmlHeader();
+	eBookContents.writeDoctype();
+	eBookContents.writeXmlns();
+	eBookContents.writeBasicMetadata();
 	eBookContents.addTheseLevels("12312321");
 	eBookContents.writeEndOfDocument();
 	ByteArrayInputStream bookContents = new ByteArrayInputStream(out.toByteArray());
@@ -31,24 +37,12 @@ public class BookSectionIteratorTest extends TestCase {
 	}
 
 	/**
-	 * Test method for {@link com.ader.BookSectionIterator#hasNext()}.
+	 * Tests the sequential forward navigation through the sections of a book.
 	 */
-	public void testHasNext() {
+	public void testSequentialNavigation() {
 		fail("Not yet implemented");
 	}
 
-	/**
-	 * Test method for {@link com.ader.BookSectionIterator#next()}.
-	 */
-	public void testNext() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link com.ader.BookSectionIterator#remove()}.
-	 */
-	public void testRemove() {
-		fail("Not yet implemented");
-	}
+	
 
 }
