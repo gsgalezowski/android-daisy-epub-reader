@@ -6,6 +6,8 @@
  */
 package com.ader.ui;
 
+import java.util.Locale;
+
 import android.app.Activity;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -22,11 +24,27 @@ public class AboutView extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.about);
-		TextView versionText = (TextView) findViewById(R.id.version);
-		if (versionText != null) {
-			versionText.setText(String.format(getString(R.string.version), getVersionName(), getVersionCode()));
+		TextView aboutText = (TextView) findViewById(R.id.about);
+		if (aboutText != null) {
+			StringBuilder aboutMsg = new StringBuilder();
+			aboutMsg.append(String.format(getString(R.string.version), getVersionName(), getVersionCode()));
+			aboutMsg.append("\n");
+			aboutMsg.append("\nCurrent Locale is: " + java.util.Locale.getDefault().getDisplayName());
+			aboutMsg.append("\n");
+			aboutText.setText(aboutMsg.toString());
 		}
-
+		
+		TextView localesText = (TextView) findViewById(R.id.installed_locales);
+		if (localesText != null) {
+			StringBuilder locales = new StringBuilder();
+			locales.append("Locales installed on phone are:\n");
+			
+			Locale installedLocales [] = Locale.getAvailableLocales();
+			for (Locale l : installedLocales) {
+				locales.append("\n  " + l.getDisplayName());
+			}
+			localesText.setText(locales.toString());
+		}
 	}
 
 	private String getVersionName() {
