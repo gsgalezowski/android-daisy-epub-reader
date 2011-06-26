@@ -210,7 +210,7 @@ public class OldDaisyBookImplementation implements Serializable, DaisyBook {
 	 */
 	public boolean previousSection() {
 		Util.logInfo(TAG, "previous");
-		for (int i = currentnccIndex -1; i > 0; i--)
+		for (int i = currentnccIndex -1; i >= 0; i--)
 			if (items.get(i).getLevel() <= selectedLevel
 				&& items.get(i).getType() == DaisyItemType.LEVEL) {
 				currentnccIndex = i;
