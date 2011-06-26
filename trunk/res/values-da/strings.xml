@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="about">Om</string>
+    <string name="app_name">Android Daisy 2.02 Reader</string>
+    <string name="cannot_open_book">Kan ikke åbne bog:( </string>
+    <string name="cannot_open_book_a_file_is_missing">Kan ikke åbne bog:( En fil mangler. 
+    
+    Du kan muligvis flytte til andre dele af bogen for at fortsætte læsningen af bogen.</string>
+    <string name="close_instructions">Afslut Instruktioner</string>
+    <string name="hello">Hello World, DaisyReader!</string>
+    <string name="help">Hjælp</string>
+   	<string name="homepage_title">Android Daisy 2.02 Reader</string>
+    <string name="new_folder_name_not_saved">Navn på ny mappe IKKE gemt</string>
+    <string name="new_folder_name_saved">Navn på ny mappe gemt</string>
+    <string name="new_value">Ny værdi er </string>
+    <string name="no_books_found">Ingen bog fundet</string>
+    <string name="no_depth_yet">Niveauer?</string>
+    <string name="no_previous_book_saved_msg">Beklager, der er enten ingen detaljer om bogen gemt, eller der er problemer med den gemte bog. Prøv venligst en anden menukkommando for at finde og læse en bog.</string>
+    <string name="no_previous_book_saved_title">Ingen tidligere bog gemt </string>
+    <string name="no_status_yet">Status?</string>
+    <string name="no_text_yet">Endnu ingen tekst</string>
+    <string name="open_book">Åbn bog</string>
+    <string name="open_last_book">Åbn seneste bog</string>
+    <string name="paused_message">Sat på pause</string>
+    <string name="permission_problem_opening_a_file">Problem med rettigheder under åbning af fil </string>
+    <string name="player_instructions">Der bruges bevægelser til styring af afspilleren.
+    Tap på midten af skærmen for at stoppe og genoptage den aktuelle lydafspilning.
+    Svirp (hvor du trækker fingeren i en lige linje på skærmen, 
+    og derefter løfter fingeren) bruges til de resterende bevægelser:
+    Svirp Op for at flytte til det forrige lydsegment på det aktuelle niveau i bogen.
+    Svirp Ned for at flytte til det næste lydsegment på det aktuelle niveau i bogen.
+    Svirp fra venstre mod højre for at gå et niveau op.
+    Svirp fra højre mod venstre for at gå et niveau ned.
+    
+    Swipe diagonally down and left to rewind.
+    Svirp diagonalt ned og mod højre for at spole hurtigt frem.
+    
+    DAISY-bøger kan indeholde materiale på et eller flere niveauer
+    fx for at indikere kapitler (hvor inddelingen kan være foretaget på niveau 1) 
+    og underafsnit (hvor inddelingen kan være foretaget på niveau 2).
+
+    </string>
+    <string name="playing">Afspiller</string>
+    <string name="player_instructions_description">Instruktioner til DAISY-afspilleren</string>
+    <string name="playing_message">Afspiller</string>
+    <string name="reading_message">Læser </string>
+    <string name="return_to_homescreen">Vend tilbage til startskærmen </string>
+    <string name="root_folder">Rodmappe </string>
+    <string name="root_folder_for_daisy_books">Rodmappe for DAISY-bøger </string>
+    <string name="sd_card_folder_changed_successfully">Mappe på SD kort er nu ændret </string>
+    <string name="sdcard_mounted">SD kortet ser ud til at være i brug (mounted); Skub det venligst ud og prøv igen.</string>
+    <string name="sdcard_title">SD kort</string>
+    <string name="search_books">Søg efter bøger</string>
+    <string name="serious_problem_found">Der opstod et alvorligt problem </string>
+    <string name="settings">Indstillinger</string>
+    <string name="stopped">Stoppet</string>
+    <string name="text_content_not_supported_yet">
+    Denne bog er formodentlig en fuldtekstbog. DAISY fuldtekstbøger understøttes imidlertid endnu ikke. 
+    Tilkendegiv venligst dit ønske på projektets hjemmeside http://code.google.com/p/android-daisy-epub-reader/issues/list  om at få denne facilitet implementeret 
+     
+    så vi med sikkerhed ved, brugerne virkelig ønsker dene funktion.
+    </string>
+    <string name="unable_to_open_file">Kan ikke åbne fil </string>
+    <string name="up_1_level">Op 1 niveau...</string>
+    <string name="version">Version: %1$s.%2$s</string>
+    <string name="finished_reading_book">Færdig med at læse denne bog </string>
+</resources>
