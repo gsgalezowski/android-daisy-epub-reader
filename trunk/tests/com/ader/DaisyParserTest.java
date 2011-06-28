@@ -18,6 +18,7 @@ import com.ader.testutilities.SampleContent;
 import junit.framework.TestCase;
 
 public class DaisyParserTest extends TestCase {
+	private static final String LIGHT_MAN_NCC_HTML = "/Resources/light-man/ncc.html";
 	DaisyParser parser;
 	
 	public void setUp() throws Exception {
@@ -25,10 +26,10 @@ public class DaisyParserTest extends TestCase {
 	}
 	
 	/* A private helper method to open a test file, used by some tests. */
-	private String openTestFile() throws IOException {
+	private String openTestFile(String filename) throws IOException {
 		String path = new File(".").getCanonicalPath();
-		String filename = path + "/Resources/light-man/ncc.html";
-		return filename;
+		String fullFilename = path + filename;
+		return fullFilename;
 	}
 	
 	/**
@@ -37,7 +38,7 @@ public class DaisyParserTest extends TestCase {
 	 */
 	@MediumTest
 	public void testCanParseFromFile() throws IOException {
-		String filename = openTestFile();
+		String filename = openTestFile(LIGHT_MAN_NCC_HTML);
 		ArrayList<DaisyElement> elements = parser.openAndParseFromFile(filename);
 		assertTrue("There should be SOME content", elements.size() > 0);
 	}
@@ -50,9 +51,27 @@ public class DaisyParserTest extends TestCase {
 		assertEquals("The elements should be: html head, body, title, h1, a.", 6, elements.size());
 	}
 	
+	/**
+	 * TODO(jharty): Add a smaller test for the replacement of ' with " in 
+	 * ExtractXMLEncoding.extractEncoding() - I haven't checked-in the relevant
+	 * test class yet :(
+	 * 
+	 * @throws IOException
+	 */
+	@SmallTest
+	public void testCanParseIcelandicContent() throws IOException {
+		String filename = openTestFile("/Resources/testfiles/icelandic/ncc.html");
+		ArrayList<DaisyElement> elements = 
+			parser.openAndParseFromFile(filename);
+		assertEquals("html", elements.get(0).getName());
+		// Might be worth adding additional validation, however this is the
+		// old parser, so I will focus on adding an equivalent test for the
+		// new parser first...
+	}
+	
 	@MediumTest
 	public void testCanParseFromInputStream() throws Exception {
-		String filename = openTestFile();
+		String filename = openTestFile(LIGHT_MAN_NCC_HTML);
 		ArrayList<DaisyElement> elements = parser.parse(new FileInputStream(filename));
 		assertTrue("There should be SOME content", elements.size() > 0);
 	}
