@@ -46,12 +46,6 @@ public class BookValidator {
 			BookList.add(path);
 		else {
 			File temp = new File(path);
-			if (temp == null) {
-				Util.logInfo(TAG, String.format(
-						"Cannot create new File() for %s, exiting function", path));
-				return;
-			}
-
 			// listFiles can throw a NPE when it tries to navigate folders e.g. 
 			// /sdcard/.android_secure 
 			// This was found on a HTC Hero with Android 2.2

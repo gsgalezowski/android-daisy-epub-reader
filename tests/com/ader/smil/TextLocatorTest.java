@@ -3,9 +3,8 @@ package com.ader.smil;
 import java.io.File;
 import java.io.IOException;
 
-import android.test.suitebuilder.annotation.MediumTest;
-
 import junit.framework.TestCase;
+import android.test.suitebuilder.annotation.MediumTest;
 
 public class TextLocatorTest extends TestCase {
     private TextLocator generalTextLocator;

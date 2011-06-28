@@ -67,6 +67,7 @@ public class ExtractXMLEncoding {
 			bis.mark(200);
 			DataInputStream dis = new DataInputStream(bis);
 			line = dis.readLine();
+			line = line.replace("'", "\"");
 			if (line.matches(XML_FIRST_LINE_REGEX)) {
 				encoding = extractEncoding(line);
 			}

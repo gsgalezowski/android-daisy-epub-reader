@@ -4,6 +4,11 @@ package com.ader;
  */
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+
+import android.test.suitebuilder.annotation.SmallTest;
 
 import com.ader.testutilities.CreateDaisy202Book;
 import com.ader.testutilities.SampleContent;
@@ -55,5 +60,27 @@ public class XMLParserTest extends TestCase {
 		NavCentre nc = anotherParser.processNCC();
 		assertEquals("Expected a 1:1 match of NavPoints and sections", 
 				numLevelOneSections, nc.count());
+	}
+	
+	@SmallTest
+	public void testCanParseIcelandicContent() throws IOException {
+		String filename = openTestFile("/Resources/testfiles/icelandic/ncc.html");
+		
+		XMLParser parser = new XMLParser(new FileInputStream(filename));
+		NavCentre nc = parser.processNCC();
+		assertEquals("The file should have 2 sections", 2, nc.count());
+	}
+	
+	/* 
+	 * A private helper method to open a test file, used by some tests.
+	 * 
+	 * TODO(jharty): This class is duplicated in DaisyParserTest.java however
+	 * as I want to remove that parser at some point I'm willing to cope with
+	 * code duplication at this point. Extract a common method if this drags on.
+	 */
+	private String openTestFile(String filename) throws IOException {
+		String path = new File(".").getCanonicalPath();
+		String fullFilename = path + filename;
+		return fullFilename;
 	}
 }

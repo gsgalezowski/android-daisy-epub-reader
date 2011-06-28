@@ -15,12 +15,19 @@
 		    android:layout_width="wrap_content" 
 		    android:layout_height="wrap_content" 
 		    android:layout_gravity="center"
-			android:layout_marginBottom="25dip"
+			android:layout_marginBottom="15dip"
 			android:textSize="21sp"
 		    android:text="@string/homepage_title"
 		    android:textColor="@color/titles_colour"
 		    android:textStyle="bold"
 		    />
+	    <TextView
+	    	android:id="@+id/release"
+	    	android:layout_width="wrap_content"
+	    	android:layout_height="wrap_content"
+	    	android:layout_gravity="center"
+	    	android:textSize="15sp"
+	    	/>
 		<Button
 			android:id="@+id/open_button"
 			android:layout_width="fill_parent" 
