@@ -77,7 +77,6 @@ public class AboutView extends Activity implements OnClickListener {
 	 * 
 	 * TODO (jharty): Add the email capability.
 	 */
-	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.eMail:
