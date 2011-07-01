@@ -74,6 +74,34 @@ public class Bookmark implements Serializable {
 		in.close();
 	}
 
+	/**
+	 * Update the automatic bookmark. 
+	 * 
+	 *  This is typically used to enable the player to restart from the most
+	 *  recent smilfile.
+	 */
+	public void updateAutomaticBookmark(String pathToBook, SmilFile filename) {
+		
+		// Compare this.filename with the path to the book.
+		if (filename.getAudioSegments().size() > 0) {
+			// TODO (jharty): are we assuming we always get the first entry?
+			this.setFilename(pathToBook + filename.getAudioSegments().get(0).getSrc());
+
+			// Only set the start if we don't already have an offset into
+			// this file from an existing bookmark.
+			if (this.getPosition() <= 0) {
+				this.setPosition((int) filename.getAudioSegments().get(0).getClipBegin());
+				Util.logInfo(TAG, String.format(
+						"After calling setPosition SMILfile[%s] NCC index[%d] offset[%d]",
+						this.getFilename(), this.getNccIndex(), this.getPosition()));
+			}
+
+		} else if (filename.getTextSegments().size() > 0) {
+			this.setFilename(pathToBook + filename.getTextSegments().get(0).getSrc());
+			this.setPosition(0);
+		}
+	}
+	
 	public void save(String bookmarkFilename) {
 		try {
 			FileOutputStream fileOutputStream = new FileOutputStream(bookmarkFilename);
