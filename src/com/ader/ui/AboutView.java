@@ -67,7 +67,7 @@ public class AboutView extends Activity implements OnClickListener {
 			for (Locale l : installedLocales) {
 				locales.append("\n  " + l.getDisplayName());
 			}
-			// localesText.setMovementMethod(new ScrollingMovementMethod());
+			
 			localesText.setText(locales.toString());
 		}
 	}
@@ -75,7 +75,7 @@ public class AboutView extends Activity implements OnClickListener {
 	/**
 	 * OnClick Handler for the About View.
 	 * 
-	 * TODO (jharty): Add the email capability.
+	 * Provides users with the ability to email information about their device.
 	 */
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -92,7 +92,7 @@ public class AboutView extends Activity implements OnClickListener {
 	}
 	
 	/**
-	 * Sends information about the application in an e-mil.
+	 * Sends information about the application in an e-mail.
 	 * 
 	 * Currently the code, and the contents are basic. The aim is to enable
 	 * users to report problems easily and reliably in a way I/we can process
