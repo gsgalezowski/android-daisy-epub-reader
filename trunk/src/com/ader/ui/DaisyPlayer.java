@@ -118,26 +118,21 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 		switch (keyCode) {
 		case KeyEvent.KEYCODE_1:
 		case KeyEvent.KEYCODE_DPAD_LEFT:
-			// Yes this is a hack... enough to demo the tekla integration.
-			Util.logInfo(TAG, "Going up...");
 			goUp();
 			return true;
 			
 		case KeyEvent.KEYCODE_6:
 		case KeyEvent.KEYCODE_DPAD_RIGHT:
-			Util.logInfo(TAG, "Going down....");
 			goDown();
 			return true;
 			
 		case KeyEvent.KEYCODE_B:
 		case KeyEvent.KEYCODE_DPAD_UP:
-			Util.logInfo(TAG, "Up pressed, good to go...");
 			gotoPreviousSection();
 			return true;
 			
 		case KeyEvent.KEYCODE_F:
 		case KeyEvent.KEYCODE_DPAD_DOWN:
-			Util.logInfo(TAG, "Down pressed  - help me...");
 			gotoNextSection();
 			return true;
 			
@@ -146,7 +141,6 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 			return true;
 			
 		case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
-			Util.logInfo(TAG, "PAUSE/PLAY TOGGLE RECEIVED");
 			togglePlay();
 			return true;
 		case KeyEvent.KEYCODE_MEDIA_NEXT:
@@ -205,8 +199,6 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	/**
 	 * open the current Smil file. Sets the auto bookmark to the contents in
 	 * the current Smil file. 
-	 * TODO(jharty): remove the links to the bookmark file, at least extract
-	 * methods.
 	 * 
 	 * @throws FileNotFoundException
 	 * @throws IOException
@@ -216,24 +208,34 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 		Util.logInfo(TAG, "Open SMIL file: " + smilfilename);
 		smilfile.open(smilfilename);
 
-		if (smilfile.getAudioSegments().size() > 0) {
+		updateAutomaticBookmark(smilfile);
+
+	}
+
+	/**
+	 * Update the automatic bookmark. 
+	 * 
+	 *  This is typically used to enable the player to restart from the most
+	 *  recent smilfile.
+	 */
+	private void updateAutomaticBookmark(SmilFile filename) {
+		if (filename.getAudioSegments().size() > 0) {
 			// TODO (jharty): are we assuming we always get the first entry?
-			autoBookmark.setFilename(book.getPath() + smilfile.getAudioSegments().get(0).getSrc());
+			autoBookmark.setFilename(book.getPath() + filename.getAudioSegments().get(0).getSrc());
 
 			// Only set the start if we don't already have an offset into
 			// this file from an existing bookmark.
 			if (autoBookmark.getPosition() <= 0) {
-				autoBookmark.setPosition((int) smilfile.getAudioSegments().get(0).getClipBegin());
+				autoBookmark.setPosition((int) filename.getAudioSegments().get(0).getClipBegin());
 				Util.logInfo(TAG, String.format(
 						"After calling setPosition SMILfile[%s] NCC index[%d] offset[%d]",
 						autoBookmark.getFilename(),autoBookmark.getNccIndex(), autoBookmark.getPosition()));
 			}
 
-		} else if (smilfile.getTextSegments().size() > 0) {
-			autoBookmark.setFilename(book.getPath() + smilfile.getTextSegments().get(0).getSrc());
+		} else if (filename.getTextSegments().size() > 0) {
+			autoBookmark.setFilename(book.getPath() + filename.getTextSegments().get(0).getSrc());
 			autoBookmark.setPosition(0);
 		}
-
 	}
 
 	public void play() {
