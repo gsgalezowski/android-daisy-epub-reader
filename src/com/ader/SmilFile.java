@@ -26,8 +26,23 @@ public class SmilFile implements Serializable {
 		return this.fileName;
 	}
 
+	/**
+	 * Opens a SMIL file.
+	 * 
+	 * Notes:
+	 *   - Currently a NPE can be thrown e.g. if the file has no content. This
+	 *     is ugly. Should we convert/wrap these exceptions into an application
+	 *     specific Exception? 
+	 *   - Also, how about adding some basic validation for the content? e.g.
+	 *     length, structure, etc.
+	 *   TODO(jharty): ruminate on the above notes... Address at some point.  
+	 * @param filename
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 */
 	public void open(String filename) throws FileNotFoundException, IOException {
 		this.fileName = filename;
+		// TODO(jharty): Add validation here?
 		String encoding = ExtractXMLEncoding.obtainEncodingStringFromFile(filename);
 
 		FileInputStream fis = new FileInputStream(filename);
