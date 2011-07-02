@@ -15,6 +15,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -27,27 +28,35 @@ public class BookmarkTest extends TestCase {
 
 	private static final int DUMMY_NCCINDEX = 2;
 	private static final int DUMMY_POSITION = 73;
+	private static final String TMP = "/tmp/";
+	private static final String bookmarkFilename = TMP + Bookmark.AUTO_BMK;
+	private Bookmark bookmark;
 
 	@MediumTest
 	public void testWriteReadOldBookmarkFileStructure() throws IOException {
 		DataInputStream dis;
-		String bookmarkFilename = "/tmp/auto.bmk";
 		
 		// First create the file
 		DataOutputStream dos  = new DataOutputStream(new FileOutputStream(bookmarkFilename));
 		String sdcardFilename = "/sdcard/dummyfilename.txt";
 		dos.writeUTF(sdcardFilename);
-		dos.writeInt(DUMMY_POSITION);
 		dos.writeInt(DUMMY_NCCINDEX);
+		dos.writeInt(DUMMY_POSITION);
 		dos.flush();
 		dos.close();
 		
 		// now read the contents using the 'old' method
 		dis = new DataInputStream(new FileInputStream(bookmarkFilename));
 		assertEquals("Filename should match", sdcardFilename, dis.readUTF());
-		assertEquals("First integer (representing nccIndex) should match", DUMMY_POSITION, dis.readInt());
-		assertEquals("Second integer, representing position) should match", DUMMY_NCCINDEX, dis.readInt());
+		assertEquals("First integer (representing nccIndex) should match", DUMMY_NCCINDEX, dis.readInt());
+		assertEquals("Second integer, representing position) should match", DUMMY_POSITION, dis.readInt());
 		dis.close();
+		
+		// now call the bookmark class to see if it reads the values correctly
+		bookmark = Bookmark.getInstance(TMP);
+		assertEquals("The filename should match.", sdcardFilename, bookmark.getFilename());
+		assertEquals("The position/offset should match", DUMMY_POSITION, bookmark.getPosition());
+		assertEquals("The NCC index should match.", DUMMY_NCCINDEX, bookmark.getNccIndex());
 		
 		// Let's try the same thing but with byte arrays rather than external files.
 		// Thanks to http://ostermiller.org/convert_java_outputstream_inputstream.html
@@ -68,19 +77,11 @@ public class BookmarkTest extends TestCase {
 	}
 	
 	@MediumTest
-	public void testOpenBookmarkForNonExistantBookmark() throws IOException {
-		Bookmark bookmark = new Bookmark();
-		
-		bookmark.load("I do not exist");
-		assertTrue("We should have been able to load a non existant bookmark file without error.",
-				true);
-	}
-
-	@MediumTest
 	public void testSaveForNewBookmarkUsingAByteArray() throws IOException {
-		// Note: we need to call load() with a non-existant filename to initialize things
-		Bookmark bookmark = new Bookmark();
-		bookmark.load("I still do not exist");
+		// TODO(jharty): There is code duplication between tests. Consider how
+		// to encapsulate the duplication of the following lines.
+		deleteAutoBookmarkFile();
+		Bookmark bookmark = Bookmark.getInstance(TMP);
 		
 		// Now populate the bookmark
 		bookmark.setFilename("dummy");
@@ -89,6 +90,40 @@ public class BookmarkTest extends TestCase {
 
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		bookmark.save(baos);
+	}
+	
+	@MediumTest
+	public void testOpenBookmarkForNonExistantBookmark() throws IOException {
+		deleteAutoBookmarkFile();
+		@SuppressWarnings("unused")
+		Bookmark bookmark = Bookmark.getInstance(TMP);
+		
+		assertTrue("We should have been able to load a non existant bookmark file without error.",
+				true);
+	}
+	
+	/** 
+	 * TODO(jharty): Fix bookmarks
+	 * This failing test reminds me I need to redesign how bookmarks are stored.
+	 * When we move to the new bookmark format we will simply create a file
+	 * with no entry for the automatic bookmark. Or I may even find a more
+	 * elegant solution... should save be allowed when there's no bookmark?
+	 * 
+	 * @throws IOException
+	 */
+	@MediumTest
+	public void testSaveForNonExistantBookmark() throws IOException {
+		Bookmark bookmark = Bookmark.getInstance(TMP);
+		
+		ByteArrayOutputStream empty = new ByteArrayOutputStream();
+		bookmark.save(empty);
+	}
+	
+	private void deleteAutoBookmarkFile() {
+		File bookmarkFile = new File(bookmarkFilename);
+		if (bookmarkFile.exists()) {
+			bookmarkFile.delete();
+		}
 	}
 
 }

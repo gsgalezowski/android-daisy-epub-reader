@@ -42,7 +42,7 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	private TextView depthText;
 	private int audioOffset ;
 	private SmilFile smilfile = new SmilFile();
-	private Bookmark autoBookmark = new Bookmark();
+	private Bookmark autoBookmark;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -166,7 +166,7 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 			audioOffset = 0;
 			play();
 		} else {
-			// Let's close this book. We could display a message to users instead.
+			// Let's tell the users the book is finished.
 			statusText.setText(R.string.finished_reading_book);
 			stop();
 		}
@@ -185,10 +185,15 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	 * the bookmark.
 	 */
 	public void loadAutoBookmark() throws IOException  {
-		String bookmarkFilename = book.getPath() + "auto.bmk";
-		autoBookmark.load(bookmarkFilename);
+		autoBookmark = Bookmark.getInstance(book.getPath());
 		audioOffset = autoBookmark.getPosition();
-
+		
+		/*
+		 * OK I need to get rid of telling the book the ncc Index to use!
+		 * Instead I need to tell it which smil file to load. Next step is to
+		 * see if I can simply remove the call to setCurrentIndex(...) and
+		 * modify goTo so it navigates by smil file.
+		 */
 		// TODO (jharty): Tell the book where it needs to start from
 		book.setCurrentIndex(autoBookmark.getNccIndex());
 		// FIXME: We need to cleanly tell the book which item to return. The
@@ -207,7 +212,7 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 		String smilfilename = book.getCurrentSmilFilename();
 		Util.logInfo(TAG, "Open SMIL file: " + smilfilename);
 		smilfile.open(smilfilename);
-		autoBookmark.updateAutomaticBookmark(book.getPath(), smilfile);
+		autoBookmark.updateAutomaticBookmark(smilfile);
 	}
 
 
