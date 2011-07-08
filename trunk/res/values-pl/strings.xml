@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="about">O aplikacji</string>
+    <string name="app_name">Czytnik Android Daisy 2.02</string>
+    <string name="cannot_open_book">Nie potrafię otworzyć książki :-( </string>
+    <string name="cannot_open_book_a_file_is_missing">Nie potrafię otworzyć książki :-( Brakuje pliku. 
+    
+    Możesz spróbować przejść do innych rozdziałów, aby kontynuować czytanie tej książki.</string>
+    <string name="close_instructions">Zamknij instrukcję</string>
+    <string name="hello">Hej, czytelniku Daisy!</string>
+    <string name="help">Pomoc</string>
+   	<string name="homepage_title">Czytnik Android Daisy 2.02</string>
+    <string name="new_folder_name_not_saved">Nowa nazwa katalogu NIE została zapisana</string>
+    <string name="new_folder_name_saved">Nowy katalog został zapisany</string>
+    <string name="new_value">Nowa wartość to </string>
+    <string name="no_books_found">Nie znaleziono książek</string>
+    <string name="no_depth_yet">Głębokość?</string>
+    <string name="no_previous_book_saved_msg">Niestety nie zapisano szczegółów książki, albo mamy do czynienia z wadą pliku książki. Użyj proszę innej opcji menu, aby znaleźć książkę do przeczytania.</string>
+    <string name="no_previous_book_saved_title">Nie zapamiętano żadnej poprzedniej książki</string>
+    <string name="no_status_yet">Stan?</string>
+    <string name="no_text_yet">nie ma jeszcze tekstu</string>
+    <string name="open_book">Otwórz książkę</string>
+    <string name="open_last_book">Otwórz ostatnią książkę</string>
+    <string name="paused_message">Zatrzymano</string>
+    <string name="permission_problem_opening_a_file">Problem z prawami dostępu do pliku</string>
+    <string name="player_instructions">Czytnik obsługiwany jest poprzez ruchy palcami po ekranie.
+    Dotknięcie środka ekranu pozwala na rozpoczęcie odsłuchiwania bieżącej książki.
+    Przesuwanie palcem (kiedy ustawiasz palec w środkowej linii ekranu 
+    i zaczynasz go przesuwać) pozwala na kolejno:
+    W górę: poprzedni fragment w tym samym rozdziale książki.
+    W dół: następny fragment w tym samym rozdziale książki.
+    Z lewa na prawo: głębiej w strukturze spisu treści.
+    Z prawa na lewo: wyżej w strukturze spisu treści.
+
+    Po przekątnej z góry na dół w lewo: cofanie nagrania.
+    Po przekątnej z góry na dół w prawo: szybko naprzód.
+
+    Książki w DAISY mogą mieć spis treści składający się z jednego lub więcej podrozdziałów,
+    na przykład rozdziały główne (poziom 1 w strukturze spisu treści)
+    i podrozdziały (poziom 2 w strukturze spisu treści)
+
+    </string>
+    <string name="playing">Odtwarzanie</string>
+    <string name="player_instructions_description">Podręcznik dla odtwarzacza DAISY</string>
+    <string name="playing_message">Odtwarzanie</string>
+    <string name="reading_message">Czytanie </string>
+    <string name="return_to_homescreen">Wróć do ekranu początkowego</string>
+    <string name="root_folder">Katalog główny</string>
+    <string name="root_folder_for_daisy_books">Katalog główny książek DAISY</string>
+    <string name="sd_card_folder_changed_successfully">Poprawnie zmieniono katalog kart SD</string>
+    <string name="sdcard_mounted">Karta SD wygląda na używaną (zamontowaną); czy możesz ją odmontować, a potem spróbować ponownie?</string>
+    <string name="sdcard_title">Karta SD</string>
+    <string name="search_books">Szukaj książek</string>
+    <string name="serious_problem_found">Mamy do czynienia z poważnym problemem</string>
+    <string name="settings">Ustawienia</string>
+    <string name="stopped">Zatrzymano</string>
+    <string name="text_content_not_supported_yet">
+    Niniejsza książka wygląda na książkę pełnotekstową. Niestety ten rodzaj książek nie jest obsługiwany.
+    Jeśli chciałbyś aby taka możliwość pojawiła się w przyszłych wersjach DAISY, daj nam znać:
+    http://code.google.com/p/android-daisy-epub-reader/issues/list 
+    abyśmy wiedzieli, że użytkownicy rzeczywiście oczekują takiej funkcji.
+    </string>
+    <string name="unable_to_open_file">Nie da się otworzyć pliku</string>
+    <string name="up_1_level">Jeden poziom wyżej...</string>
+    <string name="version">Wersja: %1$s.%2$s</string>
+    <string name="finished_reading_book">Zakończono czytanie tej książki</string>
+    <string name="send_your_email_in">Wyślij wiadomość:</string>
+</resources>
