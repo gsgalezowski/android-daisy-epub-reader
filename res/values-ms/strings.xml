@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="about">Perihal Aplikasi</string>
+    <string name="app_name">Pembaca Android Daisy 2.02</string>
+    <string name="cannot_open_book">Gagal membuka buku :( </string>
+    <string name="cannot_open_book_a_file_is_missing">Gagal membuka buku :( Kemungkinan fail hilang. 
+    
+    Anda masih boleh melayari ke bahagian lain dalam buku ini untuk terus membaca buku ini.</string>
+    <string name="close_instructions">Tutup Arahan</string>
+    <string name="hello">Pembaca Daisy!Selamat Datang</string>
+    <string name="help">Bantuan</string>
+   	<string name="homepage_title">Pembaca Android Daisy 2.02</string>
+    <string name="new_folder_name_not_saved">Nama folder baru TIDAK dapat disimpan</string>
+    <string name="new_folder_name_saved">Nama folder baru berjaya disimpan</string>
+    <string name="new_value">Nilai baru ialah </string>
+    <string name="no_books_found">Tiada Buku Dijumpai</string>
+    <string name="no_depth_yet">Kedalaman?</string>
+    <string name="no_previous_book_saved_msg">Maaf sama ada , masalah berkenaan dengan buku yang disimpan atau tiada butir-butir buku disimpan di dalam sistem.Sila gunakan menu pilihan untuk mencari buku untuk dibaca</string>
+    <string name="no_previous_book_saved_title">Tiada rekod buku sebelumnya disimpan</string>
+    <string name="no_status_yet">Status?</string>
+    <string name="no_text_yet">Belum ada teks lagi</string>
+    <string name="open_book">Buka buku</string>
+    <string name="open_last_book">Buka buku terakhir</string>
+    <string name="paused_message">Berhenti</string>
+    <string name="permission_problem_opening_a_file">Tiada kebenaran membuka fail</string>
+    <string name="player_instructions">Isyarat digunakan untuk mengawal pemain.
+     Sentuh pada skrin untuk berhenti dan mulakan semula audio semasa.
+     Swipes atau Sapu (di mana anda menyeret jari anda di garis lurus pada skrin,
+     kemudian angkat jari) digunakan bagi isyarat tinggal:
+     Sapu ke atas untuk pergi ke segmen audio sebelumnya pada tingkat semasa dalam buku ini.
+     Sapu ke bawah untuk pergi ke segmen seterusnya audio pada tinkat semasa dalam buku ini.
+     Sapu dari kiri ke kanan untuk meningkatkan kedalaman.
+     Sapu dari kanan ke kiri untuk mengurangkan kedalaman.
+    
+     Sapu menyerong ke bawah dan  ke kiri untuk putar ke belakang.
+     Sapu menyerong ke bawah dan ke kanan untuk putar ke depan.
+    
+     Buku DAISY boleh mengandungi bahan pada kedalaman tingkat satu, atau di beberapa tingkat kedalaman
+     contohnya untuk mewakili bab (di mana kedalaman mungkin tahap 1)
+     dan seksyen (di mana tingkat kedalaman mungkin peringkat 2).
+
+    </string>
+    <string name="playing">Dimainkan</string>
+    <string name="player_instructions_description">Arahan untuk pemain Daisy</string>
+    <string name="playing_message">Dimainkan</string>
+    <string name="reading_message">Dibacakan</string>
+    <string name="return_to_homescreen">Kembali kepada Skrin Utama</string>
+    <string name="root_folder">Folder Paling atas atau Root </string>
+    <string name="root_folder_for_daisy_books">Folder paling atas untuk buku Daisy</string>
+    <string name="sd_card_folder_changed_successfully">Kad SD folder berjaya diubah</string>
+    <string name="sdcard_mounted">Kad SD sedang digunakan;boleh cuba untuk unmount dulu ,dan cuba operasi sekali lagi? </string>
+    <string name="sdcard_title">Kad SD</string>
+    <string name="search_books">Pencarian buku</string>
+    <string name="serious_problem_found">Mengalami masalah serius</string>
+    <string name="settings">Tetapan</string>
+    <string name="stopped">Dihentikan</string>
+    <string name="text_content_not_supported_yet">
+Buku ini didapati adalah buku teks penuh.Harap maklum ,buku teks penuh DAISY belum disokong lagi.
+Jika ciri ini dimahukan ,sila membuat permintaan di laman web projek di http://code.google.com/p/android-daisy-epub-reader/issues/list
+    </string>
+    <string name="unable_to_open_file">File tidak berjaya dibuka</string>
+    <string name="up_1_level">Bergerak ke atas level 1...</string>
+    <string name="version">Versi: %1$s.%2$s</string>
+    <string name="finished_reading_book">Selesai membaca buku ini</string>
+    <string name="send_your_email_in">Hantar e-mel anda di:</string>
+</resources>
