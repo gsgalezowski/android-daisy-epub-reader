@@ -79,8 +79,10 @@ public class AboutView extends Activity implements OnClickListener {
 			aboutMsg.append(" " + Build.MODEL);
 			xmlFormattedAboutMsg.append(xmlFormatter.formatAsXml(Build.MODEL, "model"));
 			
+			String sampleString = (String) getText(R.string.open_book);
+			aboutMsg.append("\nSample Text: " + sampleString);
 			String sampleText = 
-				xmlFormatter.formatAsXml((String) getText(R.string.open_book), "sampletext");
+				xmlFormatter.formatAsXml(sampleString, "sampletext");
 			xmlFormattedAboutMsg.append(sampleText);
 			Util.logInfo(TAG, sampleText);
 			
