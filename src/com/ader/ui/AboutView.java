@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.ader.R;
 import com.ader.Util;
+import com.ader.io.XmlFormatter;
 import com.ader.utilities.About;
 
 /**
@@ -31,10 +32,12 @@ import com.ader.utilities.About;
  *
  */
 public class AboutView extends Activity implements OnClickListener {
-	private static final String ABOUT_EMAIL_VERSION = "0.0.1";
+	private static final String ABOUT_EMAIL_VERSION = "0.0.2";
 	private final String TAG = AboutView.class.getName();
 	private StringBuilder locales;
 	private StringBuilder aboutMsg;
+	private StringBuilder xmlFormattedAboutMsg;
+	private XmlFormatter xmlFormatter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +52,26 @@ public class AboutView extends Activity implements OnClickListener {
 		
 		if (aboutText != null) {
 			About aboutApplication = new About(this);
+			
 			aboutMsg = new StringBuilder();
+			xmlFormattedAboutMsg = new StringBuilder();
+			xmlFormattedAboutMsg.append("<daisyreader>");
+
+			xmlFormatter = new XmlFormatter();
+
 			aboutMsg.append(String.format(getString(R.string.version), 
 					aboutApplication.getVersionName(), aboutApplication.getVersionCode()));
+			
+			String version = xmlFormatter.formatAsXml(aboutApplication.getVersionName() + "." + 
+													  aboutApplication.getVersionCode(), 
+													  "version");
+			xmlFormattedAboutMsg.append(version);
+			Util.logInfo(TAG, version);
+			String sampleText = 
+				xmlFormatter.formatAsXml((String) getText(R.string.open_book), "sampletext");
+			xmlFormattedAboutMsg.append(sampleText);
+			Util.logInfo(TAG, sampleText);
+			
 			aboutMsg.append("\n");
 			aboutMsg.append("\nCurrent Locale is: " + java.util.Locale.getDefault().getDisplayName());
 			aboutMsg.append("\n");
@@ -61,7 +81,11 @@ public class AboutView extends Activity implements OnClickListener {
 			aboutMsg.append("\nDisplay country is: " + locale.getDisplayCountry());
 			aboutMsg.append("\nLanguage is: " + locale.getLanguage());
 			aboutMsg.append("\nVariant is: " + locale.getVariant());
+			aboutMsg.append("\n");
 			aboutText.setText(aboutMsg.toString());
+			
+			xmlFormattedAboutMsg.append("</daisyreader>");
+
 		}
 		
 		TextView localesText = (TextView) findViewById(R.id.installed_locales);
@@ -116,8 +140,11 @@ public class AboutView extends Activity implements OnClickListener {
 		emailIntent.setType("plain/text");
 		
 		// Construct the message to send.
+		StringBuilder message = new StringBuilder(aboutMsg);
+		message.append(xmlFormattedAboutMsg);
+		
 		// TODO(jharty): add formatting for the contents
-		emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, aboutMsg.toString());
+		emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, message.toString());
 		startActivity(Intent.createChooser(emailIntent, getString(R.string.send_your_email_in)));
 	}
 }
