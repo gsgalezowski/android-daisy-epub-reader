@@ -10,6 +10,7 @@ import java.util.Locale;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -32,7 +33,7 @@ import com.ader.utilities.About;
  *
  */
 public class AboutView extends Activity implements OnClickListener {
-	private static final String ABOUT_EMAIL_VERSION = "0.0.2";
+	private static final String ABOUT_EMAIL_VERSION = "0.0.4";
 	private final String TAG = AboutView.class.getName();
 	private StringBuilder locales;
 	private StringBuilder aboutMsg;
@@ -61,12 +62,23 @@ public class AboutView extends Activity implements OnClickListener {
 
 			aboutMsg.append(String.format(getString(R.string.version), 
 					aboutApplication.getVersionName(), aboutApplication.getVersionCode()));
-			
+			aboutMsg.append("\nAndroid Version: " + Build.VERSION.SDK_INT);
 			String version = xmlFormatter.formatAsXml(aboutApplication.getVersionName() + "." + 
 													  aboutApplication.getVersionCode(), 
 													  "version");
 			xmlFormattedAboutMsg.append(version);
 			Util.logInfo(TAG, version);
+			
+			String androidVersion = xmlFormatter.formatAsXml(Integer.toString(Build.VERSION.SDK_INT), "android_version");
+			xmlFormattedAboutMsg.append(androidVersion);
+			Util.logInfo(TAG, androidVersion);
+			
+			aboutMsg.append("\n" + Build.MANUFACTURER);
+			xmlFormattedAboutMsg.append(xmlFormatter.formatAsXml(Build.MANUFACTURER, "manufacturer"));
+			
+			aboutMsg.append(" " + Build.MODEL);
+			xmlFormattedAboutMsg.append(xmlFormatter.formatAsXml(Build.MODEL, "model"));
+			
 			String sampleText = 
 				xmlFormatter.formatAsXml((String) getText(R.string.open_book), "sampletext");
 			xmlFormattedAboutMsg.append(sampleText);
