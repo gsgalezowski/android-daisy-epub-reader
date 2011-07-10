@@ -3,24 +3,40 @@
 	package="com.ader" android:versionCode="1" android:versionName="1.0.298">
 	<application android:icon="@drawable/icon" android:label="@string/app_name" 
 	android:debuggable="true" android:theme="@android:style/Theme.NoTitleBar">
-		<activity android:name="com.ader.ui.HomeScreen" android:label="@string/app_name">
+		<activity 
+			android:name="com.ader.ui.HomeScreen" 
+			android:label="@string/app_name"
+			android:configChanges="locale">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-		<activity android:name="com.ader.ui.DaisyReader" android:label="DaisyReader">
-		</activity>
-		<activity android:name="com.ader.ui.DaisyBrowser" android:label="DaisyBrowser">
-		</activity>		
-		<activity android:name="com.ader.ui.DaisyPlayer" android:label="DaisyPlayer">
-		</activity>
+		<activity 
+			android:name="com.ader.ui.DaisyReader" 
+			android:label="DaisyReader"
+			android:configChanges="locale"/>
+		<activity 
+			android:name="com.ader.ui.DaisyBrowser" 
+			android:label="DaisyBrowser"
+			android:configChanges="locale"/>		
+		<activity 
+			android:name="com.ader.ui.DaisyPlayer" 
+			android:label="DaisyPlayer"
+			android:configChanges="locale"/>
 		<uses-library android:name="android.test.runner" />
 		
-	<activity android:name="com.ader.ui.DaisyBookFinder" android:label="DaisyBookFinder">
-	</activity>
-	<activity android:name="com.ader.ui.Preferences"></activity>
-	<activity android:name="com.ader.ui.AboutView" android:label="About"></activity>
+	<activity 
+		android:name="com.ader.ui.DaisyBookFinder" 
+		android:label="DaisyBookFinder"
+		android:configChanges="locale"/>
+	<activity
+		android:name="com.ader.ui.Preferences"
+		android:configChanges="locale"/>
+	<activity 
+		android:name="com.ader.ui.AboutView" 
+		android:label="About"
+		android:configChanges="locale"/>
 </application>
 	<uses-sdk android:minSdkVersion="4" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />

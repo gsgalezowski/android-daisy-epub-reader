@@ -55,6 +55,12 @@ public class AboutView extends Activity implements OnClickListener {
 			aboutMsg.append("\n");
 			aboutMsg.append("\nCurrent Locale is: " + java.util.Locale.getDefault().getDisplayName());
 			aboutMsg.append("\n");
+			Locale locale = getResources().getConfiguration().locale;
+			aboutMsg.append("\nDisplay language is:  " + locale.getDisplayLanguage());
+			aboutMsg.append("\nCountry is: " + locale.getCountry());
+			aboutMsg.append("\nDisplay country is: " + locale.getDisplayCountry());
+			aboutMsg.append("\nLanguage is: " + locale.getLanguage());
+			aboutMsg.append("\nVariant is: " + locale.getVariant());
 			aboutText.setText(aboutMsg.toString());
 		}
 		
