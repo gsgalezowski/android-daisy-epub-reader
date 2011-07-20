@@ -361,10 +361,6 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 
 		savedInstanceState.putBoolean(IS_THE_BOOK_PLAYING, player.isPlaying());
 		savedInstanceState.putInt(AUDIO_OFFSET, audioOffset);
-		if (player.isPlaying()) {
-			// Try seeing if I can pause the player on rotation rather than stopping it
-			// player.pause();
-		}
 		super.onSaveInstanceState(savedInstanceState);
 	}
 	
