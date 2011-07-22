@@ -43,7 +43,7 @@ public class DaisyBrowser extends ListActivity {
         super.onCreate(savedInstanceState);
         Util.logInfo(TAG, "onCreate");
         setContentView(R.layout.results_list);
-        GenerateBrowserData();
+        generateBrowserData();
     }
 
 
@@ -65,18 +65,18 @@ public class DaisyBrowser extends ListActivity {
 
         if (item.equals(this.getString(R.string.up_1_level))) {
             currentDirectory = new File(currentDirectory.getParent());
-            GenerateBrowserData();
+            generateBrowserData();
             return;
         }
 
         File temp = daisyPath;
         if (temp.isDirectory()) {
             currentDirectory = temp;
-            GenerateBrowserData();
+            generateBrowserData();
         }
     }
 
-	void GenerateBrowserData() {
+	void generateBrowserData() {
 
 		// TODO(jharty): Check if currentDirectory maps to ExternalStorageDirectory
 		Util.logInfo(TAG, "External Storage is: " + Environment.getExternalStorageDirectory());

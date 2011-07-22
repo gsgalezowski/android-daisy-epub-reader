@@ -79,29 +79,38 @@ public class AudioElement implements MediaElement {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         AudioElement other = (AudioElement) obj;
         if (Double.doubleToLongBits(clipBegin) != Double
-                .doubleToLongBits(other.clipBegin))
+                .doubleToLongBits(other.clipBegin)) {
             return false;
+        }
         if (Double.doubleToLongBits(clipEnd) != Double
-                .doubleToLongBits(other.clipEnd))
+                .doubleToLongBits(other.clipEnd)) {
             return false;
+        }
         if (id == null) {
-            if (other.id != null)
+            if (other.id != null) {
                 return false;
-        } else if (!id.equals(other.id))
+            }
+        } else if (!id.equals(other.id)) {
             return false;
+        }
         if (src == null) {
-            if (other.src != null)
+            if (other.src != null) {
                 return false;
-        } else if (!src.equals(other.src))
+            }
+        } else if (!src.equals(other.src)) {
             return false;
+        }
         return true;
     }
     

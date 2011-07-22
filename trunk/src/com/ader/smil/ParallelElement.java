@@ -53,23 +53,30 @@ public class ParallelElement implements ContainerElement {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         ParallelElement other = (ParallelElement) obj;
         if (audioSequence == null) {
-            if (other.audioSequence != null)
+            if (other.audioSequence != null) {
                 return false;
-        } else if (!audioSequence.equals(other.audioSequence))
+            }
+        } else if (!audioSequence.equals(other.audioSequence)) {
             return false;
+        }
         if (textElement == null) {
-            if (other.textElement != null)
+            if (other.textElement != null) {
                 return false;
-        } else if (!textElement.equals(other.textElement))
+            }
+        } else if (!textElement.equals(other.textElement)) {
             return false;
+        }
         return true;
     }
     

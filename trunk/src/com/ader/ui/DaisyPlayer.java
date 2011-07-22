@@ -216,7 +216,7 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	}
 
 
-	public void play() {
+	private void play() {
 		Util.logInfo(TAG, "play");
 		player.reset();
 		int duration = Toast.LENGTH_LONG;
@@ -420,7 +420,7 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 			} else if (g == Gesture.LEFT) {
 				goUp();
 			} else if (g == Gesture.RIGHT) {
-				int levelSetTo = goDown();
+				goDown();
 			} else if (g == Gesture.DOWNLEFT) {
 				Util.logInfo(TAG, "Rewind .");
 				// TODO (jharty): This is experimental code and needs refining

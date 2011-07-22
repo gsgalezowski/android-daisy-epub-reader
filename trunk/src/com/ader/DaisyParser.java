@@ -55,14 +55,14 @@ public class DaisyParser extends DefaultHandler {
 		return parseNccContents(stream, der, "UTF-8");
 	}
 	
-	public ArrayList<DaisyElement> openAndParseFromFile(final String XMLFile) throws IOException {
-		Util.logInfo(TAG, "XMLFILE " + XMLFile);
-		String encoding = ExtractXMLEncoding.obtainEncodingStringFromFile(XMLFile); 
+	public ArrayList<DaisyElement> openAndParseFromFile(final String xmlFile) throws IOException {
+		Util.logInfo(TAG, "XMLFILE " + xmlFile);
+		String encoding = ExtractXMLEncoding.obtainEncodingStringFromFile(xmlFile); 
 		encoding = ExtractXMLEncoding.mapUnsupportedEncoding(encoding);
 
-		FileInputStream fis = new FileInputStream(XMLFile);
+		FileInputStream fis = new FileInputStream(xmlFile);
 		BufferedInputStream bis = new BufferedInputStream(fis);
-		EntityResolver er = entityResolverForExternalFile(XMLFile);
+		EntityResolver er = entityResolverForExternalFile(xmlFile);
 		return parseNccContents(bis, er, encoding);
 	}
 
@@ -102,8 +102,8 @@ public class DaisyParser extends DefaultHandler {
 	 * Note: this code is modelled on the code in SmilParser.java which
 	 * correctly supports the encoding.
 	 */
-	private ArrayList<DaisyElement> parseNccContents(InputStream stream, EntityResolver er, String encoding) throws FactoryConfigurationError,
-			RuntimeException {
+	private ArrayList<DaisyElement> parseNccContents(InputStream stream, EntityResolver er, String encoding) 
+			throws FactoryConfigurationError {
 		try {
 			SAXParserFactory factory = SAXParserFactory.newInstance();
 			XMLReader saxParser = factory.newSAXParser().getXMLReader();
@@ -132,7 +132,7 @@ public class DaisyParser extends DefaultHandler {
 		}
 	}
 
-	private EntityResolver entityResolverForExternalFile(final String XMLFile) {
+	private EntityResolver entityResolverForExternalFile(final String xmlFile) {
 		// TODO: We may need to limit this handler to file:// references and
 		// find another way of resolving other references e.g. http://
 		
@@ -140,7 +140,7 @@ public class DaisyParser extends DefaultHandler {
 			public InputSource resolveEntity(String publicId, String systemId)
 			throws java.io.IOException
 			{
-				String directory = XMLFile.substring(0, XMLFile.lastIndexOf("/") + 1);
+				String directory = xmlFile.substring(0, xmlFile.lastIndexOf("/") + 1);
 				Util.logInfo(TAG, "xml directory:" + directory);
 				String resourcePath =
 					directory + systemId.substring(systemId.lastIndexOf("/") + 1);

@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
  *
  */
 public class ExtractXMLEncoding {
+	private static final int ENOUGH = 200;
 	protected static final String XML_TRAILER = "\"?>";
 	protected static final String EXTRACT_ENCODING_REGEX = ".*encoding=\"";
 	protected static final String XML_FIRST_LINE_REGEX = "<\\?xml version=\"1\\.0\" encoding=\"(.*)\"?>";
@@ -44,7 +45,7 @@ public class ExtractXMLEncoding {
 	 */
 	public static String mapUnsupportedEncoding(String encoding) {
 		if (encoding.equalsIgnoreCase("windows-1252")) {
-			encoding = "iso-8859-1";
+			return "iso-8859-1";
 		}
 		return encoding;
 	}
@@ -64,7 +65,7 @@ public class ExtractXMLEncoding {
 			String line = null;
 			// read the first line after setting the mark, then reset
 			// before calling the parser.
-			bis.mark(200);
+			bis.mark(ENOUGH);
 			DataInputStream dis = new DataInputStream(bis);
 			line = dis.readLine();
 			line = line.replace("'", "\"");

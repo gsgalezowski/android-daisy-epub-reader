@@ -6,10 +6,8 @@ package com.ader.smil;
 public class TextElement implements MediaElement {
     String src;
     String id;
-    private SmilElement parent;
     
     public TextElement(SmilElement parent, String src, String id) {
-        this.parent = parent;
         this.src = src;
         this.id = id;
     }
@@ -25,23 +23,30 @@ public class TextElement implements MediaElement {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         TextElement other = (TextElement) obj;
         if (id == null) {
-            if (other.id != null)
+            if (other.id != null) {
                 return false;
-        } else if (!id.equals(other.id))
+            }
+        } else if (!id.equals(other.id)) {
             return false;
+        }
         if (src == null) {
-            if (other.src != null)
+            if (other.src != null) {
                 return false;
-        } else if (!src.equals(other.src))
+            }
+        } else if (!src.equals(other.src)) {
             return false;
+        }
         return true;
     }
     

@@ -52,21 +52,27 @@ public class SequenceElement implements ContainerElement {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         SequenceElement other = (SequenceElement) obj;
         if (Double.doubleToLongBits(duration) != Double
-                .doubleToLongBits(other.duration))
+                .doubleToLongBits(other.duration)) {
             return false;
+        }
         if (elements == null) {
-            if (other.elements != null)
+            if (other.elements != null) {
                 return false;
-        } else if (!elements.equals(other.elements))
+            }
+        } else if (!elements.equals(other.elements)) {
             return false;
+        }
         return true;
     }
 
