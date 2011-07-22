@@ -41,7 +41,7 @@ public class DaisyBookFinder extends ListActivity {
 		Util.logInfo(TAG, "The root folder to search is: " + rootfolder);
         validator.findBooks(rootfolder);
         books = validator.getBookList();
-        PopulateList();
+        oopulateList();
 	}
 	
 	@Override
@@ -55,7 +55,7 @@ public class DaisyBookFinder extends ListActivity {
 		return;
 	}
 	
-	void PopulateList() {
+	void oopulateList() {
 		// TODO(jharty): Check if currentDirectory maps to ExternalStorageDirectory
 		Util.logInfo(TAG, "External Storage is: " + Environment.getExternalStorageDirectory());
 		// TODO(jharty): remove this hack once I've debugged the interaction

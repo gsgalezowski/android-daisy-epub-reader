@@ -23,7 +23,8 @@ public class DummyDtdResolver implements EntityResolver {
         if (systemId.endsWith(".dtd")) {
             return new InputSource(new ByteArrayInputStream(
                     "<?xml version='1.0' encoding='UTF-8'?>".getBytes()));
-        } else
+        } else {
             return null;
+        }
     }
 }

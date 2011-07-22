@@ -23,15 +23,18 @@ public class DaisyBookUtils {
 	 * false.
 	 */
     public static boolean folderContainsDaisy2_02Book(File folder) {
-        if (!folder.isDirectory())
+        if (!folder.isDirectory()) {
             return false;
+        }
 
         // Minor hack to cope with the potential of ALL CAPS filename, as per
         // http://www.daisy.org/z3986/specifications/daisy_202.html#ncc
-        if (new File(folder, "ncc.html").exists() || new File(folder, "NCC.HTML").exists())
+        if (new File(folder, "ncc.html").exists() || new File(folder, "NCC.HTML").exists()) {
             return true;
-        else
+        }
+        else {
             return false;
+        }
     }
     
     /**
@@ -40,11 +43,13 @@ public class DaisyBookUtils {
      * @return the filename as a string if it exists, else null.
      */
     public static String getNccFileName(File currentDirectory) {
-    	if (new File(currentDirectory, "ncc.html").exists())
+    	if (new File(currentDirectory, "ncc.html").exists()) {
     		return "ncc.html";
+    	}
 
-    	if (new File(currentDirectory, "NCC.HTML").exists())
+    	if (new File(currentDirectory, "NCC.HTML").exists()) {
     		return "NCC.HTML";
+    	}
 
 		return null;
 	}

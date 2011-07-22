@@ -14,7 +14,7 @@ import android.util.Log;
 public class About {
 	
 	private Activity activity;
-	private static String TAG = "About";
+	private static final String TAG = "About";
 
 	public About(Activity activity) {
 		this.activity = activity;

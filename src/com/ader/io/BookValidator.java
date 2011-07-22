@@ -42,8 +42,9 @@ public class BookValidator {
 			}
 		};
 
-		if (containsBook(path))
+		if (containsBook(path)) {
 			BookList.add(path);
+		}
 		else {
 			File temp = new File(path);
 			// listFiles can throw a NPE when it tries to navigate folders e.g. 

@@ -44,13 +44,13 @@ public class AboutView extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.about);
-		TextView aboutText = (TextView) findViewById(R.id.about);
 		Button email = (Button) findViewById(R.id.eMail);
 		email.setOnClickListener(this);
 		
 		Button return_to_homescreen = (Button) findViewById(R.id.return_to_homescreen);
 		return_to_homescreen.setOnClickListener(this);
 		
+		TextView aboutText = (TextView) findViewById(R.id.about);
 		if (aboutText != null) {
 			About aboutApplication = new About(this);
 			

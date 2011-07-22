@@ -24,7 +24,7 @@ import java.io.Serializable;
  * @author jharty
  *
  */
-public class Bookmark implements Serializable {
+public final class Bookmark implements Serializable {
 	protected static final String AUTO_BMK = "auto.bmk";
 	private static final String TAG = "Bookmark";
 	private static final String BOOKMARKS_FILENAME = "bookmarks.bmk";

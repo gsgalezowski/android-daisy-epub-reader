@@ -23,16 +23,18 @@ public class OldDaisyBookImplementation implements Serializable, DaisyBook {
 	 * @see com.ader.DaisyBook#getDisplayPosition()
 	 */
 	public int getDisplayPosition() {
-		if (current().getLevel() <= selectedLevel)
+		if (current().getLevel() <= selectedLevel) {
 			return getNavigationDisplay().indexOf(current());
+		}
 		else {
 			// find the position of the current item in the whole book
 			int i = items.indexOf(current());
 
 			// go backward through the book till we find an item in the
 			// navigation display
-			while (items.get(i).getLevel() > selectedLevel)
+			while (items.get(i).getLevel() > selectedLevel) {
 				i--;
+			}
 
 			// return the position of the found item in the nav display
 			return getNavigationDisplay().indexOf(items.get(i));
@@ -138,8 +140,9 @@ public class OldDaisyBookImplementation implements Serializable, DaisyBook {
 
 		for (int i = 0; i < items.size(); i++)
 			if (items.get(i).getLevel() <= selectedLevel 
-				&& items.get(i).getType() == DaisyItemType.LEVEL)
+				&& items.get(i).getType() == DaisyItemType.LEVEL) {
 				displayItems.add(items.get(i));
+			}
 		return displayItems;
 	}
 
@@ -247,13 +250,17 @@ public class OldDaisyBookImplementation implements Serializable, DaisyBook {
 			if (elementName.matches("h[123456]")) {
 				level = Integer.decode(elementName.substring(1));
 				type = DaisyItemType.LEVEL;
-				if (level > NCCDepth)
+				if (level > NCCDepth) {
 					NCCDepth = level;
+				}
+				
 				continue;
 			}
 			
 			// Really just to speed the debugging...
-			if (elementName.matches("meta")) continue;
+			if (elementName.matches("meta")) {
+				continue;
+			}
 			
 			// Note: The following is a hack, we should check the 'class'
 			// attribute for a value containing "page-"

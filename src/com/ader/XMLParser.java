@@ -21,7 +21,6 @@ import org.xml.sax.SAXException;
  *  checking for nulls being returned by the intervening calls.
  */
 public class XMLParser {
-	private static final String TAG = "XMLParser";
 	private Document document;
 	private NavCentre navCentre;
 
@@ -66,12 +65,14 @@ public class XMLParser {
 			Node currentNode = body.item(i);
 			
 			// is it a heading tag
-			if (currentNode.getNodeName().matches("h[123456]")) 
+			if (currentNode.getNodeName().matches("h[123456]")) { 
 				handleNCChTag(currentNode);
+			}
 			
 			// is it a span tag
-			 if (currentNode.getNodeName().equalsIgnoreCase("span"))
+			 if (currentNode.getNodeName().equalsIgnoreCase("span")) {
 				handleNCCspanTag(currentNode);
+			 }
 		}
 		
 		return navCentre;
@@ -87,7 +88,7 @@ public class XMLParser {
 	private void handleNCCspanTag(Node span) {
 		
 		Node value = span.getFirstChild();
-		System.out.println("Page No: " + value.getFirstChild().getNodeValue());
+		Util.logInfo("XMLParser", "Page No: " + value.getFirstChild().getNodeValue());
 		
 		// This is still imperfect, however it should be better than the previous code.
 		// TODO(jharty): Decide what parameters to pass to PageTarget, etc.

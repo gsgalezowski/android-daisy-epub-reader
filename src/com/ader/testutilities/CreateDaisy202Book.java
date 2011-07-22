@@ -18,6 +18,7 @@ import com.ader.NotImplementedException;
  * TODO(jharty): Continue enhancing this class.
  */
 public class CreateDaisy202Book extends CreateEBook {
+	private static final String END_TAG = "\">";
 	private int sectionsCreatedAutomatically = 0;
 
 	public CreateDaisy202Book() throws NotImplementedException {
@@ -109,8 +110,8 @@ public class CreateDaisy202Book extends CreateEBook {
 	 */
 	public void addLevel(int level) {
 		int counter = sectionsCreatedAutomatically + 1;
-		new PrintStream(out).print("<h" + level + " id=\"test_" + counter + "\">");
-		new PrintStream(out).print("<a href=\"test_" + counter + ".smil#text_" + counter + "\">");
+		new PrintStream(out).print("<h" + level + " id=\"test_" + counter + END_TAG);
+		new PrintStream(out).print("<a href=\"test_" + counter + ".smil#text_" + counter + END_TAG);
 		new PrintStream(out).print(
 				"This is a dummy level one entry that doesn't match a file</a></h" + level + ">");
 		sectionsCreatedAutomatically++; // Now we can update the counter
@@ -135,8 +136,8 @@ public class CreateDaisy202Book extends CreateEBook {
 			return;
 		}
 		int counter = sectionsCreatedAutomatically + 1;
-		new PrintStream(out).print("<h" + level + " id=\"smil_" + counter + "\">");
-		new PrintStream(out).print("<a href=\"" + smilFilename + "#" + idToInsert + "\">");
+		new PrintStream(out).print("<h" + level + " id=\"smil_" + counter + END_TAG);
+		new PrintStream(out).print("<a href=\"" + smilFilename + "#" + idToInsert + END_TAG);
 		// TODO(jharty): bug in the next line - write a test for it and then fix!
 		new PrintStream(out).println("This is a dummy level one entry that doesn't match a file</a></h1>");
 		sectionsCreatedAutomatically++; // Now we can update the counter
