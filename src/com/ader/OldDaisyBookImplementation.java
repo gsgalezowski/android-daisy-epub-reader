@@ -138,11 +138,12 @@ public class OldDaisyBookImplementation implements Serializable, DaisyBook {
 	public List<DaisyItem> getNavigationDisplay() {
 		ArrayList<DaisyItem> displayItems = new ArrayList<DaisyItem>();
 
-		for (int i = 0; i < items.size(); i++)
+		for (int i = 0; i < items.size(); i++) {
 			if (items.get(i).getLevel() <= selectedLevel 
 				&& items.get(i).getType() == DaisyItemType.LEVEL) {
 				displayItems.add(items.get(i));
 			}
+		}
 		return displayItems;
 	}
 
@@ -213,13 +214,14 @@ public class OldDaisyBookImplementation implements Serializable, DaisyBook {
 	 */
 	public boolean previousSection() {
 		Util.logInfo(TAG, "previous");
-		for (int i = currentnccIndex -1; i >= 0; i--)
+		for (int i = currentnccIndex -1; i >= 0; i--) {
 			if (items.get(i).getLevel() <= selectedLevel
 				&& items.get(i).getType() == DaisyItemType.LEVEL) {
 				currentnccIndex = i;
 				// TODO (jharty): make sure bookmark is updated by caller. bookmark.setPosition(0);
 				return true;
 			}
+		}
 		return false;
 	}
 	
@@ -239,7 +241,6 @@ public class OldDaisyBookImplementation implements Serializable, DaisyBook {
 	 */
 	public List<DaisyItem> processDaisyElements(ArrayList<DaisyElement> elements)
 	throws NumberFormatException {
-		List<DaisyItem> items = new ArrayList<DaisyItem>();
 		int level = 0;
 		DaisyItemType type = DaisyItemType.UNKNOWN;
 		

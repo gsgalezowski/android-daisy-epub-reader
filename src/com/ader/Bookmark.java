@@ -4,7 +4,6 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,8 +38,8 @@ public final class Bookmark implements Serializable {
 	 * @throws IOException
 	 */
 	private Bookmark(String path) throws IOException {
-		path = ensureTrailingSlash(path);
-		this.loadBookmarks(path);
+		String pathToBook = ensureTrailingSlash(path);
+		this.loadBookmarks(ensureTrailingSlash(pathToBook));
 	}
 	
 	private String ensureTrailingSlash(String path) {

@@ -21,6 +21,8 @@ import org.xml.sax.SAXException;
  *  checking for nulls being returned by the intervening calls.
  */
 public class XMLParser {
+	private static final String PROBLEM_PARSING_XML = "Problem parsing XML";
+	private static final String TAG = "XMLParser";
 	private Document document;
 	private NavCentre navCentre;
 
@@ -40,11 +42,11 @@ public class XMLParser {
 							false);
 			document = builderFactory.newDocumentBuilder().parse(input);
 		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
+			Util.logInfo(TAG, PROBLEM_PARSING_XML, e);
 		} catch (SAXException e) {
-			e.printStackTrace();
+			Util.logInfo(TAG, PROBLEM_PARSING_XML, e);
 		} catch (IOException e) {
-			e.printStackTrace();
+			Util.logInfo(TAG, PROBLEM_PARSING_XML, e);
 		}
 	}
 

@@ -47,8 +47,8 @@ public class AboutView extends Activity implements OnClickListener {
 		Button email = (Button) findViewById(R.id.eMail);
 		email.setOnClickListener(this);
 		
-		Button return_to_homescreen = (Button) findViewById(R.id.return_to_homescreen);
-		return_to_homescreen.setOnClickListener(this);
+		Button returnToHomescreen = (Button) findViewById(R.id.return_to_homescreen);
+		returnToHomescreen.setOnClickListener(this);
 		
 		TextView aboutText = (TextView) findViewById(R.id.about);
 		if (aboutText != null) {
@@ -67,11 +67,9 @@ public class AboutView extends Activity implements OnClickListener {
 													  aboutApplication.getVersionCode(), 
 													  "version");
 			xmlFormattedAboutMsg.append(version);
-			Util.logInfo(TAG, version);
 			
 			String androidVersion = xmlFormatter.formatAsXml(Integer.toString(Build.VERSION.SDK_INT), "android_version");
 			xmlFormattedAboutMsg.append(androidVersion);
-			Util.logInfo(TAG, androidVersion);
 			
 			aboutMsg.append("\n" + Build.MANUFACTURER);
 			xmlFormattedAboutMsg.append(xmlFormatter.formatAsXml(Build.MANUFACTURER, "manufacturer"));
@@ -81,11 +79,10 @@ public class AboutView extends Activity implements OnClickListener {
 			
 			String sampleString = (String) getText(R.string.open_book);
 			aboutMsg.append("\nSample Text: " + sampleString);
-			String sampleText = 
-				xmlFormatter.formatAsXml(sampleString, "sampletext");
-			xmlFormattedAboutMsg.append(sampleText);
-			Util.logInfo(TAG, sampleText);
+			xmlFormattedAboutMsg.append(xmlFormatter.formatAsXml(sampleString, "sampletext"));
 			
+			// TODO(jharty): Decide what to report on the screen and what to
+			// include in the email.
 			aboutMsg.append("\n");
 			aboutMsg.append("\nCurrent Locale is: " + java.util.Locale.getDefault().getDisplayName());
 			aboutMsg.append("\n");
@@ -99,7 +96,6 @@ public class AboutView extends Activity implements OnClickListener {
 			aboutText.setText(aboutMsg.toString());
 			
 			xmlFormattedAboutMsg.append("</daisyreader>");
-
 		}
 		
 		TextView localesText = (TextView) findViewById(R.id.installed_locales);

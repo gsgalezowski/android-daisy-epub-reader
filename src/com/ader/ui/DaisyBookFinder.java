@@ -27,7 +27,7 @@ import com.ader.io.BookValidator;
 
 public class DaisyBookFinder extends ListActivity {
 	private ArrayList<String> books;
-	BookValidator validator;
+	private BookValidator validator;
 	private static final String TAG = "DaisyBookFinder";
 
 	@Override

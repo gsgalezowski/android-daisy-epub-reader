@@ -18,7 +18,9 @@ public class ExtractXMLEncoding {
 	protected static final String XML_TRAILER = "\"?>";
 	protected static final String EXTRACT_ENCODING_REGEX = ".*encoding=\"";
 	protected static final String XML_FIRST_LINE_REGEX = "<\\?xml version=\"1\\.0\" encoding=\"(.*)\"?>";
-	
+
+	// Hide the constructor for this utility class.
+	private ExtractXMLEncoding() { } ;
 	/**
 	 * Helper method to extract the XML file encoding
 	 * @param line the first line of an XML file

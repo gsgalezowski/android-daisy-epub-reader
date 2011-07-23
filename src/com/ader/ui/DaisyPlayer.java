@@ -395,7 +395,7 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 
 	private GestureListener gestureListener = new GestureListener() {
 
-		long startTime;
+		private long startTime;
 		 
 		public void onGestureStart(int g) {
 			startTime = System.currentTimeMillis();

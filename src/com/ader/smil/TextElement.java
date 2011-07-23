@@ -4,8 +4,8 @@ package com.ader.smil;
  * Encapsulates the <text> tag.
  */
 public class TextElement implements MediaElement {
-    String src;
-    String id;
+    private String src;
+    private String id;
     
     public TextElement(SmilElement parent, String src, String id) {
         this.src = src;

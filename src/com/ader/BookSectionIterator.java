@@ -16,7 +16,10 @@ public class BookSectionIterator implements Iterator<DaisyItem> {
 	private DaisyItem[] items;
 	private int position = 0;
 
-	public BookSectionIterator(DaisyItem[] items) {
+	public BookSectionIterator(final DaisyItem[] items) {
+		// Currently I'm willing to leave Sonar's 'critical' warning unfixed as
+		// this code isn't actually used and may well be reworked anyway. The
+		// warning acts as a useful reminder.
 		this.items = items;
 	}
 	
@@ -24,11 +27,9 @@ public class BookSectionIterator implements Iterator<DaisyItem> {
 	 * @see java.util.Iterator#hasNext()
 	 */
 	public boolean hasNext() {
-		if (position >= items.length || items[position] == null) {
-			return false;
-		} else {
-			return true;
-		}
+		if(position >= items.length) { return false; }
+		if (items[position] == null) { return false; }
+		return true;
 	}
 
 	/* (non-Javadoc)

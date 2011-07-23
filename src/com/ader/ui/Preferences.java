@@ -28,7 +28,7 @@ import android.widget.Toast;
  */
 public class Preferences extends PreferenceActivity implements OnSharedPreferenceChangeListener {
 	private static final String TAG = "Perferences";
-	SharedPreferences sp;
+	private SharedPreferences sp;
 	private EditTextPreference rootiefolder;
 	private boolean validRootFolder;
 

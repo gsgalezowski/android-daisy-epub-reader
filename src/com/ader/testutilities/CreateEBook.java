@@ -26,7 +26,7 @@ import com.ader.NotImplementedException;
  * more about how to implement each format of book.
  */
 public abstract class CreateEBook {
-	OutputStream out;
+	protected OutputStream out;
 	
 	/**
 	 * The overridden method needs to create an output stream.

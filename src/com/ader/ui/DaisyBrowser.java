@@ -33,7 +33,7 @@ import android.os.Environment;
 import android.widget.ArrayAdapter;
 
 public class DaisyBrowser extends ListActivity {
-    File currentDirectory = new File("/sdcard/");
+    private File currentDirectory = new File("/sdcard/");
     private List<String> files;
     private static final String TAG = "DaisyBrowser";
 

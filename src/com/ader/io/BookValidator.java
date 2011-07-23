@@ -52,8 +52,9 @@ public class BookValidator {
 			// This was found on a HTC Hero with Android 2.2
 			File[] files = temp.listFiles(dirFilter);
 			if (files != null) {
-				for (File folder : files)
+				for (File folder : files) {
 					findBooks(folder.toString());
+				}
 			}
 		}
 		return;
@@ -85,8 +86,9 @@ public class BookValidator {
 	}
 
 	public ArrayList<String> getBookList() {
-		for (String path : BookList)
+		for (String path : BookList) {
 			Util.logInfo("BookValidator", "Book available at : " + path);
+		}
 		return BookList;
 	}
 
