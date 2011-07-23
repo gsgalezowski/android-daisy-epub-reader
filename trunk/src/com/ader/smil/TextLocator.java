@@ -1,5 +1,6 @@
 package com.ader.smil;
 
+import java.io.CharArrayWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -26,6 +27,7 @@ public class TextLocator extends DefaultHandler {
     private String result;
     private int depth = 0;
     private Logger log = Logger.getAnonymousLogger();
+    private CharArrayWriter value = new CharArrayWriter();
     
     public TextLocator(File baseDirectory) {
         this.baseDirectory = baseDirectory;
@@ -60,6 +62,8 @@ public class TextLocator extends DefaultHandler {
     @Override
     public void startElement(String uri, String localName, String name,
             Attributes attributes) throws SAXException {
+    	
+    	value.reset();
         String id = attributes.getValue("id");
         log.info(name + ": " + id);
         if (id != null && id.equals(targetId)) {
@@ -71,8 +75,7 @@ public class TextLocator extends DefaultHandler {
     public void characters(char[] ch, int start, int length)
             throws SAXException {
         if (depth > 0) {
-            result = new String(ch, start, length);
-            log.info("found " + result);
+        	value.write(ch, start, length);
         }
     }
     
@@ -80,6 +83,7 @@ public class TextLocator extends DefaultHandler {
     public void endElement(String uri, String localName, String name) {
     	if (depth > 0) {
     		depth--;
+    		result = value.toString();
     	}
     }
     

@@ -3,7 +3,7 @@ package com.ader;
 import org.w3c.dom.Node;
 
 public class PageTarget extends NavBase {
-	String type;
+	private String type;
 
 	public PageTarget(Node anchor, String type) {
 		super(anchor);

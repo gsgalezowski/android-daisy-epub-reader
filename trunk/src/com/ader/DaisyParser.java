@@ -33,8 +33,8 @@ import com.ader.io.ExtractXMLEncoding;
 
 public class DaisyParser extends DefaultHandler {
 	private static final String TAG = DaisyParser.class.getSimpleName();
-	ArrayList<DaisyElement> daisyElements = new ArrayList<DaisyElement>();
-	DaisyElement current;
+	private ArrayList<DaisyElement> daisyElements = new ArrayList<DaisyElement>();
+	private DaisyElement current;
 	private StringBuilder builder = new StringBuilder();
 
 	@Override
@@ -83,10 +83,11 @@ public class DaisyParser extends DefaultHandler {
 		// On Android the element name is returned in localName, on the
 		// workstation it's returned in 'name'
 		// Adding a temporary workaround until I understand what's happening!
-		if (localName.length() == 0) {
-			localName = name;
+		if (localName.length() > 0) {
+			current.setName(localName);
+		} else {
+			current.setName(name);
 		}
-		current.setName(localName);
 		current.setAttributes(attributes);
 		daisyElements.add(current);
 	}

@@ -14,6 +14,9 @@ public class DaisyBookUtils {
 	public static final String DEFAULT_ROOT_FOLDER = "/sdcard/";
 	public static final String OPT_ROOT_FOLDER = "rootfolder";
 	
+	// Don't allow anyone to create this utility class.
+	private DaisyBookUtils() {};
+	
 	/**
 	 * Tests if the directory contains the essential root file for a Daisy book
 	 * 
@@ -27,14 +30,17 @@ public class DaisyBookUtils {
             return false;
         }
 
+        if (new File(folder, "ncc.html").exists()) {
+        	return true;
+        }
+        
         // Minor hack to cope with the potential of ALL CAPS filename, as per
         // http://www.daisy.org/z3986/specifications/daisy_202.html#ncc
-        if (new File(folder, "ncc.html").exists() || new File(folder, "NCC.HTML").exists()) {
+        if (new File(folder, "NCC.HTML").exists()) {
             return true;
         }
-        else {
-            return false;
-        }
+        
+        return false;
     }
     
     /**
