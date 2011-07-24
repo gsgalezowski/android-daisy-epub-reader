@@ -1,4 +1,4 @@
-package com.ader;
+package com.ader.utilities;
 
 /**
  * DaisyBookUtils contains helper methods for DaisyBooks.

@@ -30,6 +30,7 @@ import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
 
 import com.ader.io.ExtractXMLEncoding;
+import com.ader.utilities.Util;
 
 public class DaisyParser extends DefaultHandler {
 	private static final String TAG = DaisyParser.class.getSimpleName();

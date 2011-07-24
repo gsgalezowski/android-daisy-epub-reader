@@ -5,7 +5,7 @@ import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ader.Util;
+import com.ader.utilities.Util;
 
 public class BookValidator {
 	private static final String TAG = "BookValidator";

@@ -5,6 +5,8 @@ import junit.framework.TestCase;
 import java.io.File;
 import java.io.IOException;
 
+import com.ader.utilities.Util;
+
 import android.test.suitebuilder.annotation.MediumTest;
 
 public class DaisyBookTest extends TestCase {

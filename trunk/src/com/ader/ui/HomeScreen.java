@@ -11,9 +11,9 @@ import android.os.Environment;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-import com.ader.DaisyBookUtils;
 import com.ader.R;
-import com.ader.Util;
+import com.ader.utilities.DaisyBookUtils;
+import com.ader.utilities.Util;
 
 public class HomeScreen extends Activity implements OnClickListener {
 	/** Called when the activity is first created. */
