@@ -34,7 +34,7 @@ import com.ader.utilities.About;
  */
 public class AboutView extends Activity implements OnClickListener {
 	private static final String ABOUT_EMAIL_VERSION = "0.0.4";
-	private final static String TAG = AboutView.class.getName();
+	private static final String TAG = AboutView.class.getName();
 	private StringBuilder locales;
 	private StringBuilder aboutMsg;
 	private StringBuilder xmlFormattedAboutMsg;

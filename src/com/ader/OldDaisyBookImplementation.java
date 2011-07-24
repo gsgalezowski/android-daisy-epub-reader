@@ -11,7 +11,6 @@ public class OldDaisyBookImplementation implements Serializable, DaisyBook {
 	// public static final long serialVersionUID = 1;
 
 	private static final String TAG = OldDaisyBookImplementation.class.getSimpleName();
-	private String filename = "";
 	private int currentnccIndex = 0; // FIXME: Was -1 Temporary change during restructuring
 	private int NCCDepth = 0;
 	private int selectedLevel = 1;
@@ -97,7 +96,7 @@ public class OldDaisyBookImplementation implements Serializable, DaisyBook {
 	 */
 	public void openFromFile(String nccFullPathAndFilename) throws InvalidDaisyStructureException, IOException {
 		items.clear();
-		this.filename = nccFullPathAndFilename;
+		String filename = nccFullPathAndFilename;
 		this.path = new File(nccFullPathAndFilename).getParent() + "/";
 		DaisyParser parser = new DaisyParser();
 		try {

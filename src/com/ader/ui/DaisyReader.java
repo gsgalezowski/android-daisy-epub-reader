@@ -33,14 +33,13 @@ import com.google.marvin.widget.GestureOverlay.GestureListener;
 
 public class DaisyReader extends ListActivity {
 	private OldDaisyBookImplementation book = new OldDaisyBookImplementation();
-	private GestureOverlay gestureOverlay;
-	private LinearLayout linearLayout;
-	private String path;
 	private static final String TAG = "DaisyReader";
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		String path = "";
+		
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.results_list);
 
@@ -52,13 +51,15 @@ public class DaisyReader extends ListActivity {
 				book.openFromFile(path + getIntent().getStringExtra("daisyNccFile"));
 			} catch (InvalidDaisyStructureException idse) {
 				// TODO(jharty): add a UI to help the user address the problem.
-				idse.printStackTrace();
+				Util.logSevereWarning(TAG, "Problem Opening DAISY book, aborting...", idse); 
+				DaisyReader.this.finish();
+				return;
 			}
 			
 			// Now let's save details of the this book, as the most recent book
 			SharedPreferences bookSettings = getSharedPreferences(DaisyBookUtils.PREFS_FILE, 0);
 			SharedPreferences.Editor editor = bookSettings.edit();
-			editor.putString(DaisyBookUtils.LAST_BOOK, this.path);
+			editor.putString(DaisyBookUtils.LAST_BOOK, path);
 			// Commit the edits!
 			editor.commit();
 
@@ -131,8 +132,8 @@ public class DaisyReader extends ListActivity {
 
 	private void activateGesture() {
 		ListView listView = getListView();
-		linearLayout = (LinearLayout) listView.getParent();
-		gestureOverlay = new GestureOverlay(this, gestureListener);
+		LinearLayout linearLayout = (LinearLayout) listView.getParent();
+		GestureOverlay gestureOverlay = new GestureOverlay(this, gestureListener);
 		linearLayout.addView(gestureOverlay);
 	}
 

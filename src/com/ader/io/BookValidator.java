@@ -10,7 +10,6 @@ import com.ader.Util;
 public class BookValidator {
 	private static final String TAG = "BookValidator";
 	private List<String> bookList = new ArrayList<String>();
-	private File fileSystem;
 
 	/*
 	 * Notes to Gary:
@@ -59,8 +58,7 @@ public class BookValidator {
 	}
 
 	public Boolean validFileSystemRoot(String path) {
-		fileSystem = new File(path);
-
+		File fileSystem = new File(path);
 		return fileSystem.isDirectory();
 	}
 
