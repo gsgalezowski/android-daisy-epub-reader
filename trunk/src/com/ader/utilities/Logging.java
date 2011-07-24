@@ -11,10 +11,10 @@ import java.util.logging.Logger;
  * @author jharty
  *
  */
-public final class Util {
+public final class Logging {
 	
 	// Hide the constructor for this utility class.
-	private Util() { };
+	private Logging() { };
 	
 	/**
 	 * Logs informational messages.
