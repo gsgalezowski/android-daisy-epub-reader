@@ -106,7 +106,7 @@ public class OldDaisyBookImplementation implements Serializable, DaisyBook {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		ArrayList<DaisyElement> elements = parser.openAndParseFromFile(filename);
+		List<DaisyElement> elements = parser.openAndParseFromFile(filename);
 		items = processDaisyElements(elements);
 		validateDaisyContents();
 	}
@@ -120,7 +120,7 @@ public class OldDaisyBookImplementation implements Serializable, DaisyBook {
 	 */
 	protected void open(String contents) throws InvalidDaisyStructureException {
 		DaisyParser parser = new DaisyParser();
-		ArrayList<DaisyElement> elements = parser.parse(contents);
+		List<DaisyElement> elements = parser.parse(contents);
 		items = processDaisyElements(elements);
 		validateDaisyContents();
 	}
@@ -239,7 +239,7 @@ public class OldDaisyBookImplementation implements Serializable, DaisyBook {
 	/* (non-Javadoc)
 	 * @see com.ader.DaisyBook#processDaisyElements(java.util.ArrayList)
 	 */
-	public List<DaisyItem> processDaisyElements(ArrayList<DaisyElement> elements)
+	public List<DaisyItem> processDaisyElements(List<DaisyElement> elements)
 	throws NumberFormatException {
 		int level = 0;
 		DaisyItemType type = DaisyItemType.UNKNOWN;

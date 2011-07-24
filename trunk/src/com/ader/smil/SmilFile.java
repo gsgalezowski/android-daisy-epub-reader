@@ -1,4 +1,4 @@
-package com.ader;
+package com.ader.smil;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
@@ -12,20 +12,11 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 
 import com.ader.io.ExtractXMLEncoding;
-import com.ader.smil.AudioElement;
-import com.ader.smil.SequenceElement;
-import com.ader.smil.SmilParser;
-import com.ader.smil.TextElement;
 
 public class SmilFile implements Serializable {
 	
-	private String fileName;
 	private SequenceElement elements;
 	
-	public String getFilename() {
-		return this.fileName;
-	}
-
 	/**
 	 * Opens a SMIL file.
 	 * 
@@ -41,7 +32,6 @@ public class SmilFile implements Serializable {
 	 * @throws IOException
 	 */
 	public void open(String filename) throws FileNotFoundException, IOException {
-		this.fileName = filename;
 		// TODO(jharty): Add validation here?
 		String encoding = ExtractXMLEncoding.obtainEncodingStringFromFile(filename);
 
@@ -79,15 +69,27 @@ public class SmilFile implements Serializable {
 		}
 	}
 
-	
+	/**
+	 * @return all the audio segments extracted from a Smil File.
+	 * 
+	 * Note: This approach works adequately when we want the audio in
+	 * isolation from any other synchronised content. It's not sufficient when
+	 * we want to synchronise content.
+	 */
 	public List<AudioElement> getAudioSegments() {
 		return elements.getAllAudioElementDepthFirst();
 	}
-	
+
+	/**
+	 * @return all the text segments from a Smil File.
+	 * 
+	 * Note: This approach works adequately when we want the text in
+	 * isolation from any other synchronised content. It's not sufficient when
+	 * we want to synchronise content.
+	 */
 	public List<TextElement> getTextSegments() {
 		return elements.getAllTextElementDepthFirst();
 	}
-
 
 	/**
 	 * Does this Smil file contain at least 1 audio segment?
@@ -104,5 +106,4 @@ public class SmilFile implements Serializable {
 	public boolean hasTextSegments() {
 		return getTextSegments().size() > 0;
 	}
-
 }

@@ -87,25 +87,6 @@ public class BookValidatorTests extends TestCase {
 				.validFileSystemRoot(dummyValidTextFile));
 	}
 
-	public void testEmptySubfolderListWhenNoSubfolders() {
-		validator.validFileSystemRoot(dummyEmptyFolder);
-		validator.addFolders(dummyEmptyFolder);
-
-		assertTrue("Folder list should be empty for paths with no subfolders",
-				validator.getFolderList().isEmpty());
-	}
-
-	public void testNotEmptySubfolderListWhenExistingSubfolders() {
-
-		validator.validFileSystemRoot(dummyValidPath);
-		validator.addFolders(dummyValidPath);
-
-		assertTrue(
-				"Folder list should not be empty for paths which contain subfolders",
-				!validator.getFolderList().isEmpty());
-
-	}
-
 	public void testFolderContainsBook() {
 		assertTrue("This folder should contain a valid book", validator
 				.containsBook(dummyValidBook));
