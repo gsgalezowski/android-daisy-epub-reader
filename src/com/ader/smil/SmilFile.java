@@ -30,45 +30,36 @@ public class SmilFile implements Serializable {
 	 * @param filename
 	 * @throws FileNotFoundException
 	 * @throws IOException
+	 * @throws ParserConfigurationException 
+	 * @throws SAXException 
 	 */
-	public void open(String filename) throws FileNotFoundException, IOException {
+	public void open(String filename) 
+			throws FileNotFoundException, IOException, SAXException, ParserConfigurationException {
 		// TODO(jharty): Add validation here?
 		String encoding = ExtractXMLEncoding.obtainEncodingStringFromFile(filename);
+		String alternateEncoding = ExtractXMLEncoding.mapUnsupportedEncoding(encoding);
+		try {
+			tryToExtractElements(filename, encoding);
+		} catch (SAXException saxe) {
+			tryToExtractElements(filename, alternateEncoding);
+		}
+		return;
+	}
+
+	private void tryToExtractElements(String filename, String encoding) 
+			throws IOException, SAXException, ParserConfigurationException {
 
 		FileInputStream fis = new FileInputStream(filename);
 		BufferedInputStream bis = new BufferedInputStream(fis);
 
 		try {
 			elements = new SmilParser().parse(bis, encoding);
-		} catch (SAXException e) {
-			// TODO(jharty): The following code seems to allow us to re-parse
-			// an unsupported encoding (windows-1252). However it's messy and
-			// ugly. I'll check in this version, then try to clean up the code.
-			try {
-				encoding = ExtractXMLEncoding.mapUnsupportedEncoding(encoding);
-				fis.close();
-				bis.close();
-				fis = new FileInputStream(filename);
-				bis = new BufferedInputStream(fis);
-				elements = new SmilParser().parse(bis, encoding);
-				return;
-			} catch (SAXException e2) {
-				// Do nothing, allow the first error to be reported.
-			} catch (ParserConfigurationException e2) {
-				// This seems an extremely unlikely scenario, that the second
-				// attempt would fail with a configuration exception, however
-				// catching it explicitly seems the least ugly approach for now
-				throw new RuntimeException("Problem with the XML Parser on the Android platform." 
-						+ "\n" + e.getLocalizedMessage());
-			}
-			throw new RuntimeException("Problem with file: " + filename 
-					+ "\n" + e.getLocalizedMessage());
-		} catch (ParserConfigurationException e) {
-			throw new RuntimeException("Problem with the XML Parser on the Android platform." 
-					+ "\n" + e.getLocalizedMessage());
+		} finally {
+			fis.close();
+			bis.close();
 		}
 	}
-
+	
 	/**
 	 * @return all the audio segments extracted from a Smil File.
 	 * 
