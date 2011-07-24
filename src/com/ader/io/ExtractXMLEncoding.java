@@ -10,10 +10,11 @@ import java.io.IOException;
 import java.util.regex.Pattern;
 
 /**
+ * Simple Utility class to extract the XML encoding from a text file.
+ * 
  * @author Julian Harty
- *
  */
-public class ExtractXMLEncoding {
+public final class ExtractXMLEncoding {
 	private static final int ENOUGH = 200;
 	protected static final String XML_TRAILER = "\"?>";
 	protected static final String EXTRACT_ENCODING_REGEX = ".*encoding=\"";

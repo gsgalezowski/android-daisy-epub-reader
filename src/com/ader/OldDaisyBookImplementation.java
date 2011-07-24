@@ -239,8 +239,7 @@ public class OldDaisyBookImplementation implements Serializable, DaisyBook {
 	/* (non-Javadoc)
 	 * @see com.ader.DaisyBook#processDaisyElements(java.util.ArrayList)
 	 */
-	public List<DaisyItem> processDaisyElements(List<DaisyElement> elements)
-	throws NumberFormatException {
+	public List<DaisyItem> processDaisyElements(List<DaisyElement> elements) {
 		int level = 0;
 		DaisyItemType type = DaisyItemType.UNKNOWN;
 		

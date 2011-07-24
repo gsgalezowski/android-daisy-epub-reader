@@ -32,6 +32,16 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import com.ader.DummyDtdResolver;
 
+/**
+ * Parser for SMIL files.
+ * 
+ * TODO(jharty): Think carefully how to test the parsing for more complex
+ * contents. The state transitions may be error-prone and the code in
+ * startElement in particular is of concern.
+ * 
+ * @author jharty
+ *
+ */
 public class SmilParser extends DefaultHandler {
     
     private enum State {
@@ -44,7 +54,18 @@ public class SmilParser extends DefaultHandler {
     private Attributes attributes;
     private State state;
     private SequenceElement rootSequence;
-    
+   
+    /**
+     * Parse contents that should contain the Smil File structure.
+     * 
+     * Useful for testing the parsing.
+     * 
+     * @param content the content to parse
+     * @return Sequence of Elements.
+     * @throws IOException
+     * @throws SAXException
+     * @throws ParserConfigurationException
+     */
     public SequenceElement parse(String content) throws IOException, SAXException, ParserConfigurationException {
        return this.parse(new ByteArrayInputStream(content.getBytes()));
     }
@@ -73,6 +94,11 @@ public class SmilParser extends DefaultHandler {
         return rootSequence;
     }
 
+    /**
+     * Called by the SAX Parser for the start of every element discovered.
+     * 
+     * TODO(jharty): Rework, test, and simplify.
+     */
     @Override
     public void startElement(String uri, String localName, String qName,
             Attributes attributes) throws SAXException {
@@ -124,6 +150,9 @@ public class SmilParser extends DefaultHandler {
         }
     }
     
+    /**
+     * Called by the SAX Parser for the end of every element.
+     */
     @Override
 	public void endElement(String uri, String localName, String qName)
 			throws SAXException {

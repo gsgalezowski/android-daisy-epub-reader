@@ -2,6 +2,11 @@ package com.ader;
 
 import org.w3c.dom.Node;
 
+/**
+ * NavBase is a concept described in the DAISY 3 standard.
+ * 
+ * @author jharty
+ */
 public class NavBase {
 	private int playOrder;
 	private String text;
@@ -10,14 +15,14 @@ public class NavBase {
 	
 	/* non JavaDoc
 	 * TODO(jharty): Discuss the following...
-	 * This looks dangerous, having a default public constructor, as it means
-	 * the object could be created with null values - probably not what we want
-	 * How about making it private, so it can't be called inadvertently.
+	 * Hide default public constructor, to prevent the object being created
+	 * with null values - probably not what we want.
 	 * 
 	 * Compare with a Factory design pattern where the default constructor is
 	 * also prohibited.
 	 */
-	public NavBase() {
+	@SuppressWarnings("unused")
+	private NavBase() {
 		
 	}
 	
@@ -31,19 +36,34 @@ public class NavBase {
 	public NavBase(Node anchor) {
 		this.text = anchor.getFirstChild().getNodeValue();
 		this.smil = anchor.getAttributes().getNamedItem("href").getNodeValue();
-		this.id = smil.substring(smil.indexOf("#") + 1);
-		smil = smil.substring(0, smil.indexOf("#") );
+		this.id = smil.substring(smil.indexOf('#') + 1);
+		smil = smil.substring(0, smil.indexOf('#') );
 	}
 
+	/**
+	 * @return the id of the NavBase.
+	 */
 	public String getId() {
 		return id;
 	}
+	
+	/**
+	 * @return the play order.
+	 */
 	public int getPlayOrder() {
 		return playOrder;
 	}
+	
+	/**
+	 * @return the text.
+	 */
 	public String getText() {
 		return text;
 	}
+	
+	/**
+	 * @return the value for the Smil filename.
+	 */
 	public String getSmil() {
 		return smil;
 	}

@@ -8,7 +8,7 @@ package com.ader.ui;
  * the device.
  */
 import java.io.File;
-import java.util.ArrayList;
+import java.util.List;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
@@ -26,7 +26,7 @@ import com.ader.Util;
 import com.ader.io.BookValidator;
 
 public class DaisyBookFinder extends ListActivity {
-	private ArrayList<String> books;
+	private List<String> books;
 	private BookValidator validator;
 	private static final String TAG = "DaisyBookFinder";
 

@@ -40,8 +40,8 @@ public final class Bookmark implements Serializable {
 	 * @throws IOException
 	 */
 	private Bookmark(String path) throws IOException {
-		String pathToBook = ensureTrailingSlash(path);
-		this.loadBookmarks(ensureTrailingSlash(pathToBook));
+		this.pathToBook = ensureTrailingSlash(path);
+		this.loadBookmarks();
 	}
 	
 	private String ensureTrailingSlash(String path) {
@@ -89,13 +89,12 @@ public final class Bookmark implements Serializable {
 		}
 	}
 	
-	private void loadBookmarks(String path) throws IOException {
+	private void loadBookmarks() throws IOException {
 		// Hmmm, what to do about dual bookmarks? old and new...
 		// Some sort of migration path seems sensible.
 		// Let's implement support to read from the current (old) file as I
 		// need to write code to create the recommended DAISY 3 bookmark
 		// structure (XML based).
-		this.pathToBook = path;
 		
 		// The following file will not exist currently as we don't create it.
 		String newBookmarkFile = pathToBook + BOOKMARKS_FILENAME;
@@ -104,7 +103,7 @@ public final class Bookmark implements Serializable {
 			// TODO(jharty): Add code to parse the XML contents
 		} else {
 			// Load the old automatic bookmark file, if it exists
-			load(path + AUTO_BMK);
+			load(pathToBook + AUTO_BMK);
 		}
 		
 	}
