@@ -4,6 +4,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -69,13 +73,18 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 		super.onDestroy();
 	}
 
+	/**
+	 * Called by Android when the user selects the Menu (button).
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		new MenuInflater(getApplication()).inflate(R.menu.playermenu, menu);
 		return(super.onCreateOptionsMenu(menu));
 	}
 	
-	
+	/**
+	 * Called by Android when the user selects a Menu item.
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -156,6 +165,11 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 		return super.onKeyDown(keyCode, event);
 	}
 	
+	/**
+	 * Called by the Media Player when the current audio has finished playing.
+	 * 
+	 * Note: This needs to be public so the Media Player callback can find it.
+	 */
 	public void onCompletion(MediaPlayer mp) {
 		Util.logInfo(TAG, "onCompletion called.");
 		if (book.nextSection(false)) {
@@ -202,13 +216,17 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	}
 
 	/**
-	 * open the current Smil file. Sets the auto bookmark to the contents in
-	 * the current Smil file. 
+	 * open the current Smil file. 
+	 * 
+	 * Sets the auto bookmark to the contents in the current Smil file. 
 	 * 
 	 * @throws FileNotFoundException
 	 * @throws IOException
+	 * @throws ParserConfigurationException 
+	 * @throws SAXException 
 	 */
-	void openSmil() throws FileNotFoundException, IOException {
+	private void openSmil() 
+			throws FileNotFoundException, IOException, SAXException, ParserConfigurationException {
 		String smilfilename = book.getCurrentSmilFilename();
 		Util.logInfo(TAG, "Open SMIL file: " + smilfilename);
 		smilfile.open(smilfilename);
@@ -221,57 +239,76 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 		player.reset();
 		int duration = Toast.LENGTH_LONG;
 
-		Toast toast; 
 		try {
 			openSmil();
 			read();
+			return;
 		} catch (FileNotFoundException fnfe) {
-			CharSequence text = getString(R.string.cannot_open_book_a_file_is_missing) + fnfe.getLocalizedMessage();
-			toast = Toast.makeText(this, text, duration);
-			toast.show();
-			AlertDialog.Builder explainProblem = new AlertDialog.Builder(this);
-			explainProblem
-			.setCancelable(false)
-			.setTitle(R.string.unable_to_open_file)
-			.setMessage(text)
-			.setPositiveButton(R.string.close_instructions, new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int id) {
-					return;
-				}
-			})
-			.show();
+			reportFileNotFoundException(duration, fnfe);
 		} catch (IOException ioe) {
-			CharSequence text = getString(R.string.cannot_open_book) + ioe.getLocalizedMessage();
-			toast = Toast.makeText(this, text, duration);
-			toast.show();			
-			
-			AlertDialog.Builder explainProblem = new AlertDialog.Builder(this);
-			explainProblem
-			.setTitle(R.string.permission_problem_opening_a_file)
-			.setMessage(ioe.getLocalizedMessage())
-			.setPositiveButton(R.string.close_instructions, new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int id) {
-					DaisyPlayer.this.finish();
-				}
-			})
-			.show();
-		} catch (RuntimeException re) {
-			CharSequence text = getString(R.string.cannot_open_book) + " A Runtime error occured." 
-				+ re.getLocalizedMessage();
-			toast = Toast.makeText(this, text, duration);
-			toast.show();
-			
-			AlertDialog.Builder explainProblem = new AlertDialog.Builder(this);
-			explainProblem
-			.setTitle(R.string.serious_problem_found)
-			.setMessage(re.getLocalizedMessage())
-			.setPositiveButton(R.string.close_instructions, new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int id) {
-					DaisyPlayer.this.finish();
-				}
-			})
-			.show();
+			reportIOException(duration, ioe);
+		} catch (SAXException saxe) {
+			reportSAXException(duration, saxe);
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+	}
+
+	private void reportSAXException(int duration, SAXException saxe) {
+		Toast toast;
+		CharSequence text = getString(R.string.cannot_open_book) + " " 
+			+ saxe.getLocalizedMessage();
+		toast = Toast.makeText(this, text, duration);
+		toast.show();
+		
+		AlertDialog.Builder explainProblem = new AlertDialog.Builder(this);
+		explainProblem
+		.setTitle(R.string.serious_problem_found)
+		.setMessage(saxe.getLocalizedMessage())
+		.setPositiveButton(R.string.close_instructions, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				DaisyPlayer.this.finish();
+			}
+		})
+		.show();
+	}
+
+	private void reportIOException(int duration, IOException ioe) {
+		Toast toast;
+		CharSequence text = getString(R.string.cannot_open_book) + ioe.getLocalizedMessage();
+		toast = Toast.makeText(this, text, duration);
+		toast.show();			
+		
+		AlertDialog.Builder explainProblem = new AlertDialog.Builder(this);
+		explainProblem
+		.setTitle(R.string.permission_problem_opening_a_file)
+		.setMessage(ioe.getLocalizedMessage())
+		.setPositiveButton(R.string.close_instructions, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				DaisyPlayer.this.finish();
+			}
+		})
+		.show();
+	}
+
+	private void reportFileNotFoundException(int duration,
+			FileNotFoundException fnfe) {
+		Toast toast;
+		CharSequence text = getString(R.string.cannot_open_book_a_file_is_missing) + fnfe.getLocalizedMessage();
+		toast = Toast.makeText(this, text, duration);
+		toast.show();
+		AlertDialog.Builder explainProblem = new AlertDialog.Builder(this);
+		explainProblem
+		.setCancelable(false)
+		.setTitle(R.string.unable_to_open_file)
+		.setMessage(text)
+		.setPositiveButton(R.string.close_instructions, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				return;
+			}
+		})
+		.show();
 	}
 
 	/**
@@ -327,6 +364,9 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 		}
 	}
     
+	/**
+	 * Called when external actions occur e.g. when the audio has finished.
+	 */
 	public void stop() {
 		player.pause();
 		int currentPosition = player.getCurrentPosition();
@@ -342,6 +382,9 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 		}
 	}
 
+	/**
+	 * Toggles the Media Player between Play and Pause states.
+	 */
 	public void togglePlay() {
 		Util.logInfo(TAG, "togglePlay called.");
 		if (player.isPlaying()) {

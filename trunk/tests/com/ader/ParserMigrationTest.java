@@ -7,6 +7,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
+
 import com.ader.smil.SmilFile;
 
 import junit.framework.TestCase;
@@ -26,7 +30,7 @@ public class ParserMigrationTest extends TestCase {
 	}
 	
 	@MediumTest
-	public void testSideBySideContent() throws IOException {
+	public void testSideBySideContent() throws Exception {
 		String path = new File(".").getCanonicalPath();
 		String filename = path + PATH_TO_LIGHT_MAN_FILES + "ncc.html";
 		FileInputStream stream1 = new FileInputStream(filename);
