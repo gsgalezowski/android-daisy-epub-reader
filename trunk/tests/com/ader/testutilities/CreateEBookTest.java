@@ -2,6 +2,8 @@ package com.ader.testutilities;
 
 import java.io.ByteArrayOutputStream;
 
+import com.ader.NotImplementedException;
+
 import junit.framework.TestCase;
 
 /**
@@ -60,6 +62,25 @@ public class CreateEBookTest extends TestCase {
 		eBook.addTheseLevels("12345653211234543211234321123211211");
 		eBook.writeEndOfDocument();
 		assertTrue("Generated book should have some content", out.size() > 100);
+	}
+	
+	public void testCreateDummyEBook() {
+		
+		class DummyEBook extends CreateEBook {
+
+			public DummyEBook() throws NotImplementedException {
+				super();
+			}
+			
+		}
+		
+		try {
+			CreateEBook dummyBook = new DummyEBook();
+			fail("Expected the CreateEBook to fail");
+		} catch (NotImplementedException nie) {
+			// Good enough, we expect this exception
+		}
+		
 	}
 
 	/**

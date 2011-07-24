@@ -37,7 +37,7 @@ public abstract class CreateEBook {
 	}
 	
 	/**
-	 * The 'contents' of the eBook will be writen to the output stream.
+	 * The 'contents' of the eBook will be written to the output stream.
 	 * @param out The OutputStream to use e.g. ByteArrayOutputStream.
 	 * @throws NotImplementedException
 	 */
