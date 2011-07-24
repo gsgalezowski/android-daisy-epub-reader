@@ -13,9 +13,9 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
 
-import com.ader.DaisyBookUtils;
 import com.ader.R;
-import com.ader.Util;
+import com.ader.utilities.DaisyBookUtils;
+import com.ader.utilities.Util;
 
 /**
  * Preferences handles the various preferences used by the DaisyReader.

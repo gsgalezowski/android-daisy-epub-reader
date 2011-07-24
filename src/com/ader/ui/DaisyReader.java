@@ -21,12 +21,12 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.ader.DaisyBookUtils;
 import com.ader.DaisyItem;
 import com.ader.InvalidDaisyStructureException;
 import com.ader.OldDaisyBookImplementation;
 import com.ader.R;
-import com.ader.Util;
+import com.ader.utilities.DaisyBookUtils;
+import com.ader.utilities.Util;
 import com.google.marvin.widget.GestureOverlay;
 import com.google.marvin.widget.GestureOverlay.Gesture;
 import com.google.marvin.widget.GestureOverlay.GestureListener;

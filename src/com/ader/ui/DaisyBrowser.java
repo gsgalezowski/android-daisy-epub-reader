@@ -20,9 +20,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import com.ader.DaisyBookUtils;
 import com.ader.R;
-import com.ader.Util;
+import com.ader.utilities.DaisyBookUtils;
+import com.ader.utilities.Util;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;

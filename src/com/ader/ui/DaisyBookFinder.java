@@ -20,10 +20,10 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.ader.DaisyBookUtils;
 import com.ader.R;
-import com.ader.Util;
 import com.ader.io.BookValidator;
+import com.ader.utilities.DaisyBookUtils;
+import com.ader.utilities.Util;
 
 public class DaisyBookFinder extends ListActivity {
 	private List<String> books;

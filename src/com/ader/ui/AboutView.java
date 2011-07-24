@@ -18,9 +18,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.ader.R;
-import com.ader.Util;
 import com.ader.io.XmlFormatter;
 import com.ader.utilities.About;
+import com.ader.utilities.Util;
 
 /**
  * TODO (jharty): I'd like to add information on the book being read and any
