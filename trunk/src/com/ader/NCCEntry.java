@@ -42,7 +42,7 @@ public class NCCEntry implements Serializable, DaisyItem {
 		this.text = text.trim();  // Strips off extraneous new line characters, etc.
 		this.type = type;
 		this.level = level;
-		int hashPosition = smil.indexOf("#");
+		int hashPosition = smil.indexOf('#');
 		smilRef = smil.substring(hashPosition + 1);
 		String tempStr = smil.substring(0, hashPosition);
 		this.smil = tempStr;

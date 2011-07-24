@@ -17,7 +17,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import com.ader.DummyDtdResolver;
 
 /**
- * Utility for retrieving the text for TextElement
+ * Helper Class for retrieving the text for TextElement
  * Currently it only works with local files.
  */
 public class TextLocator extends DefaultHandler {
@@ -35,8 +35,8 @@ public class TextLocator extends DefaultHandler {
     
     public String getText(String src) throws IOException {
         if (src.contains("#")) {
-            targetId = src.substring(src.indexOf("#") + 1);
-            File file = new File(baseDirectory, src.substring(0, src.indexOf("#")));
+            targetId = src.substring(src.indexOf('#') + 1);
+            File file = new File(baseDirectory, src.substring(0, src.indexOf('#')));
             SAXParserFactory factory = SAXParserFactory.newInstance();
             try {
             	org.xml.sax.InputSource input = new InputSource(new FileInputStream(file));

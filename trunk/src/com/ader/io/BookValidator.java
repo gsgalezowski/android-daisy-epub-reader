@@ -3,14 +3,13 @@ package com.ader.io;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.List;
 
 import com.ader.Util;
 
 public class BookValidator {
 	private static final String TAG = "BookValidator";
-	private ArrayList<String> BookList = new ArrayList<String>();
+	private List<String> bookList = new ArrayList<String>();
 	private File fileSystem;
 
 	/*
@@ -42,7 +41,7 @@ public class BookValidator {
 		};
 
 		if (containsBook(path)) {
-			BookList.add(path);
+			bookList.add(path);
 		}
 		else {
 			File temp = new File(path);
@@ -69,10 +68,10 @@ public class BookValidator {
 		return ((new File(path, "ncc.html").exists()) || (new File(path, "NCC.HTML").exists()));
 	}
 
-	public ArrayList<String> getBookList() {
-		for (String path : BookList) {
+	public List<String> getBookList() {
+		for (String path : bookList) {
 			Util.logInfo("BookValidator", "Book available at : " + path);
 		}
-		return BookList;
+		return bookList;
 	}
 }

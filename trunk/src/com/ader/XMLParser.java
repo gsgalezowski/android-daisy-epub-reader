@@ -42,11 +42,11 @@ public class XMLParser {
 							false);
 			document = builderFactory.newDocumentBuilder().parse(input);
 		} catch (ParserConfigurationException e) {
-			Util.logInfo(TAG, PROBLEM_PARSING_XML, e);
+			Util.logSevereWarning(TAG, PROBLEM_PARSING_XML, e);
 		} catch (SAXException e) {
-			Util.logInfo(TAG, PROBLEM_PARSING_XML, e);
+			Util.logSevereWarning(TAG, PROBLEM_PARSING_XML, e);
 		} catch (IOException e) {
-			Util.logInfo(TAG, PROBLEM_PARSING_XML, e);
+			Util.logSevereWarning(TAG, PROBLEM_PARSING_XML, e);
 		}
 	}
 

@@ -8,7 +8,7 @@ package com.ader;
  */
 import java.io.File;
 
-public class DaisyBookUtils {
+public final class DaisyBookUtils {
 	public static final String LAST_BOOK = "last_book_open";
 	public static final String PREFS_FILE = "DaisyReaderPreferences";
 	public static final String DEFAULT_ROOT_FOLDER = "/sdcard/";
