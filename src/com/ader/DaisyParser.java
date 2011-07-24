@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.parsers.FactoryConfigurationError;
 import javax.xml.parsers.ParserConfigurationException;
@@ -33,7 +34,7 @@ import com.ader.io.ExtractXMLEncoding;
 
 public class DaisyParser extends DefaultHandler {
 	private static final String TAG = DaisyParser.class.getSimpleName();
-	private ArrayList<DaisyElement> daisyElements = new ArrayList<DaisyElement>();
+	private List<DaisyElement> daisyElements = new ArrayList<DaisyElement>();
 	private DaisyElement current;
 	private StringBuilder builder = new StringBuilder();
 
@@ -44,18 +45,18 @@ public class DaisyParser extends DefaultHandler {
 		builder.append(ch, start, length);
 	}
 
-	public ArrayList<DaisyElement> parse(String content) {
+	public List<DaisyElement> parse(String content) {
 		return this.parse(new ByteArrayInputStream(content.getBytes()));
 	}
 
-	public ArrayList<DaisyElement> parse(InputStream stream) {
+	public List<DaisyElement> parse(InputStream stream) {
 		
 		EntityResolver der = dummyEntityResolver();
 		// TODO (jharty): Extract the encoding from the stream
 		return parseNccContents(stream, der, "UTF-8");
 	}
 	
-	public ArrayList<DaisyElement> openAndParseFromFile(final String xmlFile) throws IOException {
+	public List<DaisyElement> openAndParseFromFile(final String xmlFile) throws IOException {
 		Util.logInfo(TAG, "XMLFILE " + xmlFile);
 		String encoding = ExtractXMLEncoding.obtainEncodingStringFromFile(xmlFile); 
 		encoding = ExtractXMLEncoding.mapUnsupportedEncoding(encoding);
@@ -103,8 +104,7 @@ public class DaisyParser extends DefaultHandler {
 	 * Note: this code is modelled on the code in SmilParser.java which
 	 * correctly supports the encoding.
 	 */
-	private ArrayList<DaisyElement> parseNccContents(InputStream stream, EntityResolver er, String encoding) 
-			throws FactoryConfigurationError {
+	private List<DaisyElement> parseNccContents(InputStream stream, EntityResolver er, String encoding) {
 		try {
 			SAXParserFactory factory = SAXParserFactory.newInstance();
 			XMLReader saxParser = factory.newSAXParser().getXMLReader();
@@ -141,12 +141,11 @@ public class DaisyParser extends DefaultHandler {
 			public InputSource resolveEntity(String publicId, String systemId)
 			throws java.io.IOException
 			{
-				String directory = xmlFile.substring(0, xmlFile.lastIndexOf("/") + 1);
+				String directory = xmlFile.substring(0, xmlFile.lastIndexOf('/') + 1);
 				Util.logInfo(TAG, "xml directory:" + directory);
 				String resourcePath =
-					directory + systemId.substring(systemId.lastIndexOf("/") + 1);
-				return new InputSource(
-						new BufferedReader(new FileReader(resourcePath)));
+					directory + systemId.substring(systemId.lastIndexOf('/') + 1);
+				return new InputSource(new BufferedReader(new FileReader(resourcePath)));
 			}
 		};
 		return er;

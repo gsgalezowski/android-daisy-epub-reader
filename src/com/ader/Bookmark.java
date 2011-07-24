@@ -10,6 +10,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 
+import com.ader.smil.SmilFile;
+
 /**
  * Represents bookmarks for a given book.
  * 

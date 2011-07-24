@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import com.ader.smil.SmilFile;
+
 import junit.framework.TestCase;
 
 import android.test.suitebuilder.annotation.MediumTest;
@@ -29,7 +31,7 @@ public class ParserMigrationTest extends TestCase {
 		String filename = path + PATH_TO_LIGHT_MAN_FILES + "ncc.html";
 		FileInputStream stream1 = new FileInputStream(filename);
 		FileInputStream stream2 = new FileInputStream(filename);
-		ArrayList <DaisyElement> oldElements = oldParser.parse(stream1);
+		List <DaisyElement> oldElements = oldParser.parse(stream1);
 		DaisyBook tempBook = new OldDaisyBookImplementation();
 		List<DaisyItem> items = tempBook.processDaisyElements(oldElements);
 		

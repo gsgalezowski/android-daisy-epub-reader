@@ -78,7 +78,6 @@ public interface DaisyBook {
 	 * @param elements The Daisy Book Elements
 	 * @throws NumberFormatException
 	 */
-	List<DaisyItem> processDaisyElements(
-			ArrayList<DaisyElement> elements) throws NumberFormatException;
+	List<DaisyItem> processDaisyElements(List<DaisyElement> elements) throws NumberFormatException;
 
 }

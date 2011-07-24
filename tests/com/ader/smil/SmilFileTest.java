@@ -1,8 +1,9 @@
-package com.ader;
+package com.ader.smil;
 
 import junit.framework.TestCase;
 import android.test.suitebuilder.annotation.MediumTest;
 
+import com.ader.smil.SmilFile;
 import com.ader.smil.TextElement;
 
 public class SmilFileTest extends TestCase {

@@ -9,6 +9,7 @@ import android.test.suitebuilder.annotation.MediumTest;
 import android.test.suitebuilder.annotation.SmallTest;
 
 import com.ader.smil.AudioElement;
+import com.ader.smil.SmilFile;
 import com.ader.testutilities.CreateDaisy202Book;
 
 public class TestAbilityToGenerateDaisy202Book extends TestCase {

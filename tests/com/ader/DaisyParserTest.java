@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import android.test.suitebuilder.annotation.MediumTest;
 import android.test.suitebuilder.annotation.SmallTest;
@@ -39,7 +40,7 @@ public class DaisyParserTest extends TestCase {
 	@MediumTest
 	public void testCanParseFromFile() throws IOException {
 		String filename = openTestFile(LIGHT_MAN_NCC_HTML);
-		ArrayList<DaisyElement> elements = parser.openAndParseFromFile(filename);
+		List<DaisyElement> elements = parser.openAndParseFromFile(filename);
 		assertTrue("There should be SOME content", elements.size() > 0);
 	}
 
@@ -47,7 +48,7 @@ public class DaisyParserTest extends TestCase {
 	@SmallTest
 	public void testCanParseFromTextContent() {
 		System.out.println(SampleContent.simpleValidNccHtml);
-		ArrayList<DaisyElement> elements = parser.parse(SampleContent.simpleValidNccHtml);
+		List<DaisyElement> elements = parser.parse(SampleContent.simpleValidNccHtml);
 		assertEquals("The elements should be: html head, body, title, h1, a.", 6, elements.size());
 	}
 	
@@ -61,7 +62,7 @@ public class DaisyParserTest extends TestCase {
 	@SmallTest
 	public void testCanParseIcelandicContent() throws IOException {
 		String filename = openTestFile("/Resources/testfiles/icelandic/ncc.html");
-		ArrayList<DaisyElement> elements = 
+		List<DaisyElement> elements = 
 			parser.openAndParseFromFile(filename);
 		assertEquals("html", elements.get(0).getName());
 		// Might be worth adding additional validation, however this is the
@@ -72,7 +73,7 @@ public class DaisyParserTest extends TestCase {
 	@MediumTest
 	public void testCanParseFromInputStream() throws Exception {
 		String filename = openTestFile(LIGHT_MAN_NCC_HTML);
-		ArrayList<DaisyElement> elements = parser.parse(new FileInputStream(filename));
+		List<DaisyElement> elements = parser.parse(new FileInputStream(filename));
 		assertTrue("There should be SOME content", elements.size() > 0);
 	}
 }

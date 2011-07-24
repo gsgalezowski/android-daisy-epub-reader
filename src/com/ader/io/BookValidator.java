@@ -10,7 +10,6 @@ import com.ader.Util;
 
 public class BookValidator {
 	private static final String TAG = "BookValidator";
-	private ArrayList<String> folderList = new ArrayList<String>();
 	private ArrayList<String> BookList = new ArrayList<String>();
 	private File fileSystem;
 
@@ -66,21 +65,6 @@ public class BookValidator {
 		return fileSystem.isDirectory();
 	}
 
-	public void addFolders(String path) {
-		File currentDirectory = new File(path);
-
-		FilenameFilter dirFilter = new FilenameFilter() {
-			public boolean accept(File dir, String name) {
-				return new File(dir, name).isDirectory();
-			}
-		};
-
-		folderList.addAll(new ArrayList<String>(Arrays.asList(currentDirectory
-				.list(dirFilter))));
-
-		Collections.sort(folderList, String.CASE_INSENSITIVE_ORDER);
-	}
-
 	public Boolean containsBook(String path) {
 		return ((new File(path, "ncc.html").exists()) || (new File(path, "NCC.HTML").exists()));
 	}
@@ -90,9 +74,5 @@ public class BookValidator {
 			Util.logInfo("BookValidator", "Book available at : " + path);
 		}
 		return BookList;
-	}
-
-	public ArrayList<String> getFolderList() {
-		return folderList;
 	}
 }
