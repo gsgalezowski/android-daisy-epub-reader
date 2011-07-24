@@ -9,7 +9,7 @@ import junit.framework.TestCase;
 
 import com.ader.testutilities.CreateDaisy202Book;
 
-public class BookValidatorTests extends TestCase {
+public class BookValidatorTest extends TestCase {
 	private final String dummyValidPath = System.getProperty("java.io.tmpdir") 
 		+ "daisyreadertests" + File.separator;
 	private final String dummyValidTextFile = dummyValidPath + "dummyfile.txt";
@@ -120,8 +120,8 @@ public class BookValidatorTests extends TestCase {
 			eBook.addLevelOne();
 			eBook.writeEndOfDocument();
 			out.close(); // Now, save the changes.
-			
 		}
+
 		
 		assertTrue("The newly created book should exist.",
 				new File(dummyValidDaisy202UpperCaseIndexFile).exists());
@@ -134,6 +134,27 @@ public class BookValidatorTests extends TestCase {
 		assertEquals("The path for the valid book is incorrect",
 				dummySecondDaisyBookFolder, validator.getBookList().get(0));
 
+	}
+	
+	public void testNullPathGetsEmptyList() {
+		BookValidator bookValidator = new BookValidator();
+		bookValidator.findBooks(null);
+		assertEquals("Should get an empty list of folders for a 'null' path", 
+				0, bookValidator.getBookList().size());
+	}
+	
+	public void testEmptyPathGetsEmptyList() {
+		BookValidator bookValidator = new BookValidator();
+		bookValidator.findBooks("");
+		assertEquals("Should get an empty list of folders for an empty path", 
+				0, bookValidator.getBookList().size());
+	}	
+	
+	public void testStartsWithDotGetsEmptyList() {
+		BookValidator bookValidator = new BookValidator();
+		bookValidator.findBooks(".anything");
+		assertEquals("Should get an empty list of folders for a path that starts with .", 
+				0, bookValidator.getBookList().size());
 	}
 	
 	/*
@@ -151,7 +172,7 @@ public class BookValidatorTests extends TestCase {
 	        // recursively delete contents
 	        for(File innerFile: fileOrDir.listFiles())
 	        {
-	            if(!BookValidatorTests.recursiveDelete(innerFile))
+	            if(!BookValidatorTest.recursiveDelete(innerFile))
 	            {
 	                return false;
 	            }

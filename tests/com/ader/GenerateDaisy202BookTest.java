@@ -12,7 +12,7 @@ import com.ader.smil.AudioElement;
 import com.ader.smil.SmilFile;
 import com.ader.testutilities.CreateDaisy202Book;
 
-public class TestAbilityToGenerateDaisy202Book extends TestCase {
+public class GenerateDaisy202BookTest extends TestCase {
 
 	private ByteArrayOutputStream out;
 	private CreateDaisy202Book eBook;
