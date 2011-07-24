@@ -3,8 +3,6 @@ package com.ader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import android.util.Log;
-
 /**
  * A utility class to log messages.
  * 

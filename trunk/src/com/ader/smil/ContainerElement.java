@@ -8,8 +8,9 @@ public interface ContainerElement extends SmilElement {
      * Useful when navigating the nested data structures.
      * @return the parent SMIL element
      */
-	public ContainerElement getParent();
+	ContainerElement getParent();
 	
-    public List<AudioElement> getAllAudioElementDepthFirst();
-    public List<TextElement> getAllTextElementDepthFirst();
+    List<AudioElement> getAllAudioElementDepthFirst();
+    
+    List<TextElement> getAllTextElementDepthFirst();
 }

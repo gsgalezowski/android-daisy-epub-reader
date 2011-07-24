@@ -40,7 +40,6 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	private OldDaisyBookImplementation book;
 	private MediaPlayer player;
 	private GestureOverlay gestureOverlay;
-	private FrameLayout frameLayout;
 	private TextView mainText;
 	private TextView statusText;
 	private TextView depthText;
@@ -430,7 +429,7 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 		depthText = (TextView) findViewById(R.id.depthText);
 		mainText = (TextView) findViewById(R.id.mainText);
         statusText = (TextView) findViewById(R.id.statusText);
-		frameLayout = (FrameLayout) findViewById(R.id.daisyPlayerLayout);
+		FrameLayout frameLayout = (FrameLayout) findViewById(R.id.daisyPlayerLayout);
 		gestureOverlay = new GestureOverlay(this, gestureListener);
 		frameLayout.addView(gestureOverlay);
 		setContentView(frameLayout);

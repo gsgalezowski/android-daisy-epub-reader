@@ -2,12 +2,6 @@ package com.ader.ui;
 
 import java.io.File;
 
-import com.ader.DaisyBookUtils;
-import com.ader.R;
-import com.ader.Util;
-import com.ader.R.string;
-import com.ader.R.xml;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -19,6 +13,10 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
 
+import com.ader.DaisyBookUtils;
+import com.ader.R;
+import com.ader.Util;
+
 /**
  * Preferences handles the various preferences used by the DaisyReader.
  * 
@@ -29,8 +27,6 @@ import android.widget.Toast;
 public class Preferences extends PreferenceActivity implements OnSharedPreferenceChangeListener {
 	private static final String TAG = "Perferences";
 	private SharedPreferences sp;
-	private EditTextPreference rootiefolder;
-	private boolean validRootFolder;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,17 +34,17 @@ public class Preferences extends PreferenceActivity implements OnSharedPreferenc
 		addPreferencesFromResource(R.xml.preferences);
 		sp = PreferenceManager.getDefaultSharedPreferences(this);
 		sp.registerOnSharedPreferenceChangeListener(this);
-		// showDialog(R.id.xxxx));
 		final Context context = this;
 
-		 this.rootiefolder = (EditTextPreference)findPreference(DaisyBookUtils.OPT_ROOT_FOLDER);
-	        this.rootiefolder.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener(){
+		EditTextPreference rootiefolder;
+		rootiefolder = (EditTextPreference)findPreference(DaisyBookUtils.OPT_ROOT_FOLDER);
+	        rootiefolder.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener(){
 
 			public boolean onPreferenceChange(Preference preference,
 	          Object newValue) {
 	        	  String foldername = newValue.toString();
 	        	  File temp = new File(foldername);
-	        	  validRootFolder = foldername.endsWith("/") && temp.isDirectory();
+	        	  boolean validRootFolder = foldername.endsWith("/") && temp.isDirectory();
 	        	  // TODO (harty): find a better way to notify the user when
 	        	  // there's a problem with the name of the root folder as
 	        	  // Toasts don't seem to be detected or spoken by the

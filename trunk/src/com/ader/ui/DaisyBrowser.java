@@ -98,7 +98,7 @@ public class DaisyBrowser extends ListActivity {
 		      return;
 		  } });
 		  alertDialog.show();
-		};
+		}
 
         FilenameFilter dirFilter = new FilenameFilter() {
             public boolean accept(File dir, String name) {

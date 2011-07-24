@@ -27,7 +27,6 @@ import com.ader.io.BookValidator;
 
 public class DaisyBookFinder extends ListActivity {
 	private List<String> books;
-	private BookValidator validator;
 	private static final String TAG = "DaisyBookFinder";
 
 	@Override
@@ -36,7 +35,7 @@ public class DaisyBookFinder extends ListActivity {
         Util.logInfo(TAG, "onCreate");
         setContentView(R.layout.results_list);
                 
-        validator = new BookValidator();
+        BookValidator validator = new BookValidator();
         String rootfolder = Preferences.getRootfolder(getBaseContext());
 		Util.logInfo(TAG, "The root folder to search is: " + rootfolder);
         validator.findBooks(rootfolder);
