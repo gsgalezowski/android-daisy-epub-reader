@@ -7,7 +7,7 @@
   <name>DaisyReader</name>
   <version>0.310</version>
   <build>
-        <sourceDirectory>src</sourceDirectory>
+        <sourceDirectory>.</sourceDirectory>
         <outputDirectory>bin</outputDirectory>
         <testSourceDirectory>tests</testSourceDirectory>
         <plugins>
@@ -17,9 +17,10 @@
               <configuration>
                   <source>1.5</source>
                   <target>1.5</target>
-                  <excludes>
-                      <exclude>**/*.*</exclude>
-                  </excludes>
+              <includes>
+                 <include>src/**/*.java</include>
+                 <include>gen/**/*.java</include>
+              </includes>
               </configuration>
            </plugin>
         </plugins>
@@ -29,7 +30,6 @@
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
-      <scope>test</scope>
     </dependency> 
  
     <dependency>
