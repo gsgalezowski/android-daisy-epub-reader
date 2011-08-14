@@ -11,7 +11,7 @@ import java.io.OutputStream;
 import java.io.Serializable;
 
 import com.ader.smil.SmilFile;
-import com.ader.utilities.Util;
+import com.ader.utilities.Logging;
 
 /**
  * Represents bookmarks for a given book.
@@ -78,7 +78,7 @@ public final class Bookmark implements Serializable {
 	}
 
 	public void setPosition(int position) {
-	    Util.logInfo(TAG, "Setting position to " + position);
+		Logging.logInfo(TAG, "Setting position to " + position);
 		this.position = position;
 	}
 
@@ -100,7 +100,7 @@ public final class Bookmark implements Serializable {
 		// The following file will not exist currently as we don't create it.
 		String newBookmarkFile = pathToBook + BOOKMARKS_FILENAME;
 		if (new File(newBookmarkFile).exists()) {
-			Util.logInfo(TAG, "Apparently the new bookmarks file exists!");
+			Logging.logInfo(TAG, "Apparently the new bookmarks file exists!");
 			// TODO(jharty): Add code to parse the XML contents
 		} else {
 			// Load the old automatic bookmark file, if it exists
@@ -117,7 +117,7 @@ public final class Bookmark implements Serializable {
 		filename = in.readUTF();
 		nccIndex = in.readInt();
 		position = in.readInt();
-		Util.logInfo(TAG, String.format(
+		Logging.logInfo(TAG, String.format(
 				"Reading Bookmark details SMILfile[%s] NCC index[%d] offset[%d]",
 				filename, nccIndex, position));
 		in.close();
@@ -143,7 +143,7 @@ public final class Bookmark implements Serializable {
 			// TODO(jharty): Again this code is flawed. Address with above fix.
 			if (this.getPosition() <= 0) {
 				this.setPosition((int) smilFile.getAudioSegments().get(0).getClipBegin());
-				Util.logInfo(TAG, String.format(
+				Logging.logInfo(TAG, String.format(
 						"After calling setPosition SMILfile[%s] NCC index[%d] offset[%d]",
 						this.getFilename(), this.getNccIndex(), this.getPosition()));
 			}
@@ -170,7 +170,7 @@ public final class Bookmark implements Serializable {
 	void save(OutputStream outputStream) throws IOException {
 		DataOutputStream out = new DataOutputStream(outputStream);
 
-		Util.logInfo(TAG, String.format(
+		Logging.logInfo(TAG, String.format(
 				"Saving Bookmark details SMILfile[%s] NCC index[%d] offset[%d]",
 				filename, nccIndex, position));
 		out.writeUTF(filename);

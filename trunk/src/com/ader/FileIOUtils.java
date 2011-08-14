@@ -1,14 +1,12 @@
 package com.ader;
 
-
-import com.ader.utilities.Util;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
+import com.ader.utilities.Logging;
 /**
  * This class doesn't work as desired and isn't part of the project.
  * @author Julian Harty
@@ -22,7 +20,7 @@ public class FileIOUtils extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		Util.logInfo("FileIOUtils", "OnCreate Called");
+		Logging.logInfo("FileIOUtils", "OnCreate Called");
 	}
 
 	/** 

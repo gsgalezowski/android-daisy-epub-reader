@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ader.utilities.Util;
+import com.ader.utilities.Logging;
 
 @SuppressWarnings("serial")
 public class OldDaisyBookImplementation implements Serializable, DaisyBook {
@@ -102,7 +102,7 @@ public class OldDaisyBookImplementation implements Serializable, DaisyBook {
 		this.path = new File(nccFullPathAndFilename).getParent() + "/";
 		DaisyParser parser = new DaisyParser();
 		try {
-			Util.logInfo(TAG, new File(".").getCanonicalPath());
+			Logging.logInfo(TAG, new File(".").getCanonicalPath());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -127,7 +127,7 @@ public class OldDaisyBookImplementation implements Serializable, DaisyBook {
 	}
 
 	public DaisyItem current() {
-		Util.logInfo(TAG, String.format("Current entry is index:%d, ncc:%s",
+		Logging.logInfo(TAG, String.format("Current entry is index:%d, ncc:%s",
 				currentnccIndex,
 				items.get(currentnccIndex)));
 		return items.get(currentnccIndex);
@@ -153,7 +153,7 @@ public class OldDaisyBookImplementation implements Serializable, DaisyBook {
 	 */
 	public void goTo(DaisyItem nccEntry) {
 		int index = items.indexOf(nccEntry);
-		Util.logInfo(TAG, "goto " + index);
+		Logging.logInfo(TAG, "goto " + index);
 		currentnccIndex = index;
 	}
 	
@@ -192,7 +192,7 @@ public class OldDaisyBookImplementation implements Serializable, DaisyBook {
 	 * @see com.ader.DaisyBook#nextSection(java.lang.Boolean)
 	 */
 	public boolean nextSection(Boolean includeLevels) {
-		Util.logInfo(TAG, String.format(
+		Logging.logInfo(TAG, String.format(
 				"next called; includelevels: %b selectedLevel: %d, currentnccIndex: %d", 
 				includeLevels, selectedLevel, currentnccIndex));
 		for (int i = currentnccIndex + 1; i < items.size(); i++) {
@@ -214,7 +214,7 @@ public class OldDaisyBookImplementation implements Serializable, DaisyBook {
 	 * @see com.ader.DaisyBook#previousSection()
 	 */
 	public boolean previousSection() {
-		Util.logInfo(TAG, "previous");
+		Logging.logInfo(TAG, "previous");
 		for (int i = currentnccIndex -1; i >= 0; i--) {
 			if (items.get(i).getLevel() <= selectedLevel
 				&& items.get(i).getType() == DaisyItemType.LEVEL) {

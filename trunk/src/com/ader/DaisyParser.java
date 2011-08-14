@@ -30,7 +30,7 @@ import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
 
 import com.ader.io.ExtractXMLEncoding;
-import com.ader.utilities.Util;
+import com.ader.utilities.Logging;
 
 public class DaisyParser extends DefaultHandler {
 	private static final String TAG = DaisyParser.class.getSimpleName();
@@ -57,7 +57,7 @@ public class DaisyParser extends DefaultHandler {
 	}
 	
 	public List<DaisyElement> openAndParseFromFile(final String xmlFile) throws IOException {
-		Util.logInfo(TAG, "XMLFILE " + xmlFile);
+		Logging.logInfo(TAG, "XMLFILE " + xmlFile);
 		String encoding = ExtractXMLEncoding.obtainEncodingStringFromFile(xmlFile); 
 		encoding = ExtractXMLEncoding.mapUnsupportedEncoding(encoding);
 
@@ -142,7 +142,7 @@ public class DaisyParser extends DefaultHandler {
 			throws java.io.IOException
 			{
 				String directory = xmlFile.substring(0, xmlFile.lastIndexOf('/') + 1);
-				Util.logInfo(TAG, "xml directory:" + directory);
+				Logging.logInfo(TAG, "xml directory:" + directory);
 				String resourcePath =
 					directory + systemId.substring(systemId.lastIndexOf('/') + 1);
 				return new InputSource(new BufferedReader(new FileReader(resourcePath)));

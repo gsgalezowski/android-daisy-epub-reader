@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.ader.R;
 import com.ader.utilities.DaisyBookUtils;
-import com.ader.utilities.Util;
+import com.ader.utilities.Logging;
 
 /**
  * Preferences handles the various preferences used by the DaisyReader.
@@ -50,12 +50,12 @@ public class Preferences extends PreferenceActivity implements OnSharedPreferenc
 	        	  // Toasts don't seem to be detected or spoken by the
 	        	  // Accessibility API.
 	        	  if (validRootFolder) {
-	        		  Util.logInfo(TAG, "Seems like the new folder is ok: " + foldername);
+	        		  Logging.logInfo(TAG, "Seems like the new folder is ok: " + foldername);
 	        		  Toast toast = Toast.makeText(context, R.string.new_folder_name_saved, Toast.LENGTH_SHORT);
 	        		  toast.show();
 	        		  return true;
 	        	  } else {
-	        		  Util.logInfo(TAG, "Seems like there's a problem with the folder name: " + foldername);
+	        		  Logging.logInfo(TAG, "Seems like there's a problem with the folder name: " + foldername);
 	        		  Toast toast = Toast.makeText(context, R.string.new_folder_name_not_saved, Toast.LENGTH_LONG);
 	        		  toast.show();
 	        		  return false;
@@ -81,9 +81,9 @@ public class Preferences extends PreferenceActivity implements OnSharedPreferenc
 		if (key.equals(DaisyBookUtils.OPT_ROOT_FOLDER)) {
 			String value = sp.getString(key, null);
 			if ((value.length() % 2) == 0) {
-				Util.logInfo(TAG, "Even length root folder");
+				Logging.logInfo(TAG, "Even length root folder");
 			} else {
-				Util.logInfo(TAG, "Odd length root folder");
+				Logging.logInfo(TAG, "Odd length root folder");
 			}
 
 			new AlertDialog.Builder(this)

@@ -13,7 +13,7 @@ import android.view.View.OnClickListener;
 
 import com.ader.R;
 import com.ader.utilities.DaisyBookUtils;
-import com.ader.utilities.Util;
+import com.ader.utilities.Logging;
 
 public class HomeScreen extends Activity implements OnClickListener {
 	/** Called when the activity is first created. */
@@ -54,7 +54,7 @@ public class HomeScreen extends Activity implements OnClickListener {
     		
 			SharedPreferences settings = getSharedPreferences(DaisyBookUtils.PREFS_FILE, 0);
 			String pathToLastBookOpen = settings.getString(DaisyBookUtils.LAST_BOOK, "");
-			Util.logInfo("HomeScreen", "Path to last book = " + pathToLastBookOpen);
+			Logging.logInfo("HomeScreen", "Path to last book = " + pathToLastBookOpen);
     		
             File daisyPath = new File(pathToLastBookOpen);
     		if (pathToLastBookOpen.length() > 1 && DaisyBookUtils.folderContainsDaisy2_02Book(daisyPath)) {

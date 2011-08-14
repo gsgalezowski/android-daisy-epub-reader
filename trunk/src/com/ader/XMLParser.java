@@ -11,7 +11,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import com.ader.utilities.Util;
+import com.ader.utilities.Logging;
 
 /*
  * Non JavaDoc
@@ -44,11 +44,11 @@ public class XMLParser {
 							false);
 			document = builderFactory.newDocumentBuilder().parse(input);
 		} catch (ParserConfigurationException e) {
-			Util.logSevereWarning(TAG, PROBLEM_PARSING_XML, e);
+			Logging.logSevereWarning(TAG, PROBLEM_PARSING_XML, e);
 		} catch (SAXException e) {
-			Util.logSevereWarning(TAG, PROBLEM_PARSING_XML, e);
+			Logging.logSevereWarning(TAG, PROBLEM_PARSING_XML, e);
 		} catch (IOException e) {
-			Util.logSevereWarning(TAG, PROBLEM_PARSING_XML, e);
+			Logging.logSevereWarning(TAG, PROBLEM_PARSING_XML, e);
 		}
 	}
 
@@ -92,7 +92,7 @@ public class XMLParser {
 	private void handleNCCspanTag(Node span) {
 		
 		Node value = span.getFirstChild();
-		Util.logInfo("XMLParser", "Page No: " + value.getFirstChild().getNodeValue());
+		Logging.logInfo("XMLParser", "Page No: " + value.getFirstChild().getNodeValue());
 		
 		// This is still imperfect, however it should be better than the previous code.
 		// TODO(jharty): Decide what parameters to pass to PageTarget, etc.

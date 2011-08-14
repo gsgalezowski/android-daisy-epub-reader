@@ -26,7 +26,7 @@ import com.ader.InvalidDaisyStructureException;
 import com.ader.OldDaisyBookImplementation;
 import com.ader.R;
 import com.ader.utilities.DaisyBookUtils;
-import com.ader.utilities.Util;
+import com.ader.utilities.Logging;
 import com.google.marvin.widget.GestureOverlay;
 import com.google.marvin.widget.GestureOverlay.Gesture;
 import com.google.marvin.widget.GestureOverlay.GestureListener;
@@ -51,7 +51,7 @@ public class DaisyReader extends ListActivity {
 				book.openFromFile(path + getIntent().getStringExtra("daisyNccFile"));
 			} catch (InvalidDaisyStructureException idse) {
 				// TODO(jharty): add a UI to help the user address the problem.
-				Util.logSevereWarning(TAG, "Problem Opening DAISY book, aborting...", idse); 
+				Logging.logSevereWarning(TAG, "Problem Opening DAISY book, aborting...", idse); 
 				DaisyReader.this.finish();
 				return;
 			}
@@ -88,7 +88,7 @@ public class DaisyReader extends ListActivity {
 				.setPositiveButton(R.string.close_instructions, null)
 				.show();
 			explainProblem.show();*/
-			Util.logInfo(TAG, "Cannot open book :( see:" + e.getLocalizedMessage());
+			Logging.logInfo(TAG, "Cannot open book :( see:" + e.getLocalizedMessage());
 			// UiHelper.alert(this, R.string.unable_to_open_file);
 			finish();
 		}
@@ -125,7 +125,7 @@ public class DaisyReader extends ListActivity {
 	}
 
 	void displayContents() {
-		Util.logInfo(TAG, "displayContents called - should we bother?");
+		Logging.logInfo(TAG, "displayContents called - should we bother?");
 		setListAdapter(new ArrayAdapter<DaisyItem>(this, R.layout.results_list, R.layout.listrow, book
 				.getNavigationDisplay()));
 	}
@@ -148,11 +148,11 @@ public class DaisyReader extends ListActivity {
 		public void onGestureFinish(int g) {
 			if (g == Gesture.LEFT) {
 				int levelSetTo = book.decrementSelectedLevel();
-				Util.logInfo(TAG, "Decremented Level to: " + levelSetTo);
+				Logging.logInfo(TAG, "Decremented Level to: " + levelSetTo);
 			} else if (g == Gesture.RIGHT) {
 				book.incrementSelectedLevel();
 				int levelSetTo = book.decrementSelectedLevel();
-				Util.logInfo(TAG, "Incremented Level to: " + levelSetTo);
+				Logging.logInfo(TAG, "Incremented Level to: " + levelSetTo);
 			} else if (g == Gesture.CENTER) {
 				play();
 			}
