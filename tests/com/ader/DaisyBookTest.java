@@ -5,7 +5,7 @@ import junit.framework.TestCase;
 import java.io.File;
 import java.io.IOException;
 
-import com.ader.utilities.Util;
+import com.ader.utilities.Logging;
 
 import android.test.suitebuilder.annotation.MediumTest;
 
@@ -34,11 +34,11 @@ public class DaisyBookTest extends TestCase {
 	@MediumTest
 	public void testDaisy202BookCanBeOpenedWithoutError() throws Exception {
 		for(String name : new File(".").list()) {
-			Util.logInfo("DaisyBookTest", name);
+			Logging.logInfo("DaisyBookTest", name);
 		}
 		
 		String path = new File(".").getCanonicalPath();
-		Util.logInfo("Path", path);
+		Logging.logInfo("Path", path);
 		daisyBook.openFromFile(path + "/Resources/light-man/ncc.html");
 		assertEquals("The light-man book should have 1 level of content", 1, daisyBook.getMaximumDepthInDaisyBook());
 		daisyBook.setSelectedLevel(1);
@@ -48,7 +48,7 @@ public class DaisyBookTest extends TestCase {
 	@MediumTest
 	public void testLevelsCanBeSetCorrentlyFor1LevelDaisy202Book() throws Exception {
 		String path = new File(".").getCanonicalPath();
-		Util.logInfo("Path", path);
+		Logging.logInfo("Path", path);
 		daisyBook.openFromFile(path + "/Resources/light-man/ncc.html");
 		assertEquals("The light-man book should have 1 level of content", 1, daisyBook.getMaximumDepthInDaisyBook());
 		daisyBook.setSelectedLevel(1);

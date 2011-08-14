@@ -26,7 +26,7 @@ import com.ader.Bookmark;
 import com.ader.OldDaisyBookImplementation;
 import com.ader.R;
 import com.ader.smil.SmilFile;
-import com.ader.utilities.Util;
+import com.ader.utilities.Logging;
 import com.google.marvin.widget.GestureOverlay;
 import com.google.marvin.widget.GestureOverlay.Gesture;
 import com.google.marvin.widget.GestureOverlay.GestureListener;
@@ -158,7 +158,7 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 			gotoPreviousSection();
 			return true;
 		default:
-				Util.logInfo(TAG, "Unhandled keyboard event: " + keyCode);
+				Logging.logInfo(TAG, "Unhandled keyboard event: " + keyCode);
 				break;
 		}
 		return super.onKeyDown(keyCode, event);
@@ -170,9 +170,9 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	 * Note: This needs to be public so the Media Player callback can find it.
 	 */
 	public void onCompletion(MediaPlayer mp) {
-		Util.logInfo(TAG, "onCompletion called.");
+		Logging.logInfo(TAG, "onCompletion called.");
 		if (book.nextSection(false)) {
-			Util.logInfo(TAG, "PLAYING section: " + book.getDisplayPosition() + " " +
+			Logging.logInfo(TAG, "PLAYING section: " + book.getDisplayPosition() + " " +
 					book.current().getText());
 			mainText.setText(book.current().getText());
 			// reset the audio Offset (used on device rotation)
@@ -227,14 +227,14 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	private void openSmil() 
 			throws FileNotFoundException, IOException, SAXException, ParserConfigurationException {
 		String smilfilename = book.getCurrentSmilFilename();
-		Util.logInfo(TAG, "Open SMIL file: " + smilfilename);
+		Logging.logInfo(TAG, "Open SMIL file: " + smilfilename);
 		smilfile.open(smilfilename);
 		autoBookmark.updateAutomaticBookmark(smilfile);
 	}
 
 
 	private void play() {
-		Util.logInfo(TAG, "play");
+		Logging.logInfo(TAG, "play");
 		player.reset();
 		int duration = Toast.LENGTH_LONG;
 
@@ -315,7 +315,7 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	 * @throws FileNotFoundException 
 	 */
 	private void read() throws FileNotFoundException {
-		Util.logInfo(TAG, String.format(
+		Logging.logInfo(TAG, String.format(
 				"Reading from SMILfile[%s] NCC index[%d] offset[%d]",
 				autoBookmark.getFilename(), autoBookmark.getNccIndex(), autoBookmark.getPosition()));
 
@@ -330,11 +330,11 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 				// TODO(jharty): Add a localised message to advise users
 				// to upload a valid book. I could also provide a book
 				// validation tool at some point.
-				Util.logInfo(TAG, "File Not Available: " + autoBookmark.getFilename());
+				Logging.logInfo(TAG, "File Not Available: " + autoBookmark.getFilename());
 				throw new FileNotFoundException(autoBookmark.getFilename());
 			}
 
-			Util.logInfo(TAG, "Start playing " + autoBookmark.getFilename() + " " + audioOffset);
+			Logging.logInfo(TAG, "Start playing " + autoBookmark.getFilename() + " " + audioOffset);
 			try {
 				player.setDataSource(autoBookmark.getFilename());
 				player.prepare();
@@ -352,7 +352,7 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 			// TODO(jharty): add TTS to speak the text section
 			// Note: we need to decide how to handle things like \n
 			// For now, perhaps we can simply display the text in a new view.
-			Util.logInfo(TAG, "We need to read the text from: " + autoBookmark.getFilename());
+			Logging.logInfo(TAG, "We need to read the text from: " + autoBookmark.getFilename());
 
 			// For now, here is some information for the user. Perhaps I could
 			// add a way to automatically send a request e.g. by email?
@@ -377,7 +377,7 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 			// reading a smil file might mean the bookmark hasn't been assigned.
 			autoBookmark.save(book.getPath() + "auto.bmk");
 		} else {
-			Util.logInfo(TAG, "No filename, so we didn't save the auto-bookmark");
+			Logging.logInfo(TAG, "No filename, so we didn't save the auto-bookmark");
 		}
 	}
 
@@ -385,7 +385,7 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	 * Toggles the Media Player between Play and Pause states.
 	 */
 	public void togglePlay() {
-		Util.logInfo(TAG, "togglePlay called.");
+		Logging.logInfo(TAG, "togglePlay called.");
 		if (player.isPlaying()) {
 			statusText.setText(getText(R.string.paused_message));
 			player.pause();
@@ -398,7 +398,7 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	@Override
 	public void onSaveInstanceState(Bundle savedInstanceState) {
 		audioOffset = player.getCurrentPosition();
-		Util.logInfo(TAG, "Length in media player is: " + audioOffset);
+		Logging.logInfo(TAG, "Length in media player is: " + audioOffset);
 		autoBookmark.setPosition(audioOffset);
 
 		savedInstanceState.putBoolean(IS_THE_BOOK_PLAYING, player.isPlaying());
@@ -410,9 +410,9 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	public void onRestoreInstanceState(Bundle savedInstanceState) {
 		super.onRestoreInstanceState(savedInstanceState);
 		Boolean isPlaying = savedInstanceState.getBoolean(IS_THE_BOOK_PLAYING, true);
-		Util.logInfo(TAG, "Offset at start of onRestoreInstanceState is: " + audioOffset);
+		Logging.logInfo(TAG, "Offset at start of onRestoreInstanceState is: " + audioOffset);
 		audioOffset = savedInstanceState.getInt(AUDIO_OFFSET, 0);
-		Util.logInfo(TAG, "Offset after retrieving saved offset value is: " + audioOffset);
+		Logging.logInfo(TAG, "Offset after retrieving saved offset value is: " + audioOffset);
 		player.seekTo(audioOffset);
 		if (!isPlaying) {
 			statusText.setText(getText(R.string.paused_message) + "...");
@@ -441,17 +441,17 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 		 
 		public void onGestureStart(int g) {
 			startTime = System.currentTimeMillis();
-			Util.logInfo(TAG, "onGestureStart @" + startTime + " Value: " + g);
+			Logging.logInfo(TAG, "onGestureStart @" + startTime + " Value: " + g);
 		}
 
 		public void onGestureChange(int g) {
 			long interimValue = System.currentTimeMillis() - startTime;
-			Util.logInfo(TAG, "onGestureChange. Duration is: " + interimValue + " Value: " + g);
+			Logging.logInfo(TAG, "onGestureChange. Duration is: " + interimValue + " Value: " + g);
 		}
 
 		public void onGestureFinish(int g) {
 			long timeTaken = System.currentTimeMillis() - startTime;
-			Util.logInfo(TAG, "onGestureFinish. Duration is: " + timeTaken + " Value: " + g);
+			Logging.logInfo(TAG, "onGestureFinish. Duration is: " + timeTaken + " Value: " + g);
 			
 			if (g == Gesture.CENTER) {
 				togglePlay();
@@ -464,32 +464,32 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 			} else if (g == Gesture.RIGHT) {
 				goDown();
 			} else if (g == Gesture.DOWNLEFT) {
-				Util.logInfo(TAG, "Rewind .");
+				Logging.logInfo(TAG, "Rewind .");
 				// TODO (jharty): This is experimental code and needs refining
 				// TODO (jharty): Add ability for user to specify the interval.
 				int newValue = player.getCurrentPosition();
-				Util.logInfo(TAG, "Current Offset: " + newValue);
+				Logging.logInfo(TAG, "Current Offset: " + newValue);
 				newValue -= MSECS_TO_JUMP; 
 				if (newValue < 0) {
 					// Consider jumping to previous track
 					newValue = 0;
 				} else {
-					Util.logInfo(TAG, "Seeking to: " + newValue);
+					Logging.logInfo(TAG, "Seeking to: " + newValue);
 					player.seekTo(newValue);
 				}
 			} else if (g == Gesture.DOWNRIGHT) {
-				Util.logInfo(TAG, "Fast forward");
+				Logging.logInfo(TAG, "Fast forward");
 				// TODO (jharty): This is experimental code and needs refining
 				// TODO (jharty): Add ability for user to specify the interval.
 				int newValue = player.getCurrentPosition();
-				Util.logInfo(TAG, "Current Offset: " + newValue);
+				Logging.logInfo(TAG, "Current Offset: " + newValue);
 				newValue += MSECS_TO_JUMP; 
 				int duration = player.getDuration();
 				if (newValue >= duration) {
 					// Consider jumping to next track
 					newValue = duration;
 				} else {
-					Util.logInfo(TAG, "Seeking to: " + newValue);
+					Logging.logInfo(TAG, "Seeking to: " + newValue);
 					player.seekTo(newValue);
 				}
 			}
@@ -501,7 +501,7 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	private int goDown() {
 		// TODO(jharty): Localize all the recently added hardcoded text e.g. here!
 		int levelSetTo = book.incrementSelectedLevel();
-		Util.logInfo(TAG, "Incremented Level to: " + levelSetTo);
+		Logging.logInfo(TAG, "Incremented Level to: " + levelSetTo);
 		depthText.setText("Depth " + levelSetTo + " of " + book.getMaximumDepthInDaisyBook());
 		return levelSetTo;
 	}
@@ -509,7 +509,7 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	private void goUp() {
 		// TODO(jharty): Localize all the recently added hardcoded text e.g. here!
 		int levelSetTo = book.decrementSelectedLevel();
-		Util.logInfo(TAG, "Decremented Level to: " + levelSetTo);
+		Logging.logInfo(TAG, "Decremented Level to: " + levelSetTo);
 		depthText.setText("Depth " + levelSetTo + " of " + book.getMaximumDepthInDaisyBook());
 	}
 	

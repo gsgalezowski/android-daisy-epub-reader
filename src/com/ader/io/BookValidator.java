@@ -5,7 +5,7 @@ import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ader.utilities.Util;
+import com.ader.utilities.Logging;
 
 public class BookValidator {
 	private static final String TAG = "BookValidator";
@@ -22,12 +22,12 @@ public class BookValidator {
 		
 		// Some guard code follows.
 		if (path == null) {
-			Util.logInfo(TAG, "null string passed as the path to findBooks. Exiting method.");
+			Logging.logInfo(TAG, "null string passed as the path to findBooks. Exiting method.");
 			return;
 		}
 			
 		if (path.length() == 0 || path.startsWith(".")) {
-			Util.logInfo(TAG, String.format(
+			Logging.logInfo(TAG, String.format(
 				"path [%s]is either zero length or starts with . Exiting method", path));
 			return;
 		}
@@ -68,7 +68,7 @@ public class BookValidator {
 
 	public List<String> getBookList() {
 		for (String path : bookList) {
-			Util.logInfo("BookValidator", "Book available at : " + path);
+			Logging.logInfo("BookValidator", "Book available at : " + path);
 		}
 		return bookList;
 	}

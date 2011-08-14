@@ -23,7 +23,7 @@ import android.widget.ListView;
 import com.ader.R;
 import com.ader.io.BookValidator;
 import com.ader.utilities.DaisyBookUtils;
-import com.ader.utilities.Util;
+import com.ader.utilities.Logging;
 
 public class DaisyBookFinder extends ListActivity {
 	private List<String> books;
@@ -32,12 +32,12 @@ public class DaisyBookFinder extends ListActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-        Util.logInfo(TAG, "onCreate");
+        Logging.logInfo(TAG, "onCreate");
         setContentView(R.layout.results_list);
                 
         BookValidator validator = new BookValidator();
         String rootfolder = Preferences.getRootfolder(getBaseContext());
-		Util.logInfo(TAG, "The root folder to search is: " + rootfolder);
+		Logging.logInfo(TAG, "The root folder to search is: " + rootfolder);
         validator.findBooks(rootfolder);
         books = validator.getBookList();
         populateList();
@@ -56,7 +56,7 @@ public class DaisyBookFinder extends ListActivity {
 	
 	void populateList() {
 		// TODO(jharty): Check if currentDirectory maps to ExternalStorageDirectory
-		Util.logInfo(TAG, "External Storage is: " + Environment.getExternalStorageDirectory());
+		Logging.logInfo(TAG, "External Storage is: " + Environment.getExternalStorageDirectory());
 		// TODO(jharty): remove this hack once I've debugged the interaction
 		// It probably needs to move to a more general FileIO class that'd be
 		// used by the rest of the application. That way we can reduce

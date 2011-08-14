@@ -20,7 +20,7 @@ import android.widget.TextView;
 import com.ader.R;
 import com.ader.io.XmlFormatter;
 import com.ader.utilities.About;
-import com.ader.utilities.Util;
+import com.ader.utilities.Logging;
 
 /**
  * TODO (jharty): I'd like to add information on the book being read and any
@@ -120,12 +120,12 @@ public class AboutView extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.eMail:
-			Util.logInfo(TAG, "Send an email.");
+			Logging.logInfo(TAG, "Send an email.");
 			emailInformation();
 			break;
 			
 		case R.id.return_to_homescreen:
-			Util.logInfo(TAG, "Heading back to the homescreen.");
+			Logging.logInfo(TAG, "Heading back to the homescreen.");
 			this.finish();
 			break;
 		}

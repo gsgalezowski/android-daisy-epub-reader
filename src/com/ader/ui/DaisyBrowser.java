@@ -22,7 +22,7 @@ import java.util.List;
 
 import com.ader.R;
 import com.ader.utilities.DaisyBookUtils;
-import com.ader.utilities.Util;
+import com.ader.utilities.Logging;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
@@ -41,7 +41,7 @@ public class DaisyBrowser extends ListActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Util.logInfo(TAG, "onCreate");
+        Logging.logInfo(TAG, "onCreate");
         setContentView(R.layout.results_list);
         generateBrowserData();
     }
@@ -79,7 +79,7 @@ public class DaisyBrowser extends ListActivity {
 	void generateBrowserData() {
 
 		// TODO(jharty): Check if currentDirectory maps to ExternalStorageDirectory
-		Util.logInfo(TAG, "External Storage is: " + Environment.getExternalStorageDirectory());
+		Logging.logInfo(TAG, "External Storage is: " + Environment.getExternalStorageDirectory());
 		// TODO(jharty): remove this hack once I've debugged the interaction
 		// It probably needs to move to a more general FileIO class that'd be
 		// used by the rest of the application. That way we can reduce
