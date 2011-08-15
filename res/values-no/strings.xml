@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="about">Om DaisyReader</string>
     <string name="app_name">Android Daisy 2.02 Reader</string>
     <string name="cannot_open_book">Kan ikke åpne boken :( </string>
     <string name="cannot_open_book_a_file_is_missing"> Kan ikke åpne boken :( Fil mangler. 
