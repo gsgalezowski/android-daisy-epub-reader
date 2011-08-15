@@ -7,7 +7,7 @@
   <name>DaisyReader</name>
   <version>0.310</version>
   <build>
-        <sourceDirectory>.</sourceDirectory>
+        <sourceDirectory>src</sourceDirectory>
         <outputDirectory>bin</outputDirectory>
         <testSourceDirectory>tests</testSourceDirectory>
         <plugins>
@@ -18,10 +18,28 @@
                   <source>1.5</source>
                   <target>1.5</target>
               <includes>
-                 <include>src/**/*.java</include>
-                 <include>gen/**/*.java</include>
+                 <include>**/*.java</include>
               </includes>
               </configuration>
+           </plugin>
+           <plugin>
+              <groupId>org.codehaus.mojo</groupId>
+              <artifactId>build-helper-maven-plugin</artifactId>
+              <version>1.5</version>
+              <executions>
+                <execution>
+                  <id>add-source</id>
+                  <phase>generate-sources</phase>
+                  <goals>
+                      <goal>add-source</goal>
+                  </goals>
+                  <configuration>
+                      <sources>
+                          <source>gen</source>
+                      </sources>
+                  </configuration>
+                </execution>
+              </executions>
            </plugin>
         </plugins>
   </build>
