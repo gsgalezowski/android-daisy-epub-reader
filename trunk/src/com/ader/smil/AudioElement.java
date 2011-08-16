@@ -85,9 +85,11 @@ public class AudioElement implements MediaElement {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
+        
+        if (!(obj instanceof AudioElement)) {
+        	return false;
         }
+        
         AudioElement other = (AudioElement) obj;
         if (Double.doubleToLongBits(clipBegin) != Double
                 .doubleToLongBits(other.clipBegin)) {
