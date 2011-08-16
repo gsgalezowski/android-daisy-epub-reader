@@ -16,7 +16,7 @@ public class ListenToBookTest extends ActivityInstrumentationTestCase2<DaisyPlay
 	private static final Class<DaisyPlayer> FOR_ACTIVITY = DaisyPlayer.class;
 	private static final String PACKAGE = FOR_ACTIVITY.getPackage().toString();
 	private DaisyPlayer listenToBook;
-	private TextView playingView;
+	private String currentStatus;
 
 	@Override
 	protected void setUp() throws Exception {
@@ -24,7 +24,6 @@ public class ListenToBookTest extends ActivityInstrumentationTestCase2<DaisyPlay
 		i.putExtra(DaisyPlayer.DAISY_BOOK_KEY, theBook());
 		setActivityIntent(i);
 		listenToBook = getActivity();
-		playingView = (TextView) listenToBook.findViewById(com.ader.R.id.statusText);
 		}
 	
 	public ListenToBookTest() {
@@ -32,9 +31,9 @@ public class ListenToBookTest extends ActivityInstrumentationTestCase2<DaisyPlay
 	}
 	
 	public void testStartsByListeningToTheBook() throws Exception {
-		assertEquals("DaisyPlayer", listenToBook.getTitle());
 		String playing = listenToBook.getString(com.ader.R.string.playing) + "...";
-		assertEquals(playing, playingView.getText());
+		currentStatus = listenToBook.whatIsThePlayerStatus();
+		assertEquals(playing, currentStatus);
 	}
 
 	private OldDaisyBookImplementation theBook() throws InvalidDaisyStructureException, IOException {

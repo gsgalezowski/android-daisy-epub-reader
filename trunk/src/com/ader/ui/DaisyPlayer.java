@@ -52,8 +52,7 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		book = (OldDaisyBookImplementation) getIntent().getSerializableExtra(
-				DAISY_BOOK_KEY);
+		book = (OldDaisyBookImplementation) getIntent().getSerializableExtra(DAISY_BOOK_KEY);
 		try {
 			loadAutoBookmark();
 		} catch (IOException e) {
@@ -539,5 +538,9 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 			audioOffset = 0;
 			play();
 		}
+	}
+
+	public String whatIsThePlayerStatus() {
+		return statusText.getText().toString();
 	}
 }
