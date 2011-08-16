@@ -33,6 +33,8 @@ import com.google.marvin.widget.GestureOverlay.GestureListener;
 
 public class DaisyPlayer extends Activity implements OnCompletionListener {
 
+	public static final String DAISY_BOOK_KEY = "com.ader.DaisyBook";
+	
 	private static final int MSECS_TO_JUMP = 10000;
 	private static final String AUDIO_OFFSET = "Offset";
 	private static final String IS_THE_BOOK_PLAYING = "playing";
@@ -51,7 +53,7 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		book = (OldDaisyBookImplementation) getIntent().getSerializableExtra(
-				"com.ader.DaisyBook");
+				DAISY_BOOK_KEY);
 		try {
 			loadAutoBookmark();
 		} catch (IOException e) {

@@ -112,7 +112,7 @@ public class DaisyReader extends ListActivity {
 
 	private void play() {
 		Intent dp = new Intent(this, DaisyPlayer.class);
-		dp.putExtra("com.ader.DaisyBook", book);
+		dp.putExtra(DaisyPlayer.DAISY_BOOK_KEY, book);
 		startActivity(dp);
 	}
 
