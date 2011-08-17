@@ -5,7 +5,6 @@ import java.io.IOException;
 
 import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
-import android.widget.TextView;
 
 import com.ader.InvalidDaisyStructureException;
 import com.ader.OldDaisyBookImplementation;
@@ -31,9 +30,10 @@ public class ListenToBookTest extends ActivityInstrumentationTestCase2<DaisyPlay
 	}
 	
 	public void testStartsByListeningToTheBook() throws Exception {
-		String playing = listenToBook.getString(com.ader.R.string.playing) + "...";
+		String expectedPlayingMessage = listenToBook.getString(com.ader.R.string.playing) + "...";
 		currentStatus = listenToBook.whatIsThePlayerStatus();
-		assertEquals(playing, currentStatus);
+		assertEquals(expectedPlayingMessage, currentStatus);
+		assertTrue("The player should start by playing audio forming the book.", listenToBook.isPlayingAudio());
 	}
 
 	private OldDaisyBookImplementation theBook() throws InvalidDaisyStructureException, IOException {
