@@ -541,6 +541,11 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	}
 
 	public String whatIsThePlayerStatus() {
+		//TODO 20110816 (jharty/amarcano): Temporary method while we explore some refactorings.
 		return statusText.getText().toString();
+	}
+	
+	public boolean isPlayingAudio() {
+		return player.isPlaying();
 	}
 }
