@@ -53,12 +53,7 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		book = (OldDaisyBookImplementation) getIntent().getSerializableExtra(DAISY_BOOK_KEY);
-		try {
-			loadAutoBookmark();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		loadAutoBookmark();
 		activateGesture();
 		player = new MediaPlayer();
 		player.setOnCompletionListener(this);
@@ -195,11 +190,16 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	 * doesn't exist, e.g. if this is the first time the user has opened this
 	 * book, then the bookmark will be created once the user starts reading the
 	 * book.
-	 * @throws IOException If there is a problem opening the file representing
-	 * the bookmark.
 	 */
-	public void loadAutoBookmark() throws IOException  {
-		autoBookmark = Bookmark.getInstance(book.getPath());
+	public void loadAutoBookmark() {
+		try {
+			autoBookmark = Bookmark.getInstance(book.getPath());
+		} catch (IOException e) {
+			Logging.logInfo(TAG, 
+					"No automatic bookmark loaded, perhaps this this book is new to us?");
+			return;
+		}
+		
 		audioOffset = autoBookmark.getPosition();
 		
 		/*

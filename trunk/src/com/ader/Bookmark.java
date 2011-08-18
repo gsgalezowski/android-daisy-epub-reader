@@ -45,16 +45,19 @@ public final class Bookmark implements Serializable {
 		this.loadBookmarks();
 	}
 	
-	private String ensureTrailingSlash(String path) {
-		if (path.endsWith("/") || path.endsWith("\\")) {
-			return path;
-		} else {
-			return path + File.separator;
-		}
-	}
-
 	private Bookmark() {
 		// Stop callers from calling new Bookmark();
+	}
+	
+	/**
+	 * Create and return a Bookmark
+	 * @param path
+	 * @return
+	 * @throws IOException if there are IO problems.
+	 */
+	public static Bookmark getInstance(String path) throws IOException {
+		return new Bookmark(path);
+		
 	}
 
 	public String getFilename() {
@@ -82,45 +85,13 @@ public final class Bookmark implements Serializable {
 		this.position = position;
 	}
 
-	private void load(String bookmarkFilename) throws IOException {
-
-		if (new File(bookmarkFilename).exists()) {
-			FileInputStream fileInputStream = new FileInputStream(bookmarkFilename);
-			load(fileInputStream);
+	public void save(String bookmarkFilename) {
+		try {
+			FileOutputStream fileOutputStream = new FileOutputStream(bookmarkFilename);
+			save(fileOutputStream);
+		} catch (IOException ex) {
+			throw new RuntimeException(ex);
 		}
-	}
-	
-	private void loadBookmarks() throws IOException {
-		// Hmmm, what to do about dual bookmarks? old and new...
-		// Some sort of migration path seems sensible.
-		// Let's implement support to read from the current (old) file as I
-		// need to write code to create the recommended DAISY 3 bookmark
-		// structure (XML based).
-		
-		// The following file will not exist currently as we don't create it.
-		String newBookmarkFile = pathToBook + BOOKMARKS_FILENAME;
-		if (new File(newBookmarkFile).exists()) {
-			Logging.logInfo(TAG, "Apparently the new bookmarks file exists!");
-			// TODO(jharty): Add code to parse the XML contents
-		} else {
-			// Load the old automatic bookmark file, if it exists
-			load(pathToBook + AUTO_BMK);
-		}
-		
-	}
-
-	/* non javadoc
-	 * Extracted this method to improve the testability of this class.
-	 */
-	void load(InputStream inputStream) throws IOException {
-		DataInputStream in = new DataInputStream(inputStream);
-		filename = in.readUTF();
-		nccIndex = in.readInt();
-		position = in.readInt();
-		Logging.logInfo(TAG, String.format(
-				"Reading Bookmark details SMILfile[%s] NCC index[%d] offset[%d]",
-				filename, nccIndex, position));
-		in.close();
 	}
 
 	/**
@@ -154,16 +125,21 @@ public final class Bookmark implements Serializable {
 			this.setPosition(0);
 		}
 	}
-	
-	public void save(String bookmarkFilename) {
-		try {
-			FileOutputStream fileOutputStream = new FileOutputStream(bookmarkFilename);
-			save(fileOutputStream);
-		} catch (IOException ex) {
-			throw new RuntimeException(ex);
-		}
-	}
 
+	/* non javadoc
+	 * Extracted this method to improve the testability of this class.
+	 */
+	void load(InputStream inputStream) throws IOException {
+		DataInputStream in = new DataInputStream(inputStream);
+		filename = in.readUTF();
+		nccIndex = in.readInt();
+		position = in.readInt();
+		Logging.logInfo(TAG, String.format(
+				"Reading Bookmark details SMILfile[%s] NCC index[%d] offset[%d]",
+				filename, nccIndex, position));
+		in.close();
+	}
+	
 	/* non javadoc
 	 * Extracted this method to improve the testability of this class.
 	 */
@@ -180,14 +156,38 @@ public final class Bookmark implements Serializable {
 		out.close();
 	}
 
-	/**
-	 * Create and return a Bookmark
-	 * @param path
-	 * @return
-	 * @throws IOException if there are IO problems.
-	 */
-	public static Bookmark getInstance(String path) throws IOException {
-		return new Bookmark(path);
+	private String ensureTrailingSlash(String path) {
+		if (path.endsWith("/") || path.endsWith("\\")) {
+			return path;
+		} else {
+			return path + File.separator;
+		}
+	}
+	
+	private void load(String bookmarkFilename) throws IOException {
+
+		if (new File(bookmarkFilename).exists()) {
+			FileInputStream fileInputStream = new FileInputStream(bookmarkFilename);
+			load(fileInputStream);
+		}
+	}
+	
+	private void loadBookmarks() throws IOException {
+		// Hmmm, what to do about dual bookmarks? old and new...
+		// Some sort of migration path seems sensible.
+		// Let's implement support to read from the current (old) file as I
+		// need to write code to create the recommended DAISY 3 bookmark
+		// structure (XML based).
+		
+		// The following file will not exist currently as we don't create it.
+		String newBookmarkFile = pathToBook + BOOKMARKS_FILENAME;
+		if (new File(newBookmarkFile).exists()) {
+			Logging.logInfo(TAG, "Apparently the new bookmarks file exists!");
+			// TODO(jharty): Add code to parse the XML contents
+		} else {
+			// Load the old automatic bookmark file, if it exists
+			load(pathToBook + AUTO_BMK);
+		}
 		
 	}
 }
