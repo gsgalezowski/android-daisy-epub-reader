@@ -95,11 +95,10 @@ public class BookmarkTest extends TestCase {
 	@MediumTest
 	public void testOpenBookmarkForNonExistantBookmark() throws IOException {
 		deleteAutoBookmarkFile();
-		@SuppressWarnings("unused")
 		Bookmark bookmark = Bookmark.getInstance(TMP);
 		
 		assertTrue("We should have been able to load a non existant bookmark file without error.",
-				true);
+				null != bookmark);
 	}
 	
 	/** 

@@ -126,12 +126,13 @@ public class OldDaisyBookImplementation implements Serializable, DaisyBook {
 		validateDaisyContents();
 	}
 
+	/**
+	 * @return the current DaisyItem being used in the Daisy Book.
+	 */
 	public DaisyItem current() {
-		Logging.logInfo(TAG, String.format("Current entry is index:%d, ncc:%s",
-				currentnccIndex,
-				items.get(currentnccIndex)));
-		return items.get(currentnccIndex);
+		return getDaisyItemFor(currentnccIndex);
 	}
+
 
 	/* (non-Javadoc)
 	 * @see com.ader.DaisyBook#getNavigationDisplay()
@@ -157,6 +158,16 @@ public class OldDaisyBookImplementation implements Serializable, DaisyBook {
 		currentnccIndex = index;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.ader.DaisyBook#goTo(int)
+	 * 
+	 */
+	// TODO 20110818 (jharty): We can remove this once bookmark doesn't contain the NCC Index.
+	public void goTo(int nccIndex) {
+		DaisyItem itemToGoTo = getDaisyItemFor(nccIndex);
+		goTo(itemToGoTo);
+	}
+	
 	/**
 	 * FIXME: Temporary getter to help with restructuring the classes.
 	 * Cleanup the design as the code improves.
@@ -173,19 +184,9 @@ public class OldDaisyBookImplementation implements Serializable, DaisyBook {
 	 * the moment.
 	 * @return the current index into the set of DaisyItems
 	 */
+	//TODO 20110818 (jharty): Remove once bookmark.java no longer stores the NCC Index.
 	public int getCurrentIndex() {
 		return currentnccIndex;
-	}
-	
-	/**
-	 * FIXME: A temporary setter to tell the book the current offset
-	 * This breaks encapulation IMO. Also goTo() seems more appropriate, but
-	 * DaisyPlayer doesn't know which DaisyItem to generate. For the moment
-	 * I'll accept this ugly hack. I need to fix it as part of the current
-	 * cleanup ASAP. 
-	 */
-	public void setCurrentIndex(int index) {
-		currentnccIndex = index;
 	}
 
 	/* (non-Javadoc)
@@ -279,5 +280,18 @@ public class OldDaisyBookImplementation implements Serializable, DaisyBook {
 			}
 		}
 		return items;
+	}
+
+	/**
+	 * @return the DaisyItem for the nccIndex provided.
+	 * 
+	 * This method is public to enable easier refactoring of the DaisyPlayer
+	 * and the rest of this codebase.
+	 */
+	// TODO 20110818 (jharty): remove this method once the bookmark code no longer stores the NCC Index.
+	private DaisyItem getDaisyItemFor(int nccIndex) {
+		DaisyItem item = items.get(nccIndex);
+		Logging.logInfo(TAG, String.format("DaisyItem is index:%d, ncc:%s", nccIndex, item));
+		return item;
 	}
 }

@@ -53,6 +53,13 @@ public interface DaisyBook {
 	 * @param item
 	 */
 	void goTo(DaisyItem nccEntry);
+	
+	/**
+	 * Update the internal state of the book to Go To the NCC Index provided. 
+	 * @param nccIndex the NCC Index to use.
+	 */
+	// TODO 20110818 (jharty): We can remove this once bookmark doesn't contain the NCC Index.
+	public void goTo(int nccIndex);
 
 	/**
 	 * Go to the next section in the book

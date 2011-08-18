@@ -196,36 +196,27 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 			autoBookmark = Bookmark.getInstance(book.getPath());
 		} catch (IOException e) {
 			Logging.logInfo(TAG, 
-					"No automatic bookmark loaded, perhaps this this book is new to us?");
+					String.format("No automatic bookmark loaded for %s, perhaps this this book is new to us?",
+						book.getPath()));
 			return;
 		}
 		
 		audioOffset = autoBookmark.getPosition();
 		
-		/*
-		 * OK I need to get rid of telling the book the ncc Index to use!
-		 * Instead I need to tell it which smil file to load. Next step is to
-		 * see if I can simply remove the call to setCurrentIndex(...) and
-		 * modify goTo so it navigates by smil file.
-		 */
-		// TODO (jharty): Tell the book where it needs to start from
-		book.setCurrentIndex(autoBookmark.getNccIndex());
-		// FIXME: We need to cleanly tell the book which item to return. The
-		// following calls will do for now, but need to be fixed / replaced ASAP
-		book.goTo(book.current());
+		// Tell the book where it needs to start from
+		// TODO 20110818 (jharty): Cleanup once the bookmark code doesn't use the NCC index.
+		book.goTo(autoBookmark.getNccIndex());
 	}
 
 	/**
-	 * open the current Smil file. 
-	 * 
-	 * Sets the auto bookmark to the contents in the current Smil file. 
+	 * open the current Smil file to read to the user. 
 	 * 
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 * @throws ParserConfigurationException 
 	 * @throws SAXException 
 	 */
-	private void openSmil() 
+	private void openSmilToRead() 
 			throws FileNotFoundException, IOException, SAXException, ParserConfigurationException {
 		String smilfilename = book.getCurrentSmilFilename();
 		Logging.logInfo(TAG, "Open SMIL file: " + smilfilename);
@@ -240,7 +231,7 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 		int duration = Toast.LENGTH_LONG;
 
 		try {
-			openSmil();
+			openSmilToRead();
 			read();
 			return;
 		} catch (FileNotFoundException fnfe) {
@@ -249,23 +240,49 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 			reportIOException(duration, ioe);
 		} catch (SAXException saxe) {
 			reportSAXException(duration, saxe);
-		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (ParserConfigurationException pce) {
+			reportParserConfigurationException(duration, pce);
 		}
 	}
 
-	private void reportSAXException(int duration, SAXException saxe) {
+	private void reportParserConfigurationException(int duration,
+			ParserConfigurationException pce) {
+		CharSequence localizedMessage = pce.getLocalizedMessage();
+		
 		Toast toast;
+		toast = Toast.makeText(this, localizedMessage, duration);
+		
+		int titleIDToDisplay = R.string.serious_problem_found;
+		displayAlertThenFinishThisActivity(localizedMessage, titleIDToDisplay);
+	}
+
+	private void reportSAXException(int duration, SAXException saxe) {
+		String localizedMessage = saxe.getLocalizedMessage();
 		CharSequence text = getString(R.string.cannot_open_book) + " " 
-			+ saxe.getLocalizedMessage();
+			+ localizedMessage;
+
+		Toast toast;
 		toast = Toast.makeText(this, text, duration);
 		toast.show();
 		
+		int titleIDToDisplay = R.string.serious_problem_found;
+		displayAlertThenFinishThisActivity(text, titleIDToDisplay);
+	}
+
+	/**
+	 * Helper method to display an Alert before finishing (closing) this activity.
+	 * 
+	 * We don't expect to be able to recover from this error when reading the
+	 * current book.
+	 * @param messageToDisplay the Message to display
+	 * @param titleIDToDisplay the ID of the Title to display
+	 */
+	private void displayAlertThenFinishThisActivity(CharSequence messageToDisplay,
+			int titleIDToDisplay) {
 		AlertDialog.Builder explainProblem = new AlertDialog.Builder(this);
 		explainProblem
-		.setTitle(R.string.serious_problem_found)
-		.setMessage(saxe.getLocalizedMessage())
+		.setTitle(titleIDToDisplay)
+		.setMessage(messageToDisplay)
 		.setPositiveButton(R.string.close_instructions, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
 				DaisyPlayer.this.finish();
