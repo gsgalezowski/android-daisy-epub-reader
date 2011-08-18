@@ -52,11 +52,11 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		book = (OldDaisyBookImplementation) getIntent().getSerializableExtra(DAISY_BOOK_KEY);
+
+		retrieveTheBookToPlay();
 		loadAutoBookmark();
 		activateGesture();
-		player = new MediaPlayer();
-		player.setOnCompletionListener(this);
+		prepareTheAudioPlayer();
 		play();
 	}
 
@@ -539,13 +539,41 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 			play();
 		}
 	}
+	
+	/**
+	 * Prepares the Media Player to be able to play the audio files.
+	 * 
+	 * Utility method to provide the same level of abstraction in the onCreate() method.
+	 */
+	private void prepareTheAudioPlayer() {
+		player = new MediaPlayer();
+		player.setOnCompletionListener(this);
+	}
 
+	/**
+	 * Utility Method that Retrieves the book to play.
+	 * 
+	 * The Calling Program passes the book object, programmatically.
+	 */
+	private void retrieveTheBookToPlay() {
+		book = (OldDaisyBookImplementation) getIntent().getSerializableExtra(DAISY_BOOK_KEY);
+	}
+
+
+	/**
+	 * @return the Localized Status Text being displayed on screen.
+	 */
 	public String whatIsThePlayerStatus() {
 		//TODO 20110816 (jharty/amarcano): Temporary method while we explore some refactorings.
 		return statusText.getText().toString();
 	}
-	
+
+	/**
+	 * Allows our tests to detect whether the Audio book is being played.
+	 * @return true if the audio is being played, else false.
+	 */
 	public boolean isPlayingAudio() {
+		// TODO 20110818 (jharty): Second temporary method while we explore some refactorings.
 		return player.isPlaying();
 	}
 }
