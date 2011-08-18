@@ -83,14 +83,6 @@ public final class Bookmark implements Serializable {
 	}
 
 	/**
-	 * Set / Update the Automatic bookmark to store the filename provided.
-	 * @param filename
-	 */
-	public void setFilename(String filename) {
-		this.filename = filename;
-	}
-
-	/**
 	 * Set / Update the bookmark with the NCC index to store.
 	 * @param nccIndex
 	 */
@@ -158,13 +150,20 @@ public final class Bookmark implements Serializable {
 	 */
 	void load(InputStream inputStream) throws IOException {
 		DataInputStream in = new DataInputStream(inputStream);
-		filename = in.readUTF();
-		nccIndex = in.readInt();
-		position = in.readInt();
-		Logging.logInfo(TAG, String.format(
-				"Reading Bookmark details SMILfile[%s] NCC index[%d] offset[%d]",
-				filename, nccIndex, position));
-		in.close();
+		try {
+			filename = in.readUTF();
+			nccIndex = in.readInt();
+			position = in.readInt();
+			Logging.logInfo(TAG, String.format(
+					"Reading Bookmark details SMILfile[%s] NCC index[%d] offset[%d]",
+					filename, nccIndex, position));
+		} catch (IOException ioe) {
+			Logging.logSevereWarning(TAG, "There is a problem reading the contents of the bookmark", ioe);
+			// We rely on the rest of the logic to cope e.g. when the book
+			// starts being read, the contents of the bookmark will be updated.
+		} finally {
+			in.close();
+		}
 	}
 	
 	/* non javadoc
@@ -181,6 +180,14 @@ public final class Bookmark implements Serializable {
 		out.writeInt(position);
 		out.flush();
 		out.close();
+	}
+
+	/**
+	 * Set / Update the Automatic bookmark to store the filename provided.
+	 * @param filename
+	 */
+	void setFilename(String filename) {
+		this.filename = filename;
 	}
 
 	private String ensureTrailingSlash(String path) {
