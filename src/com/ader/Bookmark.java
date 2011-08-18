@@ -52,7 +52,7 @@ public final class Bookmark implements Serializable {
 	/**
 	 * Create and return a Bookmark
 	 * @param path
-	 * @return
+	 * @return a new Bookmark if the underlying bookmark is found and loaded.
 	 * @throws IOException if there are IO problems.
 	 */
 	public static Bookmark getInstance(String path) throws IOException {
@@ -60,31 +60,58 @@ public final class Bookmark implements Serializable {
 		
 	}
 
+	/**
+	 * @return the Filename of the element stored in the bookmark.
+	 */
 	public String getFilename() {
 		return filename;
 	}
 
+	/**
+	 * @return the NCC index stored in the bookmark.
+	 */
 	public int getNccIndex() {
 		return nccIndex;
 	}
 
+	/**
+	 * @return the position (offset) into the element referenced by the 
+	 * bookmark.
+	 */
 	public int getPosition() {
 		return position;
 	}
 
+	/**
+	 * Set / Update the Automatic bookmark to store the filename provided.
+	 * @param filename
+	 */
 	public void setFilename(String filename) {
 		this.filename = filename;
 	}
 
+	/**
+	 * Set / Update the bookmark with the NCC index to store.
+	 * @param nccIndex
+	 */
 	public void setNccIndex(int nccIndex) {
 		this.nccIndex = nccIndex;
 	}
 
+	/**
+	 * Set / Update the position (offset) into the current element referenced
+	 * by the bookmark. 
+	 * @param position
+	 */
 	public void setPosition(int position) {
 		Logging.logInfo(TAG, "Setting position to " + position);
 		this.position = position;
 	}
 
+	/**
+	 * Save the contents of the bookmark to the specified filename. 
+	 * @param bookmarkFilename
+	 */
 	public void save(String bookmarkFilename) {
 		try {
 			FileOutputStream fileOutputStream = new FileOutputStream(bookmarkFilename);
