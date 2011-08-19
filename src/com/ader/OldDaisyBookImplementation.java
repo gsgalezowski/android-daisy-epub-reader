@@ -126,8 +126,9 @@ public class OldDaisyBookImplementation implements Serializable, DaisyBook {
 		validateDaisyContents();
 	}
 
-	/**
-	 * @return the current DaisyItem being used in the Daisy Book.
+	/*
+	 * (non-Javadoc)
+	 * @see com.ader.DaisyBook#current()
 	 */
 	public DaisyItem current() {
 		return getDaisyItemFor(currentnccIndex);
@@ -168,23 +169,18 @@ public class OldDaisyBookImplementation implements Serializable, DaisyBook {
 		goTo(itemToGoTo);
 	}
 	
-	/**
-	 * FIXME: Temporary getter to help with restructuring the classes.
-	 * Cleanup the design as the code improves.
-	 * @return the current SmilFile in the Daisy Book
+	/*
+	 * (non-Javadoc)
+	 * @see com.ader.DaisyBook#getCurrentSmilFilename()
 	 */
 	public String getCurrentSmilFilename() {
 
 		return path + current().getSmil();
 	}
 	
-	/**
-	 * FIXME: Another temporary getter until I cleanup the implementation of
-	 * bookmark(s). This allows the extracted openSmil() code to function for
-	 * the moment.
-	 * @return the current index into the set of DaisyItems
+	/* (non-Javadoc)
+	 * @see com.ader.DaisyBook#getCurrentIndex()
 	 */
-	//TODO 20110818 (jharty): Remove once bookmark.java no longer stores the NCC Index.
 	public int getCurrentIndex() {
 		return currentnccIndex;
 	}

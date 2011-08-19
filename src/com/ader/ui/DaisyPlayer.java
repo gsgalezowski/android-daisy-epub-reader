@@ -23,7 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ader.Bookmark;
-import com.ader.OldDaisyBookImplementation;
+import com.ader.DaisyBook;
 import com.ader.R;
 import com.ader.smil.SmilFile;
 import com.ader.utilities.Logging;
@@ -39,7 +39,7 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	private static final String AUDIO_OFFSET = "Offset";
 	private static final String IS_THE_BOOK_PLAYING = "playing";
 	private static final String TAG = "DaisyPlayer";
-	private OldDaisyBookImplementation book;
+	private DaisyBook book;
 	private MediaPlayer player;
 	private GestureOverlay gestureOverlay;
 	private TextView mainText;
@@ -573,7 +573,7 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	 * The Calling Program passes the book object, programmatically.
 	 */
 	private void retrieveTheBookToPlay() {
-		book = (OldDaisyBookImplementation) getIntent().getSerializableExtra(DAISY_BOOK_KEY);
+		book = (DaisyBook) getIntent().getSerializableExtra(DAISY_BOOK_KEY);
 	}
 
 

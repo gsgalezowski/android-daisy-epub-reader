@@ -3,14 +3,15 @@ package com.ader;
 import java.io.IOException;
 import java.util.List;
 
+import android.widget.TextView;
+
 public interface DaisyBook {
 
-	int getDisplayPosition();
-
-	int setSelectedLevel(int level);
-
-	int incrementSelectedLevel();
-
+	/**
+	 * @return the current DaisyItem being used in the Daisy Book.
+	 */
+	DaisyItem current();
+	
 	int decrementSelectedLevel();
 
 	/**
@@ -19,11 +20,31 @@ public interface DaisyBook {
 	int getCurrentDepthInDaisyBook();
 
 	/**
+	 * FIXME: Another temporary getter until I cleanup the implementation of
+	 * bookmark(s). This allows the extracted openSmil() code to function for
+	 * the moment.
+	 * @return the current index into the set of DaisyItems
+	 */
+	//TODO 20110818 (jharty): Remove once bookmark.java no longer stores the NCC Index.
+	int getCurrentIndex();
+
+	/**
+	 * TODO 20110818 (jharty): Cleanup the design as the code improves.
+	 * Temporary getter to help with restructuring the classes.
+	 * @return the current SmilFile in the Daisy Book
+	 */
+	String getCurrentSmilFilename();
+
+	int getDisplayPosition();
+	
+	/**
 	 * gets the maximum depth of the book
 	 * @return the depth of the book in sections.
 	 */
 	int getMaximumDepthInDaisyBook();
-
+	
+	List<DaisyItem> getNavigationDisplay();
+	
 	/**
 	 * FIXME: Currently returns the path for the book. This is no longer needed 
 	 * by the book, rather, the player needs it to manage bookmarks. However I
@@ -34,20 +55,7 @@ public interface DaisyBook {
 	 */
 	@Deprecated
 	String getPath();
-
-	/**
-	 * Opens a Daisy Book from a full path and filename.
-	 * 
-	 * @param nccFullPathAndFilename The ncc file
-	 * @throws InvalidDaisyStructureException if there are serious problems in
-	 * the book structure.
-	 * @throws IOException 
-	 */
-	void openFromFile(String nccFullPathAndFilename)
-			throws InvalidDaisyStructureException, IOException;
-
-	List<DaisyItem> getNavigationDisplay();
-
+	
 	/**
 	 * Go to the specified item in the book.
 	 * @param item
@@ -61,6 +69,8 @@ public interface DaisyBook {
 	// TODO 20110818 (jharty): We can remove this once bookmark doesn't contain the NCC Index.
 	public void goTo(int nccIndex);
 
+	int incrementSelectedLevel();
+
 	/**
 	 * Go to the next section in the book
 	 * @param includeLevels - when true, pick the next section at a level
@@ -71,6 +81,17 @@ public interface DaisyBook {
 	 */
 	boolean nextSection(Boolean includeLevels);
 
+	/**
+	 * Opens a Daisy Book from a full path and filename.
+	 * 
+	 * @param nccFullPathAndFilename The ncc file
+	 * @throws InvalidDaisyStructureException if there are serious problems in
+	 * the book structure.
+	 * @throws IOException 
+	 */
+	void openFromFile(String nccFullPathAndFilename)
+			throws InvalidDaisyStructureException, IOException;
+	
 	/**
 	 * Go to the previous section in the book.
 	 * @return true when the book has a previous section and navigated
@@ -86,4 +107,5 @@ public interface DaisyBook {
 	 */
 	List<DaisyItem> processDaisyElements(List<DaisyElement> elements);
 
+	int setSelectedLevel(int level);
 }
