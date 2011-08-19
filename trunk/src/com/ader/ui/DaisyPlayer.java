@@ -192,17 +192,8 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	 * book.
 	 */
 	public void loadAutoBookmark() {
-		try {
-			autoBookmark = Bookmark.getInstance(book.getPath());
-		} catch (IOException e) {
-			Logging.logInfo(TAG, 
-					String.format("No automatic bookmark loaded for %s, perhaps this this book is new to us?",
-						book.getPath()));
-			return;
-		}
-		
+		autoBookmark = Bookmark.getInstance(book.getPath());
 		audioOffset = autoBookmark.getPosition();
-		
 		// Tell the book where it needs to start from
 		// TODO 20110818 (jharty): Cleanup once the bookmark code doesn't use the NCC index.
 		book.goTo(autoBookmark.getNccIndex());

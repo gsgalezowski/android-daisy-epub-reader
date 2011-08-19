@@ -40,7 +40,7 @@ public final class Bookmark implements Serializable {
 	 * @param path
 	 * @throws IOException
 	 */
-	private Bookmark(String path) throws IOException {
+	private Bookmark(String path) {
 		this.pathToBook = ensureTrailingSlash(path);
 		this.loadBookmarks();
 	}
@@ -53,9 +53,8 @@ public final class Bookmark implements Serializable {
 	 * Create and return a Bookmark
 	 * @param path
 	 * @return a new Bookmark if the underlying bookmark is found and loaded.
-	 * @throws IOException if there are IO problems.
 	 */
-	public static Bookmark getInstance(String path) throws IOException {
+	public static Bookmark getInstance(String path) {
 		return new Bookmark(path);
 		
 	}
@@ -198,15 +197,22 @@ public final class Bookmark implements Serializable {
 		}
 	}
 	
-	private void load(String bookmarkFilename) throws IOException {
+	private void load(String bookmarkFilename) {
 
 		if (new File(bookmarkFilename).exists()) {
-			FileInputStream fileInputStream = new FileInputStream(bookmarkFilename);
-			load(fileInputStream);
+			try {
+				FileInputStream fileInputStream = new FileInputStream(bookmarkFilename);
+				load(fileInputStream);
+			} catch (IOException ioe) {
+				Logging.logSevereWarning(
+						TAG, 
+						String.format("Problem opening the old Bookmark file: %s", bookmarkFilename),
+						ioe);
+			}
 		}
 	}
 	
-	private void loadBookmarks() throws IOException {
+	private void loadBookmarks() {
 		// Hmmm, what to do about dual bookmarks? old and new...
 		// Some sort of migration path seems sensible.
 		// Let's implement support to read from the current (old) file as I
