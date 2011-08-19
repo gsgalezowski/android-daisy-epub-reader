@@ -31,6 +31,19 @@ import com.google.marvin.widget.GestureOverlay;
 import com.google.marvin.widget.GestureOverlay.Gesture;
 import com.google.marvin.widget.GestureOverlay.GestureListener;
 
+/**
+ * This class currently connects the HomeScreen with the DaisyPlayer.
+ * 
+ * It doesn't seem to add much value and could be removed with little loss of
+ * functionality. However, it may become more useful if it's used to launch the
+ * appropriate user interface depending on the mix of the type of book and the
+ * preferences of the user. Anyhow, one way or another, expect this class to
+ * change.
+ * 
+ * @author jharty
+ */
+
+// TODO 20110819 (jharty): Decide what to do to improve or replace this class.
 public class DaisyReader extends ListActivity {
 	private OldDaisyBookImplementation book = new OldDaisyBookImplementation();
 	private static final String TAG = "DaisyReader";
@@ -124,6 +137,7 @@ public class DaisyReader extends ListActivity {
 		play();
 	}
 
+	// TODO 20110819 (jharty): This doesn't seem to display the contents at all - fix me or delete me.
 	void displayContents() {
 		Logging.logInfo(TAG, "displayContents called - should we bother?");
 		setListAdapter(new ArrayAdapter<DaisyItem>(this, R.layout.results_list, R.layout.listrow, book
