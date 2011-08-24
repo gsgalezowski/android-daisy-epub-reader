@@ -113,6 +113,27 @@ public final class Bookmark implements Serializable {
 	}
 
 	/**
+	 * Deletes the automatic bookmark.
+	 * 
+	 * This can help with our automated testing and allow a user
+	 * to effectively reset the bookmark back to the beginning of their book.
+	 * From a user's perspective this can help reset the automatic bookmark to
+	 * the start of the book.
+	 * 
+	 * Note: this is limited to the current (old format) file as the new
+	 * file hasn't been implemented yet.
+	 */
+	public void deleteAutomaticBookmark() {
+		File bookmarkFile = new File(pathToBook + AUTO_BMK);
+		if (bookmarkFile.exists()) {
+			bookmarkFile.delete();
+		}
+		// Also reset the local variables.
+		filename = null;
+		nccIndex = 0;
+		position = 0;
+	}
+	/**
 	 * Update the automatic bookmark. 
 	 * 
 	 *  This is typically used to enable the player to restart from the most

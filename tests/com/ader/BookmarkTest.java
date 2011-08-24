@@ -26,6 +26,7 @@ import junit.framework.TestCase;
 
 public class BookmarkTest extends TestCase {
 
+	private static final String DUMMY_FILENAME = "dummy";
 	private static final int DUMMY_NCCINDEX = 2;
 	private static final int DUMMY_POSITION = 73;
 	private static final String TMP = "/tmp/";
@@ -84,12 +85,20 @@ public class BookmarkTest extends TestCase {
 		Bookmark bookmark = Bookmark.getInstance(TMP);
 		
 		// Now populate the bookmark
-		bookmark.setFilename("dummy");
-		bookmark.setNccIndex(DUMMY_NCCINDEX);
-		bookmark.setPosition(DUMMY_POSITION);
+		updateAutomaticBookmarkToKnownValues(bookmark);
 
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		bookmark.save(baos);
+	}
+
+	/**
+	 * Updates the Bookmark to known values.
+	 * @param bookmark
+	 */
+	private void updateAutomaticBookmarkToKnownValues(Bookmark bookmark) {
+		bookmark.setFilename(DUMMY_FILENAME);
+		bookmark.setNccIndex(DUMMY_NCCINDEX);
+		bookmark.setPosition(DUMMY_POSITION);
 	}
 	
 	@MediumTest
@@ -118,11 +127,41 @@ public class BookmarkTest extends TestCase {
 		bookmark.save(empty);
 	}
 	
+	@MediumTest
+	public void testDeletingTheAutomaticBookmarkIsHandledCorrectly() throws IOException {
+		File bookmarkFile = new File(bookmarkFilename);
+		deleteAutoBookmarkFile();
+		bookmarkFile.createNewFile();
+		bookmark = Bookmark.getInstance(TMP);
+		
+		assertEmptyBookmark(bookmark);
+		
+		updateAutomaticBookmarkToKnownValues(bookmark);
+		assertEquals("The filename in the bookmark should match", DUMMY_FILENAME, bookmark.getFilename());
+		assertEquals("The offset should match", DUMMY_POSITION, bookmark.getPosition());
+		assertEquals("The NCC Index should match", DUMMY_NCCINDEX, bookmark.getNccIndex());
+		
+		bookmark.deleteAutomaticBookmark();
+		assertEmptyBookmark(bookmark);
+	}
+
+	/**
+	 * 
+	 */
+	private void assertEmptyBookmark(Bookmark bookmark) {
+		assertNull("An empty bookmark should not have a filename", bookmark.getFilename());
+		assertEquals("The position should be at 0 for a new bookmark", 0, bookmark.getPosition());
+		assertEquals("The NCC Index should be 0 for a new bookmark", 0, bookmark.getNccIndex());
+	}
+	/**
+	 * This helper method is needed to test that when no bookmark file exists
+	 * the code copes and doesn't break. We can consider removing this code
+	 * once the bookmark code has been redesigned.
+	 */
 	private void deleteAutoBookmarkFile() {
 		File bookmarkFile = new File(bookmarkFilename);
 		if (bookmarkFile.exists()) {
 			bookmarkFile.delete();
 		}
 	}
-
 }
