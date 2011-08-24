@@ -207,14 +207,18 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	 * @throws ParserConfigurationException 
 	 * @throws SAXException 
 	 */
-	private void openSmilToRead() 
+	private String openSmilToRead() 
 			throws FileNotFoundException, IOException, SAXException, ParserConfigurationException {
-		String smilfilename = book.getCurrentSmilFilename();
-		Logging.logInfo(TAG, "Open SMIL file: " + smilfilename);
-		smilfile.open(smilfilename);
+		String nextFileToRead = book.getCurrentSmilFilename();
+		Logging.logInfo(TAG, "Open SMIL file: " + nextFileToRead);
+		smilfile.open(nextFileToRead);
+		
+		// Only update the automatic bookmark if we open the file correctly.
 		autoBookmark.updateAutomaticBookmark(smilfile);
+		
+		// TODO 20110824 (jharty): Remove this ugly dependency once I modify the SMIL code to return the filename
+		return autoBookmark.getFilename();
 	}
-
 
 	private void play() {
 		Logging.logInfo(TAG, "play");
@@ -222,8 +226,8 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 		int duration = Toast.LENGTH_LONG;
 
 		try {
-			openSmilToRead();
-			read();
+			String fileToRead = openSmilToRead();
+			read(fileToRead);
 			return;
 		} catch (FileNotFoundException fnfe) {
 			reportFileNotFoundException(duration, fnfe);
@@ -323,33 +327,29 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	 * Start reading the current section of the book
 	 * @throws FileNotFoundException 
 	 */
-	private void read() throws FileNotFoundException {
-		Logging.logInfo(TAG, String.format(
-				"Reading from SMILfile[%s] NCC index[%d] offset[%d]",
-				autoBookmark.getFilename(), autoBookmark.getNccIndex(), autoBookmark.getPosition()));
+	private void read(String fileToRead) throws FileNotFoundException {
 
 		// TODO(jharty): Find a practical way to format these messages for i18n and l10n
 		depthText.setText("Depth " + book.getCurrentDepthInDaisyBook() + " of " + book.getMaximumDepthInDaisyBook());
-		mainText.setText(getText(R.string.reading_message) + " " + book.current().getText());
-
+		mainText.setText(getText(R.string.reading_message) + " " + book.current().getText());		
+		
 		if (smilfile.hasAudioSegments()) {
 			// Note: Allow Java Garbage Collection to close the file.
-			File f = new File(autoBookmark.getFilename());
+			File f = new File(fileToRead);
 			if (!(f.exists() && f.canRead())) {
 				// TODO(jharty): Add a localised message to advise users
 				// to upload a valid book. I could also provide a book
 				// validation tool at some point.
-				Logging.logInfo(TAG, "File Not Available: " + autoBookmark.getFilename());
-				throw new FileNotFoundException(autoBookmark.getFilename());
+				Logging.logInfo(TAG, "File Not Available: " + fileToRead);
+				throw new FileNotFoundException(fileToRead);
 			}
 
-			Logging.logInfo(TAG, "Start playing " + autoBookmark.getFilename() + " " + audioOffset);
+			Logging.logInfo(TAG, "Start playing " + fileToRead + " " + audioOffset);
 			try {
-				player.setDataSource(autoBookmark.getFilename());
+				player.setDataSource(fileToRead);
 				player.prepare();
 			} catch (IOException e) {
-				throw new RuntimeException(autoBookmark.getFilename() 
-						+ "\n" + e.getLocalizedMessage());
+				throw new RuntimeException(fileToRead + "\n" + e.getLocalizedMessage());
 			}
 			// TODO(jharty): I'm not sure if the following helps; keep for now.
 			player.setScreenOnWhilePlaying(true);
@@ -361,7 +361,7 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 			// TODO(jharty): add TTS to speak the text section
 			// Note: we need to decide how to handle things like \n
 			// For now, perhaps we can simply display the text in a new view.
-			Logging.logInfo(TAG, "We need to read the text from: " + autoBookmark.getFilename());
+			Logging.logInfo(TAG, "We need to read the text from: " + fileToRead);
 
 			// For now, here is some information for the user. Perhaps I could
 			// add a way to automatically send a request e.g. by email?
