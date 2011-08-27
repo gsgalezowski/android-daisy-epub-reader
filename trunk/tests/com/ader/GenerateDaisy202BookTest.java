@@ -49,7 +49,7 @@ public class GenerateDaisy202BookTest extends TestCase {
 	@MediumTest
 	public void testAbilityToInjectSingleItemSmilFile() throws Exception {
 		SmilFile singleEntry = new SmilFile();
-		singleEntry.open("Resources/testfiles/singleEntry.smil");
+		singleEntry.load("Resources/testfiles/singleEntry.smil");
 		List <AudioElement> audio = singleEntry.getAudioSegments();
 		String id = audio.get(0).getId();
 		assertEquals("ID of the audio element incorrect", "audio_0001", id);

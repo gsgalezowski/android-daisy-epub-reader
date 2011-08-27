@@ -103,4 +103,12 @@ public class SequenceElement implements ContainerElement {
         }
         return ret;
     }
+
+    /**
+     * @return all the elements found in the SMIL file.
+     */
+	public List<SmilElement> getElements() {
+		return elements;
+		
+	}
 }

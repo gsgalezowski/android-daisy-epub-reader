@@ -39,6 +39,13 @@ import com.ader.DummyDtdResolver;
  * contents. The state transitions may be error-prone and the code in
  * startElement in particular is of concern.
  * 
+ * Note: Malformed or invalid content of a SMIL file stops elements from being
+ * created. At the moment no error is reported in such cases. This was
+ * evidenced when I tested with a simple file containing a single audio
+ * element, when no elements were generated until I had added all the
+ * attributes correctly. We could add informational messages to the create
+ * methods.
+ * 
  * @author jharty
  *
  */
