@@ -7,13 +7,13 @@ package com.ader.testutilities;
  */
 public class SampleContent {
 	
-	public static String firstTitle = "Test Book Title";
+	public final static String firstTitle = "Test Book Title";
 	
  	/**
 	 * Note: currently this ncc.html doesn't include all of the mandatory
 	 * elements e.g. no meta tags yet...
 	 */
-	public static String simpleValidNccHtml = 
+	public final static String simpleValidNccHtml = 
 		"<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
 		"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" " +
 		"\"xhtml1-transitional.dtd\"> " +
@@ -30,7 +30,7 @@ public class SampleContent {
 	 * It upset the SAX parser, so it's included here to help test our
 	 * attempts to fix the problems.
 	 */
-	public static String validIcelandicNccHtml = 
+	public final static String validIcelandicNccHtml = 
 		// "<?xml version=\"1.0\" encoding=\"windows-1252\"?>" +
 		"<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
 		"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" " +
@@ -53,5 +53,16 @@ public class SampleContent {
 		// "<h1 class=\"title\" id=\"testcase\"><a href=\"missing.smil#a_0001\">ð</a></h1>" + 
 		"</body>" +
 		"</html>"
+		;
+	
+	public final static String SMIL_FILE_WITH_SINGLE_ITEM = 
+		"<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
+		"<!DOCTYPE smil PUBLIC \"-//W3C//DTD SMIL 1.0//EN\" \"SMIL10.dtd\">" +
+		"<smil><body><seq><par>" +
+		"<text/>" +
+		"<seq>" + 
+		"<audio src=\"dummy.mp3\" clip-begin=\"npt=0.0043s\"  clip-end=\"npt=0.0047s\" id=\"dummy_audio_0001\"/>" +
+		"</seq>" +
+		"</par></seq></body></smil>"
 		;
 }

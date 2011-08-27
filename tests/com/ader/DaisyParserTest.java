@@ -8,15 +8,13 @@ package com.ader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
+import junit.framework.TestCase;
 import android.test.suitebuilder.annotation.MediumTest;
 import android.test.suitebuilder.annotation.SmallTest;
 
 import com.ader.testutilities.SampleContent;
-
-import junit.framework.TestCase;
 
 public class DaisyParserTest extends TestCase {
 	private static final String LIGHT_MAN_NCC_HTML = "/Resources/light-man/ncc.html";

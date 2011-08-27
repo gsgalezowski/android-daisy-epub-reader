@@ -4,7 +4,9 @@ import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -33,7 +35,7 @@ public class SmilFile implements Serializable {
 	 * @throws ParserConfigurationException 
 	 * @throws SAXException 
 	 */
-	public void open(String filename) 
+	public void load(String filename) 
 			throws FileNotFoundException, IOException, SAXException, ParserConfigurationException {
 		// TODO(jharty): Add validation here?
 		String encoding = ExtractXMLEncoding.obtainEncodingStringFromFile(filename);
@@ -46,6 +48,20 @@ public class SmilFile implements Serializable {
 		return;
 	}
 
+	/**
+	 * Parse the contents of the InputStream.
+	 * 
+	 * The contents are expected to represent a valid SMIL file.
+	 * @param contents representing a valid SMIL file.
+	 * @throws ParserConfigurationException 
+	 * @throws SAXException 
+	 * @throws IOException 
+	 */
+	public void parse(InputStream contents) throws IOException, SAXException, ParserConfigurationException {
+		// TODO 20110827 (jharty): Should we check for empty content and throw an Exception?
+		parseContents("UTF-8", contents);
+	}
+	
 	private void tryToExtractElements(String filename, String encoding) 
 			throws IOException, SAXException, ParserConfigurationException {
 
@@ -53,11 +69,26 @@ public class SmilFile implements Serializable {
 		BufferedInputStream bis = new BufferedInputStream(fis);
 
 		try {
-			elements = new SmilParser().parse(bis, encoding);
+			parseContents(encoding, bis);
 		} finally {
 			fis.close();
 			bis.close();
 		}
+	}
+
+	/**
+	 * Parse the contents of an InputStream.
+	 * 
+	 * The parsed content is stored internally in this class.
+	 * @param encoding the file encoding e.g. UTF-8.
+	 * @param bis the InputStream to parse.
+	 * @throws IOException
+	 * @throws SAXException
+	 * @throws ParserConfigurationException
+	 */
+	private void parseContents(String encoding, InputStream bis)
+			throws IOException, SAXException, ParserConfigurationException {
+		elements = new SmilParser().parse(bis, encoding);
 	}
 	
 	/**
@@ -67,6 +98,7 @@ public class SmilFile implements Serializable {
 	 * isolation from any other synchronised content. It's not sufficient when
 	 * we want to synchronise content.
 	 */
+	@Deprecated
 	public List<AudioElement> getAudioSegments() {
 		return elements.getAllAudioElementDepthFirst();
 	}
@@ -78,6 +110,7 @@ public class SmilFile implements Serializable {
 	 * isolation from any other synchronised content. It's not sufficient when
 	 * we want to synchronise content.
 	 */
+	@Deprecated
 	public List<TextElement> getTextSegments() {
 		return elements.getAllTextElementDepthFirst();
 	}
@@ -86,6 +119,7 @@ public class SmilFile implements Serializable {
 	 * Does this Smil file contain at least 1 audio segment?
 	 * @return true if it has, else false.
 	 */
+	@Deprecated
 	public boolean hasAudioSegments() {
 		return getAudioSegments().size() > 0;
 	}
@@ -94,7 +128,15 @@ public class SmilFile implements Serializable {
 	 * Does this Smil file contain at least 1 text segment?
 	 * @return true if it has, else false.
 	 */
+	@Deprecated
 	public boolean hasTextSegments() {
 		return getTextSegments().size() > 0;
+	}
+
+	/**
+	 * @return all the elements for this SMIL file.
+	 */
+	public List<SmilElement> getSegments() {
+		return elements.getElements();
 	}
 }

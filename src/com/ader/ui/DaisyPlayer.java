@@ -211,7 +211,7 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 			throws FileNotFoundException, IOException, SAXException, ParserConfigurationException {
 		String nextFileToRead = book.getCurrentSmilFilename();
 		Logging.logInfo(TAG, "Open SMIL file: " + nextFileToRead);
-		smilfile.open(nextFileToRead);
+		smilfile.load(nextFileToRead);
 		
 		// Only update the automatic bookmark if we open the file correctly.
 		autoBookmark.updateAutomaticBookmark(smilfile);

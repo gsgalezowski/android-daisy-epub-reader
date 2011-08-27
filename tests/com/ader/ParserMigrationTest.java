@@ -2,21 +2,24 @@ package com.ader;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.xml.sax.SAXException;
+import junit.framework.TestCase;
+import android.test.suitebuilder.annotation.MediumTest;
 
 import com.ader.smil.SmilFile;
 
-import junit.framework.TestCase;
-
-import android.test.suitebuilder.annotation.MediumTest;
-
+/**
+ * Tests to make sure we can safely migrate to the new book structure.
+ * 
+ * The new book structure is modelled on DAISY 3 content. Once we have
+ * completed the migration, this class and the old parser can be removed from
+ * the project.
+ * 
+ * @author jharty
+ */
 public class ParserMigrationTest extends TestCase {
 
 	private static final String PATH_TO_LIGHT_MAN_FILES = "/Resources/light-man/";
@@ -90,7 +93,7 @@ public class ParserMigrationTest extends TestCase {
 		SmilFile smilFile = new SmilFile();
 		path = new File(".").getCanonicalPath();
 		filename = path + PATH_TO_LIGHT_MAN_FILES + "/" + navCentre.getNavPoint(0).getSmil();
-		smilFile.open(filename);
+		smilFile.load(filename);
         assertEquals("The external file should have 3 short audio elements.", 
         		3, smilFile.getAudioSegments().size());
         assertEquals(smilFile.getAudioSegments().get(0).getClipBegin(), 0.0);
