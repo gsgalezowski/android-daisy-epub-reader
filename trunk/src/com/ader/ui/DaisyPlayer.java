@@ -252,8 +252,8 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 			ParserConfigurationException pce) {
 		CharSequence localizedMessage = pce.getLocalizedMessage();
 		
-		Toast toast;
-		toast = Toast.makeText(this, localizedMessage, duration);
+		Toast toast = Toast.makeText(this, localizedMessage, duration);
+		toast.show();
 		
 		int titleIDToDisplay = R.string.serious_problem_found;
 		displayAlertThenFinishThisActivity(localizedMessage, titleIDToDisplay);
@@ -264,8 +264,7 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 		CharSequence text = getString(R.string.cannot_open_book) + " " 
 			+ localizedMessage;
 
-		Toast toast;
-		toast = Toast.makeText(this, text, duration);
+		Toast toast = Toast.makeText(this, text, duration);
 		toast.show();
 		
 		int titleIDToDisplay = R.string.serious_problem_found;
@@ -490,10 +489,10 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 				if (newValue < 0) {
 					// Consider jumping to previous track
 					newValue = 0;
-				} else {
-					Logging.logInfo(TAG, "Seeking to: " + newValue);
-					player.seekTo(newValue);
 				}
+				
+				Logging.logInfo(TAG, "Seeking to: " + newValue);
+				player.seekTo(newValue);
 			} else if (g == Gesture.DOWNRIGHT) {
 				Logging.logInfo(TAG, "Fast forward");
 				// TODO (jharty): This is experimental code and needs refining
@@ -505,10 +504,10 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 				if (newValue >= duration) {
 					// Consider jumping to next track
 					newValue = duration;
-				} else {
-					Logging.logInfo(TAG, "Seeking to: " + newValue);
-					player.seekTo(newValue);
 				}
+
+				Logging.logInfo(TAG, "Seeking to: " + newValue);
+				player.seekTo(newValue);
 			}
 		}
 
@@ -550,6 +549,10 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	 * This command has no effect if we are at the start of the book.
 	 */
 	private void gotoPreviousSection() {
+		//TODO 20110828 (jharty): Consider going to the start of the CURRENT section if we've finished reading the current book.
+		// Currently the player goes to the beginning of the previous section. I don't want to
+		// implement this code as I'd probably use the state of the media player to determine
+		// we're at the end of the book. I'd prefer to wait until we redesign this code.
 		if (book.previousSection()) {
 			audioOffset = 0;
 			play();
