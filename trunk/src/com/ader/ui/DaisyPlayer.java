@@ -196,7 +196,15 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 		audioOffset = autoBookmark.getPosition();
 		// Tell the book where it needs to start from
 		// TODO 20110818 (jharty): Cleanup once the bookmark code doesn't use the NCC index.
-		book.goTo(autoBookmark.getNccIndex());
+		try {
+			book.goTo(autoBookmark.getNccIndex());
+		} catch (IndexOutOfBoundsException ioobe) {
+			Logging.logSevereWarning(TAG, "Bookmark seems to point to an invalid value.", ioobe);
+			// For now we'll delete the automatic bookmark
+			// TODO 20110828 (jharty): Provide a UI for handling invalid bookmarks
+			autoBookmark.deleteAutomaticBookmark();
+			book.goTo(0);
+		}
 	}
 
 	/**
