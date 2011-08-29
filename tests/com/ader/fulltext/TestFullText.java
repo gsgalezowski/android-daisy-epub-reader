@@ -6,6 +6,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+
 import junit.framework.TestCase;
 import android.test.suitebuilder.annotation.MediumTest;
 import android.text.Html;
@@ -38,8 +41,15 @@ public class TestFullText extends TestCase {
 		
 		StringBuilder fileContents = textContents.getContentsOfHTMLFile(fileToReadFrom);
 		assertTrue("We should have some contents.", fileContents.length() > 0);
+	
+		Document document = textContents.processHTML(fileContents.toString());
+		assertNotNull("No error should have occurred.", document);
+		Element elementToRead = document.getElementById("d2e289");
+		assertTrue("We should have an element to work with...", elementToRead.html().contains("Copyright"));
+		elementToRead.parent().toString();
+		for (Element child : elementToRead.parent().children()) {
+			child.html();
+		}
 		
-		Spanned formattedContents = Html.fromHtml(fileContents.toString());
-		assertNotNull("No error should have occurred.", formattedContents);
 	}
 }
