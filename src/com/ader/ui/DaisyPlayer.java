@@ -49,6 +49,8 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	private SmilFile smilfile = new SmilFile();
 	private Bookmark autoBookmark;
 
+	private TextView contentsToRead;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -373,9 +375,10 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 			// For now, here is some information for the user. Perhaps I could
 			// add a way to automatically send a request e.g. by email?
 
-			// TODO(jharty): Test whether the status is visible at this size.
 			statusText.setTextSize(11.0f);
-			statusText.setText(R.string.text_content_not_supported_yet);
+			// TODO 20110828 (jharty): This is temporary while I'm trying to implement basic support
+			statusText.setText("Scroll to read each section");
+			contentsToRead.setText(fileToRead);
 		}
 	}
     
@@ -445,6 +448,7 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 		depthText = (TextView) findViewById(R.id.depthText);
 		mainText = (TextView) findViewById(R.id.mainText);
         statusText = (TextView) findViewById(R.id.statusText);
+        contentsToRead = (TextView) findViewById(R.id.contentsToRead);
 		FrameLayout frameLayout = (FrameLayout) findViewById(R.id.daisyPlayerLayout);
 		gestureOverlay = new GestureOverlay(this, gestureListener);
 		frameLayout.addView(gestureOverlay);
