@@ -6,8 +6,14 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
 /** FullText represents the contents of a DAISY full-text book.
- * 
+ *
+ * Next Steps:
+ *   - Experiment with using jsoup.
+ *   
  * @author jharty
  */
 public class FullText {
@@ -35,4 +41,14 @@ public class FullText {
 		reader = null;
 		return fileContents;
 	}
+
+	/**
+	 * Process HTML contained in text and return a Jsoup document.
+	 * @param text to process with HTML markup e.g. &lt;b&gt;Hello&lt;/b&gt;
+	 * @return a JSoup document
+	 */
+	public Document processHTML(String text) {
+		return Jsoup.parse(text);
+	}
+	
 }
