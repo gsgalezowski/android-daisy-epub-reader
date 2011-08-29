@@ -8,36 +8,41 @@
       android:layout_width="fill_parent"
       android:layout_height="fill_parent"
       android:layout_gravity="center">
-        
+
+      <TextView
+        android:textStyle="bold"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:textSize="30px"
+        android:text="@string/no_status_yet"
+        android:textColor="#ffffff"
+        android:id="@+id/statusText"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true" />
+
+      <TextView
+        android:id="@+id/depthText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30px"
+        android:textColor="#ffffff"
+        android:text="@string/no_depth_yet"
+        android:layout_alignParentRight="true" />
+                
       <TextView
         android:id="@+id/mainText" 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/depthText"
         android:textSize="20px"
         android:text="@string/no_text_yet" />
-
       <TextView
-        android:id="@+id/depthText"
-        android:gravity="bottom"
+        android:id="@+id/contentsToRead"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/mainText"
-        android:textSize="30px"
-        android:layout_centerVertical="true"
-        android:textColor="#ffffff"
-        android:text="@string/no_depth_yet" />
-        
-      <TextView
-        android:id="@+id/statusText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:textSize="40px"
-        android:textColor="#ffffff"
-        android:textStyle="bold"
-        android:text="@string/no_status_yet" />
-      
+        android:layout_below="@+id/mainText"
+        android:text="@string/no_text_yet"
+        android:bufferType="spannable" />              
     </RelativeLayout>
 
 </FrameLayout>
