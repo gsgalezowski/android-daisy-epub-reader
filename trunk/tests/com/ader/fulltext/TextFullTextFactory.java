@@ -1,9 +1,5 @@
 package com.ader.fulltext;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 import junit.framework.TestCase;
 
 import org.jsoup.nodes.Document;
@@ -24,24 +20,11 @@ public class TextFullTextFactory extends TestCase {
 	
 	@MediumTest
 	public void testCanCreateObjectContainingFullTextContents() throws Exception {
-		SimpleDocumentFactory factory = new SimpleDocumentFactory();
-		Document fullTextContents = factory.createDocumemt(SAMPLE_FULL_TEXT_REFERENCE);
+		FullTextDocumentFactory factory = new FullTextDocumentFactory();
+		Document fullTextContents = factory.createDocument(SAMPLE_FULL_TEXT_REFERENCE);
 		Element html = fullTextContents.getElementById(SECTION_PREAMBLE);
-		assertNotNull("We expect some contents for this section of the book.", html.toString());
+		assertNotNull("We expect some contents for this section of the book.", html.html());
 	}
 
-	private class SimpleDocumentFactory {
-		Document processedContents = null;
-		
-		public Document createDocumemt(String filename) throws FileNotFoundException, IOException {
-			if (processedContents == null) {
-				FullText fullText = new FullText();
-				String elements[] = filename.split(SEPARATOR);
-				File fileToReadFrom = new File(elements[0]);
-				StringBuilder fileContents = fullText.getContentsOfHTMLFile(fileToReadFrom);
-				processedContents = fullText.processHTML(fileContents.toString());
-			}
-			return processedContents;
-		}
-	}
+
 }
