@@ -6,7 +6,12 @@ import java.io.IOException;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.nodes.TextNode;
+import org.jsoup.safety.Whitelist;
+import org.jsoup.select.Elements;
 import org.xml.sax.SAXException;
 
 import android.app.Activity;
@@ -378,17 +383,34 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 			Logging.logInfo(TAG, "We need to read the text from: " + fileToRead);
 			statusText.setTextSize(11.0f);
 			// TODO 20110828 (jharty): This is temporary while I'm trying to implement basic support
-			statusText.setText("Scroll to read each section");
+			statusText.setText("Currently you cannot scroll if the text exceeds the screen.");
 
 			// TODO 20110904 (jharty): This is the simplest thing that probably wouldn't work. Fix me...
 			FullTextDocumentFactory fullTextFactory = new FullTextDocumentFactory();
 			try {
 				Document doc = fullTextFactory.createDocument(fileToRead);
 				StringBuilder html = new StringBuilder(); 
+				
+				Logging.logInfo(TAG, "Found [" + smilfile.getTextSegments().size() + "] text segments.");
 				for (TextElement e: smilfile.getTextSegments()) {
 					String id = e.getSrc().split("#")[1];
-					html.append(doc.getElementById(id).html());
+					Element element = doc.getElementById(id);
+					Logging.logInfo(TAG, String.format("...text segment [%s].", id));
+					
+					// TODO 20110904 (jharty): This doesn't seem sufficient for 1.6 devices which don't display all the contents, find a workable algorithm
+					// for the 1.6 devices, clean HTML seems to be displayed correctly e.g. 10 lines of computer generated stuff.
+					// However the text read from the DAISY book is often incomplete / missing. I suspect the <strong> tag is a factor.
+					// I will create some separate tests to try and prove or disprove my ideas.
+					Elements anchors = doc.select("a");
+					for (Element cleanme: anchors) {
+						TextNode text = new TextNode(cleanme.text(), "");
+						cleanme.replaceWith(text);
+					}
+					
+					String htlmExtract = element.html();
+					html.append(htlmExtract + "<br/>");
 				}
+				
 				Spanned content = Html.fromHtml(html.toString());
 				contentsToRead.setText(content);
 			} catch (IOException ioe) {

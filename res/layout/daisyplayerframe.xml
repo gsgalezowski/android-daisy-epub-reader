@@ -42,6 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/mainText"
         android:text="@string/no_text_yet"
+        android:textSize="18dip"
         android:bufferType="spannable" />              
     </RelativeLayout>
 
