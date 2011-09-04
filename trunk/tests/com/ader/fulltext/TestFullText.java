@@ -1,9 +1,6 @@
 package com.ader.fulltext;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
 
 import junit.framework.TestCase;
 
