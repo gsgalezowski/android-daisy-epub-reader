@@ -371,13 +371,12 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 			// Note: we need to decide how to handle things like \n
 			// For now, perhaps we can simply display the text in a new view.
 			Logging.logInfo(TAG, "We need to read the text from: " + fileToRead);
-
-			// For now, here is some information for the user. Perhaps I could
-			// add a way to automatically send a request e.g. by email?
-
 			statusText.setTextSize(11.0f);
 			// TODO 20110828 (jharty): This is temporary while I'm trying to implement basic support
 			statusText.setText("Scroll to read each section");
+
+			
+			
 			contentsToRead.setText(fileToRead);
 		}
 	}
