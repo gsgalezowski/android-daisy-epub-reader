@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.jsoup.nodes.Document;
 import org.xml.sax.SAXException;
 
 import android.app.Activity;
@@ -14,6 +15,8 @@ import android.content.DialogInterface;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,7 +28,9 @@ import android.widget.Toast;
 import com.ader.Bookmark;
 import com.ader.DaisyBook;
 import com.ader.R;
+import com.ader.fulltext.FullTextDocumentFactory;
 import com.ader.smil.SmilFile;
+import com.ader.smil.TextElement;
 import com.ader.utilities.Logging;
 import com.google.marvin.widget.GestureOverlay;
 import com.google.marvin.widget.GestureOverlay.Gesture;
@@ -375,9 +380,20 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 			// TODO 20110828 (jharty): This is temporary while I'm trying to implement basic support
 			statusText.setText("Scroll to read each section");
 
-			
-			
-			contentsToRead.setText(fileToRead);
+			// TODO 20110904 (jharty): This is the simplest thing that probably wouldn't work. Fix me...
+			FullTextDocumentFactory fullTextFactory = new FullTextDocumentFactory();
+			try {
+				Document doc = fullTextFactory.createDocument(fileToRead);
+				StringBuilder html = new StringBuilder(); 
+				for (TextElement e: smilfile.getTextSegments()) {
+					String id = e.getSrc().split("#")[1];
+					html.append(doc.getElementById(id).html());
+				}
+				Spanned content = Html.fromHtml(html.toString());
+				contentsToRead.setText(content);
+			} catch (IOException ioe) {
+				// TODO 20110904 (jharty): Decide how to alert the user
+			}
 		}
 	}
     
