@@ -18,6 +18,8 @@ import org.jsoup.nodes.Document;
  */
 public class FullText {
 
+	private Document documentContents;
+
 	/**
 	 * Simply reads the contents from the HTML File.
 	 * 
@@ -48,7 +50,17 @@ public class FullText {
 	 * @return a JSoup document
 	 */
 	public Document processHTML(String text) {
-		return Jsoup.parse(text);
+		documentContents = Jsoup.parse(text);
+		return documentContents;
+	}
+
+	/**
+	 * Returns the inner HTML for a given smilReference.
+	 *  
+	 * @param smilReference the reference e.g. "id_224"
+	 */
+	public String getHtmlFor(String reference) {
+		return documentContents.getElementById(reference).html();
 	}
 	
 }
