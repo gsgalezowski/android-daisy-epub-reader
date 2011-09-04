@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.safety.Whitelist;
 
 /** FullText represents the contents of a DAISY full-text book.
  *
@@ -60,7 +61,9 @@ public class FullText {
 	 * @param smilReference the reference e.g. "id_224"
 	 */
 	public String getHtmlFor(String reference) {
-		return documentContents.getElementById(reference).html();
+		String contents = documentContents.getElementById(reference).html();
+		String cleanedContents = Jsoup.clean(contents, Whitelist.simpleText());
+		return cleanedContents;
 	}
 	
 }
