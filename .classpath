@@ -5,6 +5,6 @@
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="src" path="activitytests"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
-	<classpathentry kind="lib" path="C:/myopensourceprojects/DaisyReader/libs/jsoup-1.6.1.jar" sourcepath="C:/myopensourceprojects/DaisyReader/libs/jsoup-1.6.1-sources.jar"/>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="lib" path="libs/jsoup-1.6.1.jar" sourcepath="libs/jsoup-1.6.1-sources.jar"/>
+	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
