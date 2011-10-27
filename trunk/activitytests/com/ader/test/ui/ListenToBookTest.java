@@ -40,7 +40,7 @@ public class ListenToBookTest extends ActivityInstrumentationTestCase2<DaisyPlay
 		OldDaisyBookImplementation book = new OldDaisyBookImplementation();
 		//TODO 20110816 (amarcano): I'm guessing that we'll need some sort of test-book... but wondering if we can use a test-double here?
 		//TODO 20110816 (amarcano): Remove this temporary phone-specific hack, used to see how this all works
-		book.openFromFile("/sdcard/books/daisy2.02/niv_nt-202/ncc.html");
+		book.openFromFile("/sdcard/Books/testaudiobooks/minidaisyaudiobook/ncc.html");
 		return book;
 	}
 }
