@@ -57,7 +57,7 @@ public class DaisyParserTest extends TestCase {
 	 * 
 	 * @throws IOException
 	 */
-	@SmallTest
+	@MediumTest
 	public void testCanParseIcelandicContent() throws IOException {
 		String filename = openTestFile("/Resources/testfiles/icelandic/ncc.html");
 		List<DaisyElement> elements = 
