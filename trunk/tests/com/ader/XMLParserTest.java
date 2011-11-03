@@ -8,12 +8,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-import android.test.suitebuilder.annotation.SmallTest;
+import junit.framework.TestCase;
+import android.test.suitebuilder.annotation.MediumTest;
 
 import com.ader.testutilities.CreateDaisy202Book;
 import com.ader.testutilities.SampleContent;
-
-import junit.framework.TestCase;
 
 public class XMLParserTest extends TestCase {
 	private NavCentre navCenter = null;
@@ -62,7 +61,7 @@ public class XMLParserTest extends TestCase {
 				numLevelOneSections, nc.count());
 	}
 	
-	@SmallTest
+	@MediumTest
 	public void testCanParseIcelandicContent() throws IOException {
 		String filename = openTestFile("/Resources/testfiles/icelandic/ncc.html");
 		
