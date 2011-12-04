@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="about">Om DaisyReader</string>
+    <string name="app_name">Android Daisy 2.02 Reader</string>
+    <string name="cannot_open_book">Kan ikkje opne boka :( </string>
+    <string name="cannot_open_book_a_file_is_missing"> kan ikkje opne boka :( Fil manglar. 
+    
+   Prøv å gå til andre delar av boka for å halde fram med opplesinga.</string>
+    <string name="close_instructions">Lukk instruksjonar</string>
+    <string name="hello">Hello World, DaisyReader!</string>
+    <string name="help">Hjelp</string>
+    <string name="homepage_title">Android Daisy 2.02 Reader</string>
+    <string name="new_folder_name_not_saved">Namn på ny mappe er ikkje lagra</string>
+    <string name="new_folder_name_saved">Namn på ny mappe er lagra</string>
+    <string name="new_value">Ny verdi er</string>
+    <string name="no_books_found">Ingen bøker funne</string>
+    <string name="no_depth_yet">Nivå?</string>
+    <string name="no_previous_book_saved_msg">Årsakar: enten er bokdetaljar ikkje lagra, eller det er eit problem med den boka som er lagra. Prøv eit anna menyval for å finne ei bok</string>
+    <string name="no_previous_book_saved_title">Boka kan vere sletta eller minnekortet bytta eller fjerna. Gå tilbake til hovedmenyen og velg ei anna bok.</string>
+    <string name="no_status_yet">Status?</string>
+    <string name="no_text_yet">Ingen tekst enda</string>
+    <string name="open_book">opne bok</string>
+    <string name="open_last_book">opne siste bok</string>
+    <string name="paused_message">Pause</string>
+    <string name="permission_problem_opening_a_file">Manglar løyve til å opne ein fil.</string>
+    <string name="player_instructions"> Bruk handrørslser  for å kontrollere spilleren.
+    Eit kort trykk på midten av skjermen vil stoppe eller starte boka.
+    Stryk på skjermen for dei øvrige kommandoane (trekk fingeren i rett linje over skjermen).
+    Daisybøker kan innehalda materiale som er inndelt på berre eitt nivå, eller på fleire nivå 
+    (f.eks nivå 1 kapittel, nivå 2 avsnitt osv.)
+    Navigering i boka: Stryk oppover for å gå til førre område på det navigeringsnivået 
+    som er valgt (forrige kapittel, avsnitt osv.).
+    Stryk nedover for å gå til neste område på valgt navigeringsnivå.
+    Stryk frå venstre til høgre for å gå til eit høgare navigeringsnivå.
+    Stryk frå høgre til venstre for å gå til eit lågare navigeringsnivå.
+    Stryk ned mot venstre for å spole tilbake.
+    Stryk ned mot høgre for å spole framover.
+</string>
+    <string name="playing">Leser</string>
+    <string name="player_instructions_description">Instuksjonar for DAISYReader</string>
+    <string name="playing_message">Spelar</string>
+    <string name="reading_message">Leser </string>
+    <string name="return_to_homescreen">Gå tilbake til førstesida</string>
+    <string name="root_folder">Daisy hovedmappe</string>
+    <string name="root_folder_for_daisy_books">Hovedmappe for DAISY bøker</string>
+    <string name="sd_card_folder_changed_successfully">SD-kort mappa er endra</string>
+    <string name="sdcard_mounted">SD-kortet ser ut til å være opptatt og ikkje tilgjengeleg for DaisyReader.</string>
+    <string name="sdcard_title">SD-kort</string>
+    <string name="search_books">Søk etter bok</string>
+    <string name="serious_problem_found">Eit alvorleg problem er oppstått</string>
+    <string name="settings">Innstillinger</string>
+    <string name="stopped">Stoppet</string>
+    <string name="text_content_not_supported_yet">
+    Denne boka ser ut til å vere ei fulltekstbok. DAISY fulltekst er førebels ikkje støtta. 
+    Vennlegst spør om det er mogeleg for fulltekst på heimmesida for prosjektet 
+    http://code.google.com/p/android-daisy-epub-reader/issues/list
+    så vi veit om det er bruk for utvikling av ein fulltekstspelar. 
+    </string>
+    <string name="unable_to_open_file">Filen kan ikkje opnast</string>
+    <string name="up_1_level">Opp eitt nivå...</string>
+    <string name="finished_reading_book">Boka er ferdiglest</string>
+</resources>
