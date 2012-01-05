@@ -8,6 +8,8 @@ package com.ader.ui;
  * the device.
  */
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.AlertDialog;
@@ -20,6 +22,9 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.ader.DaisyBook;
+import com.ader.InvalidDaisyStructureException;
+import com.ader.OldDaisyBookImplementation;
 import com.ader.R;
 import com.ader.io.BookValidator;
 import com.ader.utilities.DaisyBookUtils;
@@ -78,8 +83,27 @@ public class DaisyBookFinder extends ListActivity {
 			alertDialog.show();  
 		}
 
+		// build the Book list
+		// TODO 20111202 (damienkallison) Refactor loading into load time.
+		List<DaisyBook> bookList = new ArrayList<DaisyBook>();
+		for (String path : books) {
+			try {
+				DaisyBook book = new OldDaisyBookImplementation();
+				book.openFromFile(path + File.separator + 
+						DaisyBookUtils.getNccFileName(new File(path)));
+				bookList.add(book);
+			} catch (InvalidDaisyStructureException e) {
+				Logging.logSevereWarning(TAG, "Invalid daisy structure " +
+						"exception reading: " + path, e);
+			} catch (IOException e) {
+				Logging.logSevereWarning(TAG, "Skipping book due to IO " +
+						"exception reading: " + path, e);
+			}
+		}
+		
 		// TODO (jharty): format the list of books more attractively.
-		setListAdapter(new ArrayAdapter<String>(this, R.layout.listrow, R.id.textview, books));
+		setListAdapter(new ArrayAdapter<DaisyBook>(this, R.layout.listrow,
+				R.id.textview, bookList));
 		getListView().setTextFilterEnabled(true);
 	}
 }

@@ -1,15 +1,27 @@
 package com.ader;
 
-import junit.framework.TestCase;
+import static com.ader.OldDaisyBookImplementation.determineMetaLabel;
+import static com.ader.OldDaisyBookImplementation.getAttributeValue;
+import static com.ader.OldDaisyBookImplementation.getMetaValue;
 
 import java.io.File;
 import java.io.IOException;
 
+import android.test.suitebuilder.annotation.MediumTest;
+import android.test.suitebuilder.annotation.SmallTest;
+import org.xml.sax.helpers.AttributesImpl;
+import junit.framework.TestCase;
+
+import com.ader.OldDaisyBookImplementation.MetaLabel;
 import com.ader.utilities.Logging;
 
-import android.test.suitebuilder.annotation.MediumTest;
-
 public class DaisyBookTest extends TestCase {
+	private static final String CHARSET = "iso-8859-1",
+	CHARSET_LABEL = "ncc:charset",
+	NAME_KEY = "name",
+	META = "meta",
+	VALUE_KEY = "content";
+	
 	private DaisyBook daisyBook;
 
 	public void setUp() {
@@ -58,5 +70,65 @@ public class DaisyBookTest extends TestCase {
 				+ "depth > than the number of levels in the book.. ", 17, daisyBook.getNavigationDisplay().size());
 		assertEquals("The minimum selected level should be 1, even if we select 0", 1, daisyBook.setSelectedLevel(0));
 		assertEquals("The light-man book should have.. ", 17, daisyBook.getNavigationDisplay().size());
+	}		
+	
+	private DaisyElement getCharsetMeta() {
+		DaisyElement metaElement = new DaisyElement();
+		metaElement.setName(META);
+		AttributesImpl attributes = new AttributesImpl();
+		attributes.addAttribute("", NAME_KEY, "", "String", CHARSET_LABEL);
+		attributes.addAttribute("", VALUE_KEY, "", "String", CHARSET);
+		metaElement.setAttributes(attributes);
+		return metaElement;
 	}
+	
+	@SmallTest
+	public void testGetElementAttributeKey() {
+		DaisyElement metaElement = getCharsetMeta();
+		assertEquals(CHARSET_LABEL, getAttributeValue(NAME_KEY,
+				metaElement.getAttributes()));
+	}
+	
+	@SmallTest
+	public void testGetElementAttributeValue() {
+		DaisyElement metaElement = getCharsetMeta();
+		assertEquals(CHARSET, getAttributeValue(VALUE_KEY,
+				metaElement.getAttributes()));
+	}
+	
+	@SmallTest
+	public void testDetermineMetaLabel() {
+		DaisyElement metaElement = getCharsetMeta();
+		assertEquals(MetaLabel.CHARACTER_SET, determineMetaLabel(metaElement));
+	}
+	
+	@SmallTest
+	public void testGetMetaValue() {
+		DaisyElement metaElement = getCharsetMeta();
+		assertEquals(CHARSET, getMetaValue(metaElement));
+	}
+	
+	@SmallTest
+	public void determineMetaLabelNullElement() {
+		assertEquals(MetaLabel.UNKNOWN, determineMetaLabel(null));
+	}
+	
+	@SmallTest
+	public void determineMetaLabelNullName() {
+		DaisyElement element = getCharsetMeta();
+		element.setName(null);
+		assertEquals(MetaLabel.UNKNOWN, determineMetaLabel(element));
+	}
+	
+	@SmallTest
+	public void determineMetaLabelUnknownName() {
+		DaisyElement element = getCharsetMeta();
+		element.setName("randomnessstrikesentropy");
+		assertEquals(MetaLabel.UNKNOWN, determineMetaLabel(element));
+	}
+	
+	/**
+	 * Consider testing attributes variants as they are problematic. Add 
+	 * attributes without value and other similar tests.
+	 */
 }
