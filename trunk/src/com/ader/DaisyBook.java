@@ -5,6 +5,15 @@ import java.util.List;
 
 import android.widget.TextView;
 
+/**
+ * This interface names the methods of a top level daisy item (a book) and
+ * also encapsulates the current singleton 'current' book, the depth in the
+ * book.
+ * 
+ * @todo(jharty) Update the documentation.
+ * @author jharty
+ *
+ */
 public interface DaisyBook {
 
 	/**
@@ -88,6 +97,8 @@ public interface DaisyBook {
 	 * @throws InvalidDaisyStructureException if there are serious problems in
 	 * the book structure.
 	 * @throws IOException 
+	 * 
+	 * TODO 20111202 (jharty) This should be a named load format factory.
 	 */
 	void openFromFile(String nccFullPathAndFilename)
 			throws InvalidDaisyStructureException, IOException;
@@ -108,4 +119,11 @@ public interface DaisyBook {
 	List<DaisyItem> processDaisyElements(List<DaisyElement> elements);
 
 	int setSelectedLevel(int level);
+	
+	/**
+	 * Get the title of the book.
+	 * 
+	 * @return The title string of the book.
+	 */
+	public String getTitle();
 }

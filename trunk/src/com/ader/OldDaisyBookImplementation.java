@@ -6,11 +6,23 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.xml.sax.Attributes;
+
 import com.ader.utilities.Logging;
 
 @SuppressWarnings("serial")
 public class OldDaisyBookImplementation implements Serializable, DaisyBook {
 	// public static final long serialVersionUID = 1;
+	
+	private static final String IS_HEADING = "h[123456]",
+			IS_META = "meta";
+	
+	private static final String META_NAME_KEY = "name",
+			META_VALUE_KEY = "content";
+	
+	private static final String TITLE_PREFIX = "Title: ",
+			PATH_PREFIX = "Directory: ",
+			SPACER = "\t";
 
 	private static final String TAG = OldDaisyBookImplementation.class.getSimpleName();
 	private int currentnccIndex = 0; // FIXME: Was -1 Temporary change during restructuring
@@ -18,6 +30,7 @@ public class OldDaisyBookImplementation implements Serializable, DaisyBook {
 	private int selectedLevel = 1;
 	private List<DaisyItem> items = new ArrayList<DaisyItem>();
 	private String path;
+	private String title = null; // the title of the book from one of the source
 	
 
 	/* (non-Javadoc)
@@ -236,16 +249,21 @@ public class OldDaisyBookImplementation implements Serializable, DaisyBook {
 	
 	/* (non-Javadoc)
 	 * @see com.ader.DaisyBook#processDaisyElements(java.util.ArrayList)
+	 * 
+	 * TODO 20111215 (jharty) refactor this to be part of a builder as there
+	 * is likely to be a lot of switch casing and this long if list is pretty
+	 * nasty so should be buried in the factory that creates the book, probably
+	 * in the parser. 
 	 */
 	public List<DaisyItem> processDaisyElements(List<DaisyElement> elements) {
 		int level = 0;
 		DaisyItemType type = DaisyItemType.UNKNOWN;
-		
-		for (int i = 0; i < elements.size(); i++) {
-			String elementName = elements.get(i).getName();
+	
+		for (DaisyElement element : elements) {
+			String elementName = element.getName();
 			
 			// is it a heading element
-			if (elementName.matches("h[123456]")) {
+			if (elementName.matches(IS_HEADING)) {
 				level = Integer.decode(elementName.substring(1));
 				type = DaisyItemType.LEVEL;
 				if (level > NCCDepth) {
@@ -255,15 +273,21 @@ public class OldDaisyBookImplementation implements Serializable, DaisyBook {
 				continue;
 			}
 			
-			// Really just to speed the debugging...
-			if (elementName.matches("meta")) {
-				continue;
+			if (elementName.matches(IS_META)) {
+				MetaLabel label = determineMetaLabel(element);
+				switch (label) {
+					// TODO 20111215 (damienkallison) handle conflicts created
+					// by duplicate titles.
+					case TITLE: title = getMetaValue(element); 
+						break;
+					default: // skip default cases;
+				}
 			}
 			
 			// Note: The following is a hack, we should check the 'class'
 			// attribute for a value containing "page-"
 			if (elementName.contains("span")
-					&& elements.get(i).getAttributes().getValue(0).contains("page-")) {
+					&& element.getAttributes().getValue(0).contains("page-")) {
 				
 				type = DaisyItemType.PAGENUMBER;
 			}
@@ -272,10 +296,116 @@ public class OldDaisyBookImplementation implements Serializable, DaisyBook {
 			if (elementName.equalsIgnoreCase("a")) {
 				// TODO (jharty): level should only be set for content, not
 				// page-numbers, etc. However let's see where this takes us
-				items.add(new NCCEntry(elements.get(i), type, level));
+				items.add(new NCCEntry(element, type, level));
 			}
 		}
 		return items;
+	}
+	
+	/**
+	 * Get the metadata label value.
+	 * 
+	 * @param element to inspect
+	 * @return The value of the metadata label or null if the label can't 
+	 * 		be determined.
+	 */
+	static String getMetaValue(DaisyElement element) {
+		if (null == element) {
+			return null;
+		}
+		if (null == element.getName() ||
+				!element.getName().matches(IS_META)) {
+			return null;
+		}
+		return getAttributeValue(META_VALUE_KEY, element.getAttributes());
+	}
+	
+	static String getAttributeValue(String key, Attributes attributes) {
+		for (int i = 0; i < attributes.getLength(); i++) {
+			if (attributes.getLocalName(i).equals(key)) {
+				return attributes.getValue(i);
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * Determine the metadata label type for a meta data element.
+	 * 
+	 * @param element to inspect.
+	 * @return The Metadata label type. Note that unknown is returned in all
+	 * 		cases where the label can not be determined.
+	 * TODO 20111215 (damienkallison) Refactor this along with the parser
+	 * factory so that it doesn't use this very expensive search for the node
+	 * name.
+	 */
+	static MetaLabel determineMetaLabel(DaisyElement element) {
+		if (null == element) {
+			return MetaLabel.UNKNOWN;
+		}
+		if (null == element.getName() || 
+				!element.getName().matches(IS_META)) {
+			return MetaLabel.UNKNOWN;
+		}
+		String metaName = getAttributeValue(META_NAME_KEY,
+				element.getAttributes());
+		if (null == metaName) {
+			return MetaLabel.UNKNOWN;
+		}
+		for (MetaLabel label : MetaLabel.values()) {
+			if (metaName.equals(label.getName())) {
+				return label;
+			}
+		}
+		return MetaLabel.UNKNOWN;
+	}
+	
+	enum MetaLabel {
+		CHARACTER_SET {
+			@Override String getName() {
+				return "ncc:charset";
+			}
+		},
+		FORMAT {
+			@Override String getName() {
+				return "dc:format";
+			}
+		},
+		MULTI_MEDIA_TYPE {
+			@Override String getName() {
+				return "ncc:multimediaType";
+			}
+		},
+		NARRATOR {
+			@Override String getName() {
+				return "ncc:narrator";
+			}
+		},
+		CONTENTS_ITEM_COUNT {
+			@Override String getName() {
+				return "ncc:tocItems";
+			}
+		},
+		/*
+		 * Note, there are at least three definitions of the title: The title
+		 * element, the dc:title meta data tag and the ncc:sourceTitle
+		 */
+		TITLE {
+			@Override String getName() {
+				return "dc:title";
+			}
+		},
+		TOTAL_PLAY_TIME{
+			@Override String getName() {
+				return "ncc:narrator";
+			}
+		},
+		UNKNOWN {
+			@Override String getName() {
+				return null;
+			}
+		};
+		abstract String getName();
 	}
 
 	/**
@@ -289,5 +419,27 @@ public class OldDaisyBookImplementation implements Serializable, DaisyBook {
 		DaisyItem item = items.get(nccIndex);
 		Logging.logInfo(TAG, String.format("DaisyItem is index:%d, ncc:%s", nccIndex, item));
 		return item;
+	}
+	
+	/**
+	 * Get the title.
+	 * 
+	 * @see DaisyBook#getTitle
+	 */
+	public String getTitle() {
+		return title;
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		if (null != title) {
+			builder.append(TITLE_PREFIX);
+			builder.append(title);
+			builder.append(SPACER);
+		}
+		builder.append(PATH_PREFIX);
+		builder.append(path);
+		return builder.toString();
 	}
 }

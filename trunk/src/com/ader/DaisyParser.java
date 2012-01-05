@@ -7,6 +7,11 @@ package com.ader;
  * Currently the parsing is limited and does not detect malformed books. We
  * want to add logic to detect malformed books. The reference will be the DAISY
  * 2.02 Specification http://www.daisy.org/z3986/specifications/daisy_202.html
+ * 
+ * TODO 20111215 (jharty) Consider separating the two concerns in this class
+ * namely the utility wrapper methods for creating daisy elements. Storing the
+ * daisy elements internally implies this is also a container for the book meta
+ * data. This should really be separated out.
  */
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -34,16 +39,11 @@ import com.ader.utilities.Logging;
 
 public class DaisyParser extends DefaultHandler {
 	private static final String TAG = DaisyParser.class.getSimpleName();
+	private static final int EMPTY = 0;
+	
 	private List<DaisyElement> daisyElements = new ArrayList<DaisyElement>();
 	private DaisyElement current;
 	private StringBuilder builder = new StringBuilder();
-
-	@Override
-	public void characters(char[] ch, int start, int length)
-			throws SAXException {
-		super.characters(ch, start, length);
-		builder.append(ch, start, length);
-	}
 
 	public List<DaisyElement> parse(String content) {
 		return this.parse(new ByteArrayInputStream(content.getBytes()));
@@ -67,30 +67,48 @@ public class DaisyParser extends DefaultHandler {
 		return parseNccContents(bis, er, encoding);
 	}
 
-	@Override
-	public void endElement(String uri, String localName, String name)
-	throws SAXException {
-		current.setText(builder.toString());
-	}
-	
-	
+
+	// Xml handling implementation.
+	/**
+	 * Implementation of the start event listener overriding the default.
+	 * 
+	 * TODO 20111215 (jharty) Consider retaining the structure and using nested
+	 * handlers for separation of the different sections of the book metadata.
+	 */
 	@Override
 	public void startElement(String uri, String localName, String name,
 			Attributes attributes) throws SAXException {
 		super.startElement(uri, localName, name, attributes);
-		builder.setLength(0);
+		builder.setLength(EMPTY);
 		current = new DaisyElement();
 		// Possible bug between Android and Java...
 		// On Android the element name is returned in localName, on the
 		// workstation it's returned in 'name'
 		// Adding a temporary workaround until I understand what's happening!
-		if (localName.length() > 0) {
+		// also use isEmpty if using java 6
+		if (localName.length() > EMPTY) {
 			current.setName(localName);
 		} else {
 			current.setName(name);
 		}
 		current.setAttributes(attributes);
 		daisyElements.add(current);
+	}
+	
+	/**
+	 * Handle tag content.
+	 */
+	@Override
+	public void characters(char[] ch, int start, int length)
+			throws SAXException {
+		super.characters(ch, start, length);
+		builder.append(ch, start, length);
+	}
+	
+	@Override
+	public void endElement(String uri, String localName, String name)
+	throws SAXException {
+		current.setText(builder.toString());
 	}
 	
 	/** 

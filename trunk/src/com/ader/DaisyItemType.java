@@ -10,6 +10,9 @@ package com.ader;
  * to use a DOM to represent the book in which case this enum may be
  * superfluous.]</p>
  * 
+ * TODO 20111215 (jharty) Consider restructuring with polymorphism rather than
+ * type enum.
+ * 
  * @author jharty
  *
  */
