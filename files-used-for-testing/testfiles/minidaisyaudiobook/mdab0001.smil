@@ -16,7 +16,7 @@
 	<body>
 		<seq dur="5.100s">
 			<par endsync="last">
-				<text src="ncc.html#mdab0001" id="numbers_0001"/>
+				<text src="ncc.html#mdab_0001" id="numbers_0001"/>
 				<seq>
 					<audio src="TestTo5.mp3" clip-begin="npt=0.000s" clip-end="npt=5.1s" id="audio_0001"/>
 				</seq>
