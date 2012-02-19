@@ -1,3 +1,8 @@
+r438 19 February 2012
+Wow, I've not edited this file for over a year... There's a lot of work been done in the interim including several experimental redesigns (the most recent one seems to be going well). We've also managed to include 10 human languages, with many of the translations provided by users or their family and friends, thank you all for your help.
+
+I'll try to edit this file within a year :)
+
 r192 29 Dec 2010
 - Sorry for the lack of updates to this document. Here's a summary of the work since r106, 8 months ago.
 --- Added support for Daisy books from European sources e.g. Spanish, Norwegian, Danish, etc. The challenge was handling various forms of encoding of the XML files and convincing the SAX parser to process them correctly.
