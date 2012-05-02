@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="about">فيما يخص  </string>
+    <string name="app_name">Android Daisy 2.02 قارئ </string>
+    <string name="cannot_open_book">لايمكن فتح الكتاب </string>
+    <string name="cannot_open_book_a_file_is_missing"> لايمكن فتح الكتاب الملف مفقود     
+قد تكون قادر على الانتقال إلى أقسام أخرى لمواصلة القراءة لهذا الكتاب
+	</string>
+    <string name="close_instructions">اغلق التعليمات  </string>
+    <string name="hello"> مرحبا بالعالم - قارئ الديزي </string>
+    <string name="help">مساعدة</string>
+       <string name="homepage_title">قارئ الديزي  </string>
+    <string name="new_folder_name_not_saved">اسم المجلد الجديد لم يحفظ  </string>
+    <string name="new_folder_name_saved"> حُفِظ اسم المجلد الجديد</string>
+    <string name="new_value">القيمة الجديدة  </string>
+    <string name="no_books_found"> لم يتم العثور على الكتب</string>
+    <string name="no_depth_yet">عمق؟ </string>
+    <string name="no_previous_book_saved_msg">
+ اسف اما لم تحفظ اي تفاصيل عن الكتاب اوهنالك مشكلة مع الكتب المخزونة . يرجى استخدام  
+خيار اخر للقائمة لايجاد كتاب للقرائة                                                
+</string> 
+    <string name="no_previous_book_saved_title">لا يوجد كتاب محفوظ سابقا  </string>
+    <string name="no_status_yet">  حالة ؟ </string>
+    <string name="no_text_yet">لا يوجد اي نص  </string>
+    <string name="open_book">افتح كتاب </string>
+    <string name="open_last_book">افتح اخر كتاب </string> 
+    <string name="paused_message">توقف  </string>
+    <string name="permission_problem_opening_a_file"> المشكلةعدم السماح لفتح الملف   </string>
+    <string name="player_instructions">
+الحركات المستخدمة للسيطرة على القارئ
+
+اضغط على مركز الشاشة لتوقيف وكذلك لاعادة تشغيل الناطق  
+    
+طريقة مسح الشاشة ( المقصود بها امرار الاصبع على الشاشة بخط مستقيم ثم رفع الاصبع )
+تستعمل للتعليمات اللاحقة                                                        
+
+امسح الشاشة بالاصبع للاعلى للاعادة نطق الجزء السابق لنفس العمق من الكتاب   
+
+امسح الشاشة بالاصبع للاسفل لنطق لجزءاللاحق لنفس العمق من الكتاب        
+
+امسح الشاشة بالاصبع من اليسار الى اليمين لزيادةالتعمق بالكتاب      
+
+امسح الشاشة بالاصبع من اليمين الى اليسار للرجوع وتقليل التعمق بالكتاب 
+
+امسح الشاشة بالاصبع بشكل منحرف نحو الاسفل والى اليسار للرجوع     
+
+امسح الشاشة بالاصبع بشكل منحرف نحو الاسفل والى اليمين للتقدم بسرعة
+
+كتب الديزي يمكن ان تحتوي على مواد بنفس العمق او ضمن اعماق عديدة
+مثلا الفصل الاول يكون في العمق الاول والقسم الاول من الفصل الاول يكون في العمق الثاني        
+    </string>
+    <string name="playing">يشتغل  </string>
+    <string name="player_instructions_description">  ارشادات لقارئ الديزي </string>
+    <string name="playing_message"> تشغيل </string>
+    <string name="reading_message">قراءه </string>
+    <string name="return_to_homescreen">الرجوع الى الشاشة الرئيسية </string>
+    <string name="root_folder"> المجلد الرئيسي</string>
+    <string name="root_folder_for_daisy_books"> المجلد الرئيسي لكتب الديزي  </string>
+    <string name="sd_card_folder_changed_successfully"> تغير بنجاح SDمجلد بطاقة </string> 
+    <string name="sdcard_mounted">
+ في حالة استعمال ( منصبة) يمكنك عدم تنصيبها والمحاولة مرة اخرى          SD      بطاقة
+</string>
+    <string name="sdcard_title">SD بطاقة</string>
+    <string name="search_books">البحث عن كتب </string>
+    <string name="serious_problem_found"> وجدت مشكلة مهمة  </string>
+    <string name="settings">اعدادات  </string>
+    <string name="stopped">تَوقَفَ </string>
+
+    <string name="text_content_not_supported_yet">
+
+
+هذا الكتاب من النوع الكامل وهو غير مدعوم بديزي .
+الرجاء طلب هذه الخاصية علر هذا العنوان
+    http://code.google.com/p/android-daisy-epub-reader/issues/list 
+وبذلك يمكننا معرفة حجم طلب هذه الخاصية 
+
+    </string>
+    <string name="unable_to_open_file">غير قادر على فتح الملف  </string>
+    <string name="up_1_level"> عمق واحد للاعلى </string>
+    <string name="version">  %1$s.%2$s    الإصدار </string>
+    <string name="finished_reading_book">انتهيت من قراءة هذا الكتاب  </string>
+    <string name="send_your_email_in">ارسل بريدك الالكتروني</string>	
+</resources>
+
