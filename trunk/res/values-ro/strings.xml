@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="about">Despre</string>
+    <string name="app_name">Android Daisy 2.02 Reader</string>
+    <string name="cannot_open_book">Cartea nu poate fi deschisă :( </string>
+    <string name="cannot_open_book_a_file_is_missing">Cartea nu poate fi deschisă :( Lipseşte un fişier. 
+    
+    Puteţi încerca să navigaţi la alte secţiuni din carte pentru a continua citirea ei.</string>
+    <string name="close_instructions">Închideţi Instrucţiuni</string>
+    <string name="hello">Salut, DaisyReader!</string>
+    <string name="help">Ajutor</string>
+   	<string name="homepage_title">Android Daisy 2.02 Reader</string>
+    <string name="new_folder_name_not_saved">Numele fişierului nou NU a fost salvat</string>
+    <string name="new_folder_name_saved">Numele fişierului nou a fost salvat</string>
+    <string name="new_value">Noua valoare este </string>
+    <string name="no_books_found">Nu a fost găsită nici o carte </string>
+    <string name="no_depth_yet">Adâncimea?</string>
+    <string name="no_previous_book_saved_msg">Ne cerem scuze, dar fie nu au fost salvate detaliile legate de carte, fie există o problemă cu cartea salvată. Vă rugăm să folosiţi o altă opţiune din meniu pentru a alege o carte.</string>
+    <string name="no_previous_book_saved_title">Nu a fost salvată nici o carte anterioară</string>
+   	<string name="no_status_yet">Statusul?</string>
+	<string name="no_text_yet">încă nu există text</string>
+    <string name="open_book">Deschideţi cartea</string>
+    <string name="open_last_book">Deschideţi ultima carte</string>
+    <string name="paused_message">Pe pauză</string>
+    <string name="permission_problem_opening_a_file">Există o problemă de permisii la deschiderea fişierului</string>
+    <string name="player_instructions">Pentru a controla playerul se folosesc gesturi.
+    Apăsaţi centrul ecranului pentru a opri şi reporni fişierul audio curent.
+	Glisarea (trecerea degetului peste ecran în linie dreaptă, apoi 
+    ridicarea degetului) este folosită pentru următoarele gesturi:
+	Glisaţi in sus pentru a merge la segmentul audio anterior folosind adâncimea curentă a cărţii.
+	Glisaţi in jos pentru a merge la segmentul audio următor folosind adâncimea curentă a cărţii.
+	Glisaţi de la stânga la dreapta pentru a creşte adâncimea.
+	Glisaţi de la dreapta la stânga pentru a reduce adâncimea.
+	
+	Glisaţi pe diagonală în jos şi la stânga pentru a derula înapoi.
+	Glisaţi pe diagonală în jos şi la dreapta pentru a derula înainte.
+    
+	Cărţile DAISY pot conţine material la o singură adâncime sau la adâncimi multiple, 
+	pentru a reprzenta, de exemplu, capitolele (unde adâncimea poate fi de nivel 1)
+	şi secţiunile (unde adâncimea poate fi de nivel 2).
+	
+    </string>
+	<string name="playing">Pornit</string>
+    <string name="player_instructions_description">Instrucţiuni pentru playerul DAISY</string>
+    <string name="playing_message">Pornire</string>
+    <string name="reading_message">Citire</string>
+    <string name="return_to_homescreen">Înapoi la ecranul principal</string>
+    <string name="root_folder">Directorul principal</string>
+    <string name="root_folder_for_daisy_books">Directorul principal pentru cărţile DAISY</string>
+    <string name="sd_card_folder_changed_successfully">Directorul pentru cardul SD a fost schimbat cu succes</string>
+	<string name="sdcard_mounted">Cardul SD pare să fie folosit momentan. Puteţi să îl deconectaţi şi reconectaţi?</string>
+    <string name="sdcard_title">Card SD</string>
+    <string name="search_books">Cautaţi cărţi</string>
+    <string name="serious_problem_found">O problemă gravă a fost găsită</string>
+    <string name="settings">Setări</string>
+    <string name="stopped">Oprit</string>
+	<string name="text_content_not_supported_yet">
+	Această carte pare să fie cu text complet. Cărţile DAISY cu text complet nu sunt incă acceptate.  
+    Vă rugăm să solicitaţi această funcţionalitate pe adresa proiectului la
+    http://code.google.com/p/android-daisy-epub-reader/issues/list 
+    astfel incât să ştim că oamenii doresc întradevăr această funcţionalitate. 
+    </string>
+    <string name="unable_to_open_file">Fişierul nu poate fi deschis</string>
+    <string name="up_1_level">Un nivel mai sus&#8230;</string>
+    <string name="version">Versiunea: %1$s.%2$s</string>
+    <string name="finished_reading_book">Aţi terminat de citit această carte</string>
+    <string name="send_your_email_in">Trimiteţi adresa de email:</string>
+</resources>
