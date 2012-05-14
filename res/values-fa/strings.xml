@@ -1,30 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="about">پیرامون</string>
-    <string name="app_name">اندروید دیزی ۰۲‫.‬۲ خوان</string>
-    <string name="cannot_open_book"> خواننده گرامی کتاب باز نمی شود :( </string>
-    <string name="cannot_open_book_a_file_is_missing">. ‫ ‬خواننده گرامی کتاب باز نمی شود :( فایل در دسترس نیست  
+<string name="about">پیرامون</string>
+<string name="app_name">اندروید دیزی ۰۲‫.‬۲ خوان</string>
+<string name="cannot_open_book"> خواننده گرامی کتاب باز نمی شود :( </string>
+<string name="cannot_open_book_a_file_is_missing">. ‫ ‬خواننده گرامی کتاب باز نمی شود :( فایل در دسترس نیست  
     
 ‎شما می توانید به بخش های دیگر این کتاب رفته و به خواندن خود ادامه دهید‫.‬</string>
-    <string name="close_instructions">بستن راهنما</string>
-    <string name="close_instructions">بستن راهنما </string>
-    <string name="hello">درود بر شما‫،‬ دیزی خوان‫!‬</string>
-    <string name="help">راهنما</string>
-        <string name="homepage_title">ندروید دیزی ۰۲‫.‬۲ خوان</string>
-    <string name="new_folder_name_not_saved">فولدر جدید ذخیره نشده است‫.‬</string>
-    <string name="new_folder_name_saved">فولدر جدید ذخیره شد</string>
-    <string name="new_value">مقدار </string>
-    <string name="no_books_found">هیچ کتابی پیدا نشد‫.‬</string>
-    <string name="no_depth_yet">  اندازه نمایش کتاب</string>
-    <string name="no_previous_book_saved_msg"> امکان باز کردن کتاب نمی باشد ‫.‬ شاید نسخه مورد نظر موجود نمی باشد‫.‬. خواهشمندیم دنبال نسخه دیگر بگردید‫.‬.</string>
-    <string name="no_previous_book_saved_title">کتابی از قبل ذخیره نشده است‫.‬</string>
-    <string name="no_status_yet">موقعیت?</string>
-    <string name="no_text_yet">هنوز متنی موجود نیست‫.‬</string>
-    <string name="open_book">  باز کردن کتاب</string>
-    <string name="open_last_book">باز کردن کتاب قبلی</string>
-    <string name="paused_message">توقف</string>
-    <string name="permission_problem_opening_a_file">برای باز کردن این فایل اجازه لازم است‫!‬</string>
-    <string name="player_instructions"> 
+<string name="close_instructions">بستن راهنما</string>
+<string name="hello">درود بر شما‫،‬ دیزی خوان‫!‬</string>
+<string name="help">راهنما</string>
+<string name="homepage_title">ندروید دیزی ۰۲‫.‬۲ خوان</string>
+<string name="new_folder_name_not_saved">فولدر جدید ذخیره نشده است‫.‬</string>
+<string name="new_folder_name_saved">فولدر جدید ذخیره شد</string>
+<string name="new_value">مقدار </string>
+<string name="no_books_found">هیچ کتابی پیدا نشد‫.‬</string>
+<string name="no_depth_yet">  اندازه نمایش کتاب</string>
+<string name="no_previous_book_saved_msg"> امکان باز کردن کتاب نمی باشد ‫.‬ شاید نسخه مورد نظر موجود نمی باشد‫.‬. خواهشمندیم دنبال نسخه دیگر بگردید‫.‬.</string>
+<string name="no_previous_book_saved_title">کتابی از قبل ذخیره نشده است‫.‬</string>
+<string name="no_status_yet">موقعیت?</string>
+<string name="no_text_yet">هنوز متنی موجود نیست‫.‬</string>
+<string name="open_book">  باز کردن کتاب</string>
+<string name="open_last_book">باز کردن کتاب قبلی</string>
+<string name="paused_message">توقف</string>
+<string name="permission_problem_opening_a_file">برای باز کردن این فایل اجازه لازم است‫!‬</string>
+<string name="player_instructions"> 
 ‎برای کنترل نمایشگر‫-‬  برای شروع وتوقف دیزی خوان مرکز صفحه نمایش را یکبار با انگشت لمس کنید‫.‬
 ‎انگشت خود را به سمت بالا بر صفحه کشیده تا به شنیدار قبلی برگردید‫.‬
 ‎انگشت خود را به سمت پایین بر صفحه کشیده تا به شنیدار بعدی بروید‫.‬
@@ -34,30 +33,30 @@
 ‎انگشت خود را به سمت بالا و راست در قطر بر صفحه کشیده برای شنیدن جلو بردن شنیدار ‫.‬
 ‎کتاب های دیزی می توانند با سایز های مختلف نمایش داده شوند‫.‬ به عنوان نمونه باب کتاب متفاوت از بخش های کتاب نمایش داده شوند‫.‬
 </string>
-    <string name="playing">در حال نمایش</string>
-    <string name="player_instructions_description">راهنمای دیزی پلیر</string>
-    <string name="playing_message">در حال نمایش</string>
-    <string name="reading_message">در حال خواندن </string>
-    <string name="return_to_homescreen"> بازگشت به صفحه اصلی   </string>
-    <string name="root_folder">فولدر اصلی</string>
-    <string name="root_folder_for_daisy_books">فولدر اصلی کتاب دیزی</string>
-    <string name="sd_card_folder_changed_successfully">تعویض س د کارت موافقت امیز بود‫.‬</string>
-    <string name="sdcard_mounted">س د کارت باز می باشد خواهشمندیم که دوباره امتحان کنید‫.‬</string>
-    <string name="sdcard_title">کارت س د</string>
-    <string name="search_books">جستجو برای کتاب</string>
-    <string name="serious_problem_found">مشکلی مو جود است‫.‬</string>
-    <string name="settings">زمینه</string>
-    <string name="stopped">متوقف شده</string>
-    <string name="text_content_not_supported_yet">
+<string name="playing">در حال نمایش</string>
+<string name="player_instructions_description">راهنمای دیزی پلیر</string>
+<string name="playing_message">در حال نمایش</string>
+<string name="reading_message">در حال خواندن </string>
+<string name="return_to_homescreen"> بازگشت به صفحه اصلی   </string>
+<string name="root_folder">فولدر اصلی</string>
+<string name="root_folder_for_daisy_books">فولدر اصلی کتاب دیزی</string>
+<string name="sd_card_folder_changed_successfully">تعویض س د کارت موافقت امیز بود‫.‬</string>
+<string name="sdcard_mounted">س د کارت باز می باشد خواهشمندیم که دوباره امتحان کنید‫.‬</string>
+<string name="sdcard_title">کارت س د</string>
+<string name="search_books">جستجو برای کتاب</string>
+<string name="serious_problem_found">مشکلی مو جود است‫.‬</string>
+<string name="settings">زمینه</string>
+<string name="stopped">متوقف شده</string>
+<string name="text_content_not_supported_yet">
 ‎     این یک کتاب کامل می باشد‫.‬ متاسفانه نسخه موجود قادربه بازکردن کتاب کامل نمی باشد‫.‬  
 ‎خواهشمندیم به وب سایت مراجعه فرمایید‫.‬
 
     http://code.google.com/p/android-daisy-epub-reader/issues/list 
 ‎    اینگونه ما از درخواست شما اگاه خواهیم شد‫.‬
-    </string>
-    <string name="unable_to_open_file">قادر به باز کردن فایل نیست‫.‬</string>
-    <string name="up_1_level">افزایش یک درجه...</string>
-    <string name="version">نسخه: %1$s.%2$s</string>
-    <string name="finished_reading_book">خواندن کتاب به پایان رسید‫.‬</string>
-    <string name="send_your_email_in">خواهشمندیم که ایمیل خود را به:</string>
+</string>
+<string name="unable_to_open_file">قادر به باز کردن فایل نیست‫.‬</string>
+<string name="up_1_level">افزایش یک درجه...</string>
+<string name="version">نسخه: %1$s.%2$s</string>
+<string name="finished_reading_book">خواندن کتاب به پایان رسید‫.‬</string>
+<string name="send_your_email_in">خواهشمندیم که ایمیل خود را به:</string>
 </resources>
