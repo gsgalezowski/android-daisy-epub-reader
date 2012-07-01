@@ -29,10 +29,18 @@ public class BookmarkTest extends TestCase {
 	private static final String DUMMY_FILENAME = "dummy";
 	private static final int DUMMY_NCCINDEX = 2;
 	private static final int DUMMY_POSITION = 73;
-	private static final String TMP = "/tmp/";
-	private static final String bookmarkFilename = TMP + Bookmark.AUTO_BMK;
 	private Bookmark bookmark;
+	private String bookmarkFilename;
+	private String tmpDir;
 
+	protected void setUp() {
+		tmpDir = System.getProperty("java.io.tmpdir");
+		if (!((tmpDir.endsWith("/")) || tmpDir.endsWith("\\"))) {
+			tmpDir = tmpDir + System.getProperty("file.separator"); 
+		}
+		bookmarkFilename = tmpDir + Bookmark.AUTO_BMK;
+		
+	}
 	@MediumTest
 	public void testWriteReadOldBookmarkFileStructure() throws IOException {
 		DataInputStream dis;
@@ -54,7 +62,7 @@ public class BookmarkTest extends TestCase {
 		dis.close();
 		
 		// now call the bookmark class to see if it reads the values correctly
-		bookmark = Bookmark.getInstance(TMP);
+		bookmark = Bookmark.getInstance(tmpDir);
 		assertEquals("The filename should match.", sdcardFilename, bookmark.getFilename());
 		assertEquals("The position/offset should match", DUMMY_POSITION, bookmark.getPosition());
 		assertEquals("The NCC index should match.", DUMMY_NCCINDEX, bookmark.getNccIndex());
@@ -82,7 +90,7 @@ public class BookmarkTest extends TestCase {
 		// TODO(jharty): There is code duplication between tests. Consider how
 		// to encapsulate the duplication of the following lines.
 		deleteAutoBookmarkFile();
-		Bookmark bookmark = Bookmark.getInstance(TMP);
+		Bookmark bookmark = Bookmark.getInstance(tmpDir);
 		
 		// Now populate the bookmark
 		updateAutomaticBookmarkToKnownValues(bookmark);
@@ -104,7 +112,7 @@ public class BookmarkTest extends TestCase {
 	@MediumTest
 	public void testOpenBookmarkForNonExistantBookmark() throws IOException {
 		deleteAutoBookmarkFile();
-		Bookmark bookmark = Bookmark.getInstance(TMP);
+		Bookmark bookmark = Bookmark.getInstance(tmpDir);
 		
 		assertTrue("We should have been able to load a non existant bookmark file without error.",
 				null != bookmark);
@@ -121,7 +129,7 @@ public class BookmarkTest extends TestCase {
 	 */
 	@MediumTest
 	public void ignoredTestSaveForNonExistantBookmark() throws IOException {
-		Bookmark bookmark = Bookmark.getInstance(TMP);
+		Bookmark bookmark = Bookmark.getInstance(tmpDir);
 		
 		ByteArrayOutputStream empty = new ByteArrayOutputStream();
 		bookmark.save(empty);
@@ -132,7 +140,7 @@ public class BookmarkTest extends TestCase {
 		File bookmarkFile = new File(bookmarkFilename);
 		deleteAutoBookmarkFile();
 		bookmarkFile.createNewFile();
-		bookmark = Bookmark.getInstance(TMP);
+		bookmark = Bookmark.getInstance(tmpDir);
 		
 		assertEmptyBookmark(bookmark);
 		
