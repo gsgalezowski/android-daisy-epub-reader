@@ -22,7 +22,7 @@ import com.ader.smil.SmilFile;
  */
 public class ParserMigrationTest extends TestCase {
 
-	private static final String PATH_TO_LIGHT_MAN_FILES = "/Resources/light-man/";
+	private static final String PATH_TO_LIGHT_MAN_FILES = "/sdcard/Books/light-man/";
 	private DaisyParser oldParser;
 	private XMLParser newParser;
 	private DaisyItem entry;
@@ -34,8 +34,7 @@ public class ParserMigrationTest extends TestCase {
 	
 	@MediumTest
 	public void testSideBySideContent() throws Exception {
-		String path = new File(".").getCanonicalPath();
-		String filename = path + PATH_TO_LIGHT_MAN_FILES + "ncc.html";
+		String filename = PATH_TO_LIGHT_MAN_FILES + "ncc.html";
 		FileInputStream stream1 = new FileInputStream(filename);
 		FileInputStream stream2 = new FileInputStream(filename);
 		List <DaisyElement> oldElements = oldParser.parse(stream1);
@@ -91,8 +90,7 @@ public class ParserMigrationTest extends TestCase {
 		// The next test is to see if we can open a smil file processed by the
 		// new parser. Turns out, we can...
 		SmilFile smilFile = new SmilFile();
-		path = new File(".").getCanonicalPath();
-		filename = path + PATH_TO_LIGHT_MAN_FILES + "/" + navCentre.getNavPoint(0).getSmil();
+		filename = PATH_TO_LIGHT_MAN_FILES + "/" + navCentre.getNavPoint(0).getSmil();
 		smilFile.load(filename);
         assertEquals("The external file should have 3 short audio elements.", 
         		3, smilFile.getAudioSegments().size());

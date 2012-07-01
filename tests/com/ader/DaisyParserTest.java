@@ -17,7 +17,7 @@ import android.test.suitebuilder.annotation.SmallTest;
 import com.ader.testutilities.SampleContent;
 
 public class DaisyParserTest extends TestCase {
-	private static final String LIGHT_MAN_NCC_HTML = "/Resources/light-man/ncc.html";
+	private static final String LIGHT_MAN_NCC_HTML = "/sdcard/Books/light-man/ncc.html";
 	DaisyParser parser;
 	
 	public void setUp() throws Exception {
@@ -59,7 +59,7 @@ public class DaisyParserTest extends TestCase {
 	 */
 	@MediumTest
 	public void testCanParseIcelandicContent() throws IOException {
-		String filename = openTestFile("/Resources/testfiles/icelandic/ncc.html");
+		String filename = openTestFile("/sdcard/testfiles/icelandic/ncc.html");
 		List<DaisyElement> elements = 
 			parser.openAndParseFromFile(filename);
 		assertEquals("html", elements.get(0).getName());

@@ -11,8 +11,8 @@ public class TextLocatorTest extends TestCase {
     private TextLocator wipoTextLocator;
     
     public void setUp() {
-        generalTextLocator = new TextLocator(new File("./Resources"));
-        wipoTextLocator = new TextLocator(new File("./Resources/WIPO-Treaty-D202Fileset"));
+        generalTextLocator = new TextLocator(new File("/sdcard/testfiles"));
+        wipoTextLocator = new TextLocator(new File("./sdcard/Books/WIPO-Treaty-D202Fileset"));
     }
     
     @MediumTest
