@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="HomeScreen" default="help">
+    <property name="daisybooks.desktop" location="../daisybooks/" />
+    <property name="daisybooks.ondevice" value="/sdcard/Books" />
 
     <!-- The local.properties file is created and updated by the 'android' tool.
          It contains the path to the SDK. It should *NOT* be checked into
@@ -48,9 +50,16 @@
 
 <!-- extension targets. Uncomment the ones where you want to do custom work
      in between standard targets -->
-<!--
     <target name="-pre-build">
+	    <echo message="Copying test DAISY books from project to the Android device"/>
+            <exec executable="${adb}" failonerror="true">
+                <arg line="${adb.device.arg}" />
+                <arg value="push" />
+                <arg value="${daisybooks.desktop}" />
+                <arg value="${daisybooks.ondevice}" />
+	    </exec>
     </target>
+<!--
     <target name="-pre-compile">
     </target>
 
@@ -79,7 +88,7 @@
          In all cases you must update the value of version-tag below to read 'custom' instead of an integer,
          in order to avoid having your file be overridden by tools such as "android update project"
     -->
-    <!-- version-tag: 1 -->
+    <!-- version-tag: custom -->
     <import file="${sdk.dir}/tools/ant/build.xml" />
 
 </project>
