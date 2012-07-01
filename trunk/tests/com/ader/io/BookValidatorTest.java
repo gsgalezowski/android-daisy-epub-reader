@@ -11,7 +11,7 @@ import com.ader.testutilities.CreateDaisy202Book;
 
 public class BookValidatorTest extends TestCase {
 	private final String dummyValidPath = System.getProperty("java.io.tmpdir") 
-		+ "daisyreadertests" + File.separator;
+		+File.separator + "daisyreadertests" + File.separator;
 	private final String dummyValidTextFile = dummyValidPath + "dummyfile.txt";
 	private final String dummyValidDaisyBookFolder = dummyValidPath + "validbook";
 	private final String dummyValidDaisy202IndexFile = dummyValidDaisyBookFolder 
