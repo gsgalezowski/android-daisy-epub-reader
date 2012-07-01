@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="HomeScreen" default="help">
-    <property name="daisybooks.desktop" location="../daisybooks/" />
-    <property name="daisybooks.ondevice" value="/sdcard/Books" />
+    <property name="daisybooks.desktop" location="./files-used-for-testing/" />
+    <property name="daisybooks.ondevice" value="/sdcard/" />
 
     <!-- The local.properties file is created and updated by the 'android' tool.
          It contains the path to the SDK. It should *NOT* be checked into
