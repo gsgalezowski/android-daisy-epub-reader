@@ -24,12 +24,6 @@ public class DaisyParserTest extends TestCase {
 		parser = new DaisyParser();
 	}
 	
-	/* A private helper method to open a test file, used by some tests. */
-	private String openTestFile(String filename) throws IOException {
-		String path = new File(".").getCanonicalPath();
-		String fullFilename = path + filename;
-		return fullFilename;
-	}
 	
 	/**
 	 * Ensures we can parse the ncc.html content from a file. Runs in JUnit3 
@@ -37,8 +31,7 @@ public class DaisyParserTest extends TestCase {
 	 */
 	@MediumTest
 	public void testCanParseFromFile() throws IOException {
-		String filename = openTestFile(LIGHT_MAN_NCC_HTML);
-		List<DaisyElement> elements = parser.openAndParseFromFile(filename);
+		List<DaisyElement> elements = parser.openAndParseFromFile(LIGHT_MAN_NCC_HTML);
 		assertTrue("There should be SOME content", elements.size() > 0);
 	}
 
@@ -59,7 +52,7 @@ public class DaisyParserTest extends TestCase {
 	 */
 	@MediumTest
 	public void testCanParseIcelandicContent() throws IOException {
-		String filename = openTestFile("/sdcard/testfiles/icelandic/ncc.html");
+		String filename = "/sdcard/testfiles/icelandic/ncc.html";
 		List<DaisyElement> elements = 
 			parser.openAndParseFromFile(filename);
 		assertEquals("html", elements.get(0).getName());
@@ -70,8 +63,7 @@ public class DaisyParserTest extends TestCase {
 	
 	@MediumTest
 	public void testCanParseFromInputStream() throws Exception {
-		String filename = openTestFile(LIGHT_MAN_NCC_HTML);
-		List<DaisyElement> elements = parser.parse(new FileInputStream(filename));
+		List<DaisyElement> elements = parser.parse(new FileInputStream(LIGHT_MAN_NCC_HTML));
 		assertTrue("There should be SOME content", elements.size() > 0);
 	}
 }

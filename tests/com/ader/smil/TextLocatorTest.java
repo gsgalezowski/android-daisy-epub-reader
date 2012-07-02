@@ -12,7 +12,7 @@ public class TextLocatorTest extends TestCase {
     
     public void setUp() {
         generalTextLocator = new TextLocator(new File("/sdcard/testfiles"));
-        wipoTextLocator = new TextLocator(new File("./sdcard/Books/WIPO-Treaty-D202Fileset"));
+        wipoTextLocator = new TextLocator(new File("/sdcard/Books/WIPO-Treaty-D202Fileset"));
     }
     
     @MediumTest
