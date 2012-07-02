@@ -63,23 +63,10 @@ public class XMLParserTest extends TestCase {
 	
 	@MediumTest
 	public void testCanParseIcelandicContent() throws IOException {
-		String filename = openTestFile("/Resources/testfiles/icelandic/ncc.html");
+		String filename = "/sdcard/testfiles/icelandic/ncc.html";
 		
 		XMLParser parser = new XMLParser(new FileInputStream(filename));
 		NavCentre nc = parser.processNCC();
 		assertEquals("The file should have 2 sections", 2, nc.count());
-	}
-	
-	/* 
-	 * A private helper method to open a test file, used by some tests.
-	 * 
-	 * TODO(jharty): This class is duplicated in DaisyParserTest.java however
-	 * as I want to remove that parser at some point I'm willing to cope with
-	 * code duplication at this point. Extract a common method if this drags on.
-	 */
-	private String openTestFile(String filename) throws IOException {
-		String path = new File(".").getCanonicalPath();
-		String fullFilename = path + filename;
-		return fullFilename;
 	}
 }

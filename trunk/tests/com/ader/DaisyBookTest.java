@@ -49,9 +49,7 @@ public class DaisyBookTest extends TestCase {
 			Logging.logInfo("DaisyBookTest", name);
 		}
 		
-		String path = new File(".").getCanonicalPath();
-		Logging.logInfo("Path", path);
-		daisyBook.openFromFile(path + "/sdcard/Books/light-man/ncc.html");
+		daisyBook.openFromFile("/sdcard/Books/light-man/ncc.html");
 		assertEquals("The light-man book should have 1 level of content", 1, daisyBook.getMaximumDepthInDaisyBook());
 		daisyBook.setSelectedLevel(1);
 		assertEquals("The light-man book should have.. ", 17, daisyBook.getNavigationDisplay().size());
@@ -59,9 +57,7 @@ public class DaisyBookTest extends TestCase {
 	
 	@MediumTest
 	public void testLevelsCanBeSetCorrentlyFor1LevelDaisy202Book() throws Exception {
-		String path = new File(".").getCanonicalPath();
-		Logging.logInfo("Path", path);
-		daisyBook.openFromFile(path + "/sdcard/Books/light-man/ncc.html");
+		daisyBook.openFromFile("/sdcard/Books/light-man/ncc.html");
 		assertEquals("The light-man book should have 1 level of content", 1, daisyBook.getMaximumDepthInDaisyBook());
 		daisyBook.setSelectedLevel(1);
 		assertEquals("The light-man book should have.. ", 17, daisyBook.getNavigationDisplay().size());

@@ -38,10 +38,16 @@ public class XMLParser {
 		DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
 
 		try {
+			// Many thanks for the discussion at http://code.google.com/p/plist/issues/detail?id=13
+			// which provided enough info to add the following workaround for Android.
+			if(System.getProperty("java.vendor").toLowerCase().contains("android")) {
+				builderFactory.setValidating(false);
+			} else {
 			builderFactory
 					.setFeature(
 							"http://apache.org/xml/features/nonvalidating/load-external-dtd",
 							false);
+			}
 			document = builderFactory.newDocumentBuilder().parse(input);
 		} catch (ParserConfigurationException e) {
 			Logging.logSevereWarning(TAG, PROBLEM_PARSING_XML, e);
