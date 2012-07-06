@@ -10,23 +10,27 @@ import junit.framework.TestCase;
 import com.ader.testutilities.CreateDaisy202Book;
 
 public class BookValidatorTest extends TestCase {
-	private final String dummyValidPath = System.getProperty("java.io.tmpdir") 
-		+File.separator + "daisyreadertests" + File.separator;
-	private final String dummyValidTextFile = dummyValidPath + "dummyfile.txt";
-	private final String dummyValidDaisyBookFolder = dummyValidPath + "validbook";
-	private final String dummyValidDaisy202IndexFile = dummyValidDaisyBookFolder 
-		+ File.separator + "ncc.html";
-	private final String dummySecondDaisyBookFolder = dummyValidPath + "anotherbook";
-	private final String dummyValidDaisy202UpperCaseIndexFile = dummySecondDaisyBookFolder 
-		+ File.separator + "NCC.HTML";
-	private final String dummyValidBook = dummyValidDaisyBookFolder;
-	private final String dummyEmptyFolder = dummyValidPath + "emptyfolder/";
+
 	BookValidator validator = new BookValidator();
 	CreateDaisy202Book eBook;
+	private String dummyValidPath;
+	private String dummyValidTextFile;
+	private String dummyValidDaisyBookFolder;
+	private String dummyValidDaisy202IndexFile;
+	private String dummySecondDaisyBookFolder;
+	private String dummyValidDaisy202UpperCaseIndexFile;
+	private String dummyValidBook;
+	private String dummyEmptyFolder;
 	
 	
 	@Override
 	protected void setUp() throws Exception {
+	
+		// I don't like having to initialise the dummy values with a private method,
+		// however as System.getProperty("java.io.tempdir") behaves differently
+		// depending on the runtime OS this is the best I can come up with for now.
+		initializeDummyValues();
+		
 		// TODO (jharty): We need to create the folders and files that will be
 		// used by these tests. At first we can probably live with creating and
 		// purging the folders and files for each test, but we should try to
@@ -63,6 +67,24 @@ public class BookValidatorTest extends TestCase {
 		}
 
 		super.setUp();
+	}
+
+	private void initializeDummyValues() {
+		final String tmpdir = System.getProperty("java.io.tmpdir");
+		if (tmpdir.endsWith(File.separator)) {
+			dummyValidPath = System.getProperty("java.io.tmpdir") + "daisyreadertests" + File.separator;
+		} else {
+			dummyValidPath = System.getProperty("java.io.tmpdir") + File.separator + "daisyreadertests" + File.separator;
+		}	
+		dummyValidTextFile = dummyValidPath + "dummyfile.txt";
+		dummyValidDaisyBookFolder = dummyValidPath + "validbook";
+		dummyValidDaisy202IndexFile = dummyValidDaisyBookFolder 
+			+ File.separator + "ncc.html";
+		dummySecondDaisyBookFolder = dummyValidPath + "anotherbook";
+		dummyValidDaisy202UpperCaseIndexFile = dummySecondDaisyBookFolder 
+			+ File.separator + "NCC.HTML";
+		dummyValidBook = dummyValidDaisyBookFolder;
+		dummyEmptyFolder = dummyValidPath + "emptyfolder/";
 	}
 
 	@Override
