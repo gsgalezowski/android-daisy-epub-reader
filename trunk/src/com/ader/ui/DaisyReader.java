@@ -63,10 +63,11 @@ public class DaisyReader extends ListActivity {
 				path = getIntent().getStringExtra("daisyPath");
 				book.openFromFile(path + getIntent().getStringExtra("daisyNccFile"));
 			} catch (InvalidDaisyStructureException idse) {
-				// TODO(jharty): add a UI to help the user address the problem.
-				Logging.logSevereWarning(TAG, "Problem Opening DAISY book, aborting...", idse); 
-				DaisyReader.this.finish();
+				reportException(idse);
 				return;
+			} catch (RuntimeException re) {
+				reportException(re);
+				return;				
 			}
 			
 			// Now let's save details of the this book, as the most recent book
@@ -105,6 +106,20 @@ public class DaisyReader extends ListActivity {
 			// UiHelper.alert(this, R.string.unable_to_open_file);
 			finish();
 		}
+	}
+
+	/**
+	 * @param re
+	 */
+	private void reportException(Throwable e) {
+		// TODO 20121021(jharty): Improve the UI to help the user address the problem.
+		// For now I simply display a toast, however that doesn't contain much info
+		// about the problem or what to do about it. However at least something's
+		// now displayed so I've made a small improvement to the codebase :)
+		Logging.logSevereWarning(TAG, "Problem Opening DAISY book, aborting...", e); 
+		Toast.makeText(this, R.string.serious_problem_found, Toast.LENGTH_LONG).show();
+		DaisyReader.this.finish();
+		return;
 	}
 
 	@Override

@@ -98,6 +98,9 @@ public class DaisyBookFinder extends ListActivity {
 			} catch (IOException e) {
 				Logging.logSevereWarning(TAG, "Skipping book due to IO " +
 						"exception reading: " + path, e);
+			} catch (RuntimeException e) {
+				Logging.logSevereWarning(TAG, 
+						"Skipping book due to runtime exception reading: " + path, e);
 			}
 		}
 		
