@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="about">Tietoja</string>
+    <string name="app_name">Android Daisy 2.02 Reader</string>
+	<string name="cannot_open_book">Kirjaa ei voida avata :( </string>
+    <string name="cannot_open_book_a_file_is_missing">Kirjaa ei voida avata :( Tiedosto puuttuu. 
+    
+    Voit siirtyä toisiin osioihin lukeaksesi tätä kirjaa. </string>
+   <string name="close_instructions">Sulje Ohjeet</string>
+    <string name="hello">Hei kaikki, DaisyReader!</string>
+    <string name="help">Ohjeet</string>
+   	<string name="homepage_title">Android Daisy 2.02 Reader</string>
+    <string name="new_folder_name_not_saved">Uutta kansion nimeä EI tallennettu</string>
+    <string name="new_folder_name_saved">Uusi kansion nimi tallennettu</string>
+    <string name="new_value">Uusi arvo on </string>
+    <string name="no_books_found">Kirjoja ei löydetty</string>
+    <string name="no_depth_yet">Taso?</string><string name="no_previous_book_saved_msg">Pahoittelut, kirjaa ei tallennettu tai tallennuksessa on ongelma. Valitse uusi vaihtoehto valikosta löytääksesi kirjan luettavaksi.</string>
+    <string name="no_previous_book_saved_title">Ei aiempia tallennettuja kirjoja</string>
+    <string name="no_status_yet">Tila?</string>
+    <string name="no_text_yet">ei tekstiä vielä</string>
+    <string name="open_book">Avaa kirja</string>
+    <string name="open_last_book">Avaa viimeisin kirja</string>
+    <string name="paused_message">Tauko</string>
+    <string name="permission_problem_opening_a_file">Ongelma, ei oikeutta avata tiedostoa</string>
+    <string name="player_instructions">Soitinta ohjataan sormea liikuttamalla. Napauta näyttöä keskeltä pysäyttääksesi kuuntelun ja aloittaaksesi alusta. 
+    Pyyhkäisyjä (Kun vedät sormeasi näytöllä ja nostat sen) käytetään jäljellä oleville toiminnoille:
+    Pyyhkäise Ylös mennäksesi edelliseen kuunteluosioon nykyisellä tasolla.
+    Pyyhkäise Alas mennäksesi seuraavaan kuunteluosioon nykyisellä tasolla.
+    Pyyhkäise vasemmalta oikealle siirtyäksesi seuraavalle tasolle.
+    Pyyhkäise oikealta vasemmalla siirtyäksesi edelliselle tasolle
+    
+    Pyyhkäise oikeasta ylänurkasta vasempaan alanurkkaan kelataksesi takaisin.
+    Pyyhkäise vasemmasta ylänurkasta oikeaan alanurkkaan pikakelataksesi eteenpäin.    
+    DAISY -kirjoissa voi olla materiaalia yhdellä tai useammalla tasolla, esimerkkinä luvut (jolloin taso vo olla taso 1)
+    ja kappaleet(jolloin taso voi olla taso 2).
+
+    </string>
+    <string name="playing">Toistetaan</string>
+    <string name="player_instructions_description">Ohjeet DAISY soittimen käyttöön</string>
+    <string name="playing_message">Toistetaan</string>
+    <string name="reading_message">Luetaan </string>
+    <string name="return_to_homescreen">Palaa kotinäkymään</string>
+    <string name="root_folder">Pääkansio</string>
+    <string name="root_folder_for_daisy_books">Pääkansio DAISY -kirjoille</string>
+    <string name="sd_card_folder_changed_successfully">SD-korttikansio muutettu onnistuneesti</string>
+    <string name="sdcard_mounted">SD-kortti vaikuttaa olevan käytössä (liitetty); voitko poistaa sen, ja sitten yrittää uudelleen?</string>
+    <string name="sdcard_title">SD-kortti</string>
+    <string name="search_books">Etsi kirjoja</string>
+    <string name="serious_problem_found">Vakava ongelma löydetty</string>
+    <string name="settings">Asetukset</string>
+    <string name="stopped">Pysäytetty</string>
+    <string name="text_content_not_supported_yet">
+    Tämä kirja vaikuttaa koostuvan ainoastaan tekstistä, mutta pelkkää tekstiä sisältäviä DAISY -kirjoja ei tueta vielä. 
+	Ole hyvä, ja pyydä toimintoa projektin verkkosivuilla: 
+	http://code.google.com/p/android-daisy-epub-reader/issues/list,
+	jotta tiedämme että sitä todella halutaan.
+    
+    </string>
+    <string name="unable_to_open_file">Tiedostoa ei voida avata</string>
+    <string name="up_1_level">1 taso ylös...</string>
+    <string name="version">Versio: %1$s.%2$s</string>
+    <string name="finished_reading_book">Tämä kirja on luettu loppuun</string>
+    <string name="send_your_email_in">Lähetä sähköpostisi osoitteeseen:</string>
+</resources>
