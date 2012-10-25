@@ -167,7 +167,7 @@ public class SmilParser extends DefaultHandler {
     	// value. Currently we overwrite the contents of a nested parallel
     	// element because the current implementation is flawed.
     	
-    	String elementName = localName == null? localName: qName;
+    	String elementName = localName != null? localName: qName;
     	
     	// OK, let's see if we can determine the parent's type (SEQ/PAR)
     	if (elementName.equalsIgnoreCase("seq") || elementName.equalsIgnoreCase("par")) {
