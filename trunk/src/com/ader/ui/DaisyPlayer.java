@@ -22,6 +22,7 @@ import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -326,9 +327,14 @@ public class DaisyPlayer extends Activity implements OnCompletionListener {
 	private void reportFileNotFoundException(int duration,
 			FileNotFoundException fnfe) {
 		Toast toast;
+		
 		CharSequence text = getString(R.string.cannot_open_book_a_file_is_missing) + fnfe.getLocalizedMessage();
+
+		// Now record the problem in the log, then tell the user...
+		Log.w(TAG, text.toString());
 		toast = Toast.makeText(this, text, duration);
 		toast.show();
+		
 		AlertDialog.Builder explainProblem = new AlertDialog.Builder(this);
 		explainProblem
 		.setCancelable(false)
